@@ -10,7 +10,7 @@ GCP Load Balancer (elevatediq.ai/ollama)
   - Health Checks
   - Rate Limiting
     ↓
-Local Docker Host (192.168.168.35)
+Local Docker Host (192.168.168.42)
   - Ollama API (port 8000)
   - PostgreSQL, Redis, Qdrant
   - Prometheus, Grafana, Jaeger
@@ -22,7 +22,7 @@ Local Docker Host (192.168.168.35)
 
 ## Prerequisites
 
-- Local Docker host running at: `192.168.168.35` (or your IP)
+- Local Docker host running at: `192.168.168.42`
 - Ollama Docker stack running on port 8000
 - GCP account with billing enabled
 - Domain: `elevatediq.ai` (DNS managed)
@@ -89,7 +89,7 @@ gcloud compute network-endpoint-groups create ollama-neg \
 
 gcloud compute network-endpoint-groups update ollama-neg \
     --zone=us-central1-a \
-    --add-endpoint="ip=192.168.168.35,port=8000"
+    --add-endpoint="ip=192.168.168.42,port=8000"
 
 gcloud compute backend-services add-backend ollama-backend \
     --network-endpoint-group=ollama-neg \
@@ -271,7 +271,7 @@ gcloud compute backend-services get-health ollama-backend \
 
 1. **Client** → `https://elevatediq.ai/ollama`
 2. **GCP Load Balancer** → TLS termination, health checks, rate limiting
-3. **Local Docker Host** (192.168.168.35:8000) → Ollama API
+3. **Local Docker Host** (192.168.168.42:8000) → Ollama API
 4. **Response** → Back through LB to client
 
 ### Security Layers
@@ -341,5 +341,5 @@ This architecture keeps all AI workloads and data local while providing professi
 ---
 
 **Last Updated**: January 12, 2026  
-**Local Host**: 192.168.168.35  
+**Local Host**: 192.168.168.42  
 **Public Endpoint**: https://elevatediq.ai/ollama

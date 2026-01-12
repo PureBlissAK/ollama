@@ -1,6 +1,6 @@
 # Production Configuration
 # Architecture: Ollama runs locally on Docker, public access via GCP Load Balancer
-# - Local: Docker containers on 192.168.168.35:8000
+# - Local: Docker containers on 192.168.168.42:8000
 # - Public: https://elevatediq.ai/ollama (GCP LB with TLS termination)
 # - All AI workloads execute locally, GCP provides ONLY the Load Balancer
 
