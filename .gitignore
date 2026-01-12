@@ -122,3 +122,5 @@ credentials.json
 *.prof
 perf_data/
 trace_files/
+secrets/
+.env.production
