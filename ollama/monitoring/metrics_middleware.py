@@ -113,12 +113,15 @@ def setup_metrics_endpoints(app):
     Args:
         app: FastAPI application
     """
-    from prometheus_client import make_asgi_app
-    from fastapi.responses import JSONResponse
+    from prometheus_client import generate_latest, CONTENT_TYPE_LATEST
+    from fastapi.responses import Response, JSONResponse
     
-    # Prometheus metrics endpoint
-    metrics_app = make_asgi_app()
-    app.mount("/metrics", metrics_app)
+    # Prometheus metrics endpoint - return metrics as direct response
+    @app.get("/metrics", include_in_schema=False)
+    async def metrics():
+        """Get Prometheus metrics in text format"""
+        metrics_data = generate_latest()
+        return Response(content=metrics_data, media_type=CONTENT_TYPE_LATEST)
     
     # Metrics summary endpoint
     @app.get("/api/v1/metrics/summary")
