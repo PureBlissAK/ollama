@@ -16,7 +16,7 @@ from prometheus_client import make_asgi_app
 import uvicorn
 
 from ollama.config import get_settings
-from ollama.api.routes import health, models, generate, chat, embeddings, conversations, documents, usage
+from ollama.api.routes import health, models, generate, chat, embeddings, conversations, documents, usage, auth
 from ollama.services import (
     init_database, get_db_manager,
     init_cache, 
@@ -26,6 +26,7 @@ from ollama.services.ollama_client import init_ollama_client, get_ollama_client
 from ollama.services.cache import _cache_manager, CacheManager
 from ollama.services.vector import _vector_manager, VectorManager
 from ollama.middleware import CachingMiddleware
+from ollama.middleware.rate_limit import RateLimitMiddleware
 
 # Configure logging
 logging.basicConfig(
@@ -154,6 +155,16 @@ def create_app() -> FastAPI:
     # Note: This will be added dynamically in create_app after cache_manager is available
     # For now, we'll add a hook to set it up after initialization
     
+    # Rate limiting middleware (add before other middleware)
+    rate_limit_per_minute = getattr(settings, 'rate_limit_per_minute', 60)
+    rate_limit_burst = getattr(settings, 'rate_limit_burst', 100)
+    app.add_middleware(
+        RateLimitMiddleware,
+        requests_per_minute=rate_limit_per_minute,
+        burst_size=rate_limit_burst,
+        exclude_paths=['/health', '/docs', '/openapi.json', '/metrics']
+    )
+    
     # GZip compression
     app.add_middleware(GZipMiddleware, minimum_size=1000)
     
@@ -212,6 +223,7 @@ def create_app() -> FastAPI:
     
     # Include routers
     app.include_router(health.router, tags=["Health"])
+    app.include_router(auth.router, prefix="/api/v1", tags=["Authentication"])
     app.include_router(models.router, prefix="/api/v1/models", tags=["Models"])
     app.include_router(generate.router, prefix="/api/v1", tags=["Generation"])
     app.include_router(chat.router, prefix="/api/v1", tags=["Chat"])

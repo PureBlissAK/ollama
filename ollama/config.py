@@ -48,6 +48,19 @@ class Settings(BaseSettings):
         default="http://localhost:11434",
         description="Ollama inference engine URL"
     )
+    
+    # Authentication
+    jwt_secret: str = Field(
+        default="development-secret-change-in-production",
+        description="JWT signing secret key"
+    )
+    jwt_algorithm: str = Field(default="HS256", description="JWT algorithm")
+    access_token_expire_minutes: int = Field(default=60, description="Access token expiration")
+    refresh_token_expire_days: int = Field(default=7, description="Refresh token expiration")
+    
+    # Rate Limiting
+    rate_limit_per_minute: int = Field(default=60, description="Global rate limit per minute")
+    rate_limit_burst: int = Field(default=100, description="Rate limit burst size")
     ollama_request_timeout: float = Field(default=300.0, description="Request timeout")
     ollama_connect_timeout: float = Field(default=10.0, description="Connection timeout")
     
