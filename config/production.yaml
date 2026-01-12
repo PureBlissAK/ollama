@@ -1,0 +1,75 @@
+# Production Configuration
+# Ollama Server
+
+server:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 4
+  log_level: "INFO"
+  request_timeout: 300
+  keepalive_timeout: 15
+
+database:
+  url: "postgresql://ollama:${DB_PASSWORD}@postgres:5432/ollama"
+  pool_size: 20
+  max_overflow: 10
+  echo: false
+  timeout: 30
+
+cache:
+  type: "redis"
+  url: "redis://redis:6379/0"
+  ttl: 3600
+  password: "${REDIS_PASSWORD}"
+
+models:
+  llama2:
+    source: "huggingface"
+    model_id: "meta-llama/Llama-2-7b-chat"
+    quantization: "q4_K_M"
+    context_length: 4096
+    gpu_memory_reserved_mb: 10000
+    batch_size: 8
+    max_concurrent: 2
+    
+  mistral:
+    source: "huggingface"
+    model_id: "mistralai/Mistral-7B-Instruct-v0.1"
+    quantization: "q5_K_M"
+    context_length: 32768
+    gpu_memory_reserved_mb: 12000
+    batch_size: 8
+    max_concurrent: 2
+
+inference:
+  enable_flash_attention: true
+  enable_paging: true
+  prefill_batch_size: 16
+  decode_batch_size: 8
+  max_concurrent_requests: 32
+
+monitoring:
+  prometheus:
+    enabled: true
+    port: 9090
+  jaeger:
+    enabled: true
+    agent_host: "jaeger"
+    agent_port: 6831
+  logging:
+    format: "json"
+    level: "INFO"
+
+security:
+  api_key_auth_enabled: true
+  cors_origins:
+    - "http://localhost:3000"
+    - "http://localhost:8080"
+  tls_enabled: false
+  request_timeout: 300
+
+vector_database:
+  type: "qdrant"
+  url: "http://qdrant:6333"
+  collection: "embeddings"
+  embedding_model: "all-minilm-l6-v2"

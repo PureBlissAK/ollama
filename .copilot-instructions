@@ -1,0 +1,174 @@
+# Elite AI Development Engineering Instructions for Copilot
+
+## Core Principles
+- **Precision First**: Every decision is deliberate. No guessing or approximations.
+- **Local Sovereignty**: All AI models and infrastructure run locally—zero cloud dependencies.
+- **Production Grade**: Treat every line of code as if it will power mission-critical systems.
+- **Zero Compromise**: Security, performance, and maintainability are non-negotiable.
+
+## Architectural Patterns
+
+### 1. AI Model Management
+- Use Ollama as the orchestration layer for local LLM inference
+- Implement model versioning with checksums and validation
+- Cache model weights efficiently with content-addressed storage
+- Maintain separate environments for development/staging/production
+
+### 2. Development Standards
+- **Language**: Primary: Python 3.11+, TypeScript for tooling
+- **Framework**: FastAPI for API layers, async-first architecture
+- **Testing**: 100% coverage for critical paths, integration tests required
+- **Type Safety**: Use mypy (strict), pyright for Python; TypeScript strict mode
+- **Documentation**: Docstrings (Google style), architecture decision records (ADRs)
+
+### 3. Code Organization
+```
+Every module must:
+- Have a single, well-defined responsibility
+- Include type hints on all function signatures
+- Implement proper error handling (custom exceptions hierarchy)
+- Have comprehensive docstrings with examples
+- Include unit tests co-located with source
+```
+
+### 4. Performance & Optimization
+- Profile before optimizing: use cProfile, py-spy, flamegraph
+- Memory-efficient tensor handling (use generators, lazy evaluation)
+- Implement batching for inference workloads
+- Cache computation results with TTL and invalidation strategy
+- Monitor resource usage (CPU, RAM, VRAM) in all systems
+
+### 5. Security Practices
+- Never commit credentials—use environment variables and .env.example
+- Validate all external inputs (models, prompts, user data)
+- Implement rate limiting and request validation
+- Use signed commits (git commit -S)
+- Audit dependencies regularly with `pip-audit`, `safety`
+- Isolate model inference in sandboxed contexts
+
+### 6. Local Infrastructure
+```
+Required Stack:
+- Docker: Containerize inference engines, build reproducible environments
+- PostgreSQL/SQLite: Persistent state and telemetry
+- Redis: Caching and queue management
+- Prometheus + Grafana: Metrics and observability
+- Vector databases (Qdrant/Milvus): Embeddings and semantic search
+```
+
+### 7. Copilot Collaboration Rules
+When I request assistance:
+- **"Implement"**: Write production-ready code, no sketches
+- **"Analyze"**: Provide deep technical analysis with trade-offs
+- **"Optimize"**: Benchmark before/after, quantify improvements
+- **"Review"**: Check type safety, error paths, edge cases, security
+- **"Architect"**: Design for scale, failure modes, monitoring
+
+### 8. Testing Strategy
+- Unit tests: Isolated, fast (<100ms), mock external dependencies
+- Integration tests: Real components, in-process, test critical paths
+- End-to-end tests: Full workflows, manual validation required
+- Property-based testing: Use Hypothesis for edge case discovery
+- Performance tests: Track latency/throughput regression
+
+### 9. Git Workflow
+- Atomic commits with clear messages: `type(scope): description`
+- Types: `feat`, `fix`, `refactor`, `perf`, `test`, `docs`, `infra`
+- Sign all commits: `git config user.signingkey <KEY>`
+- Branch naming: `feature/`, `bugfix/`, `refactor/`, `infra/`
+- Require clean history: rebase, no merge commits
+
+### 10. Monitoring & Observability
+- Structured logging with context (trace IDs, user context)
+- Distributed tracing for request flows
+- Model inference metrics: latency, tokens/sec, cache hit rates
+- System health: CPU/RAM/VRAM utilization, disk I/O
+- Alert thresholds: define SLOs before deployment
+
+### 11. Documentation Requirements
+Each module must have:
+- README explaining purpose and usage
+- Architecture diagram for complex systems
+- Configuration reference with examples
+- Performance characteristics and trade-offs
+- Known limitations and future improvements
+
+### 12. Dependency Management
+- Pin exact versions in requirements.txt (or lock files)
+- Audit all dependencies before adding
+- Prefer small, focused libraries over monoliths
+- Maintain a curated list of approved dependencies
+- Monitor security advisories (github.com/advisories)
+
+### 13. Debugging & Troubleshooting
+- Enable detailed logging in development (DEBUG level)
+- Use `pdb` for interactive debugging, `ipdb` for notebooks
+- Implement circuit breakers for external service calls
+- Add detailed error messages with context
+- Create reproduction scripts for bugs
+
+### 14. Model Fine-tuning & Customization
+```
+For local model work:
+- Store base models with version tags
+- Create isolated environments for training
+- Log hyperparameters and metrics (MLflow/Weights & Biases)
+- Validate outputs against test sets before deployment
+- Implement A/B testing framework for comparison
+```
+
+### 15. Deployment Philosophy
+- Infrastructure as Code (Terraform for VM setup, Docker Compose for containers)
+- Rolling deployments with health checks
+- Automatic rollback on failure
+- Blue-green deployment support
+- Zero-downtime migrations for models
+
+## What I Won't Do Without Escalation
+- Deploy unvetted code to production
+- Skip security audits for performance gains
+- Accept technical debt without tracking it
+- Ignore failing tests or coverage drops
+- Write code without type hints or tests
+
+## Acceptable Simplifications
+- Sketch architecture before implementation (with explicit `[DRAFT]` marker)
+- Use mock data for testing (with clear comments)
+- Defer non-critical optimization
+- Use vendoring for isolated components
+- Accept calculated risks with documented rationale
+
+## Tools & Environment
+- **Editor**: VSCode with Python, Pylance, GitHub Copilot
+- **Runtime**: Python 3.11+, Node.js 18+
+- **Containers**: Docker 24+, Docker Compose 2.20+
+- **ML Tools**: PyTorch, HuggingFace Transformers, Ollama
+- **Monitoring**: Prometheus, Grafana, ELK Stack (optional)
+- **CI/CD**: GitHub Actions with protected main branch
+
+## Performance Baselines
+- API response time: <500ms p99 (excluding model inference)
+- Model inference: Document expected latency per model
+- Startup time: <10s for full stack
+- Memory footprint: <2GB baseline (exclude model weights)
+- Database query: <100ms p95
+
+## Communication Protocol
+- **Issues**: Use GitHub Issues with templates (bug, feature, research)
+- **PRs**: Require reviews, pass all checks, include ADR for architectural changes
+- **Documentation**: Keep in-code docs in sync with external docs
+- **Architecture**: Update architecture.md for any significant changes
+
+## Success Metrics
+✅ All code has type hints  
+✅ Tests pass with >90% coverage  
+✅ No security warnings from audits  
+✅ Documentation matches implementation  
+✅ Performance meets baselines  
+✅ Zero technical debt marked as critical  
+
+---
+
+**Last Updated**: January 12, 2026  
+**Version**: 1.0.0  
+**Maintainer**: kushin77/ollama engineering team

@@ -1,0 +1,60 @@
+# Core Dependencies for Ollama
+# Production-grade requirements with pinned versions
+
+# FastAPI & Web
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+python-multipart==0.0.6
+pydantic==2.4.2
+pydantic-settings==2.0.3
+
+# Model Inference
+torch==2.1.1
+transformers==4.35.2
+tokenizers==0.14.1
+accelerate==0.24.1
+einops==0.7.0
+
+# Quantization & Optimization
+bitsandbytes==0.41.3
+gguf==0.6.0
+numpy==1.24.3
+
+# Database & Caching
+sqlalchemy==2.0.23
+psycopg2-binary==2.9.9
+alembic==1.12.1
+redis==5.0.0
+hiredis==2.2.3
+
+# Vector Search
+qdrant-client==2.7.0
+sentence-transformers==2.2.2
+
+# Monitoring & Tracing
+prometheus-client==0.18.0
+opentelemetry-api==1.20.0
+opentelemetry-sdk==1.20.0
+opentelemetry-exporter-jaeger==1.20.0
+opentelemetry-exporter-prometheus==0.41b0
+opentelemetry-instrumentation-fastapi==0.41b0
+
+# Logging
+python-json-logger==2.0.7
+loguru==0.7.2
+
+# Security
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+cryptography==41.0.5
+
+# Utilities
+httpx==0.25.1
+requests==2.31.0
+click==8.1.7
+python-dotenv==1.0.0
+pyaml==24.1.0
+tenacity==8.2.3
+
+# Type Hints
+typing-extensions==4.8.0

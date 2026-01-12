@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  ollama-api:
+    image: ollama:latest
+    container_name: ollama-api
+    ports:
+      - "8000:8000"
+    environment:
+      - LOG_LEVEL=DEBUG
+      - DATABASE_URL=postgresql://ollama:password@postgres:5432/ollama
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./ollama:/app/ollama
+      - ollama-models:/models
+    command: python -m ollama.server
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: ollama-postgres
+    environment:
+      POSTGRES_USER: ollama
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ollama
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: ollama-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+
+volumes:
+  ollama-models:
+  postgres-data:
+  redis-data:
