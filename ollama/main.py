@@ -27,6 +27,8 @@ from ollama.services.cache import _cache_manager, CacheManager
 from ollama.services.vector import _vector_manager, VectorManager
 from ollama.middleware import CachingMiddleware
 from ollama.middleware.rate_limit import RateLimitMiddleware
+from ollama.monitoring.metrics_middleware import MetricsCollectionMiddleware, setup_metrics_endpoints
+from ollama.monitoring import init_jaeger
 
 # Configure logging
 logging.basicConfig(
@@ -90,6 +92,20 @@ async def lifespan(app: FastAPI):
             logger.warning(f"⚠️  Ollama inference engine not available: {e}")
             logger.warning("⚠️  API will return stub responses for model operations")
         
+        # Initialize Jaeger tracing
+        logger.info("🔍 Initializing Jaeger distributed tracing...")
+        try:
+            jaeger_config = init_jaeger(
+                service_name="ollama-api",
+                jaeger_host="localhost",
+                jaeger_port=6831,
+                trace_sample_rate=0.1
+            )
+            jaeger_config.initialize_tracer()
+            logger.info("✅ Jaeger tracing initialized")
+        except Exception as e:
+            logger.warning(f"⚠️  Jaeger tracing not available: {e}")
+        
         logger.info("✅ Ollama API Server started successfully")
         
     except Exception as e:
@@ -150,6 +166,9 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
         expose_headers=settings.cors_expose_headers,
     )
+    
+    # Metrics collection middleware (early in stack for accurate timing)
+    app.add_middleware(MetricsCollectionMiddleware)
     
     # Response Caching Middleware (add after CORS)
     # Note: This will be added dynamically in create_app after cache_manager is available
@@ -232,12 +251,8 @@ def create_app() -> FastAPI:
     app.include_router(documents.router, tags=["Documents"])
     app.include_router(usage.router, tags=["Usage"])
     
-    # Note: Caching middleware would be added here if needed
-    # Currently handled via lifespan context manager
-    
-    # Prometheus metrics endpoint
-    metrics_app = make_asgi_app()
-    app.mount("/metrics", metrics_app)
+    # Setup metrics endpoints
+    setup_metrics_endpoints(app)
     
     # Root endpoint
     @app.get("/", include_in_schema=False)
