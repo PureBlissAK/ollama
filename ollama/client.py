@@ -2,14 +2,22 @@
 
 from typing import Optional, List, Dict, Any
 import httpx
+import os
 
 
 class Client:
     """
-    Ollama client for interacting with local inference server.
+    Ollama client for interacting with local or remote inference server.
+    
+    Supports both local (http://localhost:8000) and public endpoints
+    (https://elevatediq.ai/ollama) with automatic endpoint detection.
 
     Example:
-        >>> client = Client(base_url="http://localhost:8000")
+        >>> # Local development
+        >>> client = Client()
+        >>> 
+        >>> # Public production endpoint (elevatediq.ai)
+        >>> client = Client(base_url="https://elevatediq.ai/ollama")
         >>> response = client.generate(
         ...     model="llama2",
         ...     prompt="What is AI?",
@@ -18,15 +26,49 @@ class Client:
         >>> print(response.text)
     """
 
-    def __init__(self, base_url: str = "http://localhost:8000"):
+    def __init__(
+        self,
+        base_url: Optional[str] = None,
+        api_key: Optional[str] = None,
+    ):
         """
         Initialize Ollama client.
 
         Args:
-            base_url: URL of Ollama server
+            base_url: URL of Ollama server. Defaults to:
+                     - OLLAMA_PUBLIC_URL env var if set
+                     - https://elevatediq.ai/ollama if OLLAMA_ENV=production
+                     - http://localhost:8000 otherwise
+            api_key: API key for authentication. Defaults to OLLAMA_API_KEY env var
         """
+        # Determine base URL with intelligent defaults
+        if base_url is None:
+            # Check for public URL first (production)
+            base_url = os.getenv("OLLAMA_PUBLIC_URL")
+            if not base_url:
+                # Check for public flag
+                if os.getenv("OLLAMA_ENV") == "production":
+                    base_url = "https://elevatediq.ai/ollama"
+                else:
+                    base_url = os.getenv("OLLAMA_HOST", "http://localhost:8000")
+        
         self.base_url = base_url.rstrip("/")
-        self.client = httpx.Client(base_url=self.base_url)
+        self.api_key = api_key or os.getenv("OLLAMA_API_KEY")
+        
+        # Setup headers
+        headers = {}
+        if self.api_key:
+            headers["X-API-Key"] = self.api_key
+            headers["Authorization"] = f"Bearer {self.api_key}"
+        
+        # Add user agent
+        headers["User-Agent"] = "ollama-client/1.0.0"
+        
+        self.client = httpx.Client(
+            base_url=self.base_url,
+            headers=headers,
+            timeout=300.0,
+        )
 
     def health(self) -> Dict[str, Any]:
         """Check server health."""
@@ -45,13 +87,24 @@ class Client:
         Generate text using specified model.
 
         Args:
-            model: Model identifier
-            prompt: Input prompt
+            model: Model identifier (e.g., "llama2")
+            prompt: Input prompt for generation
             stream: Whether to stream output
-            **kwargs: Additional parameters
+            **kwargs: Additional parameters (temperature, top_p, etc.)
 
         Returns:
-            Generation response
+            Generation response with text field
+            
+        Raises:
+            httpx.HTTPError: If request fails
+            
+        Example:
+            >>> response = client.generate(
+            ...     model="llama2",
+            ...     prompt="Explain local AI",
+            ...     temperature=0.7
+            ... )
+            >>> print(response.text)
         """
         payload = {
             "model": model,

@@ -35,7 +35,28 @@ Ollama is a sophisticated local AI infrastructure platform designed for engineer
 
 ## Quick Start
 
-### One-Command Setup (Unix/Linux)
+### Use Public Endpoint (elevatediq.ai)
+
+```bash
+# Use the public API endpoint
+curl -H "X-API-Key: your-api-key" \
+  https://elevatediq.ai/ollama/health
+
+# Python client with public endpoint
+from ollama import Client
+
+client = Client(
+    base_url="https://elevatediq.ai/ollama",
+    api_key="your-api-key"
+)
+
+response = client.generate(
+    model="llama2",
+    prompt="What is local AI?"
+)
+```
+
+### Local Development Setup
 
 ```bash
 # Clone and initialize
@@ -71,7 +92,21 @@ docker exec ollama ollama run llama2 "Why is local AI important?"
 
 ### High-Level System Design
 
+#### Local Deployment
 ```
+Application → API Server (localhost:8000) → Inference Engine
+```
+
+#### Public Endpoint via GCP Load Balancer
+```
+Client → HTTPS (elevatediq.ai) → GCP LB → API Server (8000) → Inference Engine
+                                   ↓
+                              TLS Termination
+                              Rate Limiting
+                              Security Headers
+```
+
+#### Full Architecture
 ┌─────────────────────────────────────────────────────────┐
 │                    Application Layer                    │
 │  (FastAPI, Gradio UI, CLI Tools, Custom Integrations)   │
@@ -242,7 +277,35 @@ docker-compose -f docker-compose.custom.yml up
 
 ## Configuration
 
-### Environment Variables
+### Public Endpoint Configuration
+
+For `elevatediq.ai/ollama` deployments via GCP Load Balancer:
+
+```yaml
+# config/production.yaml
+server:
+  public_url: "https://elevatediq.ai/ollama"
+  domain: "elevatediq.ai"
+  
+security:
+  api_key_auth_enabled: true
+  cors_origins:
+    - "https://elevatediq.ai"
+    - "https://*.elevatediq.ai"
+  tls_enabled: false  # TLS handled by GCP LB
+```
+
+```bash
+# .env
+OLLAMA_PUBLIC_URL=https://elevatediq.ai/ollama
+OLLAMA_DOMAIN=elevatediq.ai
+API_KEY_AUTH_ENABLED=true
+CORS_ORIGINS=["https://elevatediq.ai","https://*.elevatediq.ai"]
+```
+
+See [docs/gcp-load-balancer.md](docs/gcp-load-balancer.md) for complete GCP configuration.
+
+### Local Development Configuration
 
 ```bash
 # .env.example
