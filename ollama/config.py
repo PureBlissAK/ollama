@@ -27,7 +27,7 @@ class Settings(BaseSettings):
     
     # Database
     database_url: str = Field(
-        default="postgresql://ollama:changeme@localhost:5432/ollama",
+        default="postgresql+asyncpg://ollama:changeme@postgres:5432/ollama",
         description="PostgreSQL connection URL"
     )
     database_pool_size: int = Field(default=20, description="DB pool size")
