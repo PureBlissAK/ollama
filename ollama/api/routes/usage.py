@@ -38,7 +38,7 @@ async def get_user_usage(
         
         return {
             "period_days": days,
-            "period_end": datetime.utcnow().isoformat(),
+            "period_end": datetime.now(timezone.utc).isoformat(),
             "statistics": stats,
         }
     except Exception as e:
@@ -293,7 +293,7 @@ async def export_usage(
             return {
                 "user_id": str(user_id),
                 "period_days": days,
-                "export_date": datetime.utcnow().isoformat(),
+                "export_date": datetime.now(timezone.utc).isoformat(),
                 "records": [
                     {
                         "endpoint": u.endpoint,

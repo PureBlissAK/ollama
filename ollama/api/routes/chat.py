@@ -56,7 +56,7 @@ async def chat(request: ChatRequest):
             
             return ChatResponse(
                 model=data.get("model", request.model),
-                created_at=data.get("created_at", datetime.utcnow().isoformat() + "Z"),
+                created_at=data.get("created_at", datetime.now(timezone.utc).isoformat() + "Z"),
                 message=Message(
                     role=data.get("message", {}).get("role", "assistant"),
                     content=data.get("message", {}).get("content", "")

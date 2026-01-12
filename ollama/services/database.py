@@ -58,9 +58,10 @@ class DatabaseManager:
     async def initialize(self):
         """Initialize database connection (called on startup)"""
         try:
+            from sqlalchemy import text
             # Test connection
             async with self.engine.begin() as conn:
-                await conn.execute("SELECT 1")
+                await conn.execute(text("SELECT 1"))
             self._initialized = True
             logger.info("✅ Database connection established")
         except Exception as e:

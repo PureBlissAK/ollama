@@ -95,7 +95,7 @@ class UsageRepository(BaseRepository[Usage]):
         Returns:
             List of usage records
         """
-        since = datetime.utcnow() - timedelta(days=days)
+        since = datetime.now(timezone.utc) - timedelta(days=days)
         query = select(Usage).where(
             and_(
                 Usage.endpoint == endpoint,
@@ -287,7 +287,7 @@ class UsageRepository(BaseRepository[Usage]):
         Returns:
             Number of records deleted
         """
-        cutoff = datetime.utcnow() - timedelta(days=days)
+        cutoff = datetime.now(timezone.utc) - timedelta(days=days)
         query = select(Usage).where(Usage.created_at < cutoff)
         
         result = await self.session.execute(query)

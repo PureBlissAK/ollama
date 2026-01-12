@@ -74,7 +74,7 @@ async def lifespan(app: FastAPI):
         
         # Initialize Qdrant client
         logger.info("🔷 Connecting to Qdrant...")
-        vector_manager = init_vector_db(settings.qdrant_url)
+        vector_manager = init_vector_db(f"http://{settings.qdrant_host}:{settings.qdrant_port}")
         await vector_manager.initialize()
         
         # Verify Ollama inference server
@@ -209,17 +209,8 @@ def create_app() -> FastAPI:
     app.include_router(documents.router, tags=["Documents"])
     app.include_router(usage.router, tags=["Usage"])
     
-    # Add caching middleware after cache manager is initialized
-    @app.on_event("startup")
-    async def setup_cache_middleware():
-        """Setup response caching middleware after cache initialization"""
-        try:
-            cache_mgr = await get_cache_manager()
-            if cache_mgr and cache_mgr._initialized:
-                app.add_middleware(CachingMiddleware, cache_manager=cache_mgr)
-                logger.info("✅ Response caching middleware enabled")
-        except RuntimeError:
-            logger.warning("⚠️  Cache manager not available, response caching disabled")
+    # Note: Caching middleware would be added here if needed
+    # Currently handled via lifespan context manager
     
     # Prometheus metrics endpoint
     metrics_app = make_asgi_app()

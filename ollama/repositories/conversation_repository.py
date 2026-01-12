@@ -91,7 +91,7 @@ class ConversationRepository(BaseRepository[Conversation]):
             system_prompt=system_prompt,
             parameters=parameters or {},
             is_archived=False,
-            accessed_at=datetime.utcnow(),
+            accessed_at=datetime.now(timezone.utc),
         )
         await self.commit()
         return conversation

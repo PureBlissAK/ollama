@@ -51,7 +51,7 @@ class APIKeyRepository(BaseRepository[APIKey]):
         """
         # Get all keys for user and filter by expiration
         keys = await self.get_all(user_id=user_id)
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc)
         return [k for k in keys if k.expires_at is None or k.expires_at > now]
 
     async def create_key(
@@ -111,7 +111,7 @@ class APIKeyRepository(BaseRepository[APIKey]):
         Returns:
             Updated APIKey instance or None if not found
         """
-        key = await self.update(key_id, last_used=datetime.utcnow())
+        key = await self.update(key_id, last_used=datetime.now(timezone.utc))
         if key:
             await self.commit()
         return key
@@ -148,7 +148,7 @@ class APIKeyRepository(BaseRepository[APIKey]):
             return False
         
         # Check if expired
-        if key.expires_at and key.expires_at < datetime.utcnow():
+        if key.expires_at and key.expires_at < datetime.now(timezone.utc):
             return False
         
         # Check scope

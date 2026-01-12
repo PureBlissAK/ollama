@@ -41,12 +41,7 @@ class CacheManager:
                 encoding=self.encoding,
                 decode_responses=True,
                 max_connections=50,
-                socket_keepalive=True,
-                socket_keepalive_options={
-                    1: 3,  # TCP_KEEPIDLE
-                    2: 3,  # TCP_KEEPINTVL
-                    3: 3,  # TCP_KEEPCNT
-                }
+                socket_keepalive=False
             )
             
             # Create async Redis client

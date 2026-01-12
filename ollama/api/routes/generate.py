@@ -50,7 +50,7 @@ async def generate(request: GenerateRequest):
             
             return GenerateResponse(
                 model=data.get("model", request.model),
-                created_at=data.get("created_at", datetime.utcnow().isoformat() + "Z"),
+                created_at=data.get("created_at", datetime.now(timezone.utc).isoformat() + "Z"),
                 response=data.get("response", ""),
                 done=data.get("done", True)
             )
