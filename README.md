@@ -9,7 +9,9 @@
 
 ## Vision
 
-Ollama is a sophisticated local AI infrastructure platform designed for engineers who demand production-grade reliability, security, and performance. Run state-of-the-art language models entirely on your infrastructure—zero cloud dependencies, maximum control, minimum latency.
+Ollama is a sophisticated local AI infrastructure platform designed for engineers who demand production-grade reliability, security, and performance. Run state-of-the-art language models entirely on your local infrastructure—all AI workloads run locally on Docker, with optional GCP Load Balancer for public access.
+
+**Architecture**: Local Docker containers + GCP Load Balancer for `https://elevatediq.ai/ollama`
 
 **Target Audience**: Elite engineers, research teams, enterprises requiring air-gapped AI systems, and developers building custom AI applications.
 

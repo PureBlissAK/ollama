@@ -1,12 +1,17 @@
 version: '3.8'
 
+# Production Docker Stack for Ollama
+# Runs locally on Docker (e.g., 192.168.168.35)
+# Public access via GCP Load Balancer: https://elevatediq.ai/ollama
+# All AI workloads execute locally - GCP provides ONLY the Load Balancer
+
 services:
   ollama-api:
     image: ollama:prod
     container_name: ollama-api
     restart: always
     ports:
-      - "8000:8000"
+      - "8000:8000"  # Exposed for GCP LB health checks and traffic
     environment:
       - LOG_LEVEL=INFO
       - DATABASE_URL=${DATABASE_URL}
