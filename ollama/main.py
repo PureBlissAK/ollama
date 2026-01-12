@@ -16,7 +16,7 @@ from prometheus_client import make_asgi_app
 import uvicorn
 
 from ollama.config import get_settings
-from ollama.api.routes import health, models, generate, chat, embeddings, conversations, documents
+from ollama.api.routes import health, models, generate, chat, embeddings, conversations, documents, usage
 from ollama.services import (
     init_database, get_db_manager,
     init_cache, 
@@ -207,6 +207,7 @@ def create_app() -> FastAPI:
     app.include_router(embeddings.router, prefix="/api/v1", tags=["Embeddings"])
     app.include_router(conversations.router, tags=["Conversations"])
     app.include_router(documents.router, tags=["Documents"])
+    app.include_router(usage.router, tags=["Usage"])
     
     # Add caching middleware after cache manager is initialized
     @app.on_event("startup")
