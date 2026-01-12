@@ -43,6 +43,14 @@ class Settings(BaseSettings):
     qdrant_host: str = Field(default="localhost", description="Qdrant host")
     qdrant_port: int = Field(default=6333, description="Qdrant port")
     
+    # Ollama
+    ollama_base_url: str = Field(
+        default="http://localhost:11434",
+        description="Ollama inference engine URL"
+    )
+    ollama_request_timeout: float = Field(default=300.0, description="Request timeout")
+    ollama_connect_timeout: float = Field(default=10.0, description="Connection timeout")
+    
     # CORS
     cors_origins: List[str] = Field(
         default=["*"],

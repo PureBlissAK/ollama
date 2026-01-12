@@ -22,6 +22,7 @@ from ollama.services import (
     init_cache, 
     init_vector_db
 )
+from ollama.services.ollama_client import init_ollama_client, get_ollama_client
 from ollama.services.cache import _cache_manager, CacheManager
 from ollama.services.vector import _vector_manager, VectorManager
 from ollama.middleware import CachingMiddleware
@@ -77,13 +78,16 @@ async def lifespan(app: FastAPI):
         vector_manager = init_vector_db(f"http://{settings.qdrant_host}:{settings.qdrant_port}")
         await vector_manager.initialize()
         
-        # Verify Ollama inference server
-        logger.info("🤖 Verifying AI inference server...")
+        # Initialize Ollama inference client
+        logger.info("🤖 Connecting to Ollama inference engine...")
+        ollama_base_url = settings.ollama_base_url if hasattr(settings, 'ollama_base_url') else "http://localhost:11434"
+        ollama_client = init_ollama_client(base_url=ollama_base_url)
         try:
-            # This would normally make a request to verify Ollama is running
-            logger.info("✅ AI inference server verified")
+            await ollama_client.initialize()
+            logger.info("✅ Ollama inference engine connected")
         except Exception as e:
-            logger.warning(f"⚠️  AI inference server check failed: {e}")
+            logger.warning(f"⚠️  Ollama inference engine not available: {e}")
+            logger.warning("⚠️  API will return stub responses for model operations")
         
         logger.info("✅ Ollama API Server started successfully")
         
@@ -96,6 +100,13 @@ async def lifespan(app: FastAPI):
     # Shutdown tasks
     logger.info("🛑 Shutting down Ollama API Server")
     try:
+        # Close Ollama client
+        try:
+            ollama_client = get_ollama_client()
+            await ollama_client.close()
+        except RuntimeError:
+            pass
+        
         # Close database connection
         db_manager = get_db_manager()
         await db_manager.close()

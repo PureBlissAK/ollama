@@ -1,14 +1,13 @@
-"""Text generation endpoints"""
-from typing import Optional
-from datetime import datetime
+"""Text generation API routes"""
+from typing import Dict, Optional
+from datetime import datetime, timezone
 
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel, Field
-import httpx
+
+from ollama.services.ollama_client import get_ollama_client, GenerateRequest as OllamaGenerateRequest
 
 router = APIRouter()
-
-OLLAMA_API_URL = "http://localhost:8000/api"
 
 
 class GenerateRequest(BaseModel):
@@ -35,32 +34,35 @@ async def generate(request: GenerateRequest):
     Performs inference using the specified model and returns generated text
     """
     try:
-        async with httpx.AsyncClient(timeout=120.0) as client:
-            response = await client.post(
-                f"{OLLAMA_API_URL}/generate",
-                json={
-                    "model": request.model,
-                    "prompt": request.prompt,
-                    "stream": False,
-                    "options": request.options or {}
-                }
-            )
-            response.raise_for_status()
-            data = response.json()
-            
-            return GenerateResponse(
-                model=data.get("model", request.model),
-                created_at=data.get("created_at", datetime.now(timezone.utc).isoformat() + "Z"),
-                response=data.get("response", ""),
-                done=data.get("done", True)
-            )
-    except httpx.HTTPError as e:
+        client = get_ollama_client()
+        
+        # Convert to Ollama client request
+        ollama_request = OllamaGenerateRequest(
+            model=request.model,
+            prompt=request.prompt,
+            stream=False,
+            temperature=request.options.get("temperature") if request.options else None,
+            top_p=request.options.get("top_p") if request.options else None,
+            top_k=request.options.get("top_k") if request.options else None
+        )
+        
+        # Call Ollama
+        data = await client.generate(ollama_request)
+        
+        return GenerateResponse(
+            model=data.get("model", request.model),
+            created_at=data.get("created_at", datetime.now(timezone.utc).isoformat() + "Z"),
+            response=data.get("response", ""),
+            done=data.get("done", True)
+        )
+        
+    except RuntimeError as e:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail=f"Ollama service error: {str(e)}"
+            detail=f"Ollama client not initialized: {str(e)}"
         )
     except Exception as e:
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Generation failed: {str(e)}"
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=f"Ollama service error: {str(e)}"
         )

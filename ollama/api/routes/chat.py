@@ -1,14 +1,14 @@
-"""Chat completion endpoints"""
-from typing import List, Optional
-from datetime import datetime
+"""Chat completion API routes"""
+
+from datetime import datetime, timezone
+from typing import Dict, List, Optional
 
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel, Field
-import httpx
+
+from ollama.services.ollama_client import get_ollama_client, ChatRequest as OllamaChatRequest, ChatMessage as OllamaChatMessage
 
 router = APIRouter()
-
-OLLAMA_API_URL = "http://localhost:8000/api"
 
 
 class Message(BaseModel):
@@ -41,35 +41,41 @@ async def chat(request: ChatRequest):
     Performs conversational inference with context from previous messages
     """
     try:
-        async with httpx.AsyncClient(timeout=120.0) as client:
-            response = await client.post(
-                f"{OLLAMA_API_URL}/chat",
-                json={
-                    "model": request.model,
-                    "messages": [msg.model_dump() for msg in request.messages],
-                    "stream": False,
-                    "options": request.options or {}
-                }
-            )
-            response.raise_for_status()
-            data = response.json()
-            
-            return ChatResponse(
-                model=data.get("model", request.model),
-                created_at=data.get("created_at", datetime.now(timezone.utc).isoformat() + "Z"),
-                message=Message(
-                    role=data.get("message", {}).get("role", "assistant"),
-                    content=data.get("message", {}).get("content", "")
-                ),
-                done=data.get("done", True)
-            )
-    except httpx.HTTPError as e:
+        client = get_ollama_client()
+        
+        # Convert messages to Ollama format
+        ollama_messages = [OllamaChatMessage(role=msg.role, content=msg.content) for msg in request.messages]
+        
+        # Create Ollama request
+        ollama_request = OllamaChatRequest(
+            model=request.model,
+            messages=ollama_messages,
+            stream=False,
+            temperature=request.options.get("temperature") if request.options else None,
+            top_p=request.options.get("top_p") if request.options else None,
+            top_k=request.options.get("top_k") if request.options else None
+        )
+        
+        # Call Ollama
+        data = await client.chat(ollama_request)
+        
+        return ChatResponse(
+            model=data.get("model", request.model),
+            created_at=data.get("created_at", datetime.now(timezone.utc).isoformat() + "Z"),
+            message=Message(
+                role=data.get("message", {}).get("role", "assistant"),
+                content=data.get("message", {}).get("content", "")
+            ),
+            done=data.get("done", True)
+        )
+        
+    except RuntimeError as e:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail=f"Ollama service error: {str(e)}"
+            detail=f"Ollama client not initialized: {str(e)}"
         )
     except Exception as e:
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Chat completion failed: {str(e)}"
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=f"Ollama service error: {str(e)}"
         )

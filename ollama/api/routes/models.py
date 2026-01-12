@@ -3,11 +3,10 @@ from typing import List, Optional
 
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel
-import httpx
+
+from ollama.services.ollama_client import get_ollama_client
 
 router = APIRouter()
-
-OLLAMA_API_URL = "http://localhost:8000/api"
 
 
 class ModelInfo(BaseModel):
@@ -31,39 +30,38 @@ async def list_models():
     Returns list of models available for inference
     """
     try:
-        async with httpx.AsyncClient(timeout=30.0) as client:
-            response = await client.get(f"{OLLAMA_API_URL}/tags")
-            response.raise_for_status()
-            data = response.json()
+        client = get_ollama_client()
+        ollama_models = await client.list_models()
+        
+        models = []
+        for model in ollama_models:
+            # Convert size from bytes to human-readable format
+            size_bytes = model.size or 0
+            if size_bytes > 1e9:
+                size_str = f"{size_bytes / 1e9:.1f}GB"
+            elif size_bytes > 1e6:
+                size_str = f"{size_bytes / 1e6:.1f}MB"
+            else:
+                size_str = f"{size_bytes}B" if size_bytes > 0 else "Unknown"
             
-            models = []
-            for model in data.get("models", []):
-                # Convert size from bytes to human-readable format
-                size_bytes = model.get("size", 0)
-                if size_bytes > 1e9:
-                    size_str = f"{size_bytes / 1e9:.1f}GB"
-                elif size_bytes > 1e6:
-                    size_str = f"{size_bytes / 1e6:.1f}MB"
-                else:
-                    size_str = f"{size_bytes}B"
-                
-                models.append(ModelInfo(
-                    name=model.get("name", ""),
-                    size=size_str,
-                    digest=model.get("digest", ""),
-                    modified_at=model.get("modified_at", "")
-                ))
-            
-            return ListModelsResponse(models=models)
-    except httpx.HTTPError as e:
+            models.append(ModelInfo(
+                name=model.name,
+                size=size_str,
+                digest=model.digest or "",
+                modified_at=model.modified_at or ""
+            ))
+        
+        return ListModelsResponse(models=models)
+        
+    except RuntimeError as e:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail=f"Ollama service error: {str(e)}"
+            detail=f"Ollama client not initialized: {str(e)}"
         )
     except Exception as e:
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Failed to list models: {str(e)}"
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=f"Ollama service error: {str(e)}"
         )
 
 
@@ -71,13 +69,15 @@ async def list_models():
 async def get_model(model_name: str):
     """Get information about a specific model"""
     try:
-        async with httpx.AsyncClient(timeout=30.0) as client:
-            response = await client.post(
-                f"{OLLAMA_API_URL}/show",
-                json={"name": model_name}
-            )
-            response.raise_for_status()
-            return response.json()
+        client = get_ollama_client()
+        model_info = await client.show_model(model_name)
+        return model_info
+        
+    except RuntimeError as e:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=f"Ollama client not initialized: {str(e)}"
+        )
     except httpx.HTTPError as e:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND if e.response.status_code == 404 else status.HTTP_503_SERVICE_UNAVAILABLE,
