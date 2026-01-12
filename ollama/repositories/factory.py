@@ -67,8 +67,10 @@ class RepositoryFactory:
         await self.session.close()
 
 
-async def get_repositories(session: AsyncSession) -> RepositoryFactory:
+async def get_repositories():
     """FastAPI dependency for repository factory.
+    
+    Creates a RepositoryFactory instance with a new session from the database manager.
     
     Usage in endpoints:
         @app.get("/api/v1/conversations")
@@ -80,14 +82,16 @@ async def get_repositories(session: AsyncSession) -> RepositoryFactory:
             conversations = await conv_repo.get_by_user_id(user_id)
             return conversations
     
-    Args:
-        session: Database session from get_db dependency
-        
     Yields:
         RepositoryFactory instance
     """
+    # Get session from database manager
+    from ..services import get_db_manager
+    manager = get_db_manager()
+    session = manager._sessionmaker()
+    
     factory = RepositoryFactory(session)
     try:
         yield factory
     finally:
-        await factory.close()
+        await session.close()

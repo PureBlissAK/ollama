@@ -4,13 +4,12 @@ Provides full conversation management and retrieval functionality.
 """
 
 from fastapi import APIRouter, Depends, HTTPException, Query
-from sqlalchemy.ext.asyncio import AsyncSession
 from datetime import datetime
 import uuid
 
-from ..services.database import DatabaseManager
-from ..repositories import RepositoryFactory, get_repositories
-from ..models import Conversation, Message
+from ...services.database import DatabaseManager
+from ...repositories import RepositoryFactory, get_repositories
+from ...models import Conversation, Message
 
 router = APIRouter(
     prefix="/api/v1/conversations",

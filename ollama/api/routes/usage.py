@@ -3,12 +3,11 @@ Usage Analytics API Endpoints
 Provides detailed usage tracking, cost analysis, and performance metrics.
 """
 
-from fastapi import APIRouter, Depends, HTTPException, Query
-from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import APIRouter, Depends, HTTPException, Query, Path
 from datetime import datetime, timedelta
 import uuid
 
-from ..repositories import RepositoryFactory, get_repositories
+from ...repositories import RepositoryFactory, get_repositories
 
 router = APIRouter(
     prefix="/api/v1/usage",
@@ -201,7 +200,7 @@ async def get_user_performance(
 
 @router.get("/endpoint/{endpoint}")
 async def get_endpoint_usage(
-    endpoint: str = Query(..., description="API endpoint"),
+    endpoint: str = Path(..., description="API endpoint"),
     days: int = Query(30, ge=1, le=365, description="Days to look back"),
     repos: RepositoryFactory = Depends(get_repositories),
 ):

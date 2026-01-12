@@ -5,7 +5,7 @@ import numpy as np
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, Field
 
-from ollama.services import get_vector_db
+from ollama.services import init_vector_db
 
 router = APIRouter()
 
@@ -113,8 +113,7 @@ async def create_embeddings(request: EmbeddingsRequest):
 
 @router.post("/semantic-search", response_model=SemanticSearchResponse)
 async def semantic_search(
-    request: SemanticSearchRequest,
-    vector_db = Depends(get_vector_db)
+    request: SemanticSearchRequest
 ):
     """
     Perform semantic search in Qdrant vector database
@@ -138,8 +137,16 @@ async def semantic_search(
     ```
     """
     try:
+        from ollama.services.vector import _vector_manager
+        
+        if _vector_manager is None:
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="Vector database not initialized"
+            )
+        
         # Check if collection exists
-        if not await vector_db.collection_exists(request.collection):
+        if not await _vector_manager.collection_exists(request.collection):
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f"Collection '{request.collection}' not found"
@@ -150,7 +157,7 @@ async def semantic_search(
         query_vector = model.encode(request.query).tolist()
         
         # Search in vector database
-        results = await vector_db.search_vectors(
+        results = await _vector_manager.search_vectors(
             collection_name=request.collection,
             query_vector=query_vector,
             limit=request.limit,

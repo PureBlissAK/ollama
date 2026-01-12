@@ -4,15 +4,14 @@ Provides document ingestion, indexing, and retrieval for RAG pipeline.
 """
 
 from fastapi import APIRouter, Depends, HTTPException, Query, UploadFile, File
-from sqlalchemy.ext.asyncio import AsyncSession
 from datetime import datetime
 import uuid
 import json
 
-from ..services.database import DatabaseManager
-from ..repositories import RepositoryFactory, get_repositories
-from ..services.vector import _vector_manager, VectorManager
-from ..models import Document
+from ...services.database import DatabaseManager
+from ...repositories import RepositoryFactory, get_repositories
+from ...services.vector import _vector_manager, VectorManager
+from ...models import Document
 
 router = APIRouter(
     prefix="/api/v1/documents",
