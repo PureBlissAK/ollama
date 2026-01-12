@@ -24,6 +24,7 @@ from ollama.services import (
 )
 from ollama.services.cache import _cache_manager, CacheManager
 from ollama.services.vector import _vector_manager, VectorManager
+from ollama.middleware import CachingMiddleware
 
 # Configure logging
 logging.basicConfig(
@@ -138,6 +139,10 @@ def create_app() -> FastAPI:
         expose_headers=settings.cors_expose_headers,
     )
     
+    # Response Caching Middleware (add after CORS)
+    # Note: This will be added dynamically in create_app after cache_manager is available
+    # For now, we'll add a hook to set it up after initialization
+    
     # GZip compression
     app.add_middleware(GZipMiddleware, minimum_size=1000)
     
@@ -200,6 +205,18 @@ def create_app() -> FastAPI:
     app.include_router(generate.router, prefix="/api/v1", tags=["Generation"])
     app.include_router(chat.router, prefix="/api/v1", tags=["Chat"])
     app.include_router(embeddings.router, prefix="/api/v1", tags=["Embeddings"])
+    
+    # Add caching middleware after cache manager is initialized
+    @app.on_event("startup")
+    async def setup_cache_middleware():
+        """Setup response caching middleware after cache initialization"""
+        try:
+            cache_mgr = await get_cache_manager()
+            if cache_mgr and cache_mgr._initialized:
+                app.add_middleware(CachingMiddleware, cache_manager=cache_mgr)
+                logger.info("✅ Response caching middleware enabled")
+        except RuntimeError:
+            logger.warning("⚠️  Cache manager not available, response caching disabled")
     
     # Prometheus metrics endpoint
     metrics_app = make_asgi_app()
