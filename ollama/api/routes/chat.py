@@ -1,10 +1,14 @@
 """Chat completion endpoints"""
 from typing import List, Optional
+from datetime import datetime
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel, Field
+import httpx
 
 router = APIRouter()
+
+OLLAMA_API_URL = "http://localhost:8000/api"
 
 
 class Message(BaseModel):
@@ -36,13 +40,36 @@ async def chat(request: ChatRequest):
     
     Performs conversational inference with context from previous messages
     """
-    # TODO: Implement actual chat completion
-    return ChatResponse(
-        model=request.model,
-        created_at="2026-01-12T00:00:00Z",
-        message=Message(
-            role="assistant",
-            content="This is a placeholder chat response. Model inference not yet implemented."
-        ),
-        done=True
-    )
+    try:
+        async with httpx.AsyncClient(timeout=120.0) as client:
+            response = await client.post(
+                f"{OLLAMA_API_URL}/chat",
+                json={
+                    "model": request.model,
+                    "messages": [msg.model_dump() for msg in request.messages],
+                    "stream": False,
+                    "options": request.options or {}
+                }
+            )
+            response.raise_for_status()
+            data = response.json()
+            
+            return ChatResponse(
+                model=data.get("model", request.model),
+                created_at=data.get("created_at", datetime.utcnow().isoformat() + "Z"),
+                message=Message(
+                    role=data.get("message", {}).get("role", "assistant"),
+                    content=data.get("message", {}).get("content", "")
+                ),
+                done=data.get("done", True)
+            )
+    except httpx.HTTPError as e:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=f"Ollama service error: {str(e)}"
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Chat completion failed: {str(e)}"
+        )
