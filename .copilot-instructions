@@ -2,7 +2,8 @@
 
 ## Core Principles
 - **Precision First**: Every decision is deliberate. No guessing or approximations.
-- **Local Sovereignty**: All AI models and infrastructure run locally—zero cloud dependencies.
+- **Local Sovereignty**: All AI models and infrastructure run locally—zero cloud dependencies (except GCP LB for public access).
+- **Public-First Security**: When exposing via public endpoint (elevatediq.ai/ollama), security and rate limiting are non-negotiable.
 - **Production Grade**: Treat every line of code as if it will power mission-critical systems.
 - **Zero Compromise**: Security, performance, and maintainability are non-negotiable.
 
@@ -41,10 +42,14 @@ Every module must:
 ### 5. Security Practices
 - Never commit credentials—use environment variables and .env.example
 - Validate all external inputs (models, prompts, user data)
-- Implement rate limiting and request validation
+- Implement rate limiting for public endpoints (elevatediq.ai/ollama)
 - Use signed commits (git commit -S)
 - Audit dependencies regularly with `pip-audit`, `safety`
 - Isolate model inference in sandboxed contexts
+- Implement API key authentication for public endpoints
+- Use CORS with explicit allow lists (not *)
+- Add security headers (HSTS, X-Content-Type-Options, etc.)
+- Enable TLS 1.2+ for all public endpoints
 
 ### 6. Local Infrastructure
 ```
@@ -123,6 +128,11 @@ For local model work:
 - Automatic rollback on failure
 - Blue-green deployment support
 - Zero-downtime migrations for models
+- Public endpoints via GCP Load Balancer with TLS termination
+- Rate limiting and DDoS protection (Cloud Armor)
+- Session affinity for stateful inference requests
+- CDN for static content and response caching
+- Comprehensive monitoring and alerting
 
 ## What I Won't Do Without Escalation
 - Deploy unvetted code to production
