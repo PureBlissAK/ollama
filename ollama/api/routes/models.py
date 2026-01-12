@@ -1,6 +1,7 @@
 """Model management endpoints"""
 from typing import List, Optional
 
+import httpx
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel
 
@@ -94,9 +95,11 @@ async def get_model(model_name: str):
 async def pull_model(model_name: str):
     """Download a model"""
     try:
-        async with httpx.AsyncClient(timeout=600.0) as client:  # 10 min timeout for model download
-            response = await client.post(
-                f"{OLLAMA_API_URL}/pull",
+        client = get_ollama_client()
+        # The ollama client doesn't have a direct pull method, so we use httpx
+        async with httpx.AsyncClient(timeout=600.0) as http_client:  # 10 min timeout for model download
+            response = await http_client.post(
+                f"{client.base_url}/api/pull",
                 json={"name": model_name}
             )
             response.raise_for_status()
@@ -117,9 +120,10 @@ async def pull_model(model_name: str):
 async def delete_model(model_name: str):
     """Delete a model"""
     try:
-        async with httpx.AsyncClient(timeout=30.0) as client:
-            response = await client.delete(
-                f"{OLLAMA_API_URL}/delete",
+        client = get_ollama_client()
+        async with httpx.AsyncClient(timeout=30.0) as http_client:
+            response = await http_client.delete(
+                f"{client.base_url}/api/delete",
                 json={"name": model_name}
             )
             response.raise_for_status()
