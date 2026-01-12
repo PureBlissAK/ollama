@@ -40,7 +40,7 @@ source .env.production
 ## 🌍 GCP Load Balancer Configuration
 
 ### Public Access
-- **Domain:** `ollama.elevatediq.ai`
+- **Domain:** `elevatediq.ai/ollama`
 - **Static IP:** `136.110.229.243`
 - **Protocol:** HTTPS (443)
 - **Status:** ⏳ SSL certificate provisioning (up to 20 min)
@@ -48,7 +48,7 @@ source .env.production
 ### DNS Configuration
 ```
 Type: A
-Host: ollama.elevatediq.ai
+Host: elevatediq.ai/ollama
 Value: 136.110.229.243
 TTL: Auto
 Status: ✅ Configured
@@ -78,7 +78,7 @@ Status: ✅ Configured
 #### SSL Certificate
 - **Name:** `ollama-ssl-cert`
 - **Type:** Google-managed
-- **Domains:** `ollama.elevatediq.ai`
+- **Domains:** `elevatediq.ai/ollama`
 - **Status:** ⏳ PROVISIONING
 - **Expected:** 10-20 minutes
 
@@ -165,7 +165,7 @@ cd /home/akushnir/ollama/scripts
 - ✅ Service account with proper permissions
 - ✅ Backup key file generated
 - ✅ Static IP reserved (136.110.229.243)
-- ✅ DNS record configured (ollama.elevatediq.ai)
+- ✅ DNS record configured (elevatediq.ai/ollama)
 - ✅ Load balancer infrastructure created
 - ✅ Health check configured
 - ✅ SSL certificate requested (provisioning)
@@ -191,18 +191,18 @@ gcloud compute ssl-certificates describe ollama-ssl-cert --global
 
 ### Verify DNS
 ```bash
-dig ollama.elevatediq.ai
-nslookup ollama.elevatediq.ai
+dig elevatediq.ai/ollama
+nslookup elevatediq.ai/ollama
 ```
 
 ### Test Health Check (once NEG is configured)
 ```bash
-curl https://ollama.elevatediq.ai/health
+curl https://elevatediq.ai/ollama/health
 ```
 
 ### Test AI Inference (once NEG is configured)
 ```bash
-curl -X POST https://ollama.elevatediq.ai/api/v1/generate \
+curl -X POST https://elevatediq.ai/ollama/api/v1/generate \
   -H "Content-Type: application/json" \
   -d '{"model": "codellama:7b", "prompt": "Hello world in Python:"}'
 ```
@@ -260,7 +260,7 @@ curl -X POST https://ollama.elevatediq.ai/api/v1/generate \
 
 4. **Test Public Access**
    ```bash
-   curl https://ollama.elevatediq.ai/health
+   curl https://elevatediq.ai/ollama/health
    ```
 
 5. **Set Up Automated Backups** (cron job)

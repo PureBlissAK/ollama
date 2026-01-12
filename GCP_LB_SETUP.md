@@ -1,4 +1,4 @@
-# GCP Load Balancer Setup for Local Ollama
+# GCP Load Balancer Setup - elevatediq.ai/ollama
 
 ## Architecture Overview
 
@@ -6,340 +6,393 @@
 Internet
     ↓
 GCP Load Balancer (elevatediq.ai/ollama)
+  - Path-based routing: /ollama/*
   - TLS Termination
-  - Health Checks
-  - Rate Limiting
+  - Internet NEG (Firewalla DDNS)
     ↓
-Local Docker Host (192.168.168.42)
-  - Ollama API (port 8000)
+Firewalla DDNS (d8r978f08m4.d.firewalla.org)
+    ↓
+Local Backend (192.168.168.42:11000)
+  - FastAPI Application
+  - Real Ollama Integration (port 8000)
   - PostgreSQL, Redis, Qdrant
-  - Prometheus, Grafana, Jaeger
-```
-
-**Important**: Ollama runs locally on Docker. GCP provides ONLY the Load Balancer for public access.
-
----
-
-## Prerequisites
-
-- Local Docker host running at: `192.168.168.42`
-- Ollama Docker stack running on port 8000
-- GCP account with billing enabled
-- Domain: `elevatediq.ai` (DNS managed)
-
----
-
-## Step 1: Deploy Ollama Locally
-
-```bash
-# On local host (192.168.168.35)
-cd /home/akushnir/ollama
-
-# Start production stack
-docker-compose -f docker-compose.prod.yml up -d
-
-# Verify services running
-docker-compose ps
-curl http://localhost:8000/health
 ```
 
 ---
 
-## Step 2: Configure Local Firewall
+## GCP Components
+
+### 1. Static IP Address
+
+**Name:** `ollama-static-ip`
+**Address:** `136.110.229.243`
+**Region:** Global
 
 ```bash
-# Allow GCP Load Balancer health checks and traffic
-# GCP health check IP ranges: 35.191.0.0/16, 130.211.0.0/22
-
-sudo ufw allow from 35.191.0.0/16 to any port 8000
-sudo ufw allow from 130.211.0.0/22 to any port 8000
-
-# Or if using iptables
-sudo iptables -A INPUT -p tcp --dport 8000 -s 35.191.0.0/16 -j ACCEPT
-sudo iptables -A INPUT -p tcp --dport 8000 -s 130.211.0.0/22 -j ACCEPT
+gcloud compute addresses create ollama-static-ip \
+    --global \
+    --ip-version=IPV4
 ```
 
----
+### 2. SSL Certificate
 
-## Step 3: Create GCP Backend Service
-
-```bash
-# Create health check
-gcloud compute health-checks create http ollama-health-check \
-    --port=8000 \
-    --request-path="/health" \
-    --check-interval=10s \
-    --timeout=5s \
-    --unhealthy-threshold=3 \
-    --healthy-threshold=2
-
-# Create backend service (pointing to your local IP)
-gcloud compute backend-services create ollama-backend \
-    --protocol=HTTP \
-    --health-checks=ollama-health-check \
-    --port-name=http \
-    --timeout=30s \
-    --global
-
-# Add your local Docker host as backend
-# Note: Use Network Endpoint Group (NEG) for external endpoint
-gcloud compute network-endpoint-groups create ollama-neg \
-    --network-endpoint-type=NON_GCP_PRIVATE_IP_PORT \
-    --zone=us-central1-a
-
-gcloud compute network-endpoint-groups update ollama-neg \
-    --zone=us-central1-a \
-    --add-endpoint="ip=192.168.168.42,port=8000"
-
-gcloud compute backend-services add-backend ollama-backend \
-    --network-endpoint-group=ollama-neg \
-    --network-endpoint-group-zone=us-central1-a \
-    --global
-```
-
----
-
-## Step 4: Set Up Cloud Armor (Optional but Recommended)
+**Certificate Name:** `elevatediq-ssl-cert`
+**Type:** Google-managed
+**Domain:** `elevatediq.ai`
+**Status:** PROVISIONING
 
 ```bash
-# Create security policy
-gcloud compute security-policies create ollama-security-policy
-
-# Add rate limiting rule
-gcloud compute security-policies rules create 1000 \
-    --security-policy=ollama-security-policy \
-    --expression="true" \
-    --action=rate-based-ban \
-    --rate-limit-threshold-count=100 \
-    --rate-limit-threshold-interval-sec=60 \
-    --ban-duration-sec=600
-
-# Apply to backend service
-gcloud compute backend-services update ollama-backend \
-    --security-policy=ollama-security-policy \
-    --global
-```
-
----
-
-## Step 5: Create URL Map
-
-```bash
-# Create URL map
-gcloud compute url-maps create ollama-lb \
-    --default-service=ollama-backend
-
-# Add path matcher for /ollama
-gcloud compute url-maps add-path-matcher ollama-lb \
-    --path-matcher-name=ollama-paths \
-    --default-service=ollama-backend \
-    --path-rules="/ollama=ollama-backend,/ollama/*=ollama-backend"
-```
-
----
-
-## Step 6: Create SSL Certificate
-
-```bash
-# Option 1: Google-managed certificate (automatic renewal)
-gcloud compute ssl-certificates create ollama-ssl-cert \
+gcloud compute ssl-certificates create elevatediq-ssl-cert \
     --domains=elevatediq.ai \
     --global
+```
 
-# Option 2: Upload your own certificate
-gcloud compute ssl-certificates create ollama-ssl-cert \
-    --certificate=/path/to/cert.pem \
-    --private-key=/path/to/key.pem \
+**Legacy Certificate:** `ollama-ssl-cert` (ollama.elevatediq.ai) - kept for backward compatibility
+
+### 3. Internet Network Endpoint Group (NEG)
+
+**Name:** `ollama-internet-neg`
+**Type:** INTERNET_FQDN_PORT
+**Endpoint:** `d8r978f08m4.d.firewalla.org:11000`
+
+```bash
+gcloud compute network-endpoint-groups create ollama-internet-neg \
+    --network-endpoint-type=INTERNET_FQDN_PORT \
+    --global
+
+gcloud compute network-endpoint-groups update ollama-internet-neg \
+    --add-endpoint="fqdn=d8r978f08m4.d.firewalla.org,port=11000" \
     --global
 ```
 
----
+### 4. Backend Service
 
-## Step 7: Create Target HTTPS Proxy
+**Name:** `ollama-backend`
+**Protocol:** HTTPS
+**Port:** 11000
+**Health Checks:** None (not compatible with Internet NEG)
 
 ```bash
-gcloud compute target-https-proxies create ollama-https-proxy \
-    --url-map=ollama-lb \
-    --ssl-certificates=ollama-ssl-cert
+gcloud compute backend-services create ollama-backend \
+    --protocol=HTTPS \
+    --port-name=https \
+    --global
+
+gcloud compute backend-services add-backend ollama-backend \
+    --network-endpoint-group=ollama-internet-neg \
+    --global-network-endpoint-group \
+    --global
 ```
 
----
+### 5. URL Map (Path-Based Routing)
 
-## Step 8: Create Forwarding Rule
+**Name:** `ollama-url-map`
+**Host Rule:** `elevatediq.ai`
+**Path Matcher:** `ollama-paths`
+
+Routes traffic:
+- `/ollama` → ollama-backend
+- `/ollama/*` → ollama-backend
 
 ```bash
-# Reserve static IP
-gcloud compute addresses create ollama-ip --global
+# URL map configuration (imported from YAML)
+gcloud compute url-maps import ollama-url-map \
+    --source=urlmap.yaml \
+    --global
+```
 
-# Get the IP address
-gcloud compute addresses describe ollama-ip --global --format="get(address)"
+**urlmap.yaml:**
+```yaml
+defaultService: https://www.googleapis.com/compute/v1/projects/govai-scout/global/backendServices/ollama-backend
+name: ollama-url-map
+hostRules:
+- hosts:
+  - elevatediq.ai
+  pathMatcher: ollama-paths
+pathMatchers:
+- name: ollama-paths
+  defaultService: https://www.googleapis.com/compute/v1/projects/govai-scout/global/backendServices/ollama-backend
+  pathRules:
+  - paths:
+    - /ollama
+    - /ollama/*
+    service: https://www.googleapis.com/compute/v1/projects/govai-scout/global/backendServices/ollama-backend
+```
 
-# Create forwarding rule
+### 6. Target HTTPS Proxy
+
+**Name:** `ollama-target-proxy`
+**URL Map:** `ollama-url-map`
+**SSL Certificates:** 
+- `elevatediq-ssl-cert` (primary - elevatediq.ai)
+- `ollama-ssl-cert` (legacy - ollama.elevatediq.ai)
+
+```bash
+gcloud compute target-https-proxies create ollama-target-proxy \
+    --url-map=ollama-url-map \
+    --ssl-certificates=elevatediq-ssl-cert,ollama-ssl-cert \
+    --global
+```
+
+### 7. Global Forwarding Rule
+
+**Name:** `ollama-https-forwarding-rule`
+**IP Address:** `136.110.229.243`
+**Port:** 443
+**Target:** `ollama-target-proxy`
+
+```bash
 gcloud compute forwarding-rules create ollama-https-forwarding-rule \
-    --address=ollama-ip \
+    --address=ollama-static-ip \
     --global \
-    --target-https-proxy=ollama-https-proxy \
+    --target-https-proxy=ollama-target-proxy \
     --ports=443
 ```
 
 ---
 
-## Step 9: Configure DNS
+## DNS Configuration
 
+**Domain:** `elevatediq.ai/ollama`
+**Static IP:** `136.110.229.243`
+
+### DNS Record
+
+Add an A record in your DNS provider:
+
+```
+Type: A
+Name: @ (or root/apex)
+Value: 136.110.229.243
+TTL: 3600
+```
+
+**Verification:**
 ```bash
-# Get the Load Balancer IP
-LB_IP=$(gcloud compute addresses describe ollama-ip --global --format="get(address)")
-
-# Add DNS A record
-# elevatediq.ai -> $LB_IP
-
-# Using Cloud DNS (if DNS hosted in GCP)
-gcloud dns record-sets create elevatediq.ai. \
-    --zone=elevatediq-zone \
-    --type=A \
-    --ttl=300 \
-    --rrdatas=$LB_IP
+dig elevatediq.ai +short
+# Should return: 136.110.229.243
 ```
 
 ---
 
-## Step 10: Test Configuration
+## Firewalla Configuration
+
+### Required Firewall Rule
+
+**Purpose:** Allow GCP Load Balancer to reach local backend
+
+1. Open Firewalla admin console
+2. Navigate to **Rules** → **Port Forwarding** or **Firewall Rules**
+3. Add inbound rule:
+   - **Port:** 11000
+   - **Protocol:** TCP
+   - **Source:** 0.0.0.0/0 (or restrict to GCP IP ranges)
+   - **Destination:** 192.168.168.42:11000
+
+### DDNS Status
+
+**DDNS Hostname:** `d8r978f08m4.d.firewalla.org`
+**Resolved IP:** `71.245.249.168`
 
 ```bash
-# Wait for DNS propagation (up to 48 hours, usually <1 hour)
-nslookup elevatediq.ai
+# Verify DDNS resolution
+dig d8r978f08m4.d.firewalla.org +short
+# Should return: 71.245.249.168
+```
 
-# Test health check
+---
+
+## Testing
+
+### 1. Check SSL Certificate Status
+
+```bash
+gcloud compute ssl-certificates describe elevatediq-ssl-cert --global
+```
+
+Wait for status: `ACTIVE` (takes 10-20 minutes after DNS propagation)
+
+### 2. Test Backend Directly (via Firewalla DDNS)
+
+```bash
+curl http://d8r978f08m4.d.firewalla.org:11000/health
+```
+
+### 3. Test Load Balancer Endpoints
+
+#### Health Endpoint
+```bash
 curl https://elevatediq.ai/ollama/health
+```
 
-# Test API
-curl https://elevatediq.ai/ollama/api/models
+#### Models List
+```bash
+curl https://elevatediq.ai/ollama/v1/models
+```
 
-# Test with authentication
-curl -H "Authorization: Bearer YOUR_API_KEY" \
-    https://elevatediq.ai/ollama/api/generate \
-    -d '{"model":"llama2","prompt":"Hello"}'
+#### Generate Text
+```bash
+curl -X POST https://elevatediq.ai/ollama/v1/generate \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "deepseek-coder:6.7b",
+    "prompt": "Write a Python function to calculate fibonacci",
+    "stream": false
+  }'
+```
+
+#### Chat Completion
+```bash
+curl -X POST https://elevatediq.ai/ollama/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "deepseek-coder:6.7b",
+    "messages": [
+      {"role": "system", "content": "You are a helpful coding assistant."},
+      {"role": "user", "content": "Explain async/await in Python"}
+    ]
+  }'
 ```
 
 ---
 
-## Monitoring & Troubleshooting
+## Monitoring
 
-### View Load Balancer Logs
+### Check Load Balancer Status
 
 ```bash
-# View access logs
-gcloud logging read "resource.type=http_load_balancer" --limit=50
-
-# View backend health
+# Backend service health
 gcloud compute backend-services get-health ollama-backend --global
+
+# SSL certificate status
+gcloud compute ssl-certificates list --format="table(name,domains,managed.status)"
+
+# Forwarding rule
+gcloud compute forwarding-rules describe ollama-https-forwarding-rule --global
 ```
 
-### Check Health Status
+### View Logs
 
 ```bash
-# Check backend health
-gcloud compute backend-services get-health ollama-backend \
-    --global \
-    --format=json
-
-# Expected output: HEALTHY status
-```
-
-### Common Issues
-
-**Backend Unhealthy**
-- Check firewall allows health check IPs (35.191.0.0/16, 130.211.0.0/22)
-- Verify local Docker containers are running: `docker-compose ps`
-- Test health endpoint locally: `curl http://localhost:8000/health`
-
-**SSL Certificate Not Provisioning**
-- Google-managed certs can take 15-60 minutes
-- Verify DNS is pointing to LB IP
-- Check domain ownership verification
-
-**502 Bad Gateway**
-- Backend is down or unreachable
-- Check local Docker services are running
-- Verify network connectivity from GCP to local host
-
----
-
-## Architecture Details
-
-### Traffic Flow
-
-1. **Client** → `https://elevatediq.ai/ollama`
-2. **GCP Load Balancer** → TLS termination, health checks, rate limiting
-3. **Local Docker Host** (192.168.168.42:8000) → Ollama API
-4. **Response** → Back through LB to client
-
-### Security Layers
-
-1. **GCP Layer**
-   - TLS termination (HTTPS)
-   - Cloud Armor (DDoS protection, rate limiting)
-   - Health checks (only route to healthy backends)
-
-2. **Local Layer**
-   - Docker network isolation
-   - API key authentication
-   - Input validation
-   - Audit logging
-
----
-
-## Cost Estimates (Monthly)
-
-| Component | Cost (USD) |
-|-----------|-----------|
-| Load Balancer | $18 base + traffic |
-| SSL Certificate (managed) | Free |
-| Cloud Armor | $6 + rules |
-| Egress traffic (100GB) | ~$12 |
-| **Total (estimated)** | **~$40-60/month** |
-
----
-
-## Maintenance
-
-### Update Backend IP
-
-```bash
-# If local Docker host IP changes
-gcloud compute network-endpoint-groups update ollama-neg \
-    --zone=us-central1-a \
-    --remove-endpoint="ip=OLD_IP,port=8000"
-
-gcloud compute network-endpoint-groups update ollama-neg \
-    --zone=us-central1-a \
-    --add-endpoint="ip=NEW_IP,port=8000"
-```
-
-### Renew SSL Certificate (manual cert only)
-
-```bash
-gcloud compute ssl-certificates create ollama-ssl-cert-new \
-    --certificate=/path/to/new-cert.pem \
-    --private-key=/path/to/new-key.pem \
+# Enable logging on backend service
+gcloud compute backend-services update ollama-backend \
+    --enable-logging \
+    --logging-sample-rate=1.0 \
     --global
 
-gcloud compute target-https-proxies update ollama-https-proxy \
-    --ssl-certificates=ollama-ssl-cert-new
+# View logs in Cloud Console
+# Logging → Logs Explorer → Filter: resource.type="http_load_balancer"
+```
+
+---
+
+## Cost Estimate
+
+### Monthly Costs (us-central1)
+
+| Component | Cost | Notes |
+|-----------|------|-------|
+| Forwarding Rule | $18/month | One global forwarding rule |
+| Backend Service | Free | No extra charge |
+| Static IP | $7.20/month | Reserved global IP |
+| SSL Certificate | Free | Google-managed cert |
+| **Estimated Total** | **~$25/month** | Excludes traffic egress |
+
+**Traffic Egress:** $0.085/GB for internet egress from us-central1
+
+---
+
+## Troubleshooting
+
+### SSL Certificate Not Provisioning
+
+1. Verify DNS is correctly configured:
+   ```bash
+   dig elevatediq.ai +short
+   ```
+
+2. Wait 10-20 minutes after DNS propagation
+
+3. Check certificate status:
+   ```bash
+   gcloud compute ssl-certificates describe elevatediq-ssl-cert --global
+   ```
+
+### Backend Unreachable
+
+1. Verify Firewalla DDNS resolves correctly:
+   ```bash
+   dig d8r978f08m4.d.firewalla.org +short
+   ```
+
+2. Test direct access to backend:
+   ```bash
+   curl http://d8r978f08m4.d.firewalla.org:11000/health
+   ```
+
+3. Check Firewalla firewall rules allow inbound port 11000
+
+4. Verify local backend is running:
+   ```bash
+   curl http://192.168.168.42:11000/health
+   ```
+
+### 502 Bad Gateway
+
+- Backend service is unreachable from GCP
+- Check Firewalla firewall rules
+- Verify Internet NEG endpoint is correct
+- Ensure local FastAPI app is running
+
+---
+
+## Cleanup (Optional)
+
+To delete all GCP Load Balancer resources:
+
+```bash
+# Delete forwarding rule
+gcloud compute forwarding-rules delete ollama-https-forwarding-rule --global
+
+# Delete target proxy
+gcloud compute target-https-proxies delete ollama-target-proxy --global
+
+# Delete URL map
+gcloud compute url-maps delete ollama-url-map --global
+
+# Delete backend service
+gcloud compute backend-services delete ollama-backend --global
+
+# Delete NEG
+gcloud compute network-endpoint-groups delete ollama-internet-neg --global
+
+# Delete SSL certificates
+gcloud compute ssl-certificates delete elevatediq-ssl-cert --global
+gcloud compute ssl-certificates delete ollama-ssl-cert --global
+
+# Release static IP
+gcloud compute addresses delete ollama-static-ip --global
 ```
 
 ---
 
 ## Summary
 
-✅ **GCP provides**: Load Balancer, TLS termination, health checks, DDoS protection  
-✅ **Local Docker provides**: Ollama API, databases, monitoring stack  
-✅ **Public endpoint**: `https://elevatediq.ai/ollama`
+✅ **Configured Components:**
+- Static IP: `136.110.229.243`
+- Domain: `elevatediq.ai/ollama` (path-based routing)
+- SSL Certificate: `elevatediq-ssl-cert` (PROVISIONING)
+- Internet NEG: Firewalla DDNS endpoint
+- Backend Service: Connected to Load Balancer
+- URL Map: Path matcher for `/ollama/*`
 
-This architecture keeps all AI workloads and data local while providing professional public access through GCP's infrastructure.
+⏳ **Pending:**
+- DNS A record: `elevatediq.ai → 136.110.229.243`
+- SSL certificate provisioning (10-20 minutes)
+- Firewalla firewall: Allow inbound port 11000
 
----
-
-**Last Updated**: January 12, 2026  
-**Local Host**: 192.168.168.42  
-**Public Endpoint**: https://elevatediq.ai/ollama
+🧪 **Test After DNS + SSL:**
+```bash
+curl https://elevatediq.ai/ollama/health
+curl https://elevatediq.ai/ollama/v1/models
+```
