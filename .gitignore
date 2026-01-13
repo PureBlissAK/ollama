@@ -55,7 +55,7 @@ env.bak/
 venv.bak/
 
 # IDE Settings
-.vscode/
+# Keep .vscode for team consistency
 .idea/
 *.swp
 *.swo

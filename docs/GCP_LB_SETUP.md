@@ -396,3 +396,68 @@ gcloud compute addresses delete ollama-static-ip --global
 curl https://elevatediq.ai/ollama/health
 curl https://elevatediq.ai/ollama/v1/models
 ```
+
+---
+
+## Day 2 Ops (Runbook)
+
+### Alerting (minimum useful alerts)
+- **HTTPS 5xx rate**: trigger if >1% for 5 minutes on `elevatediq.ai/ollama/*`.
+- **Latency (p99)**: trigger if >2s for 5 minutes.
+- **Cert status/expiry**: alert if Google-managed cert is not `ACTIVE` or <14 days to expiry.
+- **Backend reachability**: alert if `/ollama/health` fails 3 consecutive checks.
+
+### Dashboards to watch
+- **Load balancer**: Requests, 4xx/5xx rates, backend connect errors.
+- **Application**: p95/p99 latency, error rate, rate-limit hits.
+- **Infra**: CPU/memory on backend host; Redis/Postgres health.
+
+### Health probes (cron-friendly)
+```bash
+# External path + cert
+curl -fsSL https://elevatediq.ai/ollama/health
+
+# Backend direct (Firewalla DDNS)
+curl -fsSL http://d8r978f08m4.d.firewalla.org:11000/health
+```
+
+### Failover / break-glass
+1) **Bypass LB**: hit `http://d8r978f08m4.d.firewalla.org:11000` directly.
+2) **Rotate cert**: recreate Google-managed cert if stuck in PROVISIONING; confirm DNS A record first.
+3) **Endpoint swap**: update the Internet NEG endpoint to a standby host if primary is down.
+4) **Firewall adjust**: temporarily relax Firewalla source ranges to restore connectivity, then re-tighten.
+
+### Change management
+- Apply changes in low-traffic windows; validate `/ollama/health` before/after.
+- Keep prior NEG endpoint and cert available for fast rollback.
+- Adjust rate limits cautiously and watch 5xx/latency while doing so.
+
+### SLOs (initial targets)
+- Availability: 99.9% monthly for `/ollama/*`.
+- Latency: p99 < 2s; p95 < 1s.
+- Error budget: 0.1% 5xx over 30 days.
+
+### Incident quick checks
+```bash
+# DNS
+dig elevatediq.ai +short
+
+# Cert status
+gcloud compute ssl-certificates describe elevatediq-ssl-cert --global | grep 'managed:' -A3
+
+# URL map routing
+gcloud compute url-maps describe ollama-url-map --global | grep -A2 'pathMatchers'
+
+# Backend reachable via LB
+curl -i https://elevatediq.ai/ollama/health
+
+# Backend direct
+curl -i http://d8r978f08m4.d.firewalla.org:11000/health
+```
+
+### Post-incident checklist
+- Root cause captured in runbook with timeline and impact.
+- Any temporary firewall loosening reverted.
+- NEG endpoint/cert restored to intended values.
+- Monitoring gaps closed with alerts/dashboards.
+- User communication sent if impacted.
