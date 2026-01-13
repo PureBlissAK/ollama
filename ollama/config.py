@@ -19,26 +19,37 @@ class Settings(BaseSettings):
     port: int = Field(default=8000, description="Server port")
     workers: int = Field(default=4, description="Number of workers")
     log_level: str = Field(default="INFO", description="Logging level")
-    public_url: str = Field(default="http://localhost:8000", description="Public URL")
+    # PUBLIC_API_URL: Use real IP/DNS in development, GCP LB in production
+    public_url: str = Field(
+        default="https://elevatediq.ai/ollama",
+        description="Public API endpoint (development: use real IP/DNS, production: GCP Load Balancer)"
+    )
 
-    # Database
+    # Database - Use Docker service name (internal communication)
     database_url: str = Field(
         default="postgresql+asyncpg://ollama:changeme@postgres:5432/ollama",
-        description="PostgreSQL connection URL",
+        description="PostgreSQL connection URL (use 'postgres' service name in Docker)",
     )
     database_pool_size: int = Field(default=20, description="DB pool size")
 
-    # Redis
-    redis_url: str = Field(default="redis://localhost:6379/0", description="Redis connection URL")
+    # Redis - Use Docker service name (internal communication)
+    redis_url: str = Field(
+        default="redis://redis:6379/0",
+        description="Redis connection URL (use 'redis' service name in Docker, NOT localhost)"
+    )
     redis_password: Optional[str] = Field(default=None, description="Redis password")
 
-    # Qdrant
-    qdrant_host: str = Field(default="localhost", description="Qdrant host")
+    # Qdrant - Use Docker service name (internal communication)
+    qdrant_host: str = Field(
+        default="qdrant",
+        description="Qdrant host (use 'qdrant' service name in Docker, NOT localhost)"
+    )
     qdrant_port: int = Field(default=6333, description="Qdrant port")
 
-    # Ollama
+    # Ollama - Use Docker service name (internal communication)
     ollama_base_url: str = Field(
-        default="http://localhost:11434", description="Ollama inference engine URL"
+        default="http://ollama:11434",
+        description="Ollama inference engine URL (use 'ollama' service name in Docker, NOT localhost)"
     )
 
     # Authentication
@@ -56,7 +67,13 @@ class Settings(BaseSettings):
     ollama_connect_timeout: float = Field(default=10.0, description="Connection timeout")
 
     # CORS
-    cors_origins: List[str] = Field(default=["*"], description="Allowed CORS origins")
+    # MANDATE: Never use ["*"] - must explicitly allow origins
+    # Development: Allow real IP/DNS and localhost testing
+    # Production: Only allow GCP Load Balancer
+    cors_origins: List[str] = Field(
+        default=["https://elevatediq.ai", "https://elevatediq.ai/ollama"],
+        description="Allowed CORS origins (production: GCP LB only, development: add real IP/DNS)"
+    )
     cors_allow_credentials: bool = Field(default=True)
     cors_expose_headers: List[str] = Field(default=["Content-Type"])
 

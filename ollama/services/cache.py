@@ -18,11 +18,11 @@ _cache_manager: Optional["CacheManager"] = None
 class CacheManager:
     """Redis-based cache manager for distributed caching"""
 
-    def __init__(self, redis_url: str = "redis://localhost:6379/0", db: int = 0) -> None:
+    def __init__(self, redis_url: str = "redis://redis:6379/0", db: int = 0) -> None:
         """Initialize cache manager
         
         Args:
-            redis_url: Redis connection URL
+            redis_url: Redis connection URL (use 'redis' Docker service name, NOT localhost)
             db: Database number to use
         """
         self.redis_url = redis_url
@@ -159,12 +159,12 @@ class CacheManager:
 
 
 def init_cache(
-    redis_url: str = "redis://localhost:6379/0", db: int = 0
+    redis_url: str = "redis://redis:6379/0", db: int = 0
 ) -> CacheManager:
     """Initialize cache manager
     
     Args:
-        redis_url: Redis connection URL
+        redis_url: Redis connection URL (use 'redis' Docker service name, NOT localhost)
         db: Database number to use
         
     Returns:

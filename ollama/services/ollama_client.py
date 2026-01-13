@@ -80,11 +80,11 @@ class ChatRequest:
 class OllamaClient:
     """Client for Ollama local inference engine"""
 
-    def __init__(self, base_url: str = "http://localhost:11434") -> None:
+    def __init__(self, base_url: str = "http://ollama:11434") -> None:
         """Initialize Ollama client
         
         Args:
-            base_url: Ollama base URL
+            base_url: Ollama base URL (use 'ollama' Docker service name, NOT localhost)
         """
         self.base_url = base_url
         self.client: Optional[httpx.AsyncClient] = None
