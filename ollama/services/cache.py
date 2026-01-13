@@ -20,7 +20,7 @@ class CacheManager:
 
     def __init__(self, redis_url: str = "redis://redis:6379/0", db: int = 0) -> None:
         """Initialize cache manager
-        
+
         Args:
             redis_url: Redis connection URL (use 'redis' Docker service name, NOT localhost)
             db: Database number to use
@@ -47,10 +47,10 @@ class CacheManager:
 
     async def get(self, key: str) -> Optional[Any]:
         """Get value from cache
-        
+
         Args:
             key: Cache key
-            
+
         Returns:
             Cached value or None if not found/expired
         """
@@ -70,12 +70,12 @@ class CacheManager:
         self, key: str, value: Any, ttl: Optional[int] = None
     ) -> bool:
         """Set value in cache
-        
+
         Args:
             key: Cache key
             value: Value to cache
             ttl: Time to live in seconds
-            
+
         Returns:
             True if successful, False otherwise
         """
@@ -95,10 +95,10 @@ class CacheManager:
 
     async def delete(self, key: str) -> bool:
         """Delete value from cache
-        
+
         Args:
             key: Cache key
-            
+
         Returns:
             True if key was deleted, False otherwise
         """
@@ -114,10 +114,10 @@ class CacheManager:
 
     async def exists(self, key: str) -> bool:
         """Check if key exists in cache
-        
+
         Args:
             key: Cache key
-            
+
         Returns:
             True if key exists, False otherwise
         """
@@ -133,10 +133,10 @@ class CacheManager:
 
     async def clear(self, pattern: str = "*") -> int:
         """Clear cache entries matching pattern
-        
+
         Args:
             pattern: Key pattern to match (default: clear all)
-            
+
         Returns:
             Number of keys deleted
         """
@@ -162,11 +162,11 @@ def init_cache(
     redis_url: str = "redis://redis:6379/0", db: int = 0
 ) -> CacheManager:
     """Initialize cache manager
-    
+
     Args:
         redis_url: Redis connection URL (use 'redis' Docker service name, NOT localhost)
         db: Database number to use
-        
+
     Returns:
         Initialized CacheManager instance
     """
@@ -177,7 +177,7 @@ def init_cache(
 
 def get_cache_manager() -> Optional[CacheManager]:
     """Get global cache manager instance
-    
+
     Returns:
         Global CacheManager or None if not initialized
     """
