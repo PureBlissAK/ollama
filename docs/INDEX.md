@@ -12,7 +12,15 @@
 - [structure.md](structure.md) - Project structure and organization
 - [ADVANCED_FEATURES.md](ADVANCED_FEATURES.md) - Advanced features guide
 
-### Deployment & Operations
+### Deployment & Operations (Priority: Infrastructure Enhancements)
+**🚀 CRITICAL - Start here for production deployment:**
+- [DEPLOYMENT_DOCUMENTATION_INDEX.md](DEPLOYMENT_DOCUMENTATION_INDEX.md) - Navigation guide for all deployment docs
+- [DEPLOYMENT_EXECUTIVE_SUMMARY.md](DEPLOYMENT_EXECUTIVE_SUMMARY.md) - Executive overview (5 min read)
+- [SECURITY_QUICK_WINS.md](SECURITY_QUICK_WINS.md) - Immediate actionable tasks (2-4 hours)
+- [DEPLOYMENT_IMPLEMENTATION_GUIDE.md](DEPLOYMENT_IMPLEMENTATION_GUIDE.md) - Step-by-step implementation (6-8 weeks)
+- [DEPLOYMENT_ENHANCEMENT_ANALYSIS.md](DEPLOYMENT_ENHANCEMENT_ANALYSIS.md) - Comprehensive technical analysis (200+ lines)
+
+**Traditional Deployment Guides:**
 - [DEPLOYMENT.md](DEPLOYMENT.md) - Local and production deployment
 - [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md) - Pre-deployment checklist
 - [public-deployment.md](public-deployment.md) - Public endpoint deployment
@@ -65,5 +73,5 @@ When updating documentation:
 
 ---
 
-**Last Updated**: January 13, 2026  
+**Last Updated**: January 13, 2026
 **Maintainer**: kushin77/ollama engineering team
