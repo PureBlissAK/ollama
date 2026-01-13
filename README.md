@@ -23,6 +23,30 @@ Ollama is a sophisticated local AI infrastructure platform designed for engineer
 - 🤝 [Contributing Guidelines](CONTRIBUTING.md) - How to contribute
 - 📋 [Standards & Compliance](COPILOT_COMPLIANCE_REPORT.md) - Development standards
 - 🔍 [Documentation Index](docs/INDEX.md) - All documentation organized by topic
+- 📝 [Incomplete Tasks](INCOMPLETE_TASKS_CONSOLIDATED.md) - Outstanding work items and roadmap
+
+### Quality Assurance
+
+This project uses automated quality checks:
+
+- **Type Checking**: `mypy ollama/ --strict` (GitHub Actions)
+- **Code Formatting**: Black + Ruff (Pre-commit hooks + GitHub Actions)
+- **Testing**: 90%+ coverage with pytest (GitHub Actions)
+- **Security**: pip-audit, Bandit, CodeQL (GitHub Actions)
+- **Linting**: Ruff with strict rules (Pre-commit hooks + GitHub Actions)
+
+**Local Checks** (before committing):
+```bash
+# Run all quality checks locally
+pre-commit run --all-files
+
+# Or run individually:
+mypy ollama/ --strict
+ruff check ollama/ --fix
+black ollama/ tests/ --check
+pytest tests/ --cov=ollama
+pip-audit
+```
 
 ## Table of Contents
 

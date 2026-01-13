@@ -22,18 +22,121 @@ cd ollama
 
 Ensure you have GPG signing configured (required for all commits):
 
+#### 2.1 Generate GPG Key (if needed)
+
 ```bash
-# Generate GPG key if you don't have one
+# Generate GPG key - interactive prompts will guide you
 gpg --full-generate-key
 
-# Configure git to sign commits
-git config user.signingkey YOUR_GPG_KEY_ID
-git config commit.gpgsign true
+# When prompted:
+# - Select: RSA and RSA (option 1)
+# - Key size: 4096 bits
+# - Expiry: 3y (3 years)
+# - Real name: Your Name
+# - Email: your.email@company.com (must match git config)
+# - Passphrase: Strong password (≥20 characters)
+#
+# Generation takes 1-2 minutes (move mouse, type to generate entropy)
+```
+
+#### 2.2 Configure Git to Use GPG
+
+```bash
+# List your GPG keys to get the KEY_ID
+gpg --list-secret-keys --keyid-format LONG
+
+# Output looks like:
+# sec   rsa4096/ABCD1234EFGH5678 2026-01-13 [SC] [expires: 2029-01-13]
+#                   ^^^^^^^^^^^^^^
+#                   This is your KEY_ID
+
+# Set your KEY_ID globally
+git config --global user.signingkey ABCD1234EFGH5678
+
+# Enable GPG signing for all commits
+git config --global commit.gpgsign true
+
+# (Optional) Enable GPG signing for tags
+git config --global tag.gpgsign true
 
 # Verify configuration
-git config --list | grep sign
-# Output should show: commit.gpgsign=true
+git config --global --list | grep -E "gpg|sign"
+# Should show:
+# commit.gpgsign=true
+# user.signingkey=ABCD1234EFGH5678
 ```
+
+#### 2.3 Test GPG Signing
+
+```bash
+# Create a test commit to verify GPG signing works
+git add .gitignore  # or any file
+git commit --allow-empty -m "test: verify gpg signing"
+
+# Check if commit is signed (should show "gpg: Good signature")
+git log --show-signature -1
+
+# Verify GitHub shows "Verified" badge on commits at:
+# https://github.com/kushin77/ollama/commits/main
+```
+
+#### 2.4 Troubleshooting GPG Issues
+
+**Issue**: `error: gpg failed to sign the data`
+
+```bash
+# Solution: Add GPG_TTY environment variable
+export GPG_TTY=$(tty)
+
+# Make it permanent (add to ~/.bashrc or ~/.zshrc)
+echo 'export GPG_TTY=$(tty)' >> ~/.bashrc
+source ~/.bashrc
+```
+
+**Issue**: `fatal: cannot run gpg: No such file or directory`
+
+```bash
+# Solution: Install gnupg
+# On Ubuntu/Debian:
+sudo apt-get install gnupg
+
+# On macOS:
+brew install gnupg
+```
+
+**Issue**: `Passphrase prompt doesn't appear`
+
+```bash
+# Solution: Use gpg-agent to cache passphrases
+# Add to ~/.bashrc or ~/.zshrc:
+export GPG_TTY=$(tty)
+gpg-connect-agent updatestartuptty /bye >/dev/null 2>&1
+
+# Restart terminal for changes to take effect
+```
+
+**Issue**: Wrong email in GPG key
+
+```bash
+# Generate a new key with correct email
+gpg --full-generate-key
+
+# Then update git config to use new key
+git config --global user.signingkey YOUR_NEW_KEY_ID
+```
+
+#### 2.5 GPG Best Practices
+
+- ✅ **DO**: Use strong passphrase (≥20 characters, mix of upper/lower/numbers/symbols)
+- ✅ **DO**: Back up your private key in secure location:
+  ```bash
+  # Export private key (keep secure!)
+  gpg --export-secret-keys YOUR_KEY_ID > private_key_backup.gpg
+  ```
+- ✅ **DO**: Test GPG signing on each new machine before committing
+- ❌ **DON'T**: Share your GPG key or passphrase with anyone
+- ❌ **DON'T**: Use an expiring key (set expiry to 3+ years)
+- ❌ **DON'T**: Commit without GPG signing (hooks will enforce this)
 
 ### 3. Create Python Virtual Environment
 

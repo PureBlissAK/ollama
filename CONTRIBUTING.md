@@ -59,7 +59,29 @@ git commit -S -m "type(scope): description"
 # test(models): add quantization validation tests
 ```
 
-### 4. Run Quality Checks
+### 3.1 Pre-commit Hooks (Automatic)
+
+Pre-commit hooks run automatically before each commit:
+
+```bash
+# First time setup
+pip install pre-commit
+pre-commit install
+
+# Hooks will now run automatically on:
+# - Code formatting (Black)
+# - Linting (Ruff)
+# - Type checking (mypy)
+# - Security scanning (Bandit)
+# - Import sorting (isort)
+# - Trailing whitespace removal
+# - File ending fixes
+# - Commit message validation
+```
+
+If any check fails, fix it and try committing again.
+
+### 4. Run Quality Checks Manually
 
 ```bash
 # Format code
@@ -67,17 +89,24 @@ black ollama/ tests/
 isort ollama/ tests/
 
 # Lint
-ruff check ollama/ tests/
+ruff check ollama/ tests/ --fix
 
 # Type checking
 mypy ollama/ --strict
 
 # Tests
-pytest tests/ -v --cov=ollama
+pytest tests/ -v --cov=ollama --cov-report=term-missing
 
 # Security scan
-bandit -r ollama/
+bandit -r ollama/ -ll
 pip-audit
+
+# Run all at once
+pytest tests/ -v --cov=ollama && \
+  mypy ollama/ --strict && \
+  ruff check ollama/ && \
+  black ollama/ tests/ --check && \
+  pip-audit
 ```
 
 ### 5. Push and Create Pull Request
@@ -91,6 +120,16 @@ Then create a PR on GitHub with:
 - Detailed description of what and why
 - Reference to related issues
 - Screenshots/benchmarks if applicable
+
+**CI/CD Pipeline** will automatically:
+- ✅ Run all tests on Python 3.11 and 3.12
+- ✅ Check type safety with mypy
+- ✅ Lint with Ruff
+- ✅ Scan dependencies for vulnerabilities
+- ✅ Run security checks (Bandit, CodeQL)
+- ✅ Verify code formatting
+
+All checks must pass before merging.
 
 ## Code Style & Standards
 
@@ -113,20 +152,20 @@ def generate_text(
 ) -> str:
     """
     Generate text using specified model.
-    
+
     Args:
         model: Model identifier (e.g., 'llama2')
         prompt: Input prompt for generation
         max_tokens: Maximum tokens to generate (default: 512)
         temperature: Sampling temperature 0-2 (default: 0.7)
-    
+
     Returns:
         Generated text string
-    
+
     Raises:
         ValueError: If model not found or invalid parameters
         RuntimeError: If inference fails
-    
+
     Example:
         >>> response = generate_text("llama2", "Explain quantum computing")
         >>> print(response)
