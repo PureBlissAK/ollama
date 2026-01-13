@@ -24,6 +24,10 @@
 - **MANDATE**: GCP Load Balancer is the ONLY external communication point for clients
 - **MANDATE**: All internal services communicate locally via Docker network
 - **MANDATE**: Zero direct client connections to internal services (all routed through LB)
+- **MANDATE**: Local development MUST point to real server IP or DNS (never localhost/127.0.0.1)
+  - Ensures feature parity with production deployments
+  - Catches network-specific issues early
+  - Validates DNS resolution and service discovery
 - Data never leaves local infrastructure unless explicitly configured
 
 ### 3. Security & Privacy Non-Negotiable
@@ -44,6 +48,8 @@
 - **Monitoring**: Prometheus, Grafana, Jaeger (distributed tracing)
 - **ML Stack**: Ollama, PyTorch, HuggingFace Transformers
 - **MANDATE**: Filesystem structure strictly enforced (see Elite Filesystem Standards)
+- **MANDATE**: Docker hygiene and consistency strictly enforced (see Docker Standards)
+- **MANDATE**: All development pointing to real IPs/DNS, never localhost (see Development Endpoints)
 
 ## Deployment Architecture Mandate
 
@@ -1247,22 +1253,148 @@ log.info(
 - Disk usage > 80%
 - Memory usage > 90%
 
+## Docker Standards & Hygiene
+
+### MANDATE: Container Hygiene
+
+**Image Management**:
+- All images use explicit version tags (never `latest` tag)
+- All images from trusted registries (Docker Hub official, GCR, ECR)
+- Minimal base images: `alpine:3.18`, `python:3.12-slim`, `postgres:15-alpine`
+- No hardcoded credentials in images (use secrets/env vars)
+- Regular vulnerability scanning with Trivy
+- Build images with multi-stage builds to minimize size
+- Remove build dependencies to reduce final image size
+- Document all image contents and dependencies
+
+**Container Consistency**:
+- All containers use same network driver (`bridge`)
+- Container names follow pattern: `ollama-{service}-{env}` (e.g., `ollama-api-dev`)
+- All containers have resource limits: `memory`, `cpus`
+- All containers have health checks with 30s timeout
+- Health check returns exit code 0 (healthy) or 1 (unhealthy)
+- Container restart policy: `on-failure:3` (except for one-off tasks)
+- All containers log to stdout/stderr (no file logging in containers)
+- Structured logging with consistent JSON format
+
+**Volume & Mount Consistency**:
+- Named volumes for persistent data (not bind mounts in production)
+- Read-only mounts when possible (`ro` flag)
+- Mount paths consistent across all environments
+- Database volumes: `/var/lib/postgresql/data`, `/var/lib/mysql/data`
+- Cache volumes: `/var/lib/redis`, `/data` for Qdrant
+- No mounting host `/tmp` or `/var/tmp` (use container temp)
+- Document all volume purposes in docker-compose comments
+
+**Environment Variable Consistency**:
+- All env vars defined in `.env.example` template
+- Dev env vars in `.env.dev` (gitignored)
+- Production env vars in GCP Secret Manager (never in `.env`)
+- Use UPPER_SNAKE_CASE for all env var names
+- Document each var with type and purpose in comments
+- Validate all env vars on container startup
+- Fail fast if required env vars missing
+
+**Docker Compose Standards**:
+- Version: `3.9` or higher
+- Use `services`, `networks`, `volumes` top-level keys
+- Indent consistently (2 spaces, no tabs)
+- Services organized: api → databases → caches → monitoring
+- All internal services on single `bridge` network
+- Explicit service dependencies with `depends_on`
+- Override files: `docker-compose.override.yml` for local dev (gitignored)
+- Production file: `docker-compose.prod.yml` (committed, no secrets)
+
+### MANDATE: Development Endpoints
+
+**Local Development MUST use Real IP/DNS (Never localhost/127.0.0.1)**:
+
+```bash
+# Get your real local IP
+REAL_IP=$(hostname -I | awk '{print $1}')  # Linux
+REAL_IP=$(ipconfig getifaddr en0)          # macOS
+
+# Or use DNS name (if configured)
+DNS_NAME="dev-ollama.internal"            # Your internal DNS
+
+# Use in development .env
+API_HOST=$REAL_IP                          # ✅ CORRECT
+API_HOST=$DNS_NAME                         # ✅ CORRECT
+# API_HOST=127.0.0.1                       # ❌ WRONG
+# API_HOST=localhost                       # ❌ WRONG
+
+# Configure services to bind to real IP
+FASTAPI_HOST=0.0.0.0                       # Listen on all interfaces
+FASTAPI_PORT=8000                          # Specific port
+PUBLIC_API_URL=http://$REAL_IP:8000       # ✅ Use real IP in URLs
+```
+
+**Why Real IP Mandate**:
+1. **Feature Parity**: Development matches production networking behavior
+2. **Service Discovery**: Validates DNS resolution and multi-host communication
+3. **Network Testing**: Catches network-specific bugs before production
+4. **Cross-Machine Access**: Enables team collaboration on local deployments
+5. **Load Balancer Testing**: Simulates public endpoint routing
+
+**Development Environment File** (`.env.dev`):
+```bash
+# Required for all local development
+ENVIRONMENT=development
+DEBUG=true
+LOG_LEVEL=debug
+
+# ✅ MUST use real IP or DNS
+REAL_IP=$(hostname -I | awk '{print $1}')
+FASTAPI_HOST=0.0.0.0
+FASTAPI_PORT=8000
+PUBLIC_API_URL=http://$REAL_IP:8000
+API_KEY=dev-key-for-testing-only
+
+# Internal service discovery (Docker network)
+DATABASE_URL=postgresql://postgres:password@postgres:5432/ollama
+REDIS_URL=redis://redis:6379/0
+QDRANT_URL=http://qdrant:6333
+OLLAMA_BASE_URL=http://ollama:11434
+
+# ❌ FORBIDDEN: Never use these
+# FASTAPI_HOST=127.0.0.1
+# FASTAPI_HOST=localhost
+# DATABASE_URL=postgresql://localhost/ollama
+# REDIS_URL=redis://localhost:6379/0
+```
+
 ## Deployment Practices
 
 ### Local Development
 ```bash
-# Start all services with Docker
+# 1. Set real IP/DNS in environment
+export REAL_IP=$(hostname -I | awk '{print $1}')
+# or
+export REAL_IP="dev-ollama.internal"  # If using DNS
+
+# 2. Create development environment
+cp .env.example .env.dev
+sed -i "s|PUBLIC_API_URL=.*|PUBLIC_API_URL=http://$REAL_IP:8000|" .env.dev
+
+# 3. Start all services with Docker (using real IP)
 docker-compose up -d
 
-# Run migrations
+# 4. Run migrations
 alembic upgrade head
 
-# Start dev server with hot reload
-# ✅ Defaults to localhost:8000 (not exposed)
+# 5. Start dev server with real IP
+# ✅ CORRECT: Bind to all interfaces, access via real IP
 uvicorn ollama.main:app --reload --host 0.0.0.0 --port 8000
 
-# Access through default endpoint
-# Development: http://localhost:8000
+# 6. Access through REAL IP (not localhost)
+# ✅ CORRECT endpoints (using real IP)
+curl http://$REAL_IP:8000/api/v1/health
+curl http://dev-ollama.internal:8000/api/v1/health  # If using DNS
+
+# ❌ WRONG endpoints (never use these)
+# curl http://localhost:8000/api/v1/health
+# curl http://127.0.0.1:8000/api/v1/health
+
 # Production: https://elevatediq.ai/ollama (through GCP LB)
 ```
 
@@ -1293,8 +1425,23 @@ curl http://<server-ip>:11434           # Should fail
 
 ### Deployment Topology (MANDATORY)
 
-All deployments MUST follow this topology:
+**Development Topology** (using real IP):
+```
+Development Clients
+(Real IP: 192.168.1.100 or dns: dev-ollama.internal)
+         ↓
+    FastAPI Server
+    http://192.168.1.100:8000
+    http://dev-ollama.internal:8000
+         ↓
+Docker Container Network (Internal Only)
+├── FastAPI (0.0.0.0:8000) ← binds all interfaces
+├── PostgreSQL (postgres:5432) ← internal service name
+├── Redis (redis:6379) ← internal service name
+└── Ollama (ollama:11434) ← internal service name
+```
 
+**Production Topology** (GCP Load Balancer):
 ```
 External Clients (Internet)
          ↓
@@ -1304,19 +1451,22 @@ External Clients (Internet)
     Mutual TLS 1.3+
          ↓
 Docker Container Network (Internal Only)
-├── FastAPI (localhost:8000)
-├── PostgreSQL (postgres:5432)
-├── Redis (redis:6379)
-└── Ollama (ollama:11434)
+├── FastAPI (0.0.0.0:8000) ← binds all interfaces
+├── PostgreSQL (postgres:5432) ← internal service name
+├── Redis (redis:6379) ← internal service name
+└── Ollama (ollama:11434) ← internal service name
 ```
 
 **Key Points:**
-- ✅ GCP Load Balancer = ONLY external entry point
-- ✅ All services listen on internal addresses
-- ✅ All client traffic routed through GCP LB
-- ✅ No direct client access to internal services
-- ❌ Never expose internal service ports
-- ❌ Never bypass GCP LB for client requests
+- ✅ Development uses real IP or DNS (never localhost)
+- ✅ All services bind to 0.0.0.0 (listen on all interfaces)
+- ✅ Services referenced by Docker service names internally
+- ✅ GCP Load Balancer = ONLY external entry point (production)
+- ✅ All client traffic routed through GCP LB (production)
+- ❌ Never use localhost in development
+- ❌ Never use 127.0.0.1 in development
+- ❌ Never expose internal service ports directly
+- ❌ Never bypass GCP LB for client requests (production)
 
 ### Deployment Checklist
 - [ ] All tests passing
