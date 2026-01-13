@@ -15,6 +15,7 @@
 - Type hints are mandatory on all function signatures (Python 3.11+)
 - 100% test coverage for critical paths; ≥90% overall coverage
 - Code reviews required before merging to main
+- **MANDATE**: No commits without passing all quality checks (tests, type checking, linting, security audit)
 
 ### 2. Local Sovereignty with Public Access
 - All AI models and inference engines run locally (Docker containers)
@@ -28,7 +29,8 @@
 - CORS with explicit allow lists (never use *)
 - TLS 1.3+ for public traffic, mutual TLS for internal services
 - Never commit credentials—use `.env.example` templates
-- Sign all git commits: `git commit -S`
+- **MANDATE**: Sign all git commits with GPG: `git commit -S` (enforced by hooks)
+- **MANDATE**: All commits are immutable and traceable—no force pushes without approval
 - Regular security audits with `pip-audit`, `safety`, Snyk
 
 ### 4. Architecture Excellence
@@ -38,6 +40,7 @@
 - **Containerization**: Docker 24+, Docker Compose 2.20+
 - **Monitoring**: Prometheus, Grafana, Jaeger (distributed tracing)
 - **ML Stack**: Ollama, PyTorch, HuggingFace Transformers
+- **MANDATE**: Filesystem structure strictly enforced (see Elite Filesystem Standards)
 
 ## Code Structure and Patterns
 
@@ -46,74 +49,522 @@
 ollama/
 ├── app/                    # FastAPI application
 │   ├── api/               # API routes and schemas
-│   ├── repositories/      # Data access layer
-│   ├── services/          # Business logic
+│   │   ├── routes/        # Route handlers (one file per resource)
+│   │   ├── schemas/       # Pydantic models (request/response)
+│   │   └── dependencies.py # Dependency injection
+│   ├── repositories/      # Data access layer (one class per entity)
+│   ├── services/          # Business logic (one file per domain)
 │   ├── middleware/        # Request/response processing
-│   └── monitoring/        # Observability
+│   ├── exceptions.py      # Custom exception hierarchy
+│   ├── models.py          # SQLAlchemy ORM models
+│   └── monitoring/        # Observability (logging, metrics, tracing)
 ├── config/                # Configuration files
+│   ├── settings.py        # Environment-based settings
+│   ├── development.yaml   # Dev environment config
+│   └── production.yaml    # Production environment config
 ├── docker/                # Docker configuration
+│   ├── Dockerfile         # Multi-stage build
+│   ├── nginx/            # Reverse proxy config
+│   ├── postgres/         # Database initialization
+│   └── redis/            # Cache initialization
 ├── docs/                  # Documentation
+│   ├── architecture.md    # System design
+│   ├── api-design.md      # API conventions
+│   ├── DEPLOYMENT.md      # Deployment procedures
+│   └── troubleshooting.md # Common issues and solutions
 ├── k8s/                   # Kubernetes manifests
-├── monitoring/            # Prometheus, Grafana configs
-├── scripts/               # Automation scripts
-├── tests/                 # Test suites
-│   ├── unit/
-│   ├── integration/
-│   └── e2e/
-└── alembic/               # Database migrations
+│   ├── base/             # Base configurations
+│   ├── overlays/         # Environment-specific overlays
+│   └── helm/             # Helm charts
+├── monitoring/            # Prometheus, Grafana, Jaeger configs
+│   ├── prometheus.yml    # Metrics collection
+│   ├── alerts.yml        # Alert rules
+│   └── grafana/          # Dashboard definitions
+├── scripts/               # Automation and utility scripts
+│   ├── setup.sh          # Initial setup
+│   ├── migrate.sh        # Database migrations
+│   └── health-check.sh   # Health verification
+├── tests/                 # Test suites (mirror app structure)
+│   ├── unit/             # Unit tests (fast, isolated)
+│   ├── integration/      # Integration tests (with services)
+│   └── e2e/              # End-to-end tests (full stack)
+├── alembic/              # Database migrations
+│   └── versions/         # Migration scripts (ordered, descriptive names)
+└── venv/                 # Virtual environment (gitignored)
 ```
+
+### Elite Filesystem Standards
+
+**MANDATE**: Filesystem structure is non-negotiable and strictly enforced.
+
+#### Naming Conventions
+- **Modules**: `lowercase_with_underscores.py` (snake_case)
+- **Classes**: `PascalCase` (CapWords)
+- **Functions**: `snake_case`
+- **Constants**: `SCREAMING_SNAKE_CASE`
+- **Files per module**: Maximum 1 class per file (exceptions: helper constants, enums in same file)
+- **Directories**: Singular or plural consistently (`services/`, `repositories/`, `api/routes/`)
+
+#### File Organization Rules
+```python
+# Standard module header (ALWAYS INCLUDE)
+"""Module description in one sentence.
+
+Detailed description (2-3 sentences) explaining what this module does,
+its responsibilities, and how it fits into the system.
+
+Example:
+    >>> from ollama.services.auth import generate_api_key
+    >>> key = generate_api_key(prefix="sk")
+    >>> print(key)
+    sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+"""
+
+# Imports (organized in groups)
+from typing import Optional, Any
+from pathlib import Path
+import logging
+
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel, Field
+import structlog
+
+from ollama.exceptions import AuthenticationError
+from ollama.repositories.user import UserRepository
+
+# Module-level constants
+DEFAULT_TOKEN_EXPIRY = 3600
+MAX_RETRIES = 3
+
+# Logger
+log = structlog.get_logger(__name__)
+
+# Classes
+class APIKeyManager:
+    """Manages API key generation, validation, and revocation."""
+    
+    def __init__(self, repo: UserRepository) -> None:
+        """Initialize manager with user repository."""
+        self.repo = repo
+    
+    def generate_key(self, prefix: str = "sk") -> str:
+        """Generate a cryptographically secure API key."""
+        # Implementation...
+```
+
+#### Test File Mirroring
+- Tests mirror app structure exactly
+- Test file: `tests/unit/test_auth.py` mirrors `ollama/services/auth.py`
+- Test class: `TestAPIKeyManager` for `APIKeyManager` class
+- Test method: `test_generate_key_valid` for `generate_key` method
+- Prefix test methods with `test_` and use descriptive names
+
+#### Directory Creation Rules
+- Create parent directories only when needed (no premature structure)
+- Use consistent naming across the codebase
+- Document directory purpose in `__init__.py` docstring
+- One domain per directory (never mix auth with models)
 
 ### Module Organization
 Every Python module must include:
-- Clear single responsibility
-- Type hints on all functions
+- Clear docstring explaining module purpose (not class, not function, but module)
+- Single responsibility principle (one domain = one file)
+- Type hints on all functions (no exceptions)
 - Google-style docstrings with examples
 - Proper error handling with custom exception hierarchy
-- Unit tests co-located in `tests/` directory
+- Unit tests co-located in `tests/` directory (mirroring structure)
+- All imports organized and sorted (stdlib, third-party, local)
 
-### Example Code Pattern
+## Function Separation & Elite Coding Standards
+
+### Single Responsibility Principle (SRP)
+- **MANDATE**: Every function has ONE reason to change
+- **Function Length**: Maximum 50 lines (ideal), 100 lines (acceptable)
+- **Cognitive Complexity**: Max complexity score of 10 (measure with flake8-cognitive-complexity)
+- **Parameters**: Max 4 parameters (use dataclasses for more)
+- **Returns**: Return single value or explicit tuple (never implicit)
+
+#### Function Design Rules
 ```python
+# ❌ BAD: Function does too much (violates SRP)
+def process_user_and_generate_token(user_data: dict) -> dict:
+    """Validates user, stores in DB, generates token, sends email."""
+    # 50+ lines mixing validation, DB, crypto, and email
+    user = validate_user_data(user_data)  # Validation
+    db.users.insert(user)                 # Data access
+    token = generate_jwt(user.id)         # Cryptography
+    send_welcome_email(user.email)        # External service
+    return {"user": user, "token": token}
+
+# ✅ GOOD: Each function has single purpose
+def validate_user_data(data: dict) -> UserData:
+    """Validate user input data."""
+    schema = UserSchema()
+    return schema.load(data)
+
+def persist_user(user: UserData) -> User:
+    """Save validated user to database."""
+    return UserRepository().create(user)
+
+def generate_user_token(user_id: UUID) -> str:
+    """Generate JWT token for user."""
+    return TokenGenerator().create_token(user_id)
+
+async def notify_user_registration(user: User) -> None:
+    """Send welcome email to user."""
+    await EmailService().send_welcome(user.email)
+
+async def register_user(user_data: dict) -> dict:
+    """Orchestrate user registration workflow.
+    
+    Coordinates validation, persistence, token generation, and notification.
+    """
+    user = validate_user_data(user_data)
+    persisted_user = persist_user(user)
+    token = generate_user_token(persisted_user.id)
+    await notify_user_registration(persisted_user)
+    return {"user": persisted_user, "token": token}
+```
+
+### Pure Functions & Immutability
+- **MANDATE**: Favor pure functions (no side effects)
+- **Rule**: If function has side effects, prefix name with verb: `send_email()`, `persist_user()`
+- **Never modify inputs**: Use `dataclasses.replace()` or `copy.deepcopy()`
+
+```python
+# ❌ BAD: Modifies input (side effect)
+def apply_discount(product: dict) -> dict:
+    """Apply discount to product."""
+    product["price"] = product["price"] * 0.9  # Modifies input!
+    return product
+
+# ✅ GOOD: Pure function (no side effects)
+def apply_discount(product: Product) -> Product:
+    """Return product with discount applied."""
+    from dataclasses import replace
+    discounted_price = product.price * 0.9
+    return replace(product, price=discounted_price)
+```
+
+### Error Handling: Explicit Over Implicit
+- **MANDATE**: Always use custom exception hierarchy
+- **Never**: Catch `Exception` (catch specific exceptions)
+- **Never**: Silent failures or bare `except` clauses
+- **Always**: Provide context in exceptions (message + data)
+
+```python
+# ❌ BAD: Silent failure, bare except
+try:
+    inference_engine.generate(prompt)
+except:
+    pass  # What happened?!
+
+# ✅ GOOD: Explicit exception handling
+try:
+    response = inference_engine.generate(prompt)
+except ModelNotFoundError as e:
+    log.error("model_not_found", model=e.model_name, prompt=prompt[:50])
+    raise APIException(
+        code="MODEL_NOT_FOUND",
+        message=f"Model {e.model_name} not found",
+        status_code=404
+    )
+except InferenceTimeoutError as e:
+    log.warning("inference_timeout", elapsed_ms=e.elapsed_ms)
+    raise APIException(
+        code="INFERENCE_TIMEOUT",
+        message="Inference timed out. Try again.",
+        status_code=504
+    )
+```
+
+### Type Safety: Always
+- **MANDATE**: 100% type coverage for all functions
+- **Rule**: `mypy ollama/ --strict` must pass without errors
+- **Never**: Use `Any` without explicit `# type: ignore` with justification
+- **Always**: Type method arguments and return values
+
+```python
+# ❌ BAD: No types, uses Any
+def process_request(request):
+    data = request.json()
+    result = do_something(data)
+    return result
+
+# ✅ GOOD: Full type coverage
 from typing import Optional
-from pydantic import BaseModel, Field
+from fastapi import Request
+from ollama.api.schemas import QueryRequest, QueryResponse
 
-class ModelRequest(BaseModel):
-    """Request schema for model inference.
-    
-    Args:
-        prompt: User input text
-        max_tokens: Maximum tokens to generate
-        temperature: Sampling temperature (0.0-2.0)
-    
-    Example:
-        >>> req = ModelRequest(prompt="Hello world", max_tokens=100)
-        >>> req.temperature
-        0.7
-    """
-    prompt: str = Field(..., min_length=1, max_length=10000)
-    max_tokens: Optional[int] = Field(default=512, ge=1, le=4096)
-    temperature: float = Field(default=0.7, ge=0.0, le=2.0)
+async def process_request(request: Request) -> QueryResponse:
+    """Process query request and return response."""
+    data = await request.json()
+    query = QueryRequest(**data)
+    result = await do_something(query)
+    return QueryResponse(**result)
+```
 
-async def generate_response(
-    request: ModelRequest,
-    model_name: str
-) -> dict[str, Any]:
-    """Generate model response asynchronously.
+### Testing & Coverage
+- **MANDATE**: ≥90% code coverage, 100% for critical paths
+- **Rule**: Test file for every module (mirror structure)
+- **Never**: Skip test or use `# pragma: no cover` without approval
+- **Always**: Test happy path, edge cases, and error paths
+
+```python
+# ❌ BAD: Untested code paths
+def validate_input(value: int) -> bool:
+    if value < 0:
+        return False  # Not tested!
+    return value > 100
+
+# ✅ GOOD: All paths tested
+def validate_input(value: int) -> bool:
+    """Validate that value is positive and > 100."""
+    return value > 0 and value > 100
+
+class TestValidateInput:
+    """Tests for validate_input function."""
     
-    Args:
-        request: Validated request parameters
-        model_name: Name of the Ollama model to use
+    def test_valid_input(self) -> None:
+        """Input above 100 returns True."""
+        assert validate_input(150) is True
     
-    Returns:
-        Dictionary containing generated text and metadata
-        
-    Raises:
-        ModelNotFoundError: If model doesn't exist
-        InferenceError: If generation fails
-    """
-    # Implementation...
+    def test_below_threshold(self) -> None:
+        """Input below 100 returns False."""
+        assert validate_input(50) is False
+    
+    def test_negative_input(self) -> None:
+        """Negative input returns False."""
+        assert validate_input(-10) is False
+    
+    def test_boundary_100(self) -> None:
+        """Input exactly 100 returns False."""
+        assert validate_input(100) is False
+    
+    def test_boundary_101(self) -> None:
+        """Input 101 returns True."""
+        assert validate_input(101) is True
+```
+
+### Code Organization: Vertical Density
+- **Related code should be close together** (but not crowded)
+- **Unrelated code should be separated** (different files/modules)
+- **Order of declarations**: Classes before functions, public before private
+- **Imports at top** (organized: stdlib, third-party, local)
+
+```python
+# Standard module structure
+"""Module description."""
+
+from typing import Optional
+import logging
+
+from fastapi import HTTPException
+from pydantic import BaseModel
+
+import structlog
+
+from ollama.exceptions import AuthenticationError
+from ollama.repositories.user import UserRepository
+
+log = structlog.get_logger(__name__)
+
+# Constants
+DEFAULT_EXPIRY = 3600
+
+# Classes (public first)
+class APIKeyManager:
+    """Manages API keys."""
+    
+    def generate_key(self) -> str:
+        """Generate key."""
+        ...
+    
+    def _validate_key(self, key: str) -> bool:
+        """Private helper method."""
+        ...
+
+# Functions (public first)
+async def authenticate_request(token: str) -> dict:
+    """Authenticate incoming request."""
+    ...
+
+# Private functions (underscore prefix)
+def _parse_token(token: str) -> dict:
+    """Parse JWT token."""
+    ...
 ```
 
 ## Development Workflow
+
+### Mandatory Git Hygiene
+
+**MANDATE**: Perfect git history is non-negotiable.
+
+#### Commit Frequency & Size
+- **Commit Early, Commit Often**: Minimum of 1 meaningful commit per 30 minutes of development
+- **Atomic Commits**: Each commit represents ONE logical unit of work
+  - Commit should be reversible without breaking other commits
+  - Should not contain unrelated changes (e.g., don't mix refactoring with new features)
+  - All tests passing at every commit (enforce with pre-commit hooks)
+- **Maximum File Changes Per Commit**: 
+  - Ideal: 5-10 files
+  - Acceptable: Up to 20 files
+  - Never: Single commits touching 100+ files (split into logical chunks)
+- **Commit Size Guide**:
+  - Small: 10-50 lines changed (ideal)
+  - Medium: 50-200 lines changed (acceptable)
+  - Large: 200-500 lines changed (review needed)
+  - Never: Single commits > 1000 lines (always split)
+
+#### Commit Message Standards
+- **Format**: `type(scope): description`
+- **Rules**:
+  - First line (subject): Max 50 characters
+  - Blank line after subject (required)
+  - Body: Explain WHAT and WHY, not HOW
+  - Body lines: Max 72 characters
+  - Sign all commits: `git commit -S` (GPG signing enforced)
+  - Reference issues: `Fixes #123` or `Relates to #456`
+
+**Types** (must be lowercase):
+- `feat`: New feature (always increases version minor)
+- `fix`: Bug fix (increases patch version)
+- `refactor`: Code refactoring without behavior change
+- `perf`: Performance improvement
+- `test`: Adding/modifying tests
+- `docs`: Documentation updates
+- `infra`: Infrastructure, CI/CD, Docker changes
+- `security`: Security-related changes
+- `chore`: Maintenance, dependency updates
+
+**Scope** (lowercase, 15 chars max):
+- `api`: API routes and endpoints
+- `auth`: Authentication and authorization
+- `models`: ML model integration
+- `db`: Database and repositories
+- `cache`: Redis and caching
+- `config`: Configuration management
+- `docker`: Docker and containerization
+- `k8s`: Kubernetes orchestration
+- `monitoring`: Observability, metrics, logging
+- `testing`: Test infrastructure
+- `types`: Type hints and mypy fixes
+
+**Examples**:
+```
+feat(api): add streaming response support
+
+Add support for server-sent events (SSE) in the inference endpoint.
+This allows clients to receive partial responses as tokens are generated,
+improving perceived latency for long-form generations.
+
+Implements RFC-001: Streaming API Design
+Performance improvement: 40% reduction in perceived latency
+All existing tests pass. New tests added for SSE handling.
+
+Fixes #234
+```
+
+```
+fix(auth): resolve token expiration race condition
+
+Previously, concurrent requests could both trigger token refresh,
+causing duplicate refresh tokens to be issued.
+
+Now using atomic compare-and-swap operation for token updates.
+Race condition eliminated; all auth tests pass.
+
+Fixes #198
+```
+
+```
+refactor(services): split inference into dedicated modules
+
+Move inference logic from monolithic services/models.py into:
+- services/inference/generation.py
+- services/inference/embedding.py
+- services/inference/completion.py
+
+No functional changes. All tests passing.
+Test coverage maintained at 94%.
+```
+
+#### Push Frequency
+- **MANDATE**: Push commits at least every 4 hours of active development
+- **Rationale**: Reduces risk of local loss, enables early detection of conflicts
+- **Workflow**: After each atomic commit that passes all checks → Push immediately
+  ```bash
+  git add .
+  git commit -S -m "feat(api): implement new endpoint"
+  git push origin feature/my-feature  # Push IMMEDIATELY
+  ```
+- **Never**: Work locally for more than 4 hours without pushing
+- **Never**: Accumulate commits without pushing (max 5 commits before push)
+- **Rule**: One push per meaningful feature segment
+
+#### Branch Naming (Strict Rules)
+- **Format**: `{type}/{descriptive-name}`
+- **Valid Types**: `feature`, `bugfix`, `refactor`, `infra`, `security`, `docs`
+- **Rules**:
+  - Lowercase only
+  - Hyphens, not underscores
+  - Max 40 characters after type
+  - Descriptive but concise
+- **Examples**:
+  - ✅ `feature/add-conversation-api`
+  - ✅ `bugfix/fix-token-refresh-race`
+  - ✅ `refactor/simplify-model-loading`
+  - ✅ `security/add-rate-limiting`
+  - ❌ `Feature/Add_Conversation_API` (wrong format)
+  - ❌ `feature/add-new-awesome-conversation-endpoint-with-history` (too long)
+
+#### Before Every Commit
+
+**MANDATE**: Run ALL checks before committing. Enforce with pre-commit hooks.
+
+```bash
+# Run in sequence (stops on first failure)
+pytest tests/ -v --cov=ollama --cov-report=term-missing  # Must pass
+mypy ollama/ --strict                                    # Must pass
+ruff check ollama/                                       # Must pass
+pip-audit                                               # Must pass
+
+# If all pass: commit
+git commit -S -m "type(scope): description"
+git push origin feature/branch-name
+```
+
+Or run all at once with VS Code task (See "Run All Checks" task).
+
+#### Conflict Resolution Rules
+- **Always resolve locally** before pushing
+- **Never commit with conflict markers** (`<<<<<<<`, `=======`, `>>>>>>>`)
+- **When pulling**: Check for conflicts immediately
+  ```bash
+  git pull origin main
+  # If conflicts exist:
+  # 1. Fix conflicts manually
+  # 2. Run all tests to verify fix
+  # 3. Commit: git commit -S -m "merge: resolve conflicts with main"
+  # 4. Push immediately
+  ```
+
+#### Force Push Policy
+- **MANDATE**: No force pushes without explicit approval (enforce in CI/CD)
+- **Rationale**: Maintains immutable, traceable history
+- **Exception**: Only on personal feature branches (never on main/develop)
+- **Alternative**: Use `git rebase -i` locally, then force push (after approval)
+
+#### PR Creation Workflow
+1. Ensure all commits follow naming standards
+2. Verify branch name matches pattern
+3. Ensure all tests pass on branch
+4. Create PR with comprehensive description (see PR Template)
+5. Run all checks: Type check, lint, tests, security audit
+6. Request code review
+7. Address all feedback
+8. Merge only after approval + all checks pass
 
 ### Git Commit Standards
 - **Format**: `type(scope): description`
@@ -165,7 +616,7 @@ async def test_verify_api_key_rate_limit(redis_client):
     # Simulate 100 requests in 1 second
     for _ in range(100):
         await verify_api_key(key, redis=redis_client)
-    
+
     with pytest.raises(RateLimitExceeded):
         await verify_api_key(key, redis=redis_client)
 ```
@@ -558,7 +1009,7 @@ py-spy record -o profile.svg -- python main.py
 
 ---
 
-**Version**: 2.0.0  
-**Last Updated**: January 13, 2026  
-**Maintained By**: kushin77/ollama engineering team  
+**Version**: 2.0.0
+**Last Updated**: January 13, 2026
+**Maintained By**: kushin77/ollama engineering team
 **Repository**: https://github.com/kushin77/ollama
