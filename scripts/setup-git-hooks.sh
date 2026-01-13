@@ -1,33 +1,40 @@
 #!/bin/bash
-# Git setup script to enforce Elite Standards
-# Run this once to configure git for the project
+# Setup git hooks for elite standards enforcement
+# Usage: bash scripts/setup-git-hooks.sh
 
 set -e
 
-echo "🚀 Setting up Git for Elite Standards Compliance..."
+echo "🔧 Setting up git hooks for elite standards..."
 echo ""
 
-cd "$(dirname "$0")" || exit 1
+# Create .githooks directory if it doesn't exist
+mkdir -p .githooks
 
-# Configure hooks path
-echo "📍 Configuring hooks path..."
-git config core.hooksPath .husky
-echo "✅ Hooks path configured: .husky"
+# Make hooks executable
+chmod +x .githooks/commit-msg-validate
+chmod +x .githooks/pre-commit-elite
+chmod +x .githooks/pre-push-elite
+
+# Configure git to use .githooks directory
+git config core.hooksPath .githooks
+
+# Create symbolic links in .git/hooks (for backup compatibility)
+mkdir -p .git/hooks
+ln -sf ../../.githooks/commit-msg-validate .git/hooks/commit-msg 2>/dev/null || true
+ln -sf ../../.githooks/pre-commit-elite .git/hooks/pre-commit 2>/dev/null || true
+ln -sf ../../.githooks/pre-push-elite .git/hooks/pre-push 2>/dev/null || true
+
+echo "✅ Git hooks configured:"
+echo "   - commit-msg validation: checks conventional commit format"
+echo "   - pre-commit: runs type checking, linting, formatting, security audit"
+echo "   - pre-push: validates branch naming, runs full test suite"
 echo ""
-
-# Ensure hooks are executable
-echo "🔐 Making hooks executable..."
-chmod +x .husky/pre-commit
-chmod +x .husky/commit-msg
-chmod +x .husky/push
-echo "✅ Hooks are executable"
+echo "📝 To make commits with verification:"
+echo "   git commit -S -m 'type(scope): description'  # -S for GPG signing"
 echo ""
-
-# Configure signing
-echo "🔑 Configuring commit signing..."
-git config commit.gpgsign true
-git config user.signingkey || echo "⚠️  No GPG key configured. Set one with: git config user.signingkey <KEY>"
-echo "✅ GPG signing configured"
+echo "🚫 To skip hooks (not recommended):"
+echo "   git commit --no-verify"
+echo ""
 echo ""
 
 # Configure commit message template

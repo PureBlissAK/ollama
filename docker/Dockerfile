@@ -56,7 +56,17 @@ RUN curl -sSL https://install.python-poetry.org | python3 -
 # ============================================================================
 FROM base as builder
 
-WORKDIR $PYSETUP_PATH
+WORKDIR /build
+
+# Copy project files
+COPY setup.py setup.py
+COPY README.md README.md
+COPY pyproject.toml pyproject.toml
+COPY ollama/ ollama/
+
+# Install dependencies
+RUN pip install --upgrade pip setuptools wheel && \
+    pip install -e . --no-cache-dir
 
 # Copy dependency files
 COPY pyproject.toml poetry.lock ./

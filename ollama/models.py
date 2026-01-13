@@ -3,7 +3,10 @@ Ollama Database Models - SQLAlchemy ORM
 Provides data models for users, conversations, messages, and metadata
 """
 
+from __future__ import annotations
+
 from datetime import datetime, timezone
+from typing import TYPE_CHECKING, Any
 from uuid import uuid4
 
 from sqlalchemy import (
@@ -23,7 +26,10 @@ from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy.sql import func
 
-Base = declarative_base()
+if TYPE_CHECKING:
+    from typing_extensions import Self
+
+Base: Any = declarative_base()
 
 
 class User(Base):
@@ -208,22 +214,26 @@ class Usage(Base):
 
 # Event listeners for automatic timestamp updates
 @event.listens_for(User, "before_update")
-def receive_before_update_user(mapper, connection, target):
+def receive_before_update_user(mapper: Any, connection: Any, target: User) -> None:
+    """Update User timestamp before update."""
     target.updated_at = datetime.now(timezone.utc)
 
 
 @event.listens_for(APIKey, "before_update")
-def receive_before_update_apikey(mapper, connection, target):
+def receive_before_update_apikey(mapper: Any, connection: Any, target: APIKey) -> None:
+    """Update APIKey timestamp before update."""
     target.updated_at = datetime.now(timezone.utc)
 
 
 @event.listens_for(Conversation, "before_update")
-def receive_before_update_conversation(mapper, connection, target):
+def receive_before_update_conversation(mapper: Any, connection: Any, target: Conversation) -> None:
+    """Update Conversation timestamp before update."""
     target.updated_at = datetime.now(timezone.utc)
 
 
 @event.listens_for(Message, "before_update")
-def receive_before_update_message(mapper, connection, target):
+def receive_before_update_message(mapper: Any, connection: Any, target: Message) -> None:
+    """Update Message timestamp before update."""
     target.updated_at = datetime.now(timezone.utc)
 
 

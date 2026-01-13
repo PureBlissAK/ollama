@@ -29,7 +29,7 @@ class BaseRepository(Generic[T]):
         self.model = model
         self.session = session
 
-    async def create(self, **kwargs) -> T:
+    async def create(self, **kwargs: Any) -> T:
         """Create and persist a new record.
 
         Args:
@@ -54,7 +54,7 @@ class BaseRepository(Generic[T]):
         """
         return await self.session.get(self.model, id)
 
-    async def get_one(self, **filters) -> Optional[T]:
+    async def get_one(self, **filters: Any) -> Optional[T]:
         """Retrieve single record matching filters.
 
         Args:
@@ -71,7 +71,7 @@ class BaseRepository(Generic[T]):
         result = await self.session.execute(query)
         return result.scalar_one_or_none()
 
-    async def get_all(self, **filters) -> List[T]:
+    async def get_all(self, **filters: Any) -> list[T]:
         """Retrieve all records matching filters.
 
         Args:
@@ -89,8 +89,8 @@ class BaseRepository(Generic[T]):
         return result.scalars().all()
 
     async def get_paginated(
-        self, page: int = 1, page_size: int = 10, order_by: Optional[str] = None, **filters
-    ) -> tuple[List[T], int]:
+        self, page: int = 1, page_size: int = 10, order_by: Optional[str] = None, **filters: Any
+    ) -> tuple[list[T], int]:
         """Retrieve paginated records.
 
         Args:
@@ -137,7 +137,7 @@ class BaseRepository(Generic[T]):
 
         return records, total
 
-    async def update(self, id: uuid.UUID, **kwargs) -> Optional[T]:
+    async def update(self, id: uuid.UUID, **kwargs: Any) -> Optional[T]:
         """Update record and return updated instance.
 
         Args:
@@ -158,7 +158,7 @@ class BaseRepository(Generic[T]):
         await self.session.flush()
         return instance
 
-    async def update_where(self, values: Dict[str, Any], **filters) -> int:
+    async def update_where(self, values: Dict[str, Any], **filters: Any) -> int:
         """Update multiple records matching filters.
 
         Args:
@@ -195,7 +195,7 @@ class BaseRepository(Generic[T]):
         await self.session.delete(instance)
         return True
 
-    async def delete_where(self, **filters) -> int:
+    async def delete_where(self, **filters: Any) -> int:
         """Delete records matching filters.
 
         Args:
@@ -213,7 +213,7 @@ class BaseRepository(Generic[T]):
         result = await self.session.execute(query)
         return result.rowcount
 
-    async def exists(self, **filters) -> bool:
+    async def exists(self, **filters: Any) -> bool:
         """Check if record exists matching filters.
 
         Args:

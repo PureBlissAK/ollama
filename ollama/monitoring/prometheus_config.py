@@ -3,12 +3,15 @@ Prometheus Metrics Configuration
 Configures Prometheus scrape targets and monitoring
 """
 
+from __future__ import annotations
+
 import logging
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
 # Prometheus configuration
-PROMETHEUS_CONFIG = {
+PROMETHEUS_CONFIG: dict[str, Any] = {
     "global": {
         "scrape_interval": "15s",
         "evaluation_interval": "15s",
@@ -30,7 +33,7 @@ PROMETHEUS_CONFIG = {
 }
 
 # Alert rules
-ALERT_RULES = [
+ALERT_RULES: list[dict[str, Any]] = [
     {
         "alert": "HighErrorRate",
         "expr": "rate(http_requests_total{status_code=~'5..'}[5m]) > 0.1",

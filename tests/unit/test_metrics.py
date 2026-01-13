@@ -4,12 +4,12 @@ Tests Prometheus metrics collection
 """
 
 from ollama.metrics import (
-    AUTH_ATTEMPTS,
     CACHE_HITS,
     CACHE_MISSES,
     REQUEST_COUNT,
     REQUEST_DURATION,
-    export_metrics,
+    REQUEST_SIZE,
+    RESPONSE_SIZE,
 )
 
 

@@ -81,6 +81,38 @@ class Settings(BaseSettings):
     trusted_hosts: Optional[List[str]] = Field(default=None, description="Trusted host names")
     api_key_auth_enabled: bool = Field(default=False)
 
+    # Firebase OAuth (mirrored from Gov-AI-Scout)
+    firebase_enabled: bool = Field(
+        default=False,
+        description="Enable Firebase OAuth authentication (dev: false, prod: true)"
+    )
+    firebase_credentials_path: Optional[str] = Field(
+        default=None,
+        description="Path to Firebase service account JSON (uses GOOGLE_APPLICATION_CREDENTIALS if not set)"
+    )
+    firebase_project_id: str = Field(
+        default="project-131055855980",
+        description="Firebase/GCP project ID"
+    )
+    root_admin_email: str = Field(
+        default="akushnir@bioenergystrategies.com",
+        description="Root admin email (has all permissions)"
+    )
+
+    # GCP OAuth 2.0 Configuration
+    gcp_oauth_client_id: str = Field(
+        default="131055855980-6e0t5fjcnq4akk9rfgjsea801ceu8lcd.apps.googleusercontent.com",
+        description="GCP OAuth 2.0 Client ID for authentication"
+    )
+    gcp_project_id: str = Field(
+        default="project-131055855980",
+        description="GCP Project ID"
+    )
+    gcp_service_account_email: str = Field(
+        default="ollama-service@project-131055855980.iam.gserviceaccount.com",
+        description="GCP Service Account email"
+    )
+
     # Models
     models_path: str = Field(default="/models", description="Path to model files")
 

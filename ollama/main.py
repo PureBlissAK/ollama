@@ -74,6 +74,19 @@ async def lifespan(app: FastAPI):
 
     # Startup tasks
     try:
+        # Initialize Firebase OAuth (if enabled)
+        if settings.firebase_enabled:
+            logger.info("🔐 Initializing Firebase OAuth...")
+            try:
+                from ollama.auth import init_firebase
+                init_firebase(settings.firebase_credentials_path)
+                logger.info("✅ Firebase OAuth initialized")
+            except Exception as e:
+                logger.warning(f"⚠️  Firebase OAuth initialization failed: {e}")
+                logger.warning("⚠️  Protected endpoints will return 503 Service Unavailable")
+        else:
+            logger.info("⚠️  Firebase OAuth disabled (FIREBASE_ENABLED=false)")
+
         # Initialize database connection pool
         logger.info("📦 Initializing database connection...")
         db_manager = init_database(settings.database_url, echo=False)

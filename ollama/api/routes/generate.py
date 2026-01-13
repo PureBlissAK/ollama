@@ -7,7 +7,6 @@ import httpx
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel, Field
 
-from ollama.services.ollama_client import GenerateRequest as OllamaGenerateRequest
 from ollama.services.ollama_client import get_ollama_client
 
 # Expose httpx for test monkeypatching (see tests/integration fixtures)
@@ -53,18 +52,11 @@ async def generate(request: GenerateRequest):
         )
 
     try:
-        # Convert to Ollama client request
-        ollama_request = OllamaGenerateRequest(
+        data = await client.generate(
             model=request.model,
             prompt=request.prompt,
-            stream=False,
-            temperature=request.options.get("temperature") if request.options else None,
-            top_p=request.options.get("top_p") if request.options else None,
-            top_k=request.options.get("top_k") if request.options else None,
+            stream=request.stream,
         )
-
-        # Call Ollama
-        data = await client.generate(ollama_request)
 
         return GenerateResponse(
             model=data.get("model", request.model),

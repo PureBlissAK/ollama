@@ -3,7 +3,11 @@ Grafana Dashboard Configuration
 Provides pre-configured dashboards for monitoring
 """
 
-OLLAMA_API_DASHBOARD = {
+from __future__ import annotations
+
+from typing import Any
+
+OLLAMA_API_DASHBOARD: dict[str, Any] = {
     "dashboard": {
         "title": "Ollama API Monitoring",
         "description": "Real-time monitoring of Ollama API performance and health",
@@ -120,7 +124,7 @@ OLLAMA_API_DASHBOARD = {
     }
 }
 
-SYSTEM_HEALTH_DASHBOARD = {
+SYSTEM_HEALTH_DASHBOARD: dict[str, Any] = {
     "dashboard": {
         "title": "System Health",
         "description": "System-wide health and resource monitoring",
