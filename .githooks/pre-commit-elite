@@ -48,6 +48,7 @@ allowed_root_files=(
     "ELITE_STANDARDS_EXECUTIVE_SUMMARY.md"
     "ELITE_STANDARDS_IMPLEMENTATION_COMPLETE.md"
     "DEEP_SCAN_ELITE_STANDARDS_REPORT.md"
+    "FOLDER_STRUCTURE_ENFORCEMENT_COMPLETE.md"
 )
 
 # Get all files in root (excluding hidden files and directories)
