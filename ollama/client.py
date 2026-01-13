@@ -1,21 +1,22 @@
 """Main Ollama client interface."""
 
-from typing import Optional, List, Dict, Any
-import httpx
 import os
+from typing import Any, Dict, List, Optional
+
+import httpx
 
 
 class Client:
     """
     Ollama client for interacting with local or remote inference server.
-    
+
     Supports both local (http://localhost:8000) and public endpoints
     (https://elevatediq.ai/ollama) with automatic endpoint detection.
 
     Example:
         >>> # Local development
         >>> client = Client()
-        >>> 
+        >>>
         >>> # Public production endpoint (elevatediq.ai)
         >>> client = Client(base_url="https://elevatediq.ai/ollama")
         >>> response = client.generate(
@@ -51,19 +52,19 @@ class Client:
                     base_url = "https://elevatediq.ai/ollama"
                 else:
                     base_url = os.getenv("OLLAMA_HOST", "http://localhost:8000")
-        
+
         self.base_url = base_url.rstrip("/")
         self.api_key = api_key or os.getenv("OLLAMA_API_KEY")
-        
+
         # Setup headers
         headers = {}
         if self.api_key:
             headers["X-API-Key"] = self.api_key
             headers["Authorization"] = f"Bearer {self.api_key}"
-        
+
         # Add user agent
         headers["User-Agent"] = "ollama-client/1.0.0"
-        
+
         self.client = httpx.Client(
             base_url=self.base_url,
             headers=headers,
@@ -94,10 +95,10 @@ class Client:
 
         Returns:
             Generation response with text field
-            
+
         Raises:
             httpx.HTTPError: If request fails
-            
+
         Example:
             >>> response = client.generate(
             ...     model="llama2",

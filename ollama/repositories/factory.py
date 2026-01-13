@@ -4,13 +4,13 @@ Provides a clean interface for accessing repositories in FastAPI endpoints.
 """
 
 from sqlalchemy.ext.asyncio import AsyncSession
-from .base_repository import BaseRepository
-from .user_repository import UserRepository
+
 from .api_key_repository import APIKeyRepository
 from .conversation_repository import ConversationRepository
-from .message_repository import MessageRepository
 from .document_repository import DocumentRepository
+from .message_repository import MessageRepository
 from .usage_repository import UsageRepository
+from .user_repository import UserRepository
 
 
 class RepositoryFactory:
@@ -18,7 +18,7 @@ class RepositoryFactory:
 
     def __init__(self, session: AsyncSession):
         """Initialize factory with database session.
-        
+
         Args:
             session: Async SQLAlchemy session
         """
@@ -69,9 +69,9 @@ class RepositoryFactory:
 
 async def get_repositories():
     """FastAPI dependency for repository factory.
-    
+
     Creates a RepositoryFactory instance with a new session from the database manager.
-    
+
     Usage in endpoints:
         @app.get("/api/v1/conversations")
         async def list_conversations(
@@ -81,15 +81,16 @@ async def get_repositories():
             conv_repo = repos.get_conversation_repository()
             conversations = await conv_repo.get_by_user_id(user_id)
             return conversations
-    
+
     Yields:
         RepositoryFactory instance
     """
     # Get session from database manager
     from ..services import get_db_manager
+
     manager = get_db_manager()
     session = manager._sessionmaker()
-    
+
     factory = RepositoryFactory(session)
     try:
         yield factory

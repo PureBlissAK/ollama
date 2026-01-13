@@ -3,15 +3,12 @@ Document Management API Endpoints
 Provides document ingestion, indexing, and retrieval for RAG pipeline.
 """
 
-from fastapi import APIRouter, Depends, HTTPException, Query, UploadFile, File
-from datetime import datetime
 import uuid
-import json
 
-from ...services.database import DatabaseManager
+from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile
+
 from ...repositories import RepositoryFactory, get_repositories
-from ...services.vector import _vector_manager, VectorManager
-from ...models import Document
+from ...services.vector import VectorManager, _vector_manager
 
 router = APIRouter(
     prefix="/api/v1/documents",
@@ -36,31 +33,31 @@ async def list_documents(
     repos: RepositoryFactory = Depends(get_repositories),
 ):
     """List documents for a user.
-    
+
     Args:
         user_id: User ID
         indexed_only: Only return indexed documents
         page: Page number
         page_size: Documents per page
         repos: Repository factory dependency
-        
+
     Returns:
         Paginated list of documents
     """
     try:
         doc_repo = repos.get_document_repository()
-        
+
         if indexed_only:
             documents = await doc_repo.get_indexed_documents(user_id)
         else:
             documents = await doc_repo.get_by_user_id(user_id)
-        
+
         # Manual pagination
         total = len(documents)
         start = (page - 1) * page_size
         end = start + page_size
         paginated = documents[start:end]
-        
+
         return {
             "total": total,
             "page": page,
@@ -79,7 +76,7 @@ async def list_documents(
             ],
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to list documents: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to list documents: {str(e)}") from e
 
 
 @router.post("/upload")
@@ -93,7 +90,7 @@ async def upload_document(
     repos: RepositoryFactory = Depends(get_repositories),
 ):
     """Upload and process a document.
-    
+
     Args:
         user_id: User ID
         title: Document title
@@ -102,7 +99,7 @@ async def upload_document(
         chunk_overlap: Character overlap between chunks
         auto_index: Automatically index document
         repos: Repository factory dependency
-        
+
     Returns:
         Created document with chunks
     """
@@ -110,27 +107,27 @@ async def upload_document(
         # Read file content
         content = await file.read()
         try:
-            text_content = content.decode('utf-8')
-        except UnicodeDecodeError:
-            raise HTTPException(status_code=400, detail="File must be valid UTF-8 text")
-        
+            text_content = content.decode("utf-8")
+        except UnicodeDecodeError as e:
+            raise HTTPException(status_code=400, detail="File must be valid UTF-8 text") from e
+
         # Create document
         doc_repo = repos.get_document_repository()
-        
+
         # Check for duplicate title
         existing = await doc_repo.get_by_title(user_id, title)
         if existing:
             raise HTTPException(status_code=400, detail="Document with this title already exists")
-        
+
         # Chunk the document
         chunks = []
         text_len = len(text_content)
-        
+
         for i in range(0, text_len, chunk_size - chunk_overlap):
-            chunk = text_content[i:i + chunk_size]
+            chunk = text_content[i : i + chunk_size]
             if chunk.strip():  # Only keep non-empty chunks
                 chunks.append(chunk)
-        
+
         # Create document
         document = await doc_repo.create_document(
             user_id=user_id,
@@ -139,7 +136,7 @@ async def upload_document(
             chunks=chunks,
             is_indexed=auto_index,
         )
-        
+
         return {
             "id": str(document.id),
             "title": document.title,
@@ -150,7 +147,7 @@ async def upload_document(
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to upload document: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to upload document: {str(e)}") from e
 
 
 @router.get("/{document_id}")
@@ -161,23 +158,23 @@ async def get_document(
     repos: RepositoryFactory = Depends(get_repositories),
 ):
     """Get document details.
-    
+
     Args:
         document_id: Document ID
         user_id: User ID (for authorization)
         include_content: Include full content in response
         repos: Repository factory dependency
-        
+
     Returns:
         Document details
     """
     try:
         doc_repo = repos.get_document_repository()
-        
+
         document = await doc_repo.get_by_id(document_id)
         if not document or document.user_id != user_id:
             raise HTTPException(status_code=404, detail="Document not found")
-        
+
         response = {
             "id": str(document.id),
             "title": document.title,
@@ -187,16 +184,16 @@ async def get_document(
             "created_at": document.created_at.isoformat(),
             "updated_at": document.updated_at.isoformat(),
         }
-        
+
         if include_content:
             response["content"] = document.content
             response["chunks"] = document.chunks
-        
+
         return response
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to get document: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to get document: {str(e)}") from e
 
 
 @router.put("/{document_id}")
@@ -207,28 +204,28 @@ async def update_document(
     repos: RepositoryFactory = Depends(get_repositories),
 ):
     """Update document metadata.
-    
+
     Args:
         document_id: Document ID
         user_id: User ID (for authorization)
         title: New title
         repos: Repository factory dependency
-        
+
     Returns:
         Updated document
     """
     try:
         doc_repo = repos.get_document_repository()
-        
+
         document = await doc_repo.get_by_id(document_id)
         if not document or document.user_id != user_id:
             raise HTTPException(status_code=404, detail="Document not found")
-        
+
         if title is not None:
             await doc_repo.update(document_id, title=title)
-        
+
         updated = await doc_repo.get_by_id(document_id)
-        
+
         return {
             "id": str(updated.id),
             "title": updated.title,
@@ -238,7 +235,7 @@ async def update_document(
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to update document: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to update document: {str(e)}") from e
 
 
 @router.delete("/{document_id}")
@@ -248,29 +245,29 @@ async def delete_document(
     repos: RepositoryFactory = Depends(get_repositories),
 ):
     """Delete a document.
-    
+
     Args:
         document_id: Document ID
         user_id: User ID (for authorization)
         repos: Repository factory dependency
-        
+
     Returns:
         Success message
     """
     try:
         doc_repo = repos.get_document_repository()
-        
+
         document = await doc_repo.get_by_id(document_id)
         if not document or document.user_id != user_id:
             raise HTTPException(status_code=404, detail="Document not found")
-        
+
         await doc_repo.delete(document_id)
-        
+
         return {"message": "Document deleted successfully"}
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to delete document: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to delete document: {str(e)}") from e
 
 
 @router.post("/{document_id}/index")
@@ -282,70 +279,73 @@ async def index_document(
     repos: RepositoryFactory = Depends(get_repositories),
 ):
     """Index document chunks into vector database.
-    
+
     Args:
         document_id: Document ID
         user_id: User ID (for authorization)
         collection_name: Qdrant collection name
         model_name: Embedding model to use
         repos: Repository factory dependency
-        
+
     Returns:
         Indexing result with vector count
     """
     try:
         from ollama.api.routes.embeddings import get_embedding_model
-        
+
         doc_repo = repos.get_document_repository()
         vector_mgr = await get_vector_manager()
-        
+
         # Verify ownership
         document = await doc_repo.get_by_id(document_id)
         if not document or document.user_id != user_id:
             raise HTTPException(status_code=404, detail="Document not found")
-        
+
         if not document.chunks:
             raise HTTPException(status_code=400, detail="Document has no chunks")
-        
+
         # Get embedding model
         try:
             model = get_embedding_model(model_name)
         except Exception as e:
-            raise HTTPException(status_code=400, detail=f"Invalid embedding model: {str(e)}")
-        
+            raise HTTPException(status_code=400, detail=f"Invalid embedding model: {str(e)}") from e
+
         # Create collection if needed
         if not await vector_mgr.collection_exists(collection_name):
             await vector_mgr.create_collection(
-                collection_name,
-                vector_size=model.get_sentence_embedding_dimension()
+                collection_name, vector_size=model.get_sentence_embedding_dimension()
             )
-        
+
         # Generate embeddings for chunks
         embeddings = []
         for i, chunk in enumerate(document.chunks):
             try:
                 embedding = model.encode(chunk)
-                embeddings.append({
-                    "id": str(document_id) + f"_{i}",
-                    "vector": embedding.tolist(),
-                    "metadata": {
-                        "document_id": str(document_id),
-                        "chunk_index": i,
-                        "content_preview": chunk[:200],
+                embeddings.append(
+                    {
+                        "id": str(document_id) + f"_{i}",
+                        "vector": embedding.tolist(),
+                        "metadata": {
+                            "document_id": str(document_id),
+                            "chunk_index": i,
+                            "content_preview": chunk[:200],
+                        },
                     }
-                })
+                )
             except Exception as e:
-                raise HTTPException(status_code=500, detail=f"Embedding generation failed: {str(e)}")
-        
+                raise HTTPException(
+                    status_code=500, detail=f"Embedding generation failed: {str(e)}"
+                ) from e
+
         # Upsert to Qdrant
         try:
             await vector_mgr.upsert_vectors(collection_name, embeddings)
         except Exception as e:
-            raise HTTPException(status_code=500, detail=f"Vector storage failed: {str(e)}")
-        
+            raise HTTPException(status_code=500, detail=f"Vector storage failed: {str(e)}") from e
+
         # Mark document as indexed
         await doc_repo.mark_indexed(document_id, collection_name)
-        
+
         return {
             "document_id": str(document_id),
             "collection": collection_name,
@@ -355,7 +355,7 @@ async def index_document(
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Indexing failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Indexing failed: {str(e)}") from e
 
 
 @router.get("/{document_id}/chunks")
@@ -367,32 +367,32 @@ async def get_document_chunks(
     repos: RepositoryFactory = Depends(get_repositories),
 ):
     """Get document chunks with pagination.
-    
+
     Args:
         document_id: Document ID
         user_id: User ID (for authorization)
         page: Page number
         page_size: Chunks per page
         repos: Repository factory dependency
-        
+
     Returns:
         Paginated chunks
     """
     try:
         doc_repo = repos.get_document_repository()
-        
+
         document = await doc_repo.get_by_id(document_id)
         if not document or document.user_id != user_id:
             raise HTTPException(status_code=404, detail="Document not found")
-        
+
         chunks = document.chunks or []
         total = len(chunks)
-        
+
         # Manual pagination
         start = (page - 1) * page_size
         end = start + page_size
         paginated = chunks[start:end]
-        
+
         return {
             "document_id": str(document_id),
             "total": total,
@@ -409,7 +409,7 @@ async def get_document_chunks(
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to get chunks: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to get chunks: {str(e)}") from e
 
 
 @router.post("/search/semantic")
@@ -422,7 +422,7 @@ async def semantic_search_documents(
     repos: RepositoryFactory = Depends(get_repositories),
 ):
     """Search documents semantically across all chunks.
-    
+
     Args:
         user_id: User ID
         query: Search query
@@ -430,28 +430,25 @@ async def semantic_search_documents(
         limit: Maximum results
         threshold: Similarity threshold
         repos: Repository factory dependency
-        
+
     Returns:
         Semantic search results
     """
     try:
         from ollama.api.routes.embeddings import get_embedding_model
-        
+
         doc_repo = repos.get_document_repository()
         vector_mgr = await get_vector_manager()
-        
+
         # Get query embedding
         model = get_embedding_model("all-minilm-l6-v2")
         query_embedding = model.encode(query).tolist()
-        
+
         # Search vector database
         results = await vector_mgr.search_vectors(
-            collection_name,
-            query_embedding,
-            limit=limit,
-            threshold=threshold
+            collection_name, query_embedding, limit=limit, threshold=threshold
         )
-        
+
         # Enrich results with document info
         enriched_results = []
         for result in results:
@@ -460,15 +457,17 @@ async def semantic_search_documents(
                 doc_id = uuid.UUID(doc_id)
                 document = await doc_repo.get_by_id(doc_id)
                 if document and document.user_id == user_id:
-                    enriched_results.append({
-                        "chunk_id": result["id"],
-                        "similarity_score": result["score"],
-                        "document_id": str(document.id),
-                        "document_title": document.title,
-                        "chunk_index": result["metadata"].get("chunk_index"),
-                        "content_preview": result["metadata"].get("content_preview"),
-                    })
-        
+                    enriched_results.append(
+                        {
+                            "chunk_id": result["id"],
+                            "similarity_score": result["score"],
+                            "document_id": str(document.id),
+                            "document_title": document.title,
+                            "chunk_index": result["metadata"].get("chunk_index"),
+                            "content_preview": result["metadata"].get("content_preview"),
+                        }
+                    )
+
         return {
             "query": query,
             "collection": collection_name,
@@ -476,7 +475,7 @@ async def semantic_search_documents(
             "results": enriched_results,
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Search failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Search failed: {str(e)}") from e
 
 
 @router.get("/stats/user")
@@ -485,23 +484,23 @@ async def get_user_document_stats(
     repos: RepositoryFactory = Depends(get_repositories),
 ):
     """Get document statistics for user.
-    
+
     Args:
         user_id: User ID
         repos: Repository factory dependency
-        
+
     Returns:
         Document statistics
     """
     try:
         doc_repo = repos.get_document_repository()
-        
+
         total_docs = await doc_repo.count_documents(user_id)
         indexed_docs = await doc_repo.count_indexed_documents(user_id)
-        
+
         documents = await doc_repo.get_by_user_id(user_id)
         total_chunks = sum(len(d.chunks) if d.chunks else 0 for d in documents)
-        
+
         return {
             "user_id": str(user_id),
             "total_documents": total_docs,
@@ -510,4 +509,4 @@ async def get_user_document_stats(
             "total_chunks": total_chunks,
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to get stats: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to get stats: {str(e)}") from e

@@ -1,8 +1,8 @@
 """API route handlers for Ollama."""
 
-from fastapi import APIRouter, Depends, HTTPException, status
-from typing import Optional, List
 import logging
+
+from fastapi import APIRouter
 
 logger = logging.getLogger(__name__)
 

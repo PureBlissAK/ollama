@@ -2,11 +2,12 @@
 Conversation Repository - CRUD operations for Conversation model.
 """
 
-from typing import Optional
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, and_
-from datetime import datetime
 import uuid
+from datetime import datetime, timezone
+from typing import Optional
+
+from sqlalchemy import and_, select
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..models import Conversation
 from .base_repository import BaseRepository
@@ -20,10 +21,10 @@ class ConversationRepository(BaseRepository[Conversation]):
 
     async def get_by_user_id(self, user_id: uuid.UUID) -> list[Conversation]:
         """Get all conversations for a user.
-        
+
         Args:
             user_id: User ID
-            
+
         Returns:
             List of conversations
         """
@@ -31,35 +32,28 @@ class ConversationRepository(BaseRepository[Conversation]):
 
     async def get_active_conversations(self, user_id: uuid.UUID) -> list[Conversation]:
         """Get all active (non-archived) conversations for a user.
-        
+
         Args:
             user_id: User ID
-            
+
         Returns:
             List of active conversations
         """
         conversations = await self.get_all(user_id=user_id, is_archived=False)
         return sorted(conversations, key=lambda c: c.accessed_at, reverse=True)
 
-    async def get_by_model(
-        self,
-        user_id: uuid.UUID,
-        model: str
-    ) -> list[Conversation]:
+    async def get_by_model(self, user_id: uuid.UUID, model: str) -> list[Conversation]:
         """Get conversations for a user using specific model.
-        
+
         Args:
             user_id: User ID
             model: Model name
-            
+
         Returns:
             List of conversations using that model
         """
         query = select(Conversation).where(
-            and_(
-                Conversation.user_id == user_id,
-                Conversation.model == model
-            )
+            and_(Conversation.user_id == user_id, Conversation.model == model)
         )
         result = await self.session.execute(query)
         return result.scalars().all()
@@ -73,14 +67,14 @@ class ConversationRepository(BaseRepository[Conversation]):
         parameters: Optional[dict] = None,
     ) -> Conversation:
         """Create a new conversation.
-        
+
         Args:
             user_id: User ID
             model: Model to use
             title: Conversation title
             system_prompt: System prompt/instructions
             parameters: Model parameters (temperature, top_p, etc.)
-            
+
         Returns:
             Created Conversation instance
         """
@@ -96,35 +90,28 @@ class ConversationRepository(BaseRepository[Conversation]):
         await self.commit()
         return conversation
 
-    async def update_accessed_at(
-        self,
-        conversation_id: uuid.UUID
-    ) -> Optional[Conversation]:
+    async def update_accessed_at(self, conversation_id: uuid.UUID) -> Optional[Conversation]:
         """Update accessed_at timestamp (for sorting by recent).
-        
+
         Args:
             conversation_id: Conversation ID
-            
+
         Returns:
             Updated Conversation instance or None if not found
         """
         conversation = await self.update(
-            conversation_id,
-            accessed_at=datetime.utcnow()
+            conversation_id, accessed_at=datetime.now(timezone.utc)
         )
         if conversation:
             await self.commit()
         return conversation
 
-    async def archive_conversation(
-        self,
-        conversation_id: uuid.UUID
-    ) -> Optional[Conversation]:
+    async def archive_conversation(self, conversation_id: uuid.UUID) -> Optional[Conversation]:
         """Archive a conversation.
-        
+
         Args:
             conversation_id: Conversation ID
-            
+
         Returns:
             Updated Conversation instance or None if not found
         """
@@ -133,15 +120,12 @@ class ConversationRepository(BaseRepository[Conversation]):
             await self.commit()
         return conversation
 
-    async def unarchive_conversation(
-        self,
-        conversation_id: uuid.UUID
-    ) -> Optional[Conversation]:
+    async def unarchive_conversation(self, conversation_id: uuid.UUID) -> Optional[Conversation]:
         """Unarchive a conversation.
-        
+
         Args:
             conversation_id: Conversation ID
-            
+
         Returns:
             Updated Conversation instance or None if not found
         """
@@ -150,17 +134,13 @@ class ConversationRepository(BaseRepository[Conversation]):
             await self.commit()
         return conversation
 
-    async def update_title(
-        self,
-        conversation_id: uuid.UUID,
-        title: str
-    ) -> Optional[Conversation]:
+    async def update_title(self, conversation_id: uuid.UUID, title: str) -> Optional[Conversation]:
         """Update conversation title.
-        
+
         Args:
             conversation_id: Conversation ID
             title: New title
-            
+
         Returns:
             Updated Conversation instance or None if not found
         """
@@ -169,38 +149,33 @@ class ConversationRepository(BaseRepository[Conversation]):
             await self.commit()
         return conversation
 
-    async def search_conversations(
-        self,
-        user_id: uuid.UUID,
-        query: str
-    ) -> list[Conversation]:
+    async def search_conversations(self, user_id: uuid.UUID, query: str) -> list[Conversation]:
         """Search conversations by title or model.
-        
+
         Args:
             user_id: User ID
             query: Search query
-            
+
         Returns:
             List of matching conversations
         """
         conversations = await self.get_all(user_id=user_id)
         query_lower = query.lower()
         return [
-            c for c in conversations
+            c
+            for c in conversations
             if query_lower in c.title.lower() or query_lower in c.model.lower()
         ]
 
     async def get_recent_conversations(
-        self,
-        user_id: uuid.UUID,
-        limit: int = 10
+        self, user_id: uuid.UUID, limit: int = 10
     ) -> list[Conversation]:
         """Get recent conversations for a user.
-        
+
         Args:
             user_id: User ID
             limit: Number of conversations to return
-            
+
         Returns:
             List of recent conversations
         """
@@ -211,10 +186,10 @@ class ConversationRepository(BaseRepository[Conversation]):
 
     async def count_conversations(self, user_id: uuid.UUID) -> int:
         """Count total conversations for a user.
-        
+
         Args:
             user_id: User ID
-            
+
         Returns:
             Number of conversations
         """
@@ -222,10 +197,10 @@ class ConversationRepository(BaseRepository[Conversation]):
 
     async def count_active_conversations(self, user_id: uuid.UUID) -> int:
         """Count active conversations for a user.
-        
+
         Args:
             user_id: User ID
-            
+
         Returns:
             Number of active conversations
         """

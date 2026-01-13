@@ -1,7 +1,5 @@
 """Test suite for Ollama client library."""
 
-import pytest
-import os
 from ollama.client import Client
 
 
@@ -25,10 +23,7 @@ class TestClientInitialization:
 
     def test_client_with_api_key(self):
         """Test client initialization with API key."""
-        client = Client(
-            base_url="https://elevatediq.ai/ollama",
-            api_key="test-key-123"
-        )
+        client = Client(base_url="https://elevatediq.ai/ollama", api_key="test-key-123")
         assert client.api_key == "test-key-123"
         assert "X-API-Key" in client.client.headers
 
@@ -61,10 +56,7 @@ class TestClientConfiguration:
 
     def test_client_supports_bearer_token(self):
         """Test client supports Bearer token authentication."""
-        client = Client(
-            base_url="https://elevatediq.ai/ollama",
-            api_key="bearer-token"
-        )
+        client = Client(base_url="https://elevatediq.ai/ollama", api_key="bearer-token")
         # Both X-API-Key and Authorization headers should be set
         assert "X-API-Key" in client.client.headers
         assert "Authorization" in client.client.headers

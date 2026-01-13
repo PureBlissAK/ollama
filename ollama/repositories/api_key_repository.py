@@ -2,11 +2,11 @@
 API Key Repository - CRUD operations for APIKey model.
 """
 
-from typing import Optional
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
-from datetime import datetime
 import uuid
+from datetime import datetime, timezone
+from typing import Optional
+
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..models import APIKey
 from .base_repository import BaseRepository
@@ -20,10 +20,10 @@ class APIKeyRepository(BaseRepository[APIKey]):
 
     async def get_by_key_hash(self, key_hash: str) -> Optional[APIKey]:
         """Get API key by key hash.
-        
+
         Args:
             key_hash: Hashed API key
-            
+
         Returns:
             APIKey instance or None if not found
         """
@@ -31,10 +31,10 @@ class APIKeyRepository(BaseRepository[APIKey]):
 
     async def get_by_user_id(self, user_id: uuid.UUID) -> list[APIKey]:
         """Get all API keys for a user.
-        
+
         Args:
             user_id: User ID
-            
+
         Returns:
             List of API keys
         """
@@ -42,10 +42,10 @@ class APIKeyRepository(BaseRepository[APIKey]):
 
     async def get_active_keys(self, user_id: uuid.UUID) -> list[APIKey]:
         """Get all active (non-expired) API keys for a user.
-        
+
         Args:
             user_id: User ID
-            
+
         Returns:
             List of active API keys
         """
@@ -64,7 +64,7 @@ class APIKeyRepository(BaseRepository[APIKey]):
         expires_at: Optional[datetime] = None,
     ) -> APIKey:
         """Create a new API key.
-        
+
         Args:
             user_id: User ID
             key_hash: Hashed API key
@@ -72,7 +72,7 @@ class APIKeyRepository(BaseRepository[APIKey]):
             scopes: List of permission scopes
             rate_limit: Requests per minute limit
             expires_at: Optional expiration datetime
-            
+
         Returns:
             Created APIKey instance
         """
@@ -89,10 +89,10 @@ class APIKeyRepository(BaseRepository[APIKey]):
 
     async def revoke_key(self, key_id: uuid.UUID) -> Optional[APIKey]:
         """Revoke (delete) an API key.
-        
+
         Args:
             key_id: API key ID
-            
+
         Returns:
             Deleted APIKey instance or None if not found
         """
@@ -104,10 +104,10 @@ class APIKeyRepository(BaseRepository[APIKey]):
 
     async def update_last_used(self, key_id: uuid.UUID) -> Optional[APIKey]:
         """Update last_used timestamp for a key.
-        
+
         Args:
             key_id: API key ID
-            
+
         Returns:
             Updated APIKey instance or None if not found
         """
@@ -118,53 +118,45 @@ class APIKeyRepository(BaseRepository[APIKey]):
 
     async def search_keys(self, user_id: uuid.UUID, query: str) -> list[APIKey]:
         """Search API keys by name.
-        
+
         Args:
             user_id: User ID
             query: Search query
-            
+
         Returns:
             List of matching keys
         """
         keys = await self.get_all(user_id=user_id)
         return [k for k in keys if query.lower() in k.name.lower()]
 
-    async def has_scope(
-        self,
-        key_hash: str,
-        required_scope: str
-    ) -> bool:
+    async def has_scope(self, key_hash: str, required_scope: str) -> bool:
         """Check if API key has required scope.
-        
+
         Args:
             key_hash: Hashed API key
             required_scope: Required scope
-            
+
         Returns:
             True if key has scope, False otherwise
         """
         key = await self.get_by_key_hash(key_hash)
         if not key:
             return False
-        
+
         # Check if expired
         if key.expires_at and key.expires_at < datetime.now(timezone.utc):
             return False
-        
+
         # Check scope
         return required_scope in key.scopes
 
-    async def is_rate_limited(
-        self,
-        key_hash: str,
-        current_requests: int
-    ) -> bool:
+    async def is_rate_limited(self, key_hash: str, current_requests: int) -> bool:
         """Check if API key is rate limited.
-        
+
         Args:
             key_hash: Hashed API key
             current_requests: Current request count
-            
+
         Returns:
             True if rate limited, False otherwise
         """

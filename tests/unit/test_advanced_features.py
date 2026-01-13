@@ -2,16 +2,16 @@
 Tests for streaming, batch processing, and fine-tuning endpoints.
 """
 
-import pytest
-from fastapi.testclient import TestClient
-from unittest.mock import Mock, AsyncMock, patch, MagicMock
-import asyncio
 import json
+from unittest.mock import Mock
+
+import pytest
 
 # Test imports - these modules demonstrate advanced features
 # In production, they would be integrated into the main API
 
 # ==================== Fixtures ====================
+
 
 @pytest.fixture
 def test_user():
@@ -33,9 +33,10 @@ def auth_headers(test_user):
 
 # ==================== Streaming Tests ====================
 
+
 class TestSSEStreaming:
     """Test Server-Sent Events streaming."""
-    
+
     @pytest.mark.asyncio
     async def test_stream_format_generation(self):
         """Test SSE format for streaming."""
@@ -46,10 +47,10 @@ class TestSSEStreaming:
             "timestamp": "2024-01-01T00:00:00",
         }
         sse_message = f"data: {json.dumps(event_data)}\n\n"
-        
+
         assert "data:" in sse_message
         assert "text_delta" in sse_message
-    
+
     @pytest.mark.asyncio
     async def test_completion_event(self):
         """Test completion event format."""
@@ -57,10 +58,9 @@ class TestSSEStreaming:
             "type": "complete",
             "timestamp": "2024-01-01T00:00:00",
         }
-        sse_message = f"data: {json.dumps(event_data)}\n\n"
-        
+
         assert event_data["type"] == "complete"
-    
+
     def test_sse_headers(self):
         """Test SSE response headers."""
         headers = {
@@ -68,14 +68,14 @@ class TestSSEStreaming:
             "X-Accel-Buffering": "no",
             "Connection": "keep-alive",
         }
-        
+
         assert headers["Cache-Control"] == "no-cache"
         assert headers["Connection"] == "keep-alive"
 
 
 class TestWebSocketStreaming:
     """Test WebSocket streaming."""
-    
+
     def test_websocket_message_format(self):
         """Test WebSocket message format."""
         message = {
@@ -83,14 +83,14 @@ class TestWebSocketStreaming:
             "model": "llama2",
             "messages": [{"role": "user", "content": "Hello"}],
         }
-        
+
         assert message["type"] == "message"
         assert message["model"] == "llama2"
-    
+
     def test_websocket_event_types(self):
         """Test WebSocket event types."""
         events = ["start", "message_delta", "complete", "error", "pong"]
-        
+
         for event in events:
             data = {"type": event}
             assert data["type"] in events
@@ -98,9 +98,10 @@ class TestWebSocketStreaming:
 
 # ==================== Batch Processing Tests ====================
 
+
 class TestBatchProcessing:
     """Test batch processing endpoints."""
-    
+
     def test_batch_job_structure(self):
         """Test batch job data structure."""
         batch_job = {
@@ -112,11 +113,11 @@ class TestBatchProcessing:
             "total_items": 2,
             "processed_items": 0,
         }
-        
+
         assert batch_job["status"] == "pending"
         assert batch_job["progress"] == 0.0
         assert batch_job["total_items"] == 2
-    
+
     def test_batch_item_structure(self):
         """Test batch item structure."""
         item = {
@@ -124,10 +125,10 @@ class TestBatchProcessing:
             "prompt": "Hello",
             "metadata": {"source": "test"},
         }
-        
+
         assert item["id"] == "item_1"
         assert item["prompt"] == "Hello"
-    
+
     def test_batch_result_structure(self):
         """Test batch result structure."""
         result = {
@@ -138,16 +139,17 @@ class TestBatchProcessing:
             "tokens_used": 10,
             "processing_time": 0.1,
         }
-        
+
         assert result["status"] == "completed"
         assert result["tokens_used"] == 10
 
 
 # ==================== Fine-Tuning Tests ====================
 
+
 class TestFineTuning:
     """Test fine-tuning endpoints."""
-    
+
     def test_training_job_structure(self):
         """Test training job structure."""
         job = {
@@ -156,10 +158,10 @@ class TestFineTuning:
             "status": "created",
             "progress": 0.0,
         }
-        
+
         assert job["status"] == "created"
         assert job["base_model"] == "llama2"
-    
+
     def test_training_config_structure(self):
         """Test training configuration structure."""
         config = {
@@ -168,10 +170,10 @@ class TestFineTuning:
             "num_epochs": 3,
             "max_seq_length": 512,
         }
-        
+
         assert config["learning_rate"] == 1e-5
         assert config["batch_size"] == 8
-    
+
     def test_dataset_structure(self):
         """Test dataset structure."""
         dataset = {
@@ -181,10 +183,10 @@ class TestFineTuning:
             "size_mb": 10.5,
             "num_samples": 1000,
         }
-        
+
         assert dataset["format"] == "jsonl"
         assert dataset["num_samples"] == 1000
-    
+
     def test_training_status_types(self):
         """Test training status types."""
         statuses = [
@@ -196,11 +198,13 @@ class TestFineTuning:
             "completed",
             "failed",
         ]
-        
+
         for status in statuses:
             assert status in statuses
 
+
 # ==================== Helper Functions ====================
+
 
 def test_helper():
     """Helper test function."""

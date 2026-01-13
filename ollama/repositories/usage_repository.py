@@ -2,11 +2,11 @@
 Usage Repository - CRUD operations for Usage analytics model.
 """
 
-from typing import Optional
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, and_, func
-from datetime import datetime, timedelta
 import uuid
+from datetime import datetime, timedelta, timezone
+
+from sqlalchemy import and_, select
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..models import Usage
 from .base_repository import BaseRepository
@@ -30,7 +30,7 @@ class UsageRepository(BaseRepository[Usage]):
         cost: float = 0.0,
     ) -> Usage:
         """Log an API request.
-        
+
         Args:
             user_id: User ID
             endpoint: API endpoint
@@ -40,7 +40,7 @@ class UsageRepository(BaseRepository[Usage]):
             input_tokens: Tokens used in input
             output_tokens: Tokens generated in output
             cost: Cost of the request
-            
+
         Returns:
             Created Usage instance
         """
@@ -57,129 +57,95 @@ class UsageRepository(BaseRepository[Usage]):
         await self.commit()
         return usage
 
-    async def get_user_usage(
-        self,
-        user_id: uuid.UUID,
-        days: int = 30
-    ) -> list[Usage]:
+    async def get_user_usage(self, user_id: uuid.UUID, days: int = 30) -> list[Usage]:
         """Get usage logs for a user over period.
-        
+
         Args:
             user_id: User ID
             days: Number of days to look back
-            
-        Returns:
-            List of usage records
-        """
-        since = datetime.utcnow() - timedelta(days=days)
-        query = select(Usage).where(
-            and_(
-                Usage.user_id == user_id,
-                Usage.created_at >= since
-            )
-        )
-        result = await self.session.execute(query)
-        return result.scalars().all()
 
-    async def get_endpoint_usage(
-        self,
-        endpoint: str,
-        days: int = 30
-    ) -> list[Usage]:
-        """Get all usage for a specific endpoint.
-        
-        Args:
-            endpoint: API endpoint
-            days: Number of days to look back
-            
         Returns:
             List of usage records
         """
         since = datetime.now(timezone.utc) - timedelta(days=days)
-        query = select(Usage).where(
-            and_(
-                Usage.endpoint == endpoint,
-                Usage.created_at >= since
-            )
-        )
+        query = select(Usage).where(and_(Usage.user_id == user_id, Usage.created_at >= since))
         result = await self.session.execute(query)
         return result.scalars().all()
 
-    async def get_user_token_usage(
-        self,
-        user_id: uuid.UUID,
-        days: int = 30
-    ) -> tuple[int, int]:
+    async def get_endpoint_usage(self, endpoint: str, days: int = 30) -> list[Usage]:
+        """Get all usage for a specific endpoint.
+
+        Args:
+            endpoint: API endpoint
+            days: Number of days to look back
+
+        Returns:
+            List of usage records
+        """
+        since = datetime.now(timezone.utc) - timedelta(days=days)
+        query = select(Usage).where(and_(Usage.endpoint == endpoint, Usage.created_at >= since))
+        result = await self.session.execute(query)
+        return result.scalars().all()
+
+    async def get_user_token_usage(self, user_id: uuid.UUID, days: int = 30) -> tuple[int, int]:
         """Get total tokens used by a user.
-        
+
         Args:
             user_id: User ID
             days: Number of days to look back
-            
+
         Returns:
             Tuple of (total_input_tokens, total_output_tokens)
         """
         usage_records = await self.get_user_usage(user_id, days)
-        
+
         total_input = sum(u.input_tokens for u in usage_records)
         total_output = sum(u.output_tokens for u in usage_records)
-        
+
         return total_input, total_output
 
-    async def get_user_cost(
-        self,
-        user_id: uuid.UUID,
-        days: int = 30
-    ) -> float:
+    async def get_user_cost(self, user_id: uuid.UUID, days: int = 30) -> float:
         """Get total cost for a user.
-        
+
         Args:
             user_id: User ID
             days: Number of days to look back
-            
+
         Returns:
             Total cost in dollars
         """
         usage_records = await self.get_user_usage(user_id, days)
         return sum(u.cost for u in usage_records)
 
-    async def get_average_response_time(
-        self,
-        user_id: uuid.UUID,
-        days: int = 30
-    ) -> float:
+    async def get_average_response_time(self, user_id: uuid.UUID, days: int = 30) -> float:
         """Get average response time for a user.
-        
+
         Args:
             user_id: User ID
             days: Number of days to look back
-            
+
         Returns:
             Average response time in milliseconds
         """
         usage_records = await self.get_user_usage(user_id, days)
         if not usage_records:
             return 0.0
-        
+
         total_time = sum(u.response_time_ms for u in usage_records)
         return total_time / len(usage_records)
 
-    async def get_endpoint_stats(
-        self,
-        endpoint: str,
-        days: int = 30
-    ) -> dict:
+    async def get_endpoint_stats(self, endpoint: str, days: int = 30) -> dict:
         """Get statistics for an endpoint.
-        
+
         Args:
             endpoint: API endpoint
             days: Number of days to look back
-            
+
         Returns:
             Dict with usage statistics
         """
         usage_records = await self.get_endpoint_usage(endpoint, days)
-        
+
         if not usage_records:
             return {
                 "endpoint": endpoint,
@@ -190,10 +156,10 @@ class UsageRepository(BaseRepository[Usage]):
                 "total_cost": 0.0,
                 "avg_response_time_ms": 0.0,
             }
-        
+
         successful = [u for u in usage_records if u.status_code < 400]
         errors = [u for u in usage_records if u.status_code >= 400]
-        
+
         return {
             "endpoint": endpoint,
             "total_requests": len(usage_records),
@@ -201,25 +167,22 @@ class UsageRepository(BaseRepository[Usage]):
             "error_requests": len(errors),
             "total_tokens": sum(u.input_tokens + u.output_tokens for u in usage_records),
             "total_cost": sum(u.cost for u in usage_records),
-            "avg_response_time_ms": sum(u.response_time_ms for u in usage_records) / len(usage_records),
+            "avg_response_time_ms": sum(u.response_time_ms for u in usage_records)
+            / len(usage_records),
         }
 
-    async def get_user_stats(
-        self,
-        user_id: uuid.UUID,
-        days: int = 30
-    ) -> dict:
+    async def get_user_stats(self, user_id: uuid.UUID, days: int = 30) -> dict:
         """Get comprehensive statistics for a user.
-        
+
         Args:
             user_id: User ID
             days: Number of days to look back
-            
+
         Returns:
             Dict with user statistics
         """
         usage_records = await self.get_user_usage(user_id, days)
-        
+
         if not usage_records:
             return {
                 "user_id": str(user_id),
@@ -231,10 +194,10 @@ class UsageRepository(BaseRepository[Usage]):
                 "total_cost": 0.0,
                 "avg_response_time_ms": 0.0,
             }
-        
+
         successful = [u for u in usage_records if u.status_code < 400]
         errors = [u for u in usage_records if u.status_code >= 400]
-        
+
         return {
             "user_id": str(user_id),
             "total_requests": len(usage_records),
@@ -243,25 +206,22 @@ class UsageRepository(BaseRepository[Usage]):
             "total_input_tokens": sum(u.input_tokens for u in usage_records),
             "total_output_tokens": sum(u.output_tokens for u in usage_records),
             "total_cost": sum(u.cost for u in usage_records),
-            "avg_response_time_ms": sum(u.response_time_ms for u in usage_records) / len(usage_records),
+            "avg_response_time_ms": sum(u.response_time_ms for u in usage_records)
+            / len(usage_records),
         }
 
-    async def get_daily_usage(
-        self,
-        user_id: uuid.UUID,
-        days: int = 30
-    ) -> dict:
+    async def get_daily_usage(self, user_id: uuid.UUID, days: int = 30) -> dict:
         """Get daily usage breakdown for a user.
-        
+
         Args:
             user_id: User ID
             days: Number of days to look back
-            
+
         Returns:
             Dict with daily usage by date
         """
         usage_records = await self.get_user_usage(user_id, days)
-        
+
         daily_stats = {}
         for record in usage_records:
             date_key = record.created_at.date().isoformat()
@@ -271,30 +231,30 @@ class UsageRepository(BaseRepository[Usage]):
                     "tokens": 0,
                     "cost": 0.0,
                 }
-            
+
             daily_stats[date_key]["requests"] += 1
             daily_stats[date_key]["tokens"] += record.input_tokens + record.output_tokens
             daily_stats[date_key]["cost"] += record.cost
-        
+
         return daily_stats
 
     async def delete_old_usage(self, days: int = 90) -> int:
         """Delete usage records older than specified days.
-        
+
         Args:
             days: Age threshold in days
-            
+
         Returns:
             Number of records deleted
         """
         cutoff = datetime.now(timezone.utc) - timedelta(days=days)
         query = select(Usage).where(Usage.created_at < cutoff)
-        
+
         result = await self.session.execute(query)
         old_records = result.scalars().all()
-        
+
         for record in old_records:
             await self.session.delete(record)
-        
+
         await self.commit()
         return len(old_records)

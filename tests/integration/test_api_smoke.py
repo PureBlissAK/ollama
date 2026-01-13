@@ -1,5 +1,5 @@
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from types import SimpleNamespace
 
 import pytest
@@ -33,7 +33,7 @@ class StubVector(StubManager):
 
 class StubConversationRepo:
     def __init__(self):
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc)
         self.conversations = [
             SimpleNamespace(
                 id=uuid.uuid4(),
@@ -65,7 +65,7 @@ class StubMessageRepo:
 
 class StubDocument:
     def __init__(self):
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc)
         self.id = uuid.uuid4()
         self.user_id = uuid.uuid4()
         self.title = "Test Document"
@@ -146,13 +146,27 @@ class StubAsyncClient:
         return False
 
     async def get(self, url: str, **kwargs):
-        return DummyResponse({"models": [{"name": "test-model", "size": 1024, "digest": "abc", "modified_at": "now"}]})
+        return DummyResponse(
+            {
+                "models": [
+                    {"name": "test-model", "size": 1024, "digest": "abc", "modified_at": "now"}
+                ]
+            }
+        )
 
     async def post(self, url: str, json=None, **kwargs):
         if url.endswith("/generate"):
-            return DummyResponse({"model": json.get("model", "test-model"), "response": "ok", "done": True})
+            return DummyResponse(
+                {"model": json.get("model", "test-model"), "response": "ok", "done": True}
+            )
         if url.endswith("/chat"):
-            return DummyResponse({"model": json.get("model", "test-model"), "message": {"role": "assistant", "content": "hi"}, "done": True})
+            return DummyResponse(
+                {
+                    "model": json.get("model", "test-model"),
+                    "message": {"role": "assistant", "content": "hi"},
+                    "done": True,
+                }
+            )
         return DummyResponse({})
 
     async def delete(self, url: str, json=None, **kwargs):
@@ -224,7 +238,11 @@ async def test_generate(client):
 
 @pytest.mark.anyio
 async def test_chat(client):
-    payload = {"model": "test-model", "messages": [{"role": "user", "content": "hi"}], "stream": False}
+    payload = {
+        "model": "test-model",
+        "messages": [{"role": "user", "content": "hi"}],
+        "stream": False,
+    }
     resp = await client.post("/api/v1/chat", json=payload)
     assert resp.status_code == 200
     assert resp.json()["message"]["content"] == "hi"

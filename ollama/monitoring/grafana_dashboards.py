@@ -17,9 +17,9 @@ OLLAMA_API_DASHBOARD = {
                 "targets": [
                     {
                         "expr": "rate(http_requests_total[5m])",
-                        "legendFormat": "{{ method }} {{ endpoint }}"
+                        "legendFormat": "{{ method }} {{ endpoint }}",
                     }
-                ]
+                ],
             },
             {
                 "id": 2,
@@ -28,9 +28,9 @@ OLLAMA_API_DASHBOARD = {
                 "targets": [
                     {
                         "expr": "rate(http_requests_total{status_code=~'5..'}[5m])",
-                        "legendFormat": "{{ endpoint }}"
+                        "legendFormat": "{{ endpoint }}",
                     }
-                ]
+                ],
             },
             {
                 "id": 3,
@@ -39,9 +39,9 @@ OLLAMA_API_DASHBOARD = {
                 "targets": [
                     {
                         "expr": "histogram_quantile(0.95, http_request_duration_seconds)",
-                        "legendFormat": "{{ method }} {{ endpoint }}"
+                        "legendFormat": "{{ method }} {{ endpoint }}",
                     }
-                ]
+                ],
             },
             {
                 "id": 4,
@@ -50,9 +50,9 @@ OLLAMA_API_DASHBOARD = {
                 "targets": [
                     {
                         "expr": "histogram_quantile(0.95, rate(ollama_generation_duration_seconds[5m]))",
-                        "legendFormat": "{{ model }}"
+                        "legendFormat": "{{ model }}",
                     }
-                ]
+                ],
             },
             {
                 "id": 5,
@@ -61,9 +61,9 @@ OLLAMA_API_DASHBOARD = {
                 "targets": [
                     {
                         "expr": "rate(ollama_tokens_generated_total[5m])",
-                        "legendFormat": "{{ model }}"
+                        "legendFormat": "{{ model }}",
                     }
-                ]
+                ],
             },
             {
                 "id": 6,
@@ -72,9 +72,9 @@ OLLAMA_API_DASHBOARD = {
                 "targets": [
                     {
                         "expr": "rate(cache_hits_total[5m]) / (rate(cache_hits_total[5m]) + rate(cache_misses_total[5m]))",
-                        "legendFormat": "{{ cache_type }}"
+                        "legendFormat": "{{ cache_type }}",
                     }
-                ]
+                ],
             },
             {
                 "id": 7,
@@ -84,7 +84,7 @@ OLLAMA_API_DASHBOARD = {
                     {
                         "expr": "active_sessions",
                     }
-                ]
+                ],
             },
             {
                 "id": 8,
@@ -93,9 +93,9 @@ OLLAMA_API_DASHBOARD = {
                 "targets": [
                     {
                         "expr": "rate(rate_limit_exceeded_total[5m])",
-                        "legendFormat": "{{ endpoint }}"
+                        "legendFormat": "{{ endpoint }}",
                     }
-                ]
+                ],
             },
             {
                 "id": 9,
@@ -104,22 +104,19 @@ OLLAMA_API_DASHBOARD = {
                 "targets": [
                     {
                         "expr": "db_connections_active / db_pool_size",
-                        "legendFormat": "Pool Utilization"
+                        "legendFormat": "Pool Utilization",
                     }
-                ]
+                ],
             },
             {
                 "id": 10,
                 "title": "RAG Query Latency",
                 "type": "heatmap",
                 "targets": [
-                    {
-                        "expr": "rag_query_latency_seconds_bucket",
-                        "legendFormat": "{{ le }}"
-                    }
-                ]
-            }
-        ]
+                    {"expr": "rag_query_latency_seconds_bucket", "legendFormat": "{{ le }}"}
+                ],
+            },
+        ],
     }
 }
 
@@ -137,7 +134,7 @@ SYSTEM_HEALTH_DASHBOARD = {
                     {
                         "expr": "up{job='ollama-api'}",
                     }
-                ]
+                ],
             },
             {
                 "id": 2,
@@ -147,7 +144,7 @@ SYSTEM_HEALTH_DASHBOARD = {
                     {
                         "expr": "up",
                     }
-                ]
+                ],
             },
             {
                 "id": 3,
@@ -156,9 +153,9 @@ SYSTEM_HEALTH_DASHBOARD = {
                 "targets": [
                     {
                         "expr": "rate(http_requests_total{status_code=~'5..'}[5m]) / rate(http_requests_total[5m])",
-                        "legendFormat": "{{ job }}"
+                        "legendFormat": "{{ job }}",
                     }
-                ]
+                ],
             },
             {
                 "id": 4,
@@ -167,11 +164,11 @@ SYSTEM_HEALTH_DASHBOARD = {
                 "targets": [
                     {
                         "expr": "histogram_quantile(0.99, rate(http_request_duration_seconds[5m]))",
-                        "legendFormat": "{{ method }} {{ endpoint }}"
+                        "legendFormat": "{{ method }} {{ endpoint }}",
                     }
-                ]
-            }
-        ]
+                ],
+            },
+        ],
     }
 }
 

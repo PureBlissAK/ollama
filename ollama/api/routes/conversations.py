@@ -3,13 +3,11 @@ Conversation History API Endpoints
 Provides full conversation management and retrieval functionality.
 """
 
-from fastapi import APIRouter, Depends, HTTPException, Query
-from datetime import datetime
 import uuid
 
-from ...services.database import DatabaseManager
+from fastapi import APIRouter, Depends, HTTPException, Query
+
 from ...repositories import RepositoryFactory, get_repositories
-from ...models import Conversation, Message
 
 router = APIRouter(
     prefix="/api/v1/conversations",
@@ -26,20 +24,20 @@ async def list_conversations(
     repos: RepositoryFactory = Depends(get_repositories),
 ):
     """List conversations for a user.
-    
+
     Args:
         user_id: User ID to list conversations for
         archived: Include archived conversations
         page: Page number for pagination
         page_size: Number of conversations per page
         repos: Repository factory dependency
-        
+
     Returns:
         List of conversations with metadata
     """
     try:
         conv_repo = repos.get_conversation_repository()
-        
+
         # Get paginated conversations
         conversations, total = await conv_repo.get_paginated(
             page=page,
@@ -47,11 +45,11 @@ async def list_conversations(
             order_by="accessed_at",
             user_id=user_id,
         )
-        
+
         # Filter archived if needed
         if not archived:
             conversations = [c for c in conversations if not c.is_archived]
-        
+
         return {
             "total": total,
             "page": page,
@@ -64,13 +62,15 @@ async def list_conversations(
                     "is_archived": c.is_archived,
                     "created_at": c.created_at.isoformat(),
                     "accessed_at": c.accessed_at.isoformat(),
-                    "message_count": await repos.get_message_repository().count_conversation_messages(c.id),
+                    "message_count": await repos.get_message_repository().count_conversation_messages(
+                        c.id
+                    ),
                 }
                 for c in conversations
             ],
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to list conversations: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to list conversations: {str(e)}") from e
 
 
 @router.post("/")
@@ -82,27 +82,27 @@ async def create_conversation(
     repos: RepositoryFactory = Depends(get_repositories),
 ):
     """Create a new conversation.
-    
+
     Args:
         user_id: User ID
         model: Model name to use
         title: Optional conversation title
         system_prompt: Optional system prompt
         repos: Repository factory dependency
-        
+
     Returns:
         Created conversation details
     """
     try:
         conv_repo = repos.get_conversation_repository()
-        
+
         conversation = await conv_repo.create_conversation(
             user_id=user_id,
             model=model,
             title=title,
             system_prompt=system_prompt,
         )
-        
+
         return {
             "id": str(conversation.id),
             "title": conversation.title,
@@ -113,7 +113,7 @@ async def create_conversation(
             "accessed_at": conversation.accessed_at.isoformat(),
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to create conversation: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to create conversation: {str(e)}") from e
 
 
 @router.get("/{conversation_id}")
@@ -123,25 +123,25 @@ async def get_conversation(
     repos: RepositoryFactory = Depends(get_repositories),
 ):
     """Get conversation details by ID.
-    
+
     Args:
         conversation_id: Conversation ID
         user_id: User ID (for authorization)
         repos: Repository factory dependency
-        
+
     Returns:
         Conversation details
     """
     try:
         conv_repo = repos.get_conversation_repository()
-        
+
         conversation = await conv_repo.get_by_id(conversation_id)
         if not conversation or conversation.user_id != user_id:
             raise HTTPException(status_code=404, detail="Conversation not found")
-        
+
         # Update accessed_at
         await conv_repo.update_accessed_at(conversation_id)
-        
+
         return {
             "id": str(conversation.id),
             "title": conversation.title,
@@ -151,12 +151,14 @@ async def get_conversation(
             "is_archived": conversation.is_archived,
             "created_at": conversation.created_at.isoformat(),
             "accessed_at": conversation.accessed_at.isoformat(),
-            "message_count": await repos.get_message_repository().count_conversation_messages(conversation_id),
+            "message_count": await repos.get_message_repository().count_conversation_messages(
+                conversation_id
+            ),
         }
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to get conversation: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to get conversation: {str(e)}") from e
 
 
 @router.put("/{conversation_id}")
@@ -169,7 +171,7 @@ async def update_conversation(
     repos: RepositoryFactory = Depends(get_repositories),
 ):
     """Update conversation details.
-    
+
     Args:
         conversation_id: Conversation ID
         user_id: User ID (for authorization)
@@ -177,33 +179,33 @@ async def update_conversation(
         system_prompt: New system prompt
         is_archived: New archive status
         repos: Repository factory dependency
-        
+
     Returns:
         Updated conversation details
     """
     try:
         conv_repo = repos.get_conversation_repository()
-        
+
         conversation = await conv_repo.get_by_id(conversation_id)
         if not conversation or conversation.user_id != user_id:
             raise HTTPException(status_code=404, detail="Conversation not found")
-        
+
         # Update fields if provided
         if title is not None:
             await conv_repo.update_title(conversation_id, title)
-        
+
         if system_prompt is not None:
             await conv_repo.update(conversation_id, system_prompt=system_prompt)
-        
+
         if is_archived is not None:
             if is_archived:
                 await conv_repo.archive_conversation(conversation_id)
             else:
                 await conv_repo.unarchive_conversation(conversation_id)
-        
+
         # Get updated conversation
         updated = await conv_repo.get_by_id(conversation_id)
-        
+
         return {
             "id": str(updated.id),
             "title": updated.title,
@@ -214,7 +216,7 @@ async def update_conversation(
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to update conversation: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to update conversation: {str(e)}") from e
 
 
 @router.delete("/{conversation_id}")
@@ -224,34 +226,34 @@ async def delete_conversation(
     repos: RepositoryFactory = Depends(get_repositories),
 ):
     """Delete a conversation and all its messages.
-    
+
     Args:
         conversation_id: Conversation ID
         user_id: User ID (for authorization)
         repos: Repository factory dependency
-        
+
     Returns:
         Success message
     """
     try:
         conv_repo = repos.get_conversation_repository()
         msg_repo = repos.get_message_repository()
-        
+
         conversation = await conv_repo.get_by_id(conversation_id)
         if not conversation or conversation.user_id != user_id:
             raise HTTPException(status_code=404, detail="Conversation not found")
-        
+
         # Delete all messages first
         await msg_repo.delete_conversation_messages(conversation_id)
-        
+
         # Delete conversation
         await conv_repo.delete(conversation_id)
-        
+
         return {"message": "Conversation deleted successfully"}
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to delete conversation: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to delete conversation: {str(e)}") from e
 
 
 @router.get("/{conversation_id}/messages")
@@ -264,7 +266,7 @@ async def get_conversation_messages(
     repos: RepositoryFactory = Depends(get_repositories),
 ):
     """Get messages in a conversation.
-    
+
     Args:
         conversation_id: Conversation ID
         user_id: User ID (for authorization)
@@ -272,31 +274,31 @@ async def get_conversation_messages(
         page_size: Messages per page
         role: Optional role filter
         repos: Repository factory dependency
-        
+
     Returns:
         Paginated messages
     """
     try:
         conv_repo = repos.get_conversation_repository()
         msg_repo = repos.get_message_repository()
-        
+
         # Verify ownership
         conversation = await conv_repo.get_by_id(conversation_id)
         if not conversation or conversation.user_id != user_id:
             raise HTTPException(status_code=404, detail="Conversation not found")
-        
+
         # Get messages
         if role:
             messages = await msg_repo.get_messages_by_role(conversation_id, role)
         else:
             messages = await msg_repo.get_by_conversation_id(conversation_id)
-        
+
         # Manual pagination
         total = len(messages)
         start = (page - 1) * page_size
         end = start + page_size
         paginated = messages[start:end]
-        
+
         return {
             "total": total,
             "page": page,
@@ -316,7 +318,7 @@ async def get_conversation_messages(
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to get messages: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to get messages: {str(e)}") from e
 
 
 @router.post("/{conversation_id}/messages")
@@ -329,7 +331,7 @@ async def add_message(
     repos: RepositoryFactory = Depends(get_repositories),
 ):
     """Add a message to a conversation.
-    
+
     Args:
         conversation_id: Conversation ID
         user_id: User ID (for authorization)
@@ -337,19 +339,19 @@ async def add_message(
         content: Message content
         tokens: Optional token count
         repos: Repository factory dependency
-        
+
     Returns:
         Created message details
     """
     try:
         conv_repo = repos.get_conversation_repository()
         msg_repo = repos.get_message_repository()
-        
+
         # Verify ownership
         conversation = await conv_repo.get_by_id(conversation_id)
         if not conversation or conversation.user_id != user_id:
             raise HTTPException(status_code=404, detail="Conversation not found")
-        
+
         # Add message
         if role == "user":
             message = await msg_repo.add_user_message(
@@ -370,10 +372,10 @@ async def add_message(
             )
         else:
             raise HTTPException(status_code=400, detail="Invalid role")
-        
+
         # Update conversation accessed_at
         await conv_repo.update_accessed_at(conversation_id)
-        
+
         return {
             "id": str(message.id),
             "role": message.role,
@@ -384,7 +386,7 @@ async def add_message(
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to add message: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to add message: {str(e)}") from e
 
 
 @router.get("/{conversation_id}/search")
@@ -395,28 +397,28 @@ async def search_conversation(
     repos: RepositoryFactory = Depends(get_repositories),
 ):
     """Search messages in a conversation.
-    
+
     Args:
         conversation_id: Conversation ID
         user_id: User ID (for authorization)
         query: Search query
         repos: Repository factory dependency
-        
+
     Returns:
         Matching messages
     """
     try:
         conv_repo = repos.get_conversation_repository()
         msg_repo = repos.get_message_repository()
-        
+
         # Verify ownership
         conversation = await conv_repo.get_by_id(conversation_id)
         if not conversation or conversation.user_id != user_id:
             raise HTTPException(status_code=404, detail="Conversation not found")
-        
+
         # Search messages
         messages = await msg_repo.search_messages(conversation_id, query)
-        
+
         return {
             "query": query,
             "total": len(messages),
@@ -433,7 +435,7 @@ async def search_conversation(
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to search: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to search: {str(e)}") from e
 
 
 @router.get("/{conversation_id}/export")
@@ -444,28 +446,28 @@ async def export_conversation(
     repos: RepositoryFactory = Depends(get_repositories),
 ):
     """Export a conversation in various formats.
-    
+
     Args:
         conversation_id: Conversation ID
         user_id: User ID (for authorization)
         format: Export format
         repos: Repository factory dependency
-        
+
     Returns:
         Exported conversation data
     """
     try:
         conv_repo = repos.get_conversation_repository()
         msg_repo = repos.get_message_repository()
-        
+
         # Verify ownership
         conversation = await conv_repo.get_by_id(conversation_id)
         if not conversation or conversation.user_id != user_id:
             raise HTTPException(status_code=404, detail="Conversation not found")
-        
+
         # Get all messages
         messages = await msg_repo.get_by_conversation_id(conversation_id)
-        
+
         if format == "json":
             return {
                 "title": conversation.title,
@@ -481,23 +483,23 @@ async def export_conversation(
                     for m in messages
                 ],
             }
-        
+
         elif format == "markdown":
             markdown = f"# {conversation.title}\n\n"
             markdown += f"**Model:** {conversation.model}\n\n"
             if conversation.system_prompt:
                 markdown += f"**System Prompt:** {conversation.system_prompt}\n\n"
             markdown += "## Conversation\n\n"
-            
+
             for m in messages:
                 markdown += f"### {m.role.upper()}\n\n{m.content}\n\n"
-            
+
             return {"format": "markdown", "content": markdown}
-        
+
         else:
             raise HTTPException(status_code=400, detail="Invalid export format")
-    
+
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to export: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to export: {str(e)}") from e

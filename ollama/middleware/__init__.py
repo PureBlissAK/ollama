@@ -2,8 +2,8 @@
 Ollama Middleware - HTTP middleware for request/response processing
 """
 
-from .cache import CachingMiddleware, CacheKey, RateLimiter, CacheStats, cache_response
-from .rate_limit import RateLimitMiddleware, EndpointRateLimiter
+from .cache import CacheKey, CacheStats, CachingMiddleware, RateLimiter, cache_response
+from .rate_limit import EndpointRateLimiter, RateLimitMiddleware
 
 __all__ = [
     "CachingMiddleware",

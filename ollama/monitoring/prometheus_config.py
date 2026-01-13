@@ -12,37 +12,21 @@ PROMETHEUS_CONFIG = {
     "global": {
         "scrape_interval": "15s",
         "evaluation_interval": "15s",
-        "external_labels": {
-            "cluster": "ollama-local",
-            "environment": "development"
-        }
+        "external_labels": {"cluster": "ollama-local", "environment": "development"},
     },
     "scrape_configs": [
-        {
-            "job_name": "prometheus",
-            "static_configs": [
-                {"targets": ["127.0.0.1:9090"]}
-            ]
-        },
+        {"job_name": "prometheus", "static_configs": [{"targets": ["127.0.0.1:9090"]}]},
         {
             "job_name": "ollama-api",
-            "static_configs": [
-                {"targets": ["127.0.0.1:8000"]}
-            ],
-            "metrics_path": "/metrics"
+            "static_configs": [{"targets": ["127.0.0.1:8000"]}],
+            "metrics_path": "/metrics",
         },
         {
             "job_name": "postgres",
-            "static_configs": [
-                {"targets": ["127.0.0.1:9187"]}  # postgres_exporter
-            ]
-        }
+            "static_configs": [{"targets": ["127.0.0.1:9187"]}],  # postgres_exporter
+        },
     ],
-    "alerting": {
-        "alertmanagers": [
-            {"static_configs": [{"targets": ["127.0.0.1:9093"]}]}
-        ]
-    }
+    "alerting": {"alertmanagers": [{"static_configs": [{"targets": ["127.0.0.1:9093"]}]}]},
 }
 
 # Alert rules
@@ -53,8 +37,8 @@ ALERT_RULES = [
         "for": "5m",
         "annotations": {
             "summary": "High error rate detected",
-            "description": "{{ $value }} errors per second in the last 5 minutes"
-        }
+            "description": "{{ $value }} errors per second in the last 5 minutes",
+        },
     },
     {
         "alert": "HighLatency",
@@ -62,8 +46,8 @@ ALERT_RULES = [
         "for": "5m",
         "annotations": {
             "summary": "High request latency detected",
-            "description": "p95 latency is {{ $value }} seconds"
-        }
+            "description": "p95 latency is {{ $value }} seconds",
+        },
     },
     {
         "alert": "OllamaUnavailable",
@@ -71,8 +55,8 @@ ALERT_RULES = [
         "for": "1m",
         "annotations": {
             "summary": "Ollama inference engine is down",
-            "description": "Ollama service has been unavailable for 1 minute"
-        }
+            "description": "Ollama service has been unavailable for 1 minute",
+        },
     },
     {
         "alert": "RateLimitExceeded",
@@ -80,8 +64,8 @@ ALERT_RULES = [
         "for": "5m",
         "annotations": {
             "summary": "High rate of rate limit exceeded events",
-            "description": "{{ $value }} rate limit exceeded events per second"
-        }
+            "description": "{{ $value }} rate limit exceeded events per second",
+        },
     },
     {
         "alert": "HighCacheEvictions",
@@ -89,16 +73,16 @@ ALERT_RULES = [
         "for": "5m",
         "annotations": {
             "summary": "High cache eviction rate",
-            "description": "{{ $value }} cache evictions per second"
-        }
-    }
+            "description": "{{ $value }} cache evictions per second",
+        },
+    },
 ]
 
 
 def get_prometheus_config() -> dict:
     """
     Get Prometheus configuration
-    
+
     Returns:
         Prometheus config dictionary
     """
@@ -108,7 +92,7 @@ def get_prometheus_config() -> dict:
 def get_alert_rules() -> list:
     """
     Get Prometheus alert rules
-    
+
     Returns:
         List of alert rules
     """
