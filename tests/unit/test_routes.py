@@ -3,10 +3,12 @@ Unit Tests for API Routes
 Tests endpoints for generation, chat, models, embeddings, and more
 """
 
+import asyncio
 import pytest
 from httpx import AsyncClient
 
 from ollama.main import app
+from ollama.api.routes.models import list_models
 
 
 @pytest.fixture
@@ -78,6 +80,32 @@ class TestModelsRoutes:
 
         # Should return 200, 404, 500, or 503
         assert response.status_code in [200, 404, 500, 503]
+
+
+class TestModelsHandler:
+    def test_list_models_falls_back_to_stub(self, monkeypatch):
+        class StubClient:
+            async def list_models(self):
+                return [
+                    type(
+                        "Model",
+                        (),
+                        {
+                            "name": "stub-model",
+                            "size": 1024,
+                            "digest": "stub",
+                            "modified_at": "now",
+                        },
+                    )()
+                ]
+
+        monkeypatch.setattr(
+            "ollama.api.routes.models.get_ollama_client",
+            lambda: StubClient(),
+        )
+
+        response = asyncio.run(list_models())
+        assert response.models[0].name == "stub-model"
 
 
 class TestGenerateRoutes:

@@ -14,6 +14,11 @@ from ollama.auth import (
     require_root_admin,
     revoke_user_tokens,
 )
+from ollama.auth_manager import (
+    AuthManager,
+    AuthenticationError,
+    get_auth_manager,
+)
 
 
 class TestFirebaseAuth:
@@ -104,15 +109,11 @@ class TestFirebaseAuth:
 
     def test_decode_invalid_token(self, auth_manager):
         """Test decoding invalid token raises error"""
-        from ollama.auth import AuthenticationError
-
         with pytest.raises(AuthenticationError):
             auth_manager.decode_token("invalid.token.here")
 
     def test_decode_expired_token(self, auth_manager):
         """Test decoding expired token raises error"""
-        from ollama.auth import AuthenticationError
-
         # Create token with very short expiration
         user_id = uuid4()
         token = auth_manager.create_access_token(
@@ -167,8 +168,6 @@ class TestFirebaseAuth:
         assert payload1 is not None
 
         # token1 cannot be decoded by manager2
-        from ollama.auth import AuthenticationError
-
         with pytest.raises(AuthenticationError):
             manager2.decode_token(token1)
 

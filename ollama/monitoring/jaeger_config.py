@@ -8,12 +8,28 @@ from typing import Optional
 
 from opentelemetry import trace
 from opentelemetry.exporter.jaeger.thrift import JaegerExporter
-from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
-from opentelemetry.instrumentation.httpx import HTTPXClientInstrumentor
-from opentelemetry.instrumentation.redis import RedisInstrumentor
-from opentelemetry.instrumentation.sqlalchemy import SQLAlchemyInstrumentor
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
+
+try:
+    from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+except ImportError:  # pragma: no cover - optional dependency
+    FastAPIInstrumentor = None
+
+try:
+    from opentelemetry.instrumentation.httpx import HTTPXClientInstrumentor
+except ImportError:  # pragma: no cover - optional dependency
+    HTTPXClientInstrumentor = None
+
+try:
+    from opentelemetry.instrumentation.redis import RedisInstrumentor
+except ImportError:  # pragma: no cover - optional dependency
+    RedisInstrumentor = None
+
+try:
+    from opentelemetry.instrumentation.sqlalchemy import SQLAlchemyInstrumentor
+except ImportError:  # pragma: no cover - optional dependency
+    SQLAlchemyInstrumentor = None
 
 logger = logging.getLogger(__name__)
 
@@ -85,6 +101,9 @@ class JaegerConfig:
         Args:
             app: FastAPI application instance
         """
+        if FastAPIInstrumentor is None:
+            logger.warning("⚠️  FastAPI instrumentation not available")
+            return
         try:
             FastAPIInstrumentor.instrument_app(app)
             logger.info("✅ FastAPI instrumented for tracing")
@@ -98,6 +117,9 @@ class JaegerConfig:
         Args:
             engine: SQLAlchemy engine
         """
+        if SQLAlchemyInstrumentor is None:
+            logger.warning("⚠️  SQLAlchemy instrumentation not available")
+            return
         try:
             SQLAlchemyInstrumentor().instrument(engine=engine, service=self.service_name)
             logger.info("✅ SQLAlchemy instrumented for tracing")
@@ -108,6 +130,9 @@ class JaegerConfig:
         """
         Instrument httpx for tracing
         """
+        if HTTPXClientInstrumentor is None:
+            logger.warning("⚠️  httpx instrumentation not available")
+            return
         try:
             HTTPXClientInstrumentor().instrument()
             logger.info("✅ httpx instrumented for tracing")
@@ -118,6 +143,9 @@ class JaegerConfig:
         """
         Instrument Redis for tracing
         """
+        if RedisInstrumentor is None:
+            logger.warning("⚠️  Redis instrumentation not available")
+            return
         try:
             RedisInstrumentor().instrument()
             logger.info("✅ Redis instrumented for tracing")

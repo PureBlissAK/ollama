@@ -22,7 +22,7 @@ from ollama.api.schemas.auth import (
     UserCreate,
     UserResponse,
 )
-from ollama.auth import (
+from ollama.auth_manager import (
     get_auth_manager,
     get_current_user_from_token,
     require_admin,
