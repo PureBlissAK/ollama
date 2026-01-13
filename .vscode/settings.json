@@ -2,7 +2,7 @@
     // ============================================================
     // ELITE STANDARDS ENFORCEMENT - OLLAMA PROJECT
     // ============================================================
-    
+
     // Python Configuration - STRICT MODE
     "python.defaultInterpreterPath": "${workspaceFolder}/venv/bin/python",
     "python.linting.enabled": true,
@@ -39,7 +39,7 @@
         "reportMissingDocstring": "information",
         "reportUnnecessaryIsInstance": "warning"
     },
-    
+
     // Editor Configuration - ELITE STANDARDS
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
@@ -64,7 +64,7 @@
     "editor.inlineHints.enabled": true,
     "editor.inlineHints.fontSize": 11,
     "editor.inlineHints.padding": true,
-    
+
     // File Management
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
@@ -85,7 +85,7 @@
         "**/dist": true,
         "**/build": true
     },
-    
+
     // Files to Exclude from Explorer
     "files.exclude": {
         "**/__pycache__": true,
@@ -100,7 +100,7 @@
         "**/venv": true,
         "**/.env": false
     },
-    
+
     // Search Configuration
     "search.exclude": {
         "**/node_modules": true,
@@ -114,7 +114,7 @@
         "**/build": true,
         "**/.git": true
     },
-    
+
     // Git Configuration - MANDATORY STANDARDS
     "git.enableCommitSigning": true,
     "git.alwaysSignOff": true,
@@ -131,7 +131,7 @@
     "git.showPushSuccessNotification": true,
     "git.promptToSaveFilesBeforeCommit": "always",
     "git.checkoutPublishingBranch": true,
-    
+
     // GitHub Copilot Configuration
     "github.copilot.enable": {
         "*": true,
@@ -142,7 +142,7 @@
         "dockerfile": true
     },
     "github.copilot.editor.enableAutoCompletions": true,
-    
+
     // Markdown Configuration
     "[markdown]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -152,20 +152,20 @@
             80
         ]
     },
-    
+
     // YAML Configuration
     "[yaml]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.tabSize": 2,
         "editor.insertSpaces": true
     },
-    
+
     // JSON Configuration
     "[json]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.tabSize": 2
     },
-    
+
     // Python Specific - ELITE STANDARDS
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
@@ -177,14 +177,14 @@
         },
         "editor.rulers": [100]
     },
-    
+
     // Docker Configuration
     "docker.languageserver.formatter.ignoreMultilineInstructions": true,
     "docker.enableLinting": true,
     "[dockerfile]": {
         "editor.defaultFormatter": "ms-vscode.makefile-tools"
     },
-    
+
     // Terminal Configuration
     "terminal.integrated.env.linux": {
         "PYTHONPATH": "${workspaceFolder}",
@@ -203,7 +203,7 @@
     },
     "terminal.integrated.fontSize": 12,
     "terminal.integrated.lineHeight": 1.3,
-    
+
     // File Associations
     "files.associations": {
         "*.yaml": "yaml",
@@ -213,7 +213,7 @@
         "*.md": "markdown",
         ".gitmessage": "plaintext"
     },
-    
+
     // Ruff Configuration - LINTING ENFORCEMENT
     "ruff.enable": true,
     "ruff.lint.run": "onSave",
@@ -227,7 +227,7 @@
     "ruff.format.args": [
         "--line-length=100"
     ],
-    
+
     // Coverage Gutters
     "coverage-gutters.coverageFileNames": [
         "coverage.xml",
@@ -241,11 +241,11 @@
         "uncovered": "rgba(255, 0, 0, 0.3)",
         "partialCoverage": "rgba(255, 165, 0, 0.2)"
     },
-    
+
     // IntelliCode Configuration
     "editor.suggestSelection": "first",
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-    
+
     // Workbench Configuration
     "workbench.editorAssociations": {
         "*.ipynb": "jupyter-notebook"
@@ -253,15 +253,15 @@
     "workbench.editor.enablePreview": false,
     "workbench.editor.enablePreviewFromQuickOpen": false,
     "workbench.editor.tabSizing": "shrink",
-    
+
     // Problems Configuration
     "problems.showCurrentInStatus": true,
     "problems.autoReveal": true,
-    
+
     // Debug Configuration
     "debug.internalConsoleOptions": "neverOpen",
     "debug.showBreakpointsInOverviewRuler": true,
-    
+
     // Extension Configuration
     "extensions.ignoreRecommendations": false,
     "extensions.recommendations": true
