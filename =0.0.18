@@ -1,0 +1,35 @@
+Requirement already satisfied: python-jose in ./venv/lib/python3.12/site-packages (3.3.0)
+Collecting python-jose
+  Downloading python_jose-3.5.0-py2.py3-none-any.whl.metadata (5.5 kB)
+Requirement already satisfied: requests in ./venv/lib/python3.12/site-packages (2.31.0)
+Collecting requests
+  Downloading requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+Requirement already satisfied: python-multipart in ./venv/lib/python3.12/site-packages (0.0.6)
+Collecting python-multipart
+  Downloading python_multipart-0.0.21-py3-none-any.whl.metadata (1.8 kB)
+Requirement already satisfied: ecdsa in ./venv/lib/python3.12/site-packages (0.19.1)
+Requirement already satisfied: rsa!=4.1.1,!=4.4,<5.0,>=4.0 in ./venv/lib/python3.12/site-packages (from python-jose) (4.9.1)
+Requirement already satisfied: pyasn1>=0.5.0 in ./venv/lib/python3.12/site-packages (from python-jose) (0.6.1)
+Requirement already satisfied: charset_normalizer<4,>=2 in ./venv/lib/python3.12/site-packages (from requests) (3.4.4)
+Requirement already satisfied: idna<4,>=2.5 in ./venv/lib/python3.12/site-packages (from requests) (3.11)
+Requirement already satisfied: urllib3<3,>=1.21.1 in ./venv/lib/python3.12/site-packages (from requests) (2.6.3)
+Requirement already satisfied: certifi>=2017.4.17 in ./venv/lib/python3.12/site-packages (from requests) (2026.1.4)
+Requirement already satisfied: six>=1.9.0 in ./venv/lib/python3.12/site-packages (from ecdsa) (1.17.0)
+Downloading python_jose-3.5.0-py2.py3-none-any.whl (34 kB)
+Downloading requests-2.32.5-py3-none-any.whl (64 kB)
+Downloading python_multipart-0.0.21-py3-none-any.whl (24 kB)
+Installing collected packages: requests, python-multipart, python-jose
+  Attempting uninstall: requests
+    Found existing installation: requests 2.31.0
+    Uninstalling requests-2.31.0:
+      Successfully uninstalled requests-2.31.0
+  Attempting uninstall: python-multipart
+    Found existing installation: python-multipart 0.0.6
+    Uninstalling python-multipart-0.0.6:
+      Successfully uninstalled python-multipart-0.0.6
+  Attempting uninstall: python-jose
+    Found existing installation: python-jose 3.3.0
+    Uninstalling python-jose-3.3.0:
+      Successfully uninstalled python-jose-3.3.0
+
+Successfully installed python-jose-3.5.0 python-multipart-0.0.21 requests-2.32.5
