@@ -94,7 +94,7 @@ async def lifespan(app: FastAPI):
         ollama_base_url = (
             settings.ollama_base_url
             if hasattr(settings, "ollama_base_url")
-            else "http://localhost:11434"
+            else "http://ollama:11434"
         )
         ollama_client = init_ollama_client(base_url=ollama_base_url)
         try:
@@ -109,7 +109,7 @@ async def lifespan(app: FastAPI):
         try:
             jaeger_config = init_jaeger(
                 service_name="ollama-api",
-                jaeger_host="localhost",
+                jaeger_host="jaeger",
                 jaeger_port=6831,
                 trace_sample_rate=0.1,
             )

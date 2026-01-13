@@ -4,7 +4,7 @@ Handles model loading, inference, and embeddings generation
 """
 
 import logging
-from typing import Any, AsyncGenerator, Optional
+from typing import Any, Optional
 
 import httpx
 
@@ -19,7 +19,7 @@ class ChatMessage:
 
     def __init__(self, role: str, content: str) -> None:
         """Initialize chat message
-        
+
         Args:
             role: Message role (user, assistant, system)
             content: Message content
@@ -45,7 +45,7 @@ class ChatRequest:
         stream: bool = False,
     ) -> None:
         """Initialize chat request
-        
+
         Args:
             model: Model name
             messages: List of chat messages
@@ -82,7 +82,7 @@ class OllamaClient:
 
     def __init__(self, base_url: str = "http://ollama:11434") -> None:
         """Initialize Ollama client
-        
+
         Args:
             base_url: Ollama base URL (use 'ollama' Docker service name, NOT localhost)
         """
@@ -110,7 +110,7 @@ class OllamaClient:
 
     async def list_models(self) -> list[dict]:
         """List available models
-        
+
         Returns:
             List of available models
         """
@@ -127,16 +127,14 @@ class OllamaClient:
             logger.error(f"Failed to list models: {e}")
             return []
 
-    async def generate(
-        self, model: str, prompt: str, stream: bool = False
-    ) -> Any:
+    async def generate(self, model: str, prompt: str, stream: bool = False) -> Any:
         """Generate text completion
-        
+
         Args:
             model: Model name
             prompt: Input prompt
             stream: Whether to stream response
-            
+
         Returns:
             Generation response
         """
@@ -153,16 +151,14 @@ class OllamaClient:
             logger.error(f"Generate failed: {e}")
             raise
 
-    async def chat(
-        self, model: str, messages: list[dict], stream: bool = False
-    ) -> Any:
+    async def chat(self, model: str, messages: list[dict], stream: bool = False) -> Any:
         """Chat completion
-        
+
         Args:
             model: Model name
             messages: Chat message history
             stream: Whether to stream response
-            
+
         Returns:
             Chat response
         """
@@ -181,11 +177,11 @@ class OllamaClient:
 
     async def embeddings(self, model: str, text: str) -> list[float]:
         """Generate embeddings
-        
+
         Args:
             model: Model name
             text: Input text
-            
+
         Returns:
             Embedding vector
         """
@@ -204,12 +200,12 @@ class OllamaClient:
             raise
 
 
-def init_ollama_client(base_url: str = "http://localhost:11434") -> OllamaClient:
+def init_ollama_client(base_url: str = "http://ollama:11434") -> OllamaClient:
     """Initialize Ollama client
-    
+
     Args:
         base_url: Ollama base URL
-        
+
     Returns:
         Initialized OllamaClient instance
     """
@@ -220,7 +216,7 @@ def init_ollama_client(base_url: str = "http://localhost:11434") -> OllamaClient
 
 def get_ollama_client() -> Optional[OllamaClient]:
     """Get global Ollama client instance
-    
+
     Returns:
         Global OllamaClient or None if not initialized
     """

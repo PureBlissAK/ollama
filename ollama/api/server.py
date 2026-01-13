@@ -74,7 +74,9 @@ def create_app(config: Optional[OllamaConfig] = None) -> FastAPI:  # noqa: C901
     app.add_middleware(GZIPMiddleware, minimum_size=1000)
 
     # Middleware: CORS (public endpoint support)
-    cors_origins = config.security.get("cors_origins", ["http://localhost:3000"])
+    cors_origins = config.security.get(
+        "cors_origins", ["https://elevatediq.ai", "https://elevatediq.ai/ollama"]
+    )
     app.add_middleware(
         CORSMiddleware,
         allow_origins=cors_origins,

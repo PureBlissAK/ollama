@@ -15,18 +15,18 @@ PROMETHEUS_CONFIG = {
         "external_labels": {"cluster": "ollama-local", "environment": "development"},
     },
     "scrape_configs": [
-        {"job_name": "prometheus", "static_configs": [{"targets": ["127.0.0.1:9090"]}]},
+        {"job_name": "prometheus", "static_configs": [{"targets": ["prometheus:9090"]}]},
         {
             "job_name": "ollama-api",
-            "static_configs": [{"targets": ["127.0.0.1:8000"]}],
+            "static_configs": [{"targets": ["ollama-api:8000"]}],
             "metrics_path": "/metrics",
         },
         {
             "job_name": "postgres",
-            "static_configs": [{"targets": ["127.0.0.1:9187"]}],  # postgres_exporter
+            "static_configs": [{"targets": ["postgres-exporter:9187"]}],  # postgres_exporter
         },
     ],
-    "alerting": {"alertmanagers": [{"static_configs": [{"targets": ["127.0.0.1:9093"]}]}]},
+    "alerting": {"alertmanagers": [{"static_configs": [{"targets": ["alertmanager:9093"]}]}]},
 }
 
 # Alert rules

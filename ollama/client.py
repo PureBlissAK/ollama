@@ -51,7 +51,7 @@ class Client:
                 if os.getenv("OLLAMA_ENV") == "production":
                     base_url = "https://elevatediq.ai/ollama"
                 else:
-                    base_url = os.getenv("OLLAMA_HOST", "http://localhost:8000")
+                    base_url = os.getenv("OLLAMA_HOST", "http://ollama-api:8000")
 
         self.base_url = base_url.rstrip("/")
         self.api_key = api_key or os.getenv("OLLAMA_API_KEY")

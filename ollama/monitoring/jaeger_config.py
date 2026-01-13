@@ -24,7 +24,7 @@ class JaegerConfig:
     def __init__(
         self,
         service_name: str = "ollama-api",
-        jaeger_host: str = "localhost",
+        jaeger_host: str = "jaeger",
         jaeger_port: int = 6831,
         jaeger_udp_port: int = 6831,
         trace_sample_rate: float = 0.1,
@@ -146,7 +146,7 @@ _jaeger_config: Optional[JaegerConfig] = None
 
 def init_jaeger(
     service_name: str = "ollama-api",
-    jaeger_host: str = "localhost",
+    jaeger_host: str = "jaeger",
     jaeger_port: int = 6831,
     trace_sample_rate: float = 0.1,
 ) -> JaegerConfig:
