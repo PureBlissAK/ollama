@@ -15,6 +15,15 @@ Ollama is a sophisticated local AI infrastructure platform designed for engineer
 
 **Target Audience**: Elite engineers, research teams, enterprises requiring air-gapped AI systems, and developers building custom AI applications.
 
+## Development & Contributing
+
+**New to Ollama development?** Start here:
+
+- 📖 [Development Setup Guide](DEVELOPMENT_SETUP.md) - Complete environment setup for developers
+- 🤝 [Contributing Guidelines](CONTRIBUTING.md) - How to contribute
+- 📋 [Standards & Compliance](COPILOT_COMPLIANCE_REPORT.md) - Development standards
+- 🔍 [Documentation Index](docs/INDEX.md) - All documentation organized by topic
+
 ## Table of Contents
 
 - [Quick Start](#quick-start)
@@ -288,7 +297,7 @@ For `elevatediq.ai/ollama` deployments via GCP Load Balancer:
 server:
   public_url: "https://elevatediq.ai/ollama"
   domain: "elevatediq.ai"
-  
+
 security:
   api_key_auth_enabled: true
   cors_origins:
@@ -342,7 +351,7 @@ models:
     gpu_memory_reserved: 10G
     batch_size: 8
     max_concurrent: 2
-    
+
   mistral:
     source: huggingface
     model_id: mistralai/Mistral-7B-Instruct-v0.1
@@ -937,8 +946,8 @@ MIT License - See [LICENSE](LICENSE) for details
 
 ---
 
-**Last Updated**: January 12, 2026  
-**Version**: 1.0.0  
+**Last Updated**: January 12, 2026
+**Version**: 1.0.0
 **Maintainer**: [@kushin77](https://github.com/kushin77)
 
 ---

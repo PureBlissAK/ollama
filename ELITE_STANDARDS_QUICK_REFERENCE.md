@@ -1,6 +1,6 @@
 # Elite Standards Quick Reference
 
-**Last Updated**: January 13, 2026  
+**Last Updated**: January 13, 2026
 **Version**: 1.0.0
 
 ## ⚡ TL;DR - Daily Commands
@@ -126,16 +126,16 @@ from ollama.repositories.user import UserRepository
 ```python
 def generate_key(prefix: str = "sk") -> str:
     """Generate cryptographically secure API key.
-    
+
     Args:
         prefix: Key prefix (default: "sk")
-    
+
     Returns:
         Random key with prefix
-    
+
     Raises:
         ValueError: If prefix invalid
-    
+
     Example:
         >>> key = generate_key("token")
         >>> key.startswith("token-")
@@ -181,18 +181,18 @@ tests/integration/test_auth.py # Integration tests
 ```python
 class TestGenerateKey:
     """Tests for generate_key function."""
-    
+
     def test_valid_generation(self) -> None:
         """Key generation produces valid format."""
         key = generate_key(prefix="sk")
         assert key.startswith("sk-")
         assert len(key) == 48
-    
+
     def test_custom_prefix(self) -> None:
         """Custom prefix is preserved."""
         key = generate_key(prefix="token")
         assert key.startswith("token-")
-    
+
     def test_invalid_prefix(self) -> None:
         """Invalid prefix raises ValueError."""
         with pytest.raises(ValueError):
@@ -301,22 +301,22 @@ git push origin feature/branch-name
 
 ## ❓ FAQ
 
-**Q: My commit doesn't follow the format, can I force push?**  
+**Q: My commit doesn't follow the format, can I force push?**
 A: No. Use `git commit --amend` to fix message.
 
-**Q: I want to commit code I know will fail tests?**  
+**Q: I want to commit code I know will fail tests?**
 A: The hook won't allow it. Fix tests first.
 
-**Q: Can I disable type checking?**  
+**Q: Can I disable type checking?**
 A: No. Use `# type: ignore` with justification if unavoidable.
 
-**Q: I forgot to run checks before commit?**  
+**Q: I forgot to run checks before commit?**
 A: Hooks run automatically. Fix issues and try again.
 
-**Q: How do I update these standards?**  
+**Q: How do I update these standards?**
 A: Edit `.github/copilot-instructions.md` and submit PR.
 
 ---
 
-**Status**: ✅ Live and Enforced  
+**Status**: ✅ Live and Enforced
 **Support**: See `.github/copilot-instructions.md`
