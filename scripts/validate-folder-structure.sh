@@ -77,7 +77,7 @@ loose_files=()
 while IFS= read -r file; do
     # Skip if empty
     [ -z "$file" ] && continue
-    
+
     # Check if file is in allowed list
     allowed=false
     for allowed_file in "${allowed_root_files[@]}"; do
@@ -86,7 +86,7 @@ while IFS= read -r file; do
             break
         fi
     done
-    
+
     # If not allowed and is a documentation/report file, flag it
     if ! $allowed; then
         if [[ "$file" =~ \.(md|txt)$ ]]; then
@@ -121,7 +121,7 @@ if [ -d "docs" ]; then
     else
         echo "  ⚠️  docs/reports/ missing (recommended for status reports)"
     fi
-    
+
     if [ -d "docs/archive" ]; then
         echo "  ✅ docs/archive/ exists (for historical documentation)"
     fi

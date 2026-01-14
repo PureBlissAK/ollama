@@ -168,13 +168,13 @@ class User:
 
 def get_user(user_id: str) -> Optional[User]:
     """Retrieve user by ID.
-    
+
     Args:
         user_id: The unique user identifier.
-        
+
     Returns:
         User object if found, None otherwise.
-        
+
     Raises:
         ValueError: If user_id is empty.
     """
@@ -207,19 +207,19 @@ Format: Google-style with Examples
 ```python
 def validate_email(email: str) -> bool:
     """Validate email format using RFC 5322 standard.
-    
+
     This function checks if the provided email address follows
     the basic RFC 5322 format for valid email addresses.
-    
+
     Args:
         email: The email address to validate.
-        
+
     Returns:
         True if email is valid, False otherwise.
-        
+
     Raises:
         ValueError: If email is None or not a string.
-        
+
     Example:
         >>> validate_email("user@example.com")
         True

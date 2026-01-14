@@ -62,6 +62,7 @@ WORKDIR /build
 COPY setup.py setup.py
 COPY README.md README.md
 COPY pyproject.toml pyproject.toml
+COPY requirements/ requirements/
 COPY ollama/ ollama/
 
 # Install dependencies
