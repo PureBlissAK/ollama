@@ -110,9 +110,7 @@ def _verify_firebase_token(token: str) -> dict[str, Any]:
     return decoded_token
 
 
-def _handle_token_verification_error(
-    error: Exception, require_auth: bool
-) -> dict[str, Any]:
+def _handle_token_verification_error(error: Exception, require_auth: bool) -> dict[str, Any]:
     """Handle token verification errors.
 
     Args:

@@ -264,5 +264,152 @@
 
     // Extension Configuration
     "extensions.ignoreRecommendations": false,
-    "extensions.recommendations": true
+    "extensions.recommendations": true,
+
+    // ============================================================
+    // FOLDER STRUCTURE ENFORCEMENT (5-LEVEL DEEP MANDATE)
+    // ============================================================
+
+    // Folder-specific warnings for non-conforming patterns
+    "folderStructure.enforcement": {
+        "enabled": true,
+        "maxDepth": 5,
+        "maxDirectoriesPerLevel": {
+            "root": 12,
+            "level2": 12,
+            "level3": 4,
+            "level4": 20
+        },
+        "validateOnSave": true,
+        "validateOnCommit": true
+    },
+
+    // File exclusions to maintain structure cleanliness
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/*.pyc": true,
+        "**/*.pyo": true,
+        "**/.pytest_cache": true,
+        "**/.mypy_cache": true,
+        "**/.ruff_cache": true,
+        "**/htmlcov": true,
+        "**/.coverage": true,
+        "**/*.egg-info": true,
+        "**/venv": true,
+        "**/.venv": true,
+        "**/node_modules": true,
+        "**/.DS_Store": true,
+        "**/dist": true,
+        "**/build": true,
+        "**/.tox": true,
+        "**/.nox": true,
+        "**/.hypothesis": true
+    },
+
+    // Forbidden folder patterns (display warnings)
+    "folderStructure.forbiddenPatterns": [
+        "^src$",
+        "^lib$",
+        "^app$",
+        "^application$",
+        "^core$",
+        "^common$",
+        "^utils$",
+        "^helpers$",
+        "[A-Z]",
+        "_+$"
+    ],
+
+    // Level 1: Root directory rules
+    "folderStructure.level1": {
+        "allowedDirectories": [
+            "ollama",
+            "tests",
+            "docs",
+            "config",
+            "docker",
+            "k8s",
+            "scripts",
+            "alembic",
+            ".github",
+            ".vscode",
+            ".githooks",
+            "monitoring"
+        ],
+        "maxDirectories": 12,
+        "maxFiles": 5
+    },
+
+    // Level 2: Application package rules
+    "folderStructure.level2": {
+        "allowedDirectories": [
+            "api",
+            "auth",
+            "config",
+            "exceptions",
+            "middleware",
+            "models",
+            "monitoring",
+            "repositories",
+            "services",
+            "utils"
+        ],
+        "maxDirectories": 12,
+        "maxFiles": 8,
+        "forbiddenFiles": [
+            "utils.py",
+            "helpers.py",
+            "common.py"
+        ]
+    },
+
+    // Level 3: Domain container rules
+    "folderStructure.level3": {
+        "allowedDirectories": [
+            "routes",
+            "schemas",
+            "dependencies",
+            "generators",
+            "embeddings",
+            "completion"
+        ],
+        "maxDirectories": 4,
+        "maxFiles": 1,
+        "allowedFiles": [
+            "__init__.py"
+        ]
+    },
+
+    // Level 4: Functional container rules
+    "folderStructure.level4": {
+        "maxFiles": 20,
+        "maxLinesPeFile": 500,
+        "fileNamingPattern": "^[a-z][a-z0-9_]*\\.py$",
+        "forbiddenFiles": [
+            "main.py",
+            "utils.py",
+            "helpers.py",
+            "common.py"
+        ]
+    },
+
+    // Naming convention enforcement
+    "folderStructure.namingConventions": {
+        "directories": "lowercase_with_underscores",
+        "modules": "lowercase_with_underscores.py",
+        "classes": "PascalCase",
+        "functions": "snake_case",
+        "constants": "SCREAMING_SNAKE_CASE",
+        "privateMembers": "_snake_case"
+    },
+
+    // Test structure mirroring rules
+    "folderStructure.testMirroring": {
+        "enabled": true,
+        "rule": "tests/ directory structure MUST mirror ollama/ structure exactly",
+        "examples": [
+            "ollama/api/routes/inference.py → tests/unit/api/routes/test_inference.py",
+            "ollama/services/inference/generator.py → tests/unit/services/inference/test_generator.py"
+        ]
+    }
 }

@@ -531,54 +531,297 @@ def test_firewall_blocks_internal_ports():
 
 ## Code Structure and Patterns
 
-### Directory Layout
+### Elite Filesystem Hierarchy (5-Level Deep Mandate)
+
+**CRITICAL MANDATE**: Filesystem structure is non-negotiable. Maximum depth is 5 levels. Each level must have clear responsibility separation and no cross-boundary dependencies.
+
+#### Level 1: Root (Project Root)
 
 ```
-ollama/
-├── app/                    # FastAPI application
-│   ├── api/               # API routes and schemas
-│   │   ├── routes/        # Route handlers (one file per resource)
-│   │   ├── schemas/       # Pydantic models (request/response)
-│   │   └── dependencies.py # Dependency injection
-│   ├── repositories/      # Data access layer (one class per entity)
-│   ├── services/          # Business logic (one file per domain)
-│   ├── middleware/        # Request/response processing
-│   ├── exceptions.py      # Custom exception hierarchy
-│   ├── models.py          # SQLAlchemy ORM models
-│   └── monitoring/        # Observability (logging, metrics, tracing)
-├── config/                # Configuration files
-│   ├── settings.py        # Environment-based settings
-│   ├── development.yaml   # Dev environment config
-│   └── production.yaml    # Production environment config
-├── docker/                # Docker configuration
-│   ├── Dockerfile         # Multi-stage build
-│   ├── nginx/            # Reverse proxy config
-│   ├── postgres/         # Database initialization
-│   └── redis/            # Cache initialization
-├── docs/                  # Documentation
-│   ├── architecture.md    # System design
-│   ├── api-design.md      # API conventions
-│   ├── DEPLOYMENT.md      # Deployment procedures
-│   └── troubleshooting.md # Common issues and solutions
-├── k8s/                   # Kubernetes manifests
-│   ├── base/             # Base configurations
-│   ├── overlays/         # Environment-specific overlays
-│   └── helm/             # Helm charts
-├── monitoring/            # Prometheus, Grafana, Jaeger configs
-│   ├── prometheus.yml    # Metrics collection
-│   ├── alerts.yml        # Alert rules
-│   └── grafana/          # Dashboard definitions
-├── scripts/               # Automation and utility scripts
-│   ├── setup.sh          # Initial setup
-│   ├── migrate.sh        # Database migrations
-│   └── health-check.sh   # Health verification
-├── tests/                 # Test suites (mirror app structure)
-│   ├── unit/             # Unit tests (fast, isolated)
-│   ├── integration/      # Integration tests (with services)
-│   └── e2e/              # End-to-end tests (full stack)
-├── alembic/              # Database migrations
-│   └── versions/         # Migration scripts (ordered, descriptive names)
-└── venv/                 # Virtual environment (gitignored)
+/home/akushnir/ollama/
+├── ollama/              # Level 1: Main package (1 only, MAX 3 sibling apps)
+├── tests/               # Level 1: Test suite
+├── docs/                # Level 1: Documentation
+├── config/              # Level 1: Configuration files
+├── docker/              # Level 1: Docker assets
+├── k8s/                 # Level 1: Kubernetes manifests
+├── scripts/             # Level 1: Automation scripts
+├── alembic/             # Level 1: Database migrations
+├── .github/             # Level 1: GitHub configurations
+├── .vscode/             # Level 1: VSCode settings
+└── pyproject.toml       # Root configuration (NO other top-level files in ollama/)
+```
+
+**Rules**:
+
+- ✅ Maximum 10 top-level directories
+- ✅ Maximum 3 application packages (ollama/, services/, tools/)
+- ❌ NEVER mix files and directories at root level (all files in subfolders)
+- ❌ NEVER create arbitrary top-level directories
+
+#### Level 2: Application Package (ollama/)
+
+```
+ollama/                 # Level 2: Main application package
+├── api/                # Domain: HTTP API layer
+├── auth/               # Domain: Authentication/authorization
+├── config/             # Domain: Configuration management
+├── exceptions/         # Domain: Custom exception hierarchy
+├── middleware/         # Domain: Request/response middleware
+├── models/             # Domain: SQLAlchemy ORM models
+├── monitoring/         # Domain: Observability (logging, metrics)
+├── repositories/       # Domain: Data access layer
+├── services/           # Domain: Business logic
+├── utils/              # Domain: Utility functions (cross-cutting)
+├── client.py           # ✅ Single-domain module (HTTP client)
+├── auth_manager.py     # ✅ Single-domain module (password hashing)
+├── main.py             # ✅ FastAPI app entry point
+├── config.py           # ✅ Settings configuration
+├── metrics.py          # ✅ Prometheus metrics registry
+└── __init__.py         # Package init
+```
+
+**Rules**:
+
+- ✅ Maximum 12 subdirectories + 5 module files
+- ✅ Each directory = one domain responsibility
+- ✅ Single-responsibility modules at level 2 (client.py, auth_manager.py, main.py)
+- ❌ NEVER put both file and directory with same name at Level 2 (e.g., api.py AND api/)
+- ❌ NEVER create Level 2 directories for single-file concepts
+
+#### Level 3: Domain Subdirectory (ollama/api/)
+
+```
+ollama/api/             # Level 3: Domain container (CLEAR BOUNDARY)
+├── routes/             # Level 4: Route handlers (one file per resource)
+├── schemas/            # Level 4: Pydantic models
+├── dependencies/       # Level 4: FastAPI dependencies
+├── __init__.py
+└── [NOTHING ELSE - All logic moves to Level 4 subdirs]
+```
+
+**Rules**:
+
+- ✅ Maximum 4 subdirectories per domain
+- ✅ Subdirectories must be functional containers (routes/, schemas/, dependencies/)
+- ✅ CLEAR BOUNDARY: No business logic in Level 3 files
+- ❌ NEVER put .py files at Level 3 (only **init**.py)
+- ❌ NEVER skip Level 4 subdirectories
+
+#### Level 4: Functional Container (ollama/api/routes/)
+
+```
+ollama/api/routes/      # Level 4: Functional container (SPECIALIZATION)
+├── inference.py        # ✅ One resource per file (model_name, verbs)
+├── chat.py             # ✅ One resource per file
+├── documents.py        # ✅ One resource per file
+├── embeddings.py       # ✅ One resource per file
+└── __init__.py         # Module exports
+```
+
+**Rules**:
+
+- ✅ Maximum 20 files per Level 4 directory
+- ✅ One resource/responsibility per file
+- ✅ Files named by resource (inference.py handles POST /inference)
+- ✅ File size: 100-500 lines (split if larger)
+- ❌ NEVER nest beyond Level 4 (absolute MAX 5 levels)
+- ❌ NEVER use generic names (routes/main.py, routes/utils.py)
+
+#### Level 5: Implementation Details (LEAF LEVEL)
+
+```
+# Within ollama/api/routes/inference.py
+from typing import Optional
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel
+
+# ✅ Constants at top of file
+DEFAULT_TIMEOUT = 30
+MAX_TOKENS = 2048
+
+# ✅ Schemas next
+class GenerateRequest(BaseModel):
+    """Request schema"""
+    prompt: str
+    model: str
+
+# ✅ Route handlers below
+router = APIRouter()
+
+@router.post("/generate")
+async def generate(request: GenerateRequest) -> dict:
+    """Generate endpoint"""
+    pass
+
+# ✅ Helper functions at end
+def _validate_model(model: str) -> bool:
+    """Internal helper"""
+    pass
+```
+
+**Rules**:
+
+- ✅ File structure: Constants → Schemas → Handlers → Helpers
+- ✅ Maximum 10 functions/classes per file
+- ✅ Helper functions prefixed with `_` (private)
+- ✅ Maximum 500 lines per file (split if exceeding)
+- ❌ NEVER create nested directories beyond Level 5
+- ❌ NEVER have more than 1 public class per file
+
+### Directory Layout (Complete Reference)
+
+```
+/home/akushnir/ollama/
+├── ollama/                             # Level 2: Main package
+│   ├── api/                            # Level 3: HTTP API domain
+│   │   ├── routes/                     # Level 4: Route handlers
+│   │   │   ├── inference.py           # Level 5: Single resource
+│   │   │   ├── chat.py                # Level 5: Single resource
+│   │   │   ├── documents.py           # Level 5: Single resource
+│   │   │   └── __init__.py
+│   │   ├── schemas/                    # Level 4: Pydantic models
+│   │   │   ├── inference.py           # Level 5: Request/response schemas
+│   │   │   ├── chat.py                # Level 5: Request/response schemas
+│   │   │   └── __init__.py
+│   │   ├── dependencies/               # Level 4: FastAPI dependencies
+│   │   │   ├── auth.py                # Level 5: Auth dependencies
+│   │   │   ├── validation.py          # Level 5: Validation dependencies
+│   │   │   └── __init__.py
+│   │   └── __init__.py
+│   ├── auth/                           # Level 3: Auth domain
+│   │   ├── firebase_auth.py           # Level 4: Firebase OAuth
+│   │   ├── jwt_handler.py             # Level 4: JWT tokens
+│   │   └── __init__.py
+│   ├── config/                         # Level 3: Config domain
+│   │   ├── settings.py                # Level 4: Pydantic settings
+│   │   ├── environment.py             # Level 4: Env var mapping
+│   │   └── __init__.py
+│   ├── exceptions/                     # Level 3: Exception hierarchy
+│   │   ├── base.py                    # Level 4: Base exceptions
+│   │   ├── api.py                     # Level 4: API exceptions
+│   │   ├── auth.py                    # Level 4: Auth exceptions
+│   │   └── __init__.py
+│   ├── middleware/                     # Level 3: Middleware domain
+│   │   ├── logging.py                 # Level 4: Request logging
+│   │   ├── security.py                # Level 4: Security headers
+│   │   └── __init__.py
+│   ├── models/                         # Level 3: ORM models
+│   │   ├── user.py                    # Level 4: User model
+│   │   ├── conversation.py            # Level 4: Conversation model
+│   │   └── __init__.py
+│   ├── monitoring/                     # Level 3: Observability
+│   │   ├── metrics.py                 # Level 4: Prometheus metrics
+│   │   ├── logging.py                 # Level 4: Structured logging
+│   │   ├── tracing.py                 # Level 4: Jaeger tracing
+│   │   └── __init__.py
+│   ├── repositories/                   # Level 3: Data access
+│   │   ├── user.py                    # Level 4: User repository
+│   │   ├── conversation.py            # Level 4: Conversation repository
+│   │   └── __init__.py
+│   ├── services/                       # Level 3: Business logic
+│   │   ├── inference/                 # Level 4: Inference service domain
+│   │   │   ├── generator.py          # Level 5: Text generation
+│   │   │   ├── embeddings.py         # Level 5: Embedding generation
+│   │   │   ├── completion.py         # Level 5: Completion service
+│   │   │   └── __init__.py
+│   │   ├── ollama_client_main.py      # Level 4: Ollama HTTP client
+│   │   ├── cache_manager.py           # Level 4: Redis caching
+│   │   └── __init__.py
+│   ├── utils/                          # Level 3: Cross-cutting utilities
+│   │   ├── validators.py              # Level 4: Input validation helpers
+│   │   ├── formatters.py              # Level 4: Output formatting
+│   │   └── __init__.py
+│   ├── main.py                        # Level 2: FastAPI entry point
+│   ├── config.py                      # Level 2: Config loader
+│   ├── metrics.py                     # Level 2: Metrics registry
+│   ├── client.py                      # Level 2: HTTP client
+│   ├── auth_manager.py                # Level 2: Password hashing
+│   └── __init__.py
+├── tests/                              # Level 2: Test suite
+│   ├── unit/                           # Level 3: Unit tests
+│   │   ├── api/                        # Level 4: API tests (mirror api/)
+│   │   │   ├── routes/                # Level 5: Route tests
+│   │   │   └── schemas/               # Level 5: Schema tests
+│   │   ├── services/                  # Level 4: Service tests
+│   │   │   └── inference/             # Level 5: Inference tests
+│   │   ├── repositories/              # Level 4: Repository tests
+│   │   ├── middleware/                # Level 4: Middleware tests
+│   │   ├── test_auth.py              # Level 4: Auth tests
+│   │   ├── conftest.py               # Level 4: Fixtures
+│   │   └── __init__.py
+│   ├── integration/                    # Level 3: Integration tests
+│   │   ├── test_api_flow.py          # Level 4: API flow tests
+│   │   ├── test_database.py          # Level 4: Database tests
+│   │   ├── conftest.py               # Level 4: Shared fixtures
+│   │   └── __init__.py
+│   ├── fixtures/                       # Level 3: Test fixtures
+│   │   ├── models.py                  # Level 4: Model fixtures
+│   │   ├── auth.py                    # Level 4: Auth fixtures
+│   │   └── __init__.py
+│   └── __init__.py
+├── docs/                               # Level 2: Documentation
+│   ├── architecture/                   # Level 3: Architecture docs
+│   │   ├── system-design.md           # Level 4: System overview
+│   │   ├── data-flow.md               # Level 4: Data flow diagrams
+│   │   └── component-interactions.md  # Level 4: Component interaction
+│   ├── api/                            # Level 3: API documentation
+│   │   ├── endpoints.md               # Level 4: Endpoint reference
+│   │   ├── authentication.md          # Level 4: Auth guide
+│   │   └── examples.md                # Level 4: Usage examples
+│   ├── deployment/                     # Level 3: Deployment docs
+│   │   ├── local-setup.md             # Level 4: Local development
+│   │   ├── gcp-deployment.md          # Level 4: GCP deployment
+│   │   └── troubleshooting.md         # Level 4: Troubleshooting
+│   └── README.md                       # Level 3: Docs index
+├── config/                             # Level 2: Configuration
+│   ├── development.yaml               # Level 3: Dev environment
+│   ├── production.yaml                # Level 3: Prod environment
+│   └── testing.yaml                   # Level 3: Test environment
+├── docker/                             # Level 2: Docker assets
+│   ├── Dockerfile                     # Level 3: Main image
+│   ├── postgres/                       # Level 3: Postgres setup
+│   │   └── init.sql                   # Level 4: Schema initialization
+│   ├── redis/                          # Level 3: Redis setup
+│   │   └── redis.conf                 # Level 4: Redis config
+│   └── nginx/                          # Level 3: Nginx (future)
+│       └── nginx.conf                 # Level 4: Nginx config
+├── k8s/                                # Level 2: Kubernetes
+│   ├── base/                           # Level 3: Base configs
+│   │   ├── deployment.yaml            # Level 4: Deployment
+│   │   ├── service.yaml               # Level 4: Service
+│   │   └── configmap.yaml             # Level 4: ConfigMap
+│   ├── overlays/                       # Level 3: Environment overlays
+│   │   ├── dev/                        # Level 4: Dev environment
+│   │   ├── staging/                    # Level 4: Staging
+│   │   └── prod/                       # Level 4: Production
+│   └── helm/                           # Level 3: Helm charts
+│       └── ollama/                     # Level 4: Main chart
+├── scripts/                            # Level 2: Automation
+│   ├── setup.sh                       # Level 3: Setup script
+│   ├── migrate.sh                     # Level 3: Migration script
+│   └── health-check.sh                # Level 3: Health check
+├── alembic/                            # Level 2: DB migrations
+│   ├── versions/                       # Level 3: Migration versions
+│   │   ├── 001_initial_schema.py      # Level 4: Initial schema
+│   │   └── 002_add_users_table.py     # Level 4: Add users
+│   └── env.py                          # Level 3: Migration config
+├── .github/                            # Level 2: GitHub config
+│   ├── workflows/                      # Level 3: CI/CD workflows
+│   │   ├── tests.yml                  # Level 4: Test workflow
+│   │   ├── deploy.yml                 # Level 4: Deploy workflow
+│   │   └── security.yml               # Level 4: Security workflow
+│   └── copilot-instructions.md        # Level 3: Copilot guidelines
+├── .vscode/                            # Level 2: VSCode settings
+│   ├── settings.json                  # Level 3: Global settings
+│   ├── folder-structure.json          # Level 3: Structure enforcement
+│   ├── launch.json                    # Level 3: Debugging config
+│   └── extensions.json                # Level 3: Recommended extensions
+├── .githooks/                          # Level 2: Git hooks
+│   ├── pre-commit                     # Level 3: Pre-commit hook
+│   ├── commit-msg                     # Level 3: Commit message hook
+│   └── post-merge                     # Level 3: Post-merge hook
+└── pyproject.toml                     # Level 1: Project config
 ```
 
 ### Elite Filesystem Standards

@@ -1,7 +1,7 @@
 # FAANG Audit Remediation: Immediate Action Items
 
-**Status**: BLOCKING production commit  
-**Priority**: 🔴 CRITICAL  
+**Status**: BLOCKING production commit
+**Priority**: 🔴 CRITICAL
 **Target**: Fix all Phase 1 violations within 2 hours
 
 ---
@@ -11,12 +11,14 @@
 ### Issue #1: Fix Test Infrastructure (26 test errors)
 
 **Affected files**:
+
 - `tests/integration/test_api_smoke.py` (14 errors)
 - `tests/unit/test_auth.py` (12 errors)
 
 **Root cause**: Import/attribute errors from test fixtures after recent refactoring
 
 **Action plan**:
+
 1. Diagnose first error: `pytest tests/unit/test_auth.py::TestFirebaseAuth::test_hash_password -v`
 2. Review fixture definitions in `tests/fixtures/`
 3. Fix broken imports in test files
@@ -29,6 +31,7 @@
 ### Issue #2: Fix Test Failures (9 failing tests)
 
 **Affected tests**:
+
 - `tests/unit/test_metrics.py` (5 failures)
 - `tests/unit/test_ollama_client.py` (3 failures)
 - (1 more)
@@ -36,6 +39,7 @@
 **Root cause**: Mock assertions not matching actual behavior after service refactoring
 
 **Action plan**:
+
 1. Run each test individually with `-vvv` flag
 2. Compare expected vs actual in mocks
 3. Update mock/assertion setup
@@ -47,10 +51,11 @@
 
 ### Issue #3: Upgrade transformers Dependency (16 CVEs)
 
-**Current**: `transformers==4.35.2` (16 known CVEs)  
+**Current**: `transformers==4.35.2` (16 known CVEs)
 **Target**: `transformers>=4.53.0` (all CVEs fixed)
 
 **Commands**:
+
 ```bash
 # Option A: Direct edit
 sed -i 's/"transformers>=4.35.2"/"transformers>=4.53.0"/' pyproject.toml
@@ -72,14 +77,16 @@ cd /home/akushnir/ollama
 #### Part A: Fix Exception Chaining (9 violations of B904)
 
 **Files affected**:
+
 - `ollama/api/routes/inference.py` (7 violations at lines 57, 83, 151, 154, 180, 205, 230, 286)
 - `ollama/auth/firebase_auth.py` (2 violations at lines 62, 252, 256)
 
 **Pattern to fix**:
+
 ```python
 # ❌ BEFORE
 except SomeException as e:
-    raise HTTPException(detail="...") 
+    raise HTTPException(detail="...")
 
 # ✅ AFTER
 except SomeException as e:
@@ -87,6 +94,7 @@ except SomeException as e:
 ```
 
 **Commands**:
+
 ```bash
 # Review file
 cat /home/akushnir/ollama/ollama/api/routes/inference.py | grep -n "raise"
@@ -99,6 +107,7 @@ cat /home/akushnir/ollama/ollama/api/routes/inference.py | grep -n "raise"
 #### Part B: Fix Import Sorting (1 violation in inference.py:7)
 
 **Command**:
+
 ```bash
 /home/akushnir/ollama/venv/bin/python -m ruff check ollama/api/routes/inference.py --fix
 ```
@@ -108,6 +117,7 @@ cat /home/akushnir/ollama/ollama/api/routes/inference.py | grep -n "raise"
 #### Part C: Reduce Complexity (3 functions > complexity 10)
 
 **Functions**:
+
 1. `ollama/main.py:77` - `lifespan()` (complexity 11)
 2. `ollama/auth/firebase_auth.py:65` - `get_current_user()` (complexity 13)
 3. `ollama/api/server.py:25` - `create_app()` (complexity 12)
@@ -115,6 +125,7 @@ cat /home/akushnir/ollama/ollama/api/routes/inference.py | grep -n "raise"
 **Strategy**: Extract helper functions
 
 **Example**:
+
 ```python
 # ❌ BEFORE (complexity 13)
 async def get_current_user(token: str) -> User:
@@ -167,15 +178,15 @@ async def get_current_user(token: str) -> User:
 
 ### Summary: Phase 1 Timeline
 
-| Task | Time | Status |
-|------|------|--------|
-| Fix test errors (26) | 30 min | ⏳ TODO |
-| Fix test failures (9) | 30 min | ⏳ TODO |
-| Upgrade transformers | 10 min | ⏳ TODO |
-| Fix linting (import sort) | 2 min | ⏳ TODO |
-| Fix exception chaining (9 violations) | 20 min | ⏳ TODO |
-| Reduce complexity (3 functions) | 30 min | ⏳ TODO |
-| **TOTAL** | **2 hrs** | ⏳ TODO |
+| Task                                  | Time      | Status  |
+| ------------------------------------- | --------- | ------- |
+| Fix test errors (26)                  | 30 min    | ⏳ TODO |
+| Fix test failures (9)                 | 30 min    | ⏳ TODO |
+| Upgrade transformers                  | 10 min    | ⏳ TODO |
+| Fix linting (import sort)             | 2 min     | ⏳ TODO |
+| Fix exception chaining (9 violations) | 20 min    | ⏳ TODO |
+| Reduce complexity (3 functions)       | 30 min    | ⏳ TODO |
+| **TOTAL**                             | **2 hrs** | ⏳ TODO |
 
 ---
 
@@ -188,11 +199,13 @@ async def get_current_user(token: str) -> User:
 #### `ollama/services/ollama_model_manager.py` - 53 lines (0% coverage)
 
 **Missing tests for**:
+
 - Model manager initialization
 - Model loading/caching
 - Error handling
 
 **Test template**:
+
 ```python
 # tests/unit/test_ollama_model_manager.py
 class TestOllamaModelManager:
@@ -202,14 +215,14 @@ class TestOllamaModelManager:
         manager = OllamaModelManager(base_url="http://ollama:11434")
         await manager.initialize()
         assert manager is not None
-    
+
     @pytest.mark.asyncio
     async def test_load_model(self):
         """Model loads and caches correctly."""
         manager = OllamaModelManager(...)
         model = await manager.load_model("llama2")
         assert model is not None
-    
+
     @pytest.mark.asyncio
     async def test_load_model_not_found(self):
         """Non-existent model raises error."""
@@ -218,7 +231,7 @@ class TestOllamaModelManager:
             await manager.load_model("nonexistent")
 ```
 
-**Expected lines to cover**: 53  
+**Expected lines to cover**: 53
 **Estimated effort**: 1 hour
 
 ---
@@ -228,47 +241,49 @@ class TestOllamaModelManager:
 #### `ollama/services/cache.py` - 78 lines (19.4% coverage)
 
 **Missing tests for**:
+
 - Cache hits/misses
 - TTL expiration
 - LRU eviction
 - Concurrent access
 
-**Target lines**: 60+  
+**Target lines**: 60+
 **Estimated effort**: 45 minutes
 
 #### `ollama/services/vector.py` - 57 lines (24.5% coverage)
 
 **Missing tests for**:
+
 - Vector search
 - Batch operations
 - Embedding generation
 - Error handling
 
-**Target lines**: 45+  
+**Target lines**: 45+
 **Estimated effort**: 45 minutes
 
 ---
 
 ### Priority 3: MEDIUM COVERAGE GAPS
 
-| File | Lines | Current | Target | Effort |
-|------|-------|---------|--------|--------|
-| `repositories/usage_repository.py` | 52 | 23.8% | 95%+ | 40 min |
-| `repositories/message_repository.py` | 29 | 39.2% | 95%+ | 30 min |
-| `services/database.py` | 31 | 28.9% | 95%+ | 25 min |
-| `services/ollama_client_main.py` | 48 | 34.2% | 95%+ | 40 min |
+| File                                 | Lines | Current | Target | Effort |
+| ------------------------------------ | ----- | ------- | ------ | ------ |
+| `repositories/usage_repository.py`   | 52    | 23.8%   | 95%+   | 40 min |
+| `repositories/message_repository.py` | 29    | 39.2%   | 95%+   | 30 min |
+| `services/database.py`               | 31    | 28.9%   | 95%+   | 25 min |
+| `services/ollama_client_main.py`     | 48    | 34.2%   | 95%+   | 40 min |
 
 ---
 
 ### Phase 2 Timeline
 
-| Task | Effort | Status |
-|------|--------|--------|
-| Test `ollama_model_manager.py` (0% → 95%) | 1 hour | ⏳ TODO |
-| Test `cache.py` (19.4% → 95%) | 45 min | ⏳ TODO |
-| Test `vector.py` (24.5% → 95%) | 45 min | ⏳ TODO |
-| Test medium-gap files (4 files) | 2 hours | ⏳ TODO |
-| **TOTAL** | **~4.5 hours** | ⏳ TODO |
+| Task                                      | Effort         | Status  |
+| ----------------------------------------- | -------------- | ------- |
+| Test `ollama_model_manager.py` (0% → 95%) | 1 hour         | ⏳ TODO |
+| Test `cache.py` (19.4% → 95%)             | 45 min         | ⏳ TODO |
+| Test `vector.py` (24.5% → 95%)            | 45 min         | ⏳ TODO |
+| Test medium-gap files (4 files)           | 2 hours        | ⏳ TODO |
+| **TOTAL**                                 | **~4.5 hours** | ⏳ TODO |
 
 **Expected final coverage**: 90%+
 
@@ -281,12 +296,15 @@ class TestOllamaModelManager:
 ### Issues to fix:
 
 1. **MD040** (15 errors): Add language tags to code blocks
-   - Find: `\`\`\`` → Replace: `` ``` bash `` (with language)
+
+   - Find: `\`\`\`` → Replace: ` ``` bash ` (with language)
 
 2. **MD036** (8 errors): Use headings, not emphasis
+
    - Find: `**Heading**` → Replace: `### Heading`
 
 3. **MD034** (8 errors): Wrap bare URLs in links
+
    - Find: `https://example.com` → Replace: `[Link](https://example.com)`
 
 4. **MD051** (2 errors): Fix invalid link fragments
@@ -374,8 +392,9 @@ git push origin main
 ### Status: **🔴 NOT READY FOR PRODUCTION**
 
 **Blocking**:
+
 - ❌ 26 test errors (fixture/import issues)
-- ❌ 9 test failures (mock/logic issues)  
+- ❌ 9 test failures (mock/logic issues)
 - ❌ 16 security vulnerabilities (transformers)
 - ❌ 15 linting violations (code quality)
 
@@ -387,6 +406,7 @@ git push origin main
 4. **THEN**: **READY FOR PRODUCTION COMMIT**
 
 ### Git state:
+
 - ✅ Commits are atomic and well-formatted
 - ✅ Branch naming is correct
 - ⚠️ Working directory has 55 modified files + 21 untracked files

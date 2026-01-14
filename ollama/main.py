@@ -128,9 +128,7 @@ async def _startup_ollama(settings: Any) -> None:
     """Initialize Ollama inference client."""
     logger.info("🤖 Connecting to Ollama inference engine...")
     ollama_base_url = (
-        settings.ollama_base_url
-        if hasattr(settings, "ollama_base_url")
-        else "http://ollama:11434"
+        settings.ollama_base_url if hasattr(settings, "ollama_base_url") else "http://ollama:11434"
     )
     ollama_client = init_ollama_client(
         base_url=ollama_base_url,

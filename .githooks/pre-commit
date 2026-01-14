@@ -20,6 +20,95 @@ FAILED=0
 # Get the list of staged Python files
 PYTHON_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.py$' || true)
 
+# Get list of all staged files (for folder structure validation)
+ALL_STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM || true)
+
+# ============================================================
+# 0. FOLDER STRUCTURE VALIDATION (NEW - 5-Level Deep Mandate)
+# ============================================================
+echo "📁 Validating folder structure compliance..."
+STRUCTURE_FAILED=0
+
+# Function to check depth
+check_depth() {
+    local path="$1"
+    local depth=$(echo "$path" | tr -cd '/' | wc -c)
+    local max_depth=5
+    if [ "$depth" -gt "$max_depth" ]; then
+        echo -e "${RED}❌ File exceeds max depth (5 levels): $path${NC}"
+        STRUCTURE_FAILED=$((STRUCTURE_FAILED + 1))
+        return 1
+    fi
+    return 0
+}
+
+# Function to validate file naming
+validate_naming() {
+    local file="$1"
+    local filename=$(basename "$file")
+    
+    # Check for .py files
+    if [[ $file == *.py ]]; then
+        # Should be lowercase_with_underscores.py
+        if [[ ! $filename =~ ^[a-z][a-z0-9_]*\.py$ ]]; then
+            echo -e "${RED}❌ Invalid naming (should be lowercase_with_underscores.py): $file${NC}"
+            STRUCTURE_FAILED=$((STRUCTURE_FAILED + 1))
+            return 1
+        fi
+    fi
+    return 0
+}
+
+# Function to validate test mirroring
+validate_test_mirroring() {
+    # For each source file, check if test file exists or is being created
+    local source_file="$1"
+    
+    # Only check ollama/ files, not tests/
+    if [[ $source_file != ollama/* ]]; then
+        return 0
+    fi
+    
+    # Skip __init__.py files
+    if [[ $source_file == */__init__.py ]]; then
+        return 0
+    fi
+    
+    # Construct expected test file path
+    local test_file="${source_file/ollama\//tests/unit/}"
+    test_file="tests/unit/${test_file#tests/unit/}"
+    test_file="${test_file%.py}/test_$(basename ${source_file%.py}).py"
+    test_file="tests/unit/$(echo $source_file | sed 's|ollama/||' | sed 's|\.py|_|' | sed 's|/|_|g')py"
+    test_file="tests/unit/$(echo $source_file | sed 's|ollama/||' | sed 's|/|/test_|' | sed 's|^|test_|')"
+    
+    # For now, just validate the structure exists
+    return 0
+}
+
+# Validate all staged files
+for file in $ALL_STAGED_FILES; do
+    # Skip non-Python files for structure checks
+    if [[ $file != *.py ]] && [[ $file != *.md ]] && [[ $file != *.json ]] && [[ $file != *.yaml ]] && [[ $file != *.yml ]]; then
+        continue
+    fi
+    
+    # Check depth
+    check_depth "$file" || true
+    
+    # Validate naming for .py files
+    if [[ $file == *.py ]]; then
+        validate_naming "$file" || true
+    fi
+done
+
+if [ $STRUCTURE_FAILED -gt 0 ]; then
+    echo -e "${YELLOW}⚠️  Folder structure issues found: $STRUCTURE_FAILED${NC}"
+    FAILED=$((FAILED + 1))
+else
+    echo -e "${GREEN}✅ Folder structure compliant${NC}"
+fi
+
+echo ""
 if [ -z "$PYTHON_FILES" ]; then
     echo "ℹ️  No Python files to check"
     exit 0

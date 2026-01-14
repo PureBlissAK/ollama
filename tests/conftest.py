@@ -32,31 +32,36 @@ def auth_manager() -> Mock:
         return pwd in hashed or hashed.endswith(pwd)
 
     # Mock JWT token operations
-    def mock_create_access_token(user_id: any, username: any = None, expires_delta: any = None) -> str:  # noqa: ANN002
+    def mock_create_access_token(
+        user_id: any, username: any = None, expires_delta: any = None
+    ) -> str:
         """Create a mock JWT access token."""
         # Mock JWT format: header.payload.signature
         import base64
         import json
+
         header = base64.b64encode(b'{"alg":"HS256","typ":"JWT"}').decode()
         payload_data = {"sub": str(user_id), "username": username, "type": "access"}
         payload = base64.b64encode(json.dumps(payload_data).encode()).decode()
         signature = base64.b64encode(b"mock_signature").decode()
         return f"{header}.{payload}.{signature}"
 
-    def mock_create_refresh_token(user_id: any) -> str:  # noqa: ANN002
+    def mock_create_refresh_token(user_id: any) -> str:
         """Create a mock refresh token."""
         import base64
         import json
+
         header = base64.b64encode(b'{"alg":"HS256","typ":"JWT"}').decode()
         payload_data = {"sub": str(user_id), "type": "refresh"}
         payload = base64.b64encode(json.dumps(payload_data).encode()).decode()
         signature = base64.b64encode(b"mock_refresh_sig").decode()
         return f"{header}.{payload}.{signature}"
 
-    def mock_decode_token(token: str) -> dict[str, any]:  # noqa: ANN002
+    def mock_decode_token(token: str) -> dict[str, any]:
         """Decode a mock token."""
         import base64
         import json
+
         if "invalid" in token:
             raise ValueError("Invalid token")
         if "expired" in token:
@@ -157,12 +162,8 @@ def mock_firebase_auth() -> MagicMock:
     auth = MagicMock()
     auth.verify_id_token = Mock(return_value={"sub": "test-user", "email": "test@example.com"})
     auth.get_user = Mock(return_value=Mock(uid="test-uid", email="test@example.com"))
-    auth.get_user_by_email = Mock(
-        return_value=Mock(uid="test-uid", email="test@example.com")
-    )
-    auth.create_user = Mock(
-        return_value=Mock(uid="new-uid", email="new@example.com")
-    )
+    auth.get_user_by_email = Mock(return_value=Mock(uid="test-uid", email="test@example.com"))
+    auth.create_user = Mock(return_value=Mock(uid="new-uid", email="new@example.com"))
     auth.UserNotFoundError = Exception
     auth.ExpiredSignInError = Exception
     auth.RevokedSignInError = Exception
@@ -217,7 +218,7 @@ def mock_metrics_registry() -> Mock:
     all_metrics = {**auth_metrics, **http_metrics}
     registry.collect = Mock(return_value=[Mock(name=k, value=v) for k, v in all_metrics.items()])
 
-    def mock_get_summary() -> dict[str, any]:  # noqa: ANN002
+    def mock_get_summary() -> dict[str, any]:
         """Get metrics summary."""
         return {**auth_metrics, **http_metrics}
 
