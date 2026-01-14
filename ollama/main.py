@@ -89,18 +89,33 @@ async def lifespan(app: FastAPI):
 
         # Initialize database connection pool
         logger.info("📦 Initializing database connection...")
-        db_manager = init_database(settings.database_url, echo=False)
-        await db_manager.initialize()
+        try:
+            db_manager = init_database(settings.database_url, echo=False)
+            await db_manager.initialize()
+            logger.info("✅ Database connected")
+        except Exception as e:
+            logger.warning(f"⚠️  Database unavailable: {e}")
+            logger.warning("⚠️  Running in degraded mode - persistence disabled")
 
         # Initialize Redis connection
         logger.info("🔴 Connecting to Redis...")
-        cache_manager = init_cache(settings.redis_url, db=0)
-        await cache_manager.initialize()
+        try:
+            cache_manager = init_cache(settings.redis_url, db=0)
+            await cache_manager.initialize()
+            logger.info("✅ Redis connected")
+        except Exception as e:
+            logger.warning(f"⚠️  Redis unavailable: {e}")
+            logger.warning("⚠️  Caching disabled")
 
         # Initialize Qdrant client
         logger.info("🔷 Connecting to Qdrant...")
-        vector_manager = init_vector_db(f"http://{settings.qdrant_host}:{settings.qdrant_port}")
-        await vector_manager.initialize()
+        try:
+            vector_manager = init_vector_db(f"http://{settings.qdrant_host}:{settings.qdrant_port}")
+            await vector_manager.initialize()
+            logger.info("✅ Qdrant connected")
+        except Exception as e:
+            logger.warning(f"⚠️  Qdrant unavailable: {e}")
+            logger.warning("⚠️  Vector search disabled")
 
         # Initialize Ollama inference client
         logger.info("🤖 Connecting to Ollama inference engine...")
