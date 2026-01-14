@@ -4,6 +4,8 @@ This module provides shared fixtures used across all test modules.
 It is automatically discovered and loaded by pytest.
 """
 
+import random
+import string
 from unittest.mock import MagicMock, Mock
 
 import pytest
@@ -18,22 +20,62 @@ def auth_manager() -> Mock:
     """
     manager = Mock()
 
-    # Mock hash_password to return a realistic hash
-    hashes: dict[str, str] = {}
-
+    # Mock hash_password to return a realistic hash with random salt
     def mock_hash(pwd: str) -> str:
-        """Hash a password and store it."""
-        hashed = f"$2b$12$mocked_hash_of_{pwd}"
-        hashes[pwd] = hashed
-        return hashed
+        """Hash a password with random salt for uniqueness."""
+        salt = "".join(random.choices(string.ascii_letters + string.digits, k=8))
+        return f"$2b$12${salt}_hash_of_{pwd}"
 
     def mock_verify(pwd: str, hashed: str) -> bool:
         """Verify password matches hash."""
-        expected = f"$2b$12$mocked_hash_of_{pwd}"
-        return hashed == expected
+        # Extract original password from hash format if it contains the same pwd
+        return pwd in hashed or hashed.endswith(pwd)
+
+    # Mock JWT token operations
+    def mock_create_access_token(user_id: any, username: any = None, expires_delta: any = None) -> str:  # noqa: ANN002
+        """Create a mock JWT access token."""
+        # Mock JWT format: header.payload.signature
+        import base64
+        header = base64.b64encode(b'{"alg":"HS256","typ":"JWT"}').decode()
+        payload = base64.b64encode(f'{{"sub":"{user_id}","username":"{username}"}}'.encode()).decode()
+        signature = base64.b64encode(b"mock_signature").decode()
+        return f"{header}.{payload}.{signature}"
+
+    def mock_create_refresh_token(user_id: any) -> str:  # noqa: ANN002
+        """Create a mock refresh token."""
+        import base64
+        header = base64.b64encode(b'{"alg":"HS256","typ":"JWT"}').decode()
+        payload = base64.b64encode(f'{{"sub":"{user_id}","type":"refresh"}}'.encode()).decode()
+        signature = base64.b64encode(b"mock_refresh_sig").decode()
+        return f"{header}.{payload}.{signature}"
+
+    def mock_decode_token(token: str) -> dict[str, any]:  # noqa: ANN002
+        """Decode a mock token."""
+        if "invalid" in token:
+            raise ValueError("Invalid token")
+        if "expired" in token:
+            raise ValueError("Token has expired")
+        if token.count(".") != 2:
+            raise ValueError("Invalid token format")
+        return {"sub": "user", "type": "access"}
+
+    # Mock API key operations
+    def mock_hash_api_key(key: str) -> str:
+        """Hash an API key."""
+        salt = "".join(random.choices(string.ascii_letters, k=4))
+        return f"hashed_{salt}_{key}"
+
+    def mock_verify_api_key(key: str, hashed: str) -> bool:
+        """Verify an API key."""
+        return key in hashed
 
     manager.hash_password = Mock(side_effect=mock_hash)
     manager.verify_password = Mock(side_effect=mock_verify)
+    manager.create_access_token = Mock(side_effect=mock_create_access_token)
+    manager.create_refresh_token = Mock(side_effect=mock_create_refresh_token)
+    manager.decode_token = Mock(side_effect=mock_decode_token)
+    manager.hash_api_key = Mock(side_effect=mock_hash_api_key)
+    manager.verify_api_key = Mock(side_effect=mock_verify_api_key)
     return manager
 
 
@@ -107,3 +149,58 @@ def mock_firebase_auth() -> MagicMock:
     auth.RevokedSignInError = Exception
     auth.InvalidIdTokenError = Exception
     return auth
+
+
+@pytest.fixture()
+def mock_ollama_client() -> Mock:
+    """Provide a mocked Ollama client.
+
+    Returns:
+        Mock Ollama client with model and inference methods
+    """
+    client = Mock()
+    client.list = Mock(return_value={"models": [{"name": "llama2"}]})
+    client.show = Mock(return_value={"name": "llama2", "size": "7b"})
+    client.generate = Mock(return_value={"response": "test response"})
+    client.embeddings = Mock(return_value={"embedding": [0.1, 0.2, 0.3]})
+    client.pull = Mock(return_value={"status": "success"})
+    # Add timeout attributes for client config tests
+    client.timeout = 30
+    return client
+
+
+@pytest.fixture()
+def mock_metrics_registry() -> Mock:
+    """Provide a mocked Prometheus metrics registry.
+
+    Returns:
+        Mock registry with common metric collectors
+    """
+    registry = Mock()
+    registry.collect = Mock(return_value=[])
+    registry.register = Mock()
+    registry.unregister = Mock()
+
+    # Add mock metrics
+    auth_metrics = {
+        "auth_attempts_total": 0.0,
+        "auth_failures_total": 0.0,
+        "auth_successes_total": 0.0,
+    }
+    http_metrics = {
+        "http_requests": 0.0,
+        "cache_hits_total": 0.0,
+        "cache_misses_total": 0.0,
+        "rate_limit_exceeded_total": 0.0,
+        "requests_total": 0.0,
+    }
+
+    all_metrics = {**auth_metrics, **http_metrics}
+    registry.collect = Mock(return_value=[Mock(name=k, value=v) for k, v in all_metrics.items()])
+
+    def mock_get_summary() -> dict[str, any]:  # noqa: ANN002
+        """Get metrics summary."""
+        return {**auth_metrics, **http_metrics}
+
+    registry.get_summary = Mock(side_effect=mock_get_summary)
+    return registry
