@@ -1,14 +1,13 @@
 """Generate cache keys for different API endpoints."""
 
 import hashlib
-from typing import Optional
 
 
 class CacheKey:
     """Generate cache keys for different endpoints."""
 
     @staticmethod
-    def models(model_name: Optional[str] = None) -> str:
+    def models(model_name: str | None = None) -> str:
         """Cache key for models list or specific model."""
         if model_name:
             return f"models:{model_name}"

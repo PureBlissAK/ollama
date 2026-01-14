@@ -14,10 +14,10 @@ Preferred imports:
     >>> from ollama.services.ollama_model_manager import OllamaModelManager
 """
 
-from ollama.services.model import Model
-from ollama.services.model_type import ModelType
 from ollama.services.generate_request import GenerateRequest
 from ollama.services.generate_response import GenerateResponse
+from ollama.services.model import Model
+from ollama.services.model_type import ModelType
 from ollama.services.ollama_model_manager import OllamaModelManager
 
 __all__ = [

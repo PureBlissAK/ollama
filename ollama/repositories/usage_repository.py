@@ -3,7 +3,7 @@ Usage Repository - CRUD operations for Usage analytics model.
 """
 
 import uuid
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 from sqlalchemy import and_, select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -67,10 +67,10 @@ class UsageRepository(BaseRepository[Usage]):
         Returns:
             List of usage records
         """
-        since = datetime.now(timezone.utc) - timedelta(days=days)
+        since = datetime.now(UTC) - timedelta(days=days)
         query = select(Usage).where(and_(Usage.user_id == user_id, Usage.created_at >= since))
         result = await self.session.execute(query)
-        return result.scalars().all()
+        return list(result.scalars().all())
 
     async def get_endpoint_usage(self, endpoint: str, days: int = 30) -> list[Usage]:
         """Get all usage for a specific endpoint.
@@ -82,10 +82,10 @@ class UsageRepository(BaseRepository[Usage]):
         Returns:
             List of usage records
         """
-        since = datetime.now(timezone.utc) - timedelta(days=days)
+        since = datetime.now(UTC) - timedelta(days=days)
         query = select(Usage).where(and_(Usage.endpoint == endpoint, Usage.created_at >= since))
         result = await self.session.execute(query)
-        return result.scalars().all()
+        return list(result.scalars().all())
 
     async def get_user_token_usage(self, user_id: uuid.UUID, days: int = 30) -> tuple[int, int]:
         """Get total tokens used by a user.
@@ -247,7 +247,7 @@ class UsageRepository(BaseRepository[Usage]):
         Returns:
             Number of records deleted
         """
-        cutoff = datetime.now(timezone.utc) - timedelta(days=days)
+        cutoff = datetime.now(UTC) - timedelta(days=days)
         query = select(Usage).where(Usage.created_at < cutoff)
 
         result = await self.session.execute(query)

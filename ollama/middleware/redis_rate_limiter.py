@@ -3,6 +3,7 @@
 import asyncio
 import logging
 import time
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -15,7 +16,7 @@ class RedisRateLimiter:
     Reference: https://github.com/kushin77/ollama/issues
     """
 
-    def __init__(self, redis_client, requests_per_minute: int = 60):
+    def __init__(self, redis_client: Any, requests_per_minute: int = 60) -> None:
         """Initialize Redis rate limiter.
 
         Args:
@@ -25,7 +26,7 @@ class RedisRateLimiter:
         self.redis = redis_client
         self.requests_per_minute = requests_per_minute
 
-    async def check_rate_limit(self, key: str) -> tuple[bool, dict]:
+    async def check_rate_limit(self, key: str) -> tuple[bool, dict[str, int]]:
         """Check rate limit using Redis.
 
         Args:

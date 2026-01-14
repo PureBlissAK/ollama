@@ -1,10 +1,12 @@
 """FastAPI middleware for applying rate limiting to requests."""
 
 import logging
-from typing import Optional
+from collections.abc import Awaitable, Callable
+from typing import Any
 
 from fastapi import HTTPException, Request, status
 from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.responses import Response
 
 from ollama.middleware.rate_limiter import RateLimiter
 
@@ -22,11 +24,11 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
 
     def __init__(
         self,
-        app,
+        app: Any,
         requests_per_minute: int = 60,
-        burst_size: Optional[int] = None,
-        exclude_paths: Optional[list] = None,
-    ):
+        burst_size: int | None = None,
+        exclude_paths: list[str] | None = None,
+    ) -> None:
         """Initialize rate limit middleware.
 
         Args:
@@ -39,7 +41,9 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         self.limiter = RateLimiter(requests_per_minute, burst_size)
         self.exclude_paths = exclude_paths or ["/health", "/docs", "/openapi.json"]
 
-    async def dispatch(self, request: Request, call_next):
+    async def dispatch(
+        self, request: Request, call_next: Callable[[Request], Awaitable[Response]]
+    ) -> Response:
         """Process request with rate limiting.
 
         Args:
@@ -69,9 +73,7 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         allowed, limit_info = self.limiter.check_rate_limit(rate_limit_key)
 
         if not allowed:
-            logger.warning(
-                f"Rate limit exceeded for {rate_limit_key} on {request.url.path}"
-            )
+            logger.warning(f"Rate limit exceeded for {rate_limit_key} on {request.url.path}")
             raise HTTPException(
                 status_code=status.HTTP_429_TOO_MANY_REQUESTS,
                 detail="Rate limit exceeded",

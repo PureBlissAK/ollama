@@ -9,11 +9,9 @@ CRITICAL: This implementation mirrors Gov-AI-Scout for seamless client compatibi
 from __future__ import annotations
 
 import logging
-from functools import lru_cache
 from typing import Any, Callable, Optional
 
 from fastapi import Depends, HTTPException, Request, status
-from fastapi.security import HTTPBearer
 
 logger = logging.getLogger(__name__)
 

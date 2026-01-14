@@ -3,12 +3,17 @@ Document Management API Endpoints
 Provides document ingestion, indexing, and retrieval for RAG pipeline.
 """
 
+import logging
 import uuid
+from typing import Any
 
 from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile
 
-from ...repositories import RepositoryFactory, get_repositories
-from ...services.vector import VectorManager, _vector_manager
+from ollama.repositories import RepositoryFactory, get_repositories
+from ollama.services.vector import VectorManager
+from ollama import main as ollama_main; #  _vector_manager
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(
     prefix="/api/v1/documents",
@@ -16,12 +21,11 @@ router = APIRouter(
 )
 
 
-async def get_vector_manager() -> "VectorManager":
+async def get_vector_manager() -> VectorManager:
     """Get vector manager instance"""
-    global _vector_manager
-    if _vector_manager is None:
+    if ollama_main._vector_manager is None:
         raise RuntimeError("Vector manager not initialized")
-    return _vector_manager
+    return ollama_main._vector_manager
 
 
 @router.get("/")
@@ -31,7 +35,7 @@ async def list_documents(
     page: int = Query(1, ge=1, description="Page number"),
     page_size: int = Query(10, ge=1, le=100, description="Items per page"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """List documents for a user.
 
     Args:
@@ -76,7 +80,7 @@ async def list_documents(
             ],
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to list documents: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Failed to list documents: {e!s}") from e
 
 
 @router.post("/upload")
@@ -88,7 +92,7 @@ async def upload_document(
     chunk_overlap: int = Query(50, description="Overlap between chunks"),
     auto_index: bool = Query(False, description="Automatically index after upload"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """Upload and process a document.
 
     Args:
@@ -147,7 +151,7 @@ async def upload_document(
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to upload document: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Failed to upload document: {e!s}") from e
 
 
 @router.get("/{document_id}")
@@ -193,7 +197,7 @@ async def get_document(
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to get document: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Failed to get document: {e!s}") from e
 
 
 @router.put("/{document_id}")
@@ -235,7 +239,7 @@ async def update_document(
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to update document: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Failed to update document: {e!s}") from e
 
 
 @router.delete("/{document_id}")
@@ -267,7 +271,7 @@ async def delete_document(
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to delete document: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Failed to delete document: {e!s}") from e
 
 
 @router.post("/{document_id}/index")
@@ -308,7 +312,7 @@ async def index_document(
         try:
             model = get_embedding_model(model_name)
         except Exception as e:
-            raise HTTPException(status_code=400, detail=f"Invalid embedding model: {str(e)}") from e
+            raise HTTPException(status_code=400, detail=f"Invalid embedding model: {e!s}") from e
 
         # Create collection if needed
         if not await vector_mgr.collection_exists(collection_name):
@@ -334,14 +338,14 @@ async def index_document(
                 )
             except Exception as e:
                 raise HTTPException(
-                    status_code=500, detail=f"Embedding generation failed: {str(e)}"
+                    status_code=500, detail=f"Embedding generation failed: {e!s}"
                 ) from e
 
         # Upsert to Qdrant
         try:
             await vector_mgr.upsert_vectors(collection_name, embeddings)
         except Exception as e:
-            raise HTTPException(status_code=500, detail=f"Vector storage failed: {str(e)}") from e
+            raise HTTPException(status_code=500, detail=f"Vector storage failed: {e!s}") from e
 
         # Mark document as indexed
         await doc_repo.mark_indexed(document_id, collection_name)
@@ -355,7 +359,7 @@ async def index_document(
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Indexing failed: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Indexing failed: {e!s}") from e
 
 
 @router.get("/{document_id}/chunks")
@@ -409,7 +413,7 @@ async def get_document_chunks(
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to get chunks: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Failed to get chunks: {e!s}") from e
 
 
 @router.post("/search/semantic")
@@ -475,7 +479,7 @@ async def semantic_search_documents(
             "results": enriched_results,
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Search failed: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Search failed: {e!s}") from e
 
 
 @router.get("/stats/user")
@@ -509,4 +513,4 @@ async def get_user_document_stats(
             "total_chunks": total_chunks,
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to get stats: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Failed to get stats: {e!s}") from e

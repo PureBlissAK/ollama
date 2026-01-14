@@ -1,33 +1,19 @@
 """Model management endpoints"""
 
-from typing import List
+from typing import cast
 
 import httpx
 from fastapi import APIRouter, HTTPException, status
-from pydantic import BaseModel
 
+from ollama.api.schemas.models_list_models_response import ListModelsResponse
+from ollama.api.schemas.models_model_info import ModelInfo
 from ollama.services.ollama_client import get_ollama_client
 
 router = APIRouter()
 
 
-class ModelInfo(BaseModel):
-    """Model information"""
-
-    name: str
-    size: str
-    digest: str
-    modified_at: str
-
-
-class ListModelsResponse(BaseModel):
-    """Response for list models"""
-
-    models: List[ModelInfo]
-
-
 @router.get("", response_model=ListModelsResponse)
-async def list_models():
+async def list_models() -> ListModelsResponse:
     """
     List all available models
 
@@ -53,21 +39,12 @@ async def list_models():
 
         models = []
         for model in ollama_models:
-            # Convert size from bytes to human-readable format
-            size_bytes = model.size or 0
-            if size_bytes > 1e9:
-                size_str = f"{size_bytes / 1e9:.1f}GB"
-            elif size_bytes > 1e6:
-                size_str = f"{size_bytes / 1e6:.1f}MB"
-            else:
-                size_str = f"{size_bytes}B" if size_bytes > 0 else "Unknown"
-
             models.append(
                 ModelInfo(
                     name=model.name,
-                    size=size_str,
-                    digest=model.digest or "",
-                    modified_at=model.modified_at or "",
+                    size=model.size,
+                    digest="",
+                    modified_at="",
                 )
             )
 
@@ -76,41 +53,45 @@ async def list_models():
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail=f"Ollama service error: {str(e)}",
+            detail=f"Ollama service error: {e!s}",
         ) from e
 
 
 @router.get("/{model_name}")
-async def get_model(model_name: str):
+async def get_model(model_name: str) -> dict[str, object]:
     """Get information about a specific model"""
     try:
         client = get_ollama_client()
-        model_info = await client.show_model(model_name)
-        return model_info
+        async with httpx.AsyncClient(timeout=30.0) as http_client:
+            response = await http_client.post(
+                f"{client.base_url}/api/show", json={"name": model_name}
+            )
+            response.raise_for_status()
+            return cast(dict[str, object], response.json())
 
     except RuntimeError as e:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail=f"Ollama client not initialized: {str(e)}",
+            detail=f"Ollama client not initialized: {e!s}",
         ) from e
-    except httpx.HTTPError as e:
+    except httpx.HTTPStatusError as e:
         raise HTTPException(
             status_code=(
                 status.HTTP_404_NOT_FOUND
                 if e.response.status_code == 404
                 else status.HTTP_503_SERVICE_UNAVAILABLE
             ),
-            detail=f"Model not found or service error: {str(e)}",
+            detail=f"Model not found or service error: {e!s}",
         ) from e
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Failed to get model info: {str(e)}",
+            detail=f"Failed to get model info: {e!s}",
         ) from e
 
 
 @router.post("/pull")
-async def pull_model(model_name: str):
+async def pull_model(model_name: str) -> dict[str, object]:
     """Download a model"""
     try:
         client = get_ollama_client()
@@ -122,41 +103,41 @@ async def pull_model(model_name: str):
                 f"{client.base_url}/api/pull", json={"name": model_name}
             )
             response.raise_for_status()
-            return response.json()
-    except httpx.HTTPError as e:
+            return cast(dict[str, object], response.json())
+    except httpx.HTTPStatusError as e:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail=f"Failed to pull model: {str(e)}",
+            detail=f"Failed to pull model: {e!s}",
         ) from e
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Model pull failed: {str(e)}",
+            detail=f"Model pull failed: {e!s}",
         ) from e
 
 
 @router.delete("/{model_name}")
-async def delete_model(model_name: str):
+async def delete_model(model_name: str) -> dict[str, str]:
     """Delete a model"""
     try:
         client = get_ollama_client()
         async with httpx.AsyncClient(timeout=30.0) as http_client:
-            response = await http_client.delete(
+            response = await http_client.post(
                 f"{client.base_url}/api/delete", json={"name": model_name}
             )
             response.raise_for_status()
             return {"status": "deleted", "model": model_name}
-    except httpx.HTTPError as e:
+    except httpx.HTTPStatusError as e:
         raise HTTPException(
             status_code=(
                 status.HTTP_404_NOT_FOUND
                 if e.response.status_code == 404
                 else status.HTTP_503_SERVICE_UNAVAILABLE
             ),
-            detail=f"Failed to delete model: {str(e)}",
+            detail=f"Failed to delete model: {e!s}",
         ) from e
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Model deletion failed: {str(e)}",
+            detail=f"Model deletion failed: {e!s}",
         ) from e

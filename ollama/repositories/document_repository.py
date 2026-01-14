@@ -54,7 +54,7 @@ class DocumentRepository(BaseRepository[Document]):
             and_(Document.user_id == user_id, Document.vector_collection == collection_name)
         )
         result = await self.session.execute(query)
-        return result.scalars().all()
+        return list(result.scalars().all())
 
     async def create_document(
         self,

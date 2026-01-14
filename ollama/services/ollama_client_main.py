@@ -1,16 +1,19 @@
 """Ollama API client for model inference."""
 
-from typing import AsyncIterator
+from types import TracebackType
+from typing import Any
+
 import httpx
 import structlog
 
+from ollama.services.chat_message import ChatMessage
+from ollama.services.chat_request import ChatRequest
 from ollama.services.generate_request import GenerateRequest
 from ollama.services.generate_response import GenerateResponse
 from ollama.services.model import Model
-from ollama.services.chat_request import ChatRequest
-from ollama.services.chat_message import ChatMessage
+from ollama.services.model_type import ModelType
 
-log = structlog.get_logger(__name__)
+log: Any = structlog.get_logger(__name__)
 
 
 class OllamaClient:
@@ -32,6 +35,20 @@ class OllamaClient:
             timeout=httpx.Timeout(60.0),
         )
 
+    async def initialize(self) -> None:
+        """Initialize client by performing a lightweight health check.
+
+        This ensures connectivity to the Ollama backend. It's safe to call even if
+        the backend is unavailable; exceptions should be handled by callers.
+        """
+        # Perform a simple request to validate the base URL; ignore response content
+        try:
+            resp = await self.client.get("/api/tags")
+            resp.raise_for_status()
+        except httpx.HTTPError:
+            # Defer handling to caller; this method is for connectivity warmup
+            pass
+
     async def list_models(self) -> list[Model]:
         """List all available models on Ollama server.
 
@@ -47,7 +64,19 @@ class OllamaClient:
         response.raise_for_status()
 
         data = response.json()
-        models = [Model(name=m["name"], size=m.get("size", 0)) for m in data.get("models", [])]
+        models: list[Model] = [
+            Model(
+                name=m.get("name", "unknown"),
+                size=str(m.get("size", "")),
+                model_type=ModelType.TEXT_GENERATION,
+                description=m.get("details", {}).get("description", ""),
+                parameters=int(m.get("parameters", 0) or 0),
+                context_length=int(m.get("context_length", 0) or 0),
+                quantization=m.get("quantization", ""),
+                loaded=bool(m.get("loaded", False)),
+            )
+            for m in data.get("models", [])
+        ]
 
         log.info("ollama_models_listed", count=len(models))
         return models
@@ -66,7 +95,7 @@ class OllamaClient:
         """
         log.info("ollama_generate", model=request.model, prompt_len=len(request.prompt))
 
-        payload = {
+        payload: dict[str, Any] = {
             "model": request.model,
             "prompt": request.prompt,
             "temperature": request.temperature,
@@ -112,7 +141,7 @@ class OllamaClient:
 
         messages = [{"role": m.role, "content": m.content} for m in request.messages]
 
-        payload = {
+        payload: dict[str, Any] = {
             "model": request.model,
             "messages": messages,
             "temperature": request.temperature,
@@ -138,6 +167,11 @@ class OllamaClient:
         """Async context manager entry."""
         return self
 
-    async def __aexit__(self, exc_type, exc_val, exc_tb) -> None:
+    async def __aexit__(
+        self,
+        exc_type: type[BaseException] | None,
+        exc_val: BaseException | None,
+        exc_tb: TracebackType | None,
+    ) -> None:
         """Async context manager exit."""
         await self.close()

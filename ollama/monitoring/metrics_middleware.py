@@ -5,10 +5,14 @@ Collects HTTP and business metrics for monitoring
 
 import logging
 import time
+from typing import TYPE_CHECKING
 
 from fastapi import Request
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.types import ASGIApp
+
+if TYPE_CHECKING:
+    from fastapi import FastAPI
 
 from ollama.metrics import (
     RATE_LIMIT_EXCEEDED,
@@ -95,7 +99,7 @@ class MetricsCollectionMiddleware(BaseHTTPMiddleware):
             raise
 
 
-def setup_metrics_endpoints(app):
+def setup_metrics_endpoints(app: "FastAPI") -> None:
     """
     Setup metrics and health check endpoints
 

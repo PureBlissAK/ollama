@@ -2,56 +2,27 @@
 
 import logging
 import os
-from typing import Any, Dict, Optional
+from collections.abc import Awaitable, Callable
+from typing import Any
 
-from fastapi import FastAPI, Request, status
+from fastapi import FastAPI, Request, Response, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.middleware.gzip import GZIPMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse
-from pydantic import BaseModel
 
-from ollama.config import OllamaConfig
+from ollama.api.schemas.chat_request import ChatRequest
+from ollama.api.schemas.generate_request import GenerateRequest
+from ollama.api.schemas.health_response import HealthResponse
+from ollama.api.schemas.models_list_models_response import ListModelsResponse
+from ollama.config import get_settings
 
 logger = logging.getLogger(__name__)
 
 
-# Request/Response Models
-class HealthResponse(BaseModel):
-    """Server health status."""
-
-    status: str
-    version: str
-    environment: str
-    public_url: Optional[str] = None
+# Request/Response Models are imported from ollama.api.schemas
 
 
-class ModelListResponse(BaseModel):
-    """List of available models."""
-
-    models: list
-
-
-class GenerateRequest(BaseModel):
-    """Text generation request."""
-
-    model: str
-    prompt: str
-    stream: bool = False
-    temperature: float = 0.7
-    top_p: float = 0.95
-    top_k: int = 40
-
-
-class ChatRequest(BaseModel):
-    """Chat completion request."""
-
-    model: str
-    messages: list
-    temperature: float = 0.7
-    stream: bool = False
-
-
-def create_app(config: Optional[OllamaConfig] = None) -> FastAPI:  # noqa: C901
+def create_app() -> FastAPI:
     """
     Create and configure FastAPI application.
 
@@ -61,8 +32,7 @@ def create_app(config: Optional[OllamaConfig] = None) -> FastAPI:  # noqa: C901
     Returns:
         Configured FastAPI app
     """
-    if config is None:
-        config = OllamaConfig.from_env()
+    settings = get_settings()
 
     app = FastAPI(
         title="Ollama API",
@@ -71,25 +41,25 @@ def create_app(config: Optional[OllamaConfig] = None) -> FastAPI:  # noqa: C901
     )
 
     # Middleware: GZIP compression
-    app.add_middleware(GZIPMiddleware, minimum_size=1000)
+    app.add_middleware(GZipMiddleware, minimum_size=1000)
 
     # Middleware: CORS (public endpoint support)
-    cors_origins = config.security.get(
-        "cors_origins", ["https://elevatediq.ai", "https://elevatediq.ai/ollama"]
-    )
+    cors_origins = settings.cors_origins
     app.add_middleware(
         CORSMiddleware,
         allow_origins=cors_origins,
-        allow_credentials=config.security.get("cors_allow_credentials", True),
+        allow_credentials=settings.cors_allow_credentials,
         allow_methods=["*"],
         allow_headers=["*"],
-        expose_headers=config.security.get("cors_expose_headers", ["Content-Type"]),
+        expose_headers=settings.cors_expose_headers,
         max_age=3600,
     )
 
     # Middleware: Security headers
     @app.middleware("http")
-    async def add_security_headers(request: Request, call_next):
+    async def add_security_headers(
+        request: Request, call_next: Callable[[Request], Awaitable[Response]]
+    ) -> Response:
         """Add security headers to all responses."""
         response = await call_next(request)
 
@@ -110,9 +80,11 @@ def create_app(config: Optional[OllamaConfig] = None) -> FastAPI:  # noqa: C901
 
     # Middleware: API Key authentication
     @app.middleware("http")
-    async def api_key_auth(request: Request, call_next):
+    async def api_key_auth(
+        request: Request, call_next: Callable[[Request], Awaitable[Response]]
+    ) -> Response:
         """Validate API key for protected endpoints."""
-        if not config.security.get("api_key_auth_enabled", True):
+        if not settings.api_key_auth_enabled:
             return await call_next(request)
 
         # Skip auth for health endpoint
@@ -142,11 +114,11 @@ def create_app(config: Optional[OllamaConfig] = None) -> FastAPI:  # noqa: C901
             status="healthy",
             version="1.0.0",
             environment=os.getenv("OLLAMA_ENV", "development"),
-            public_url=config.server.get("public_url"),
+            public_url=settings.public_url,
         )
 
-    @app.get("/api/models", response_model=ModelListResponse)
-    async def list_models() -> ModelListResponse:
+    @app.get("/api/models", response_model=ListModelsResponse)
+    async def list_models() -> ListModelsResponse:
         """
         List available models.
 
@@ -157,16 +129,28 @@ def create_app(config: Optional[OllamaConfig] = None) -> FastAPI:  # noqa: C901
         See: ollama.services.ollama_client for actual model enumeration
         """
         # Placeholder for demonstration - actual models from Ollama engine
-        return ModelListResponse(
+        from ollama.api.schemas.models_model_info import ModelInfo
+
+        return ListModelsResponse(
             models=[
-                {"name": "llama2", "size": "7b", "quantization": "q4_K_M"},
-                {"name": "mistral", "size": "7b", "quantization": "q5_K_M"},
+                ModelInfo(
+                    name="llama2",
+                    size="7b",
+                    digest="placeholder-digest-llama2",
+                    modified_at="1970-01-01T00:00:00Z",
+                ),
+                ModelInfo(
+                    name="mistral",
+                    size="7b",
+                    digest="placeholder-digest-mistral",
+                    modified_at="1970-01-01T00:00:00Z",
+                ),
             ]
         )
 
     # Routes: Text generation
     @app.post("/api/generate")
-    async def generate(request: GenerateRequest) -> Dict[str, Any]:
+    async def generate(request: GenerateRequest) -> dict[str, Any]:
         """
         Generate text using specified model.
 
@@ -197,7 +181,7 @@ def create_app(config: Optional[OllamaConfig] = None) -> FastAPI:  # noqa: C901
 
     # Routes: Chat completions (OpenAI-compatible)
     @app.post("/v1/chat/completions")
-    async def chat_completions(request: ChatRequest) -> Dict[str, Any]:
+    async def chat_completions(request: ChatRequest) -> dict[str, Any]:
         """
         Chat completions endpoint (OpenAI-compatible).
 
@@ -242,7 +226,7 @@ def create_app(config: Optional[OllamaConfig] = None) -> FastAPI:  # noqa: C901
 
     # Routes: Embeddings (OpenAI-compatible)
     @app.post("/v1/embeddings")
-    async def embeddings(request: Dict[str, Any]) -> Dict[str, Any]:
+    async def embeddings(request: dict[str, Any]) -> dict[str, Any]:
         """
         Generate embeddings (OpenAI-compatible).
 
@@ -274,7 +258,7 @@ def create_app(config: Optional[OllamaConfig] = None) -> FastAPI:  # noqa: C901
 
     # Routes: Admin stats
     @app.get("/admin/stats")
-    async def stats(request: Request) -> Dict[str, Any]:
+    async def stats() -> dict[str, Any]:
         """
         System statistics and metrics.
 
@@ -300,13 +284,13 @@ def create_app(config: Optional[OllamaConfig] = None) -> FastAPI:  # noqa: C901
 if __name__ == "__main__":
     import uvicorn
 
-    config = OllamaConfig.from_env()
-    app = create_app(config)
+    settings = get_settings()
+    app = create_app()
 
     uvicorn.run(
         app,
-        host=config.server.get("host", "0.0.0.0"),
-        port=config.server.get("port", 8000),
-        workers=config.server.get("workers", 4),
-        log_level=config.server.get("log_level", "info").lower(),
+        host=settings.host,
+        port=settings.port,
+        workers=settings.workers,
+        log_level=settings.log_level.lower(),
     )

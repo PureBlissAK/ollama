@@ -1,7 +1,6 @@
 """Text generation request model."""
 
 from dataclasses import dataclass
-from typing import Optional
 
 
 @dataclass
@@ -14,7 +13,7 @@ class GenerateRequest:
     prompt: str
     """Input prompt for generation"""
 
-    system: Optional[str] = None
+    system: str | None = None
     """System prompt to set context"""
 
     temperature: float = 0.7
@@ -31,6 +30,9 @@ class GenerateRequest:
 
     num_predict: int = 100
     """Maximum tokens to generate"""
+
+    stop: list[str] | None = None
+    """Optional list of stop sequences"""
 
     context_length: int = 2048
     """Context window size"""

@@ -1,12 +1,14 @@
 """Chat completion API routes"""
 
-from datetime import datetime, timezone
-from typing import List, Optional
+from datetime import UTC, datetime
+from typing import Literal, cast
 
 import httpx
 from fastapi import APIRouter, HTTPException, status
-from pydantic import BaseModel, Field
 
+from ollama.api.schemas.chat_message import Message
+from ollama.api.schemas.chat_request import ChatRequest
+from ollama.api.schemas.chat_response import ChatResponse
 from ollama.services.ollama_client import ChatMessage as OllamaChatMessage
 from ollama.services.ollama_client import ChatRequest as OllamaChatRequest
 from ollama.services.ollama_client import get_ollama_client
@@ -17,33 +19,8 @@ _httpx_for_testing = httpx
 router = APIRouter()
 
 
-class Message(BaseModel):
-    """Chat message"""
-
-    role: str = Field(..., description="Message role: system, user, or assistant")
-    content: str = Field(..., description="Message content")
-
-
-class ChatRequest(BaseModel):
-    """Chat request model"""
-
-    model: str = Field(..., description="Model name")
-    messages: List[Message] = Field(..., description="Chat messages")
-    stream: bool = Field(default=False, description="Stream response")
-    options: Optional[dict] = Field(default=None, description="Generation options")
-
-
-class ChatResponse(BaseModel):
-    """Chat response model"""
-
-    model: str
-    created_at: str
-    message: Message
-    done: bool
-
-
 @router.post("/chat", response_model=ChatResponse)
-async def chat(request: ChatRequest):
+async def chat(request: ChatRequest) -> ChatResponse:
     """
     Chat completion endpoint
 
@@ -53,10 +30,12 @@ async def chat(request: ChatRequest):
         client = get_ollama_client()
     except RuntimeError:
         # Fallback stub response when Ollama client is unavailable (e.g., in tests)
-        last_message = request.messages[-1] if request.messages else Message(role="assistant", content="")
+        last_message = (
+            request.messages[-1] if request.messages else Message(role="assistant", content="")
+        )
         return ChatResponse(
             model=request.model,
-            created_at=datetime.now(timezone.utc).isoformat() + "Z",
+            created_at=datetime.now(UTC).isoformat() + "Z",
             message=Message(role="assistant", content=last_message.content),
             done=True,
         )
@@ -64,34 +43,51 @@ async def chat(request: ChatRequest):
     try:
         # Convert messages to Ollama format
         ollama_messages = [
-            OllamaChatMessage(role=msg.role, content=msg.content) for msg in request.messages
+            OllamaChatMessage(
+                role=cast(Literal["user", "assistant", "system"], msg.role),
+                content=msg.content,
+            )
+            for msg in request.messages
         ]
 
         # Create Ollama request
+        temp = (
+            float(request.options["temperature"])
+            if request.options and "temperature" in request.options
+            else 0.7
+        )
+        top_p = (
+            float(request.options["top_p"])
+            if request.options and "top_p" in request.options
+            else 0.9
+        )
+        top_k = (
+            int(request.options["top_k"]) if request.options and "top_k" in request.options else 40
+        )
+
         ollama_request = OllamaChatRequest(
             model=request.model,
             messages=ollama_messages,
-            stream=False,
-            temperature=request.options.get("temperature") if request.options else None,
-            top_p=request.options.get("top_p") if request.options else None,
-            top_k=request.options.get("top_k") if request.options else None,
+            temperature=temp,
+            top_p=top_p,
+            top_k=top_k,
         )
 
         # Call Ollama
-        data = await client.chat(ollama_request)
+        resp = await client.chat(ollama_request)
 
         return ChatResponse(
-            model=data.get("model", request.model),
-            created_at=data.get("created_at", datetime.now(timezone.utc).isoformat() + "Z"),
+            model=request.model,
+            created_at=datetime.now(UTC).isoformat() + "Z",
             message=Message(
-                role=data.get("message", {}).get("role", "assistant"),
-                content=data.get("message", {}).get("content", ""),
+                role=resp.role,
+                content=resp.content,
             ),
-            done=data.get("done", True),
+            done=True,
         )
 
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail=f"Ollama service error: {str(e)}",
+            detail=f"Ollama service error: {e!s}",
         ) from e

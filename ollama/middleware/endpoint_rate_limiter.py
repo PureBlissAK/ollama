@@ -1,7 +1,6 @@
 """Decorator for endpoint-specific rate limiting."""
 
 import logging
-from typing import Optional
 
 from fastapi import HTTPException, Request, status
 
@@ -20,7 +19,7 @@ class EndpointRateLimiter:
             ...
     """
 
-    def __init__(self, requests_per_minute: int, burst_size: Optional[int] = None):
+    def __init__(self, requests_per_minute: int, burst_size: int | None = None):
         """Initialize endpoint rate limiter.
 
         Args:

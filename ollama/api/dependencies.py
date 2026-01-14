@@ -4,14 +4,13 @@ Provides FastAPI dependency functions for managing services and
 database connections across request lifecycle.
 """
 
-from typing import AsyncGenerator
 import logging
+from typing import AsyncGenerator
 
-from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from ollama.services.models import OllamaModelManager
 from ollama.database import get_async_session
+from ollama.services.models import OllamaModelManager
 
 log = logging.getLogger(__name__)
 

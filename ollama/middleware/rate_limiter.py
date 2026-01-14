@@ -3,7 +3,6 @@
 import logging
 import time
 from collections import defaultdict
-from typing import Optional
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +16,7 @@ class RateLimiter:
     - Configurable limits and time windows
     """
 
-    def __init__(self, requests_per_minute: int = 60, burst_size: Optional[int] = None):
+    def __init__(self, requests_per_minute: int = 60, burst_size: int | None = None):
         """Initialize rate limiter.
 
         Args:
@@ -31,7 +30,7 @@ class RateLimiter:
         # In-memory storage - sufficient for single-instance deployments
         # For distributed systems, use RedisRateLimiter below
         # See: docs/DEPLOYMENT.md for production rate limiting setup
-        self._buckets = defaultdict(
+        self._buckets: dict[str, dict[str, float]] = defaultdict(
             lambda: {"tokens": self.burst_size, "last_update": time.time()}
         )
 
@@ -46,7 +45,7 @@ class RateLimiter:
         bucket["tokens"] = min(self.burst_size, bucket["tokens"] + tokens_to_add)
         bucket["last_update"] = now
 
-    def check_rate_limit(self, key: str) -> tuple[bool, dict]:
+    def check_rate_limit(self, key: str) -> tuple[bool, dict[str, int]]:
         """Check if request should be allowed.
 
         Args:

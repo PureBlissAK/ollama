@@ -1,13 +1,16 @@
 """Model management and generation orchestration."""
 
-from typing import Optional
+from typing import TYPE_CHECKING
+
 import structlog
 
-from ollama.services.model import Model
-from ollama.services.model_type import ModelType
+from ollama.exceptions.model import ModelNotFoundError
 from ollama.services.generate_request import GenerateRequest
 from ollama.services.generate_response import GenerateResponse
-from ollama.exceptions.model import ModelNotFoundError
+from ollama.services.model import Model
+
+if TYPE_CHECKING:
+    from ollama.services.ollama_client_main import OllamaClient
 
 log = structlog.get_logger(__name__)
 

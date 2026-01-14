@@ -4,7 +4,8 @@ Provides SQLAlchemy connection pooling and async database operations
 """
 
 import logging
-from typing import AsyncGenerator, Optional
+from collections.abc import AsyncGenerator
+from typing import Optional
 
 from fastapi import HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
@@ -54,7 +55,7 @@ class DatabaseManager:
             autocommit=False,
         )
 
-    async def initialize(self):
+    async def initialize(self) -> None:
         """Initialize database connection (called on startup)"""
         try:
             from sqlalchemy import text
@@ -68,7 +69,7 @@ class DatabaseManager:
             logger.error(f"❌ Failed to connect to database: {e}")
             raise
 
-    async def close(self):
+    async def close(self) -> None:
         """Close database connection pool (called on shutdown)"""
         if self.engine:
             await self.engine.dispose()

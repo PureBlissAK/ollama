@@ -14,13 +14,13 @@ from ollama.middleware.rate_limiter_cache import RateLimiterCache
 from ollama.middleware.redis_rate_limiter import RedisRateLimiter
 
 __all__ = [
-    "cache_response",
     "CacheKey",
     "CacheStats",
     "CachingMiddleware",
     "EndpointRateLimiter",
+    "RateLimitMiddleware",
     "RateLimiter",
     "RateLimiterCache",
-    "RateLimitMiddleware",
     "RedisRateLimiter",
+    "cache_response",
 ]

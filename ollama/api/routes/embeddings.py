@@ -1,58 +1,14 @@
 """Embeddings endpoints - Semantic search with sentence-transformers"""
 
-from typing import List, Optional
-
 from fastapi import APIRouter, HTTPException, status
-from pydantic import BaseModel, Field
+
+from ollama.api.schemas.embeddings_request import EmbeddingsRequest
+from ollama.api.schemas.embeddings_response import EmbeddingsResponse
+from ollama.api.schemas.search_result import SearchResult
+from ollama.api.schemas.semantic_search_request import SemanticSearchRequest
+from ollama.api.schemas.semantic_search_response import SemanticSearchResponse
 
 router = APIRouter()
-
-
-class EmbeddingsRequest(BaseModel):
-    """Embeddings request model"""
-
-    model: str = Field(
-        default="all-minilm-l6-v2",
-        description="Model name (all-minilm-l6-v2, all-mpnet-base-v2, etc)",
-    )
-    prompt: str = Field(..., description="Text to embed", min_length=1, max_length=1024)
-
-
-class EmbeddingsResponse(BaseModel):
-    """Embeddings response model"""
-
-    embedding: List[float] = Field(..., description="Vector embedding")
-    model: str = Field(..., description="Model used")
-    dimensions: int = Field(..., description="Embedding dimensions")
-
-
-class SemanticSearchRequest(BaseModel):
-    """Semantic search request"""
-
-    collection: str = Field(..., description="Qdrant collection name")
-    query: str = Field(..., description="Query text")
-    model: str = Field(default="all-minilm-l6-v2", description="Embedding model")
-    limit: int = Field(default=10, ge=1, le=100)
-    score_threshold: Optional[float] = Field(
-        default=None, ge=0.0, le=1.0, description="Minimum similarity score"
-    )
-
-
-class SearchResult(BaseModel):
-    """Search result item"""
-
-    id: str
-    score: float
-    text: Optional[str] = None
-
-
-class SemanticSearchResponse(BaseModel):
-    """Semantic search response"""
-
-    query: str
-    results: List[SearchResult]
-    count: int
-
 
 # Initialize embedding model on module load
 try:
@@ -107,7 +63,7 @@ async def create_embeddings(request: EmbeddingsRequest):
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Embedding generation failed: {str(e)}",
+            detail=f"Embedding generation failed: {e!s}",
         ) from e
 
 
@@ -181,5 +137,5 @@ async def semantic_search(request: SemanticSearchRequest):
         raise
     except Exception as e:
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Search failed: {str(e)}"
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Search failed: {e!s}"
         ) from e

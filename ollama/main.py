@@ -5,6 +5,7 @@ FastAPI-based AI inference server with production-grade features
 
 import logging
 import sys
+from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 
 import uvicorn
@@ -33,9 +34,9 @@ from ollama.monitoring.metrics_middleware import (
     setup_metrics_endpoints,
 )
 from ollama.services import get_db_manager, init_cache, init_database, init_vector_db
-from ollama.services.cache import CacheManager, _cache_manager
+from ollama.services.cache import CacheManager
 from ollama.services.ollama_client import get_ollama_client, init_ollama_client
-from ollama.services.vector import VectorManager, _vector_manager
+from ollama.services.vector import VectorManager
 
 # Configure logging
 logging.basicConfig(
@@ -45,8 +46,12 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Global manager instances
+_cache_manager: CacheManager | None = None
+_vector_manager: VectorManager | None = None
 
-async def get_cache_manager() -> "CacheManager":
+
+async def get_cache_manager() -> CacheManager:
     """Get cache manager instance"""
     global _cache_manager
     if _cache_manager is None:
@@ -54,7 +59,7 @@ async def get_cache_manager() -> "CacheManager":
     return _cache_manager
 
 
-async def get_vector_manager() -> "VectorManager":
+async def get_vector_manager() -> VectorManager:
     """Get vector manager instance"""
     global _vector_manager
     if _vector_manager is None:
@@ -64,7 +69,7 @@ async def get_vector_manager() -> "VectorManager":
 
 # Application lifespan management
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(_: FastAPI) -> AsyncGenerator[None, None]:
     """Manage application startup and shutdown"""
     settings = get_settings()
     logger.info("🚀 Starting Ollama API Server")
@@ -79,6 +84,7 @@ async def lifespan(app: FastAPI):
             logger.info("🔐 Initializing Firebase OAuth...")
             try:
                 from ollama.auth import init_firebase
+
                 init_firebase(settings.firebase_credentials_path)
                 logger.info("✅ Firebase OAuth initialized")
             except Exception as e:
@@ -251,7 +257,7 @@ def create_app() -> FastAPI:
 
     # Exception handlers
     @app.exception_handler(HTTPException)
-    async def http_exception_handler(request: Request, exc: HTTPException):
+    async def http_exception_handler(_: Request, exc: HTTPException) -> JSONResponse:
         return JSONResponse(
             status_code=exc.status_code,
             content={
@@ -264,7 +270,7 @@ def create_app() -> FastAPI:
         )
 
     @app.exception_handler(Exception)
-    async def general_exception_handler(request: Request, exc: Exception):
+    async def general_exception_handler(_: Request, exc: Exception) -> JSONResponse:
         logger.error(f"Unhandled exception: {exc}", exc_info=True)
         return JSONResponse(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -293,7 +299,7 @@ def create_app() -> FastAPI:
 
     # Root endpoint
     @app.get("/", include_in_schema=False)
-    async def root():
+    async def root() -> dict[str, str]:
         return {
             "name": "Ollama API",
             "version": "1.0.0",
@@ -309,7 +315,7 @@ def create_app() -> FastAPI:
 app = create_app()
 
 
-def main():
+def main() -> None:
     """Run the application with uvicorn"""
     settings = get_settings()
 

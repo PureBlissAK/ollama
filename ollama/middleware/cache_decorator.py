@@ -2,17 +2,15 @@
 
 import json
 import logging
+from collections.abc import Callable
 from functools import wraps
-from typing import Callable
 
 from ollama.services import CacheManager
 
 logger = logging.getLogger(__name__)
 
 
-async def cache_response(
-    key: str, ttl: int = 3600, cache_manager: "CacheManager | None" = None
-):
+async def cache_response(key: str, ttl: int = 3600, cache_manager: "CacheManager | None" = None):
     """Decorator for caching endpoint responses.
 
     Usage:

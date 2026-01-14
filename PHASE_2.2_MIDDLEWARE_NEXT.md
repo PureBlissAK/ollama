@@ -1,15 +1,16 @@
 # PHASE 2.2: Middleware Refactoring - Next Action
 
-**Status**: Ready to Execute  
-**Duration**: 1-1.5 hours  
-**Expected Result**: 2 more errors fixed (13 → 11)  
-**Complexity**: MEDIUM  
+**Status**: Ready to Execute
+**Duration**: 1-1.5 hours
+**Expected Result**: 2 more errors fixed (13 → 11)
+**Complexity**: MEDIUM
 
 ---
 
 ## Objective
 
 Split middleware classes from multi-class files into individual modules:
+
 - `ollama/middleware/rate_limit.py` → 4 classes → 4 separate files
 - `ollama/middleware/cache.py` → 4 classes → 4 separate files
 
@@ -20,7 +21,7 @@ Split middleware classes from multi-class files into individual modules:
 ### From `rate_limit.py` (currently 4 classes):
 
 1. `ollama/middleware/rate_limiter.py` - RateLimiter
-2. `ollama/middleware/rate_limit_middleware.py` - RateLimitMiddleware  
+2. `ollama/middleware/rate_limit_middleware.py` - RateLimitMiddleware
 3. `ollama/middleware/endpoint_rate_limiter.py` - EndpointRateLimiter
 4. `ollama/middleware/redis_rate_limiter.py` - RedisRateLimiter
 
@@ -57,7 +58,7 @@ For each class in rate_limit.py and cache.py:
 4. Add module docstring explaining the class
 5. Verify type hints present (mypy compliance)
 
-### Step 3: Update Middleware __init__.py
+### Step 3: Update Middleware **init**.py
 
 Add to `ollama/middleware/__init__.py`:
 
@@ -166,7 +167,7 @@ cat ollama/auth/__init__.py
 # See what imports middleware
 grep -r "RateLimiter\|CachingMiddleware" ollama/ --include="*.py" | wc -l
 
-# See where they're used  
+# See where they're used
 grep -r "from ollama.middleware import\|from ollama import middleware" ollama/ --include="*.py"
 ```
 
@@ -174,12 +175,12 @@ grep -r "from ollama.middleware import\|from ollama import middleware" ollama/ -
 
 ## Success Criteria
 
-✅ Each class in its own file  
-✅ Middleware __init__.py has all re-exports  
-✅ `python3 scripts/validate-standards.py` shows 11 errors  
-✅ No import errors  
-✅ All tests still pass  
-✅ Git commit clean and atomic  
+✅ Each class in its own file
+✅ Middleware **init**.py has all re-exports
+✅ `python3 scripts/validate-standards.py` shows 11 errors
+✅ No import errors
+✅ All tests still pass
+✅ Git commit clean and atomic
 
 ---
 
@@ -225,6 +226,7 @@ grep "__all__" ollama/middleware/__init__.py
 Once Phase 2.2 is complete (11 errors):
 
 1. **Phase 2.3**: Split services (services/models.py → 5 files, services/ollama_client.py → 3 files)
+
    - Expected: 11 → 9 errors
 
 2. **Phase 3**: Complex refactoring (models.py, routes/)
@@ -235,8 +237,8 @@ Once Phase 2.2 is complete (11 errors):
 ## Estimated Time Breakdown
 
 - **Audit & planning**: 10 minutes
-- **Create 8 new files**: 20 minutes  
-- **Update __init__.py**: 5 minutes
+- **Create 8 new files**: 20 minutes
+- **Update **init**.py**: 5 minutes
 - **Test & import verification**: 10 minutes
 - **Update imports in codebase**: 10 minutes
 - **Run validation**: 5 minutes

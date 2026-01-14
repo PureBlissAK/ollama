@@ -3,7 +3,7 @@ API Key Repository - CRUD operations for APIKey model.
 """
 
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Optional
 
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -51,7 +51,7 @@ class APIKeyRepository(BaseRepository[APIKey]):
         """
         # Get all keys for user and filter by expiration
         keys = await self.get_all(user_id=user_id)
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         return [k for k in keys if k.expires_at is None or k.expires_at > now]
 
     async def create_key(
@@ -111,7 +111,7 @@ class APIKeyRepository(BaseRepository[APIKey]):
         Returns:
             Updated APIKey instance or None if not found
         """
-        key = await self.update(key_id, last_used=datetime.now(timezone.utc))
+        key = await self.update(key_id, last_used=datetime.now(UTC))
         if key:
             await self.commit()
         return key
@@ -144,7 +144,7 @@ class APIKeyRepository(BaseRepository[APIKey]):
             return False
 
         # Check if expired
-        if key.expires_at and key.expires_at < datetime.now(timezone.utc):
+        if key.expires_at and key.expires_at < datetime.now(UTC):
             return False
 
         # Check scope
@@ -163,4 +163,4 @@ class APIKeyRepository(BaseRepository[APIKey]):
         key = await self.get_by_key_hash(key_hash)
         if not key:
             return True
-        return current_requests >= key.rate_limit
+        return bool(current_requests >= key.rate_limit)

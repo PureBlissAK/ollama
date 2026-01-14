@@ -9,9 +9,9 @@ import logging
 from functools import wraps
 from typing import Any, Callable
 
-from fastapi import Depends, HTTPException, Request, status
+from fastapi import Request
 
-from ollama.auth.firebase_auth import get_current_user, require_root_admin, require_role
+from ollama.auth.firebase_auth import get_current_user
 
 logger = logging.getLogger(__name__)
 

@@ -3,7 +3,7 @@ Conversation Repository - CRUD operations for Conversation model.
 """
 
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Optional
 
 from sqlalchemy import and_, select
@@ -56,7 +56,7 @@ class ConversationRepository(BaseRepository[Conversation]):
             and_(Conversation.user_id == user_id, Conversation.model == model)
         )
         result = await self.session.execute(query)
-        return result.scalars().all()
+        return list(result.scalars().all())
 
     async def create_conversation(
         self,
@@ -85,7 +85,7 @@ class ConversationRepository(BaseRepository[Conversation]):
             system_prompt=system_prompt,
             parameters=parameters or {},
             is_archived=False,
-            accessed_at=datetime.now(timezone.utc),
+            accessed_at=datetime.now(UTC),
         )
         await self.commit()
         return conversation
@@ -99,9 +99,7 @@ class ConversationRepository(BaseRepository[Conversation]):
         Returns:
             Updated Conversation instance or None if not found
         """
-        conversation = await self.update(
-            conversation_id, accessed_at=datetime.now(timezone.utc)
-        )
+        conversation = await self.update(conversation_id, accessed_at=datetime.now(UTC))
         if conversation:
             await self.commit()
         return conversation

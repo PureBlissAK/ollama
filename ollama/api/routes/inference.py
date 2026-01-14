@@ -4,117 +4,34 @@ Provides endpoints for text generation, embeddings, model management,
 and conversation history with streaming support.
 """
 
-from typing import AsyncGenerator
 import logging
+from collections.abc import AsyncGenerator
 
-from fastapi import APIRouter, HTTPException, Query, Depends
-from pydantic import BaseModel, Field
+from fastapi import APIRouter, Depends, HTTPException
 from starlette.responses import StreamingResponse
 
-from ollama.services.models import (
-    OllamaModelManager,
-    GenerateRequest as OllamaGenerateRequest,
-    Model,
-)
 from ollama.api.dependencies import get_model_manager
+from ollama.api.schemas.inference_conversation_request import ConversationRequest
+from ollama.api.schemas.inference_embedding_request import EmbeddingRequest
+from ollama.api.schemas.inference_embedding_response import EmbeddingResponse
+from ollama.api.schemas.inference_generate_request import GenerateRequest
+from ollama.api.schemas.inference_generate_response import GenerateResponse
+from ollama.api.schemas.inference_list_models_response import ListModelsResponse
+from ollama.api.schemas.inference_model_pull_request import ModelPullRequest
+from ollama.services.models import (
+    GenerateRequest as OllamaGenerateRequest,
+)
+from ollama.services.models import (
+    Model,
+    OllamaModelManager,
+)
 
 log = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api/v1", tags=["inference"])
 
 
-# Request/Response Schemas
-class ListModelsResponse(BaseModel):
-    """Response containing available models."""
-
-    models: list[Model]
-    """List of available models"""
-
-    total: int
-    """Total number of models"""
-
-
-class GenerateRequest(BaseModel):
-    """Request for text generation."""
-
-    model: str = Field(..., description="Model name (e.g., 'llama2:latest')")
-    prompt: str = Field(..., description="Input prompt for generation")
-    system: str | None = Field(None, description="System prompt for context")
-    temperature: float = Field(0.7, ge=0.0, le=2.0, description="Sampling temperature")
-    top_p: float = Field(0.9, ge=0.0, le=1.0, description="Nucleus sampling")
-    top_k: int = Field(40, ge=1, description="Top-K sampling")
-    repeat_penalty: float = Field(1.1, ge=0.0, description="Repetition penalty")
-    num_predict: int = Field(100, ge=1, le=4096, description="Max tokens to generate")
-    stream: bool = Field(True, description="Stream response tokens")
-
-
-class GenerateResponse(BaseModel):
-    """Response from text generation."""
-
-    model: str
-    """Model used for generation"""
-
-    prompt: str
-    """Original prompt"""
-
-    response: str
-    """Generated text"""
-
-    done: bool
-    """Whether generation is complete"""
-
-    total_duration: int
-    """Total generation time (nanoseconds)"""
-
-    prompt_eval_count: int
-    """Tokens in prompt"""
-
-    eval_count: int
-    """Tokens generated"""
-
-
-class EmbeddingRequest(BaseModel):
-    """Request for text embedding."""
-
-    text: str = Field(..., description="Text to embed")
-    model: str = Field(
-        "nomic-embed-text", description="Embedding model to use"
-    )
-
-
-class EmbeddingResponse(BaseModel):
-    """Response with embeddings."""
-
-    embedding: list[float]
-    """Vector embedding"""
-
-    model: str
-    """Model used"""
-
-    dimensions: int
-    """Embedding dimension"""
-
-
-class ModelPullRequest(BaseModel):
-    """Request to download a model."""
-
-    model_name: str = Field(..., description="Model identifier (e.g., 'llama2:latest')")
-
-
-class ConversationMessage(BaseModel):
-    """Message in conversation history."""
-
-    role: str = Field(..., description="Message role: user, assistant, system")
-    content: str = Field(..., description="Message content")
-
-
-class ConversationRequest(BaseModel):
-    """Request for conversation with context."""
-
-    model: str = Field(..., description="Model for generation")
-    messages: list[ConversationMessage] = Field(..., description="Conversation history")
-    temperature: float = Field(0.7, ge=0.0, le=2.0)
-    stream: bool = Field(True, description="Stream response")
+# Request/Response Schemas moved to ollama.api.schemas.*
 
 
 # Endpoints
@@ -193,6 +110,7 @@ async def generate(
         )
 
         if request.stream:
+
             async def generate_stream() -> AsyncGenerator[str, None]:
                 """Stream generation responses as Server-Sent Events."""
                 async for response in manager.generate(ollama_request):
@@ -248,9 +166,7 @@ async def create_embedding(
         Vector embedding and metadata
     """
     try:
-        embedding = await manager.generate_embedding(
-            text=request.text, model=request.model
-        )
+        embedding = await manager.generate_embedding(text=request.text, model=request.model)
         return EmbeddingResponse(
             embedding=embedding,
             model=request.model,

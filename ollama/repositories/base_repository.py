@@ -4,7 +4,7 @@ Provides common CRUD operations with async SQLAlchemy support.
 """
 
 import uuid
-from typing import Any, Dict, Generic, List, Optional, TypeVar
+from typing import Any, Generic, TypeVar
 
 from sqlalchemy import delete, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -43,7 +43,7 @@ class BaseRepository(Generic[T]):
         await self.session.flush()
         return instance
 
-    async def get_by_id(self, id: uuid.UUID) -> Optional[T]:
+    async def get_by_id(self, id: uuid.UUID) -> T | None:
         """Retrieve record by ID.
 
         Args:
@@ -54,7 +54,7 @@ class BaseRepository(Generic[T]):
         """
         return await self.session.get(self.model, id)
 
-    async def get_one(self, **filters: Any) -> Optional[T]:
+    async def get_one(self, **filters: Any) -> T | None:
         """Retrieve single record matching filters.
 
         Args:
@@ -86,10 +86,10 @@ class BaseRepository(Generic[T]):
                 query = query.where(getattr(self.model, key) == value)
 
         result = await self.session.execute(query)
-        return result.scalars().all()
+        return list(result.scalars().all())
 
     async def get_paginated(
-        self, page: int = 1, page_size: int = 10, order_by: Optional[str] = None, **filters: Any
+        self, page: int = 1, page_size: int = 10, order_by: str | None = None, **filters: Any
     ) -> tuple[list[T], int]:
         """Retrieve paginated records.
 
@@ -125,7 +125,7 @@ class BaseRepository(Generic[T]):
         query = query.offset(offset).limit(page_size)
 
         result = await self.session.execute(query)
-        records = result.scalars().all()
+        records = list(result.scalars().all())
 
         # Get total count
         count_query = select(self.model)
@@ -133,11 +133,11 @@ class BaseRepository(Generic[T]):
             if hasattr(self.model, key):
                 count_query = count_query.where(getattr(self.model, key) == value)
         count_result = await self.session.execute(count_query)
-        total = len(count_result.scalars().all())
+        total = len(list(count_result.scalars().all()))
 
         return records, total
 
-    async def update(self, id: uuid.UUID, **kwargs: Any) -> Optional[T]:
+    async def update(self, id: uuid.UUID, **kwargs: Any) -> T | None:
         """Update record and return updated instance.
 
         Args:
@@ -158,7 +158,7 @@ class BaseRepository(Generic[T]):
         await self.session.flush()
         return instance
 
-    async def update_where(self, values: Dict[str, Any], **filters: Any) -> int:
+    async def update_where(self, values: dict[str, Any], **filters: Any) -> int:
         """Update multiple records matching filters.
 
         Args:

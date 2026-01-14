@@ -3,7 +3,7 @@ User Repository - CRUD operations for User model.
 """
 
 import uuid
-from typing import Optional
+from typing import Any, Optional
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -54,7 +54,7 @@ class UserRepository(BaseRepository[User]):
         email: str,
         password_hash: str,
         is_active: bool = True,
-        preferences: Optional[dict] = None,
+        preferences: dict[str, Any] | None = None,
     ) -> User:
         """Create a new user.
 
@@ -93,7 +93,7 @@ class UserRepository(BaseRepository[User]):
         return user
 
     async def update_user_preferences(
-        self, user_id: uuid.UUID, preferences: dict
+        self, user_id: uuid.UUID, preferences: dict[str, Any]
     ) -> Optional[User]:
         """Update user preferences.
 
@@ -123,4 +123,4 @@ class UserRepository(BaseRepository[User]):
             (User.username.ilike(f"%{query}%")) | (User.email.ilike(f"%{query}%"))
         )
         result = await self.session.execute(search_query)
-        return result.scalars().all()
+        return list(result.scalars().all())

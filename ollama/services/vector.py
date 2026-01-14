@@ -4,7 +4,7 @@ Provides vector database client for semantic search and RAG
 """
 
 import logging
-from typing import Any, Dict, List, Optional
+from typing import Any, Optional
 
 from qdrant_client import AsyncQdrantClient
 from qdrant_client.http.models import Distance, VectorParams
@@ -28,7 +28,7 @@ class VectorManager:
         self.client: Optional[AsyncQdrantClient] = None
         self._initialized = False
 
-    async def initialize(self):
+    async def initialize(self) -> None:
         """Initialize Qdrant client (called on startup)"""
         try:
             self.client = AsyncQdrantClient(
@@ -46,7 +46,7 @@ class VectorManager:
             logger.error(f"❌ Failed to connect to Qdrant: {e}")
             raise
 
-    async def close(self):
+    async def close(self) -> None:
         """Close Qdrant client (called on shutdown)"""
         if self.client:
             await self.client.close()
@@ -72,7 +72,7 @@ class VectorManager:
             logger.warning(f"Collection creation error: {e}")
             return False
 
-    async def upsert_vectors(self, collection_name: str, points: List[Dict[str, Any]]) -> bool:
+    async def upsert_vectors(self, collection_name: str, points: list[dict[str, Any]]) -> bool:
         """Upsert vectors to collection"""
         if not self._initialized:
             return False
@@ -87,11 +87,11 @@ class VectorManager:
     async def search_vectors(
         self,
         collection_name: str,
-        query_vector: List[float],
+        query_vector: list[float],
         limit: int = 10,
         score_threshold: Optional[float] = None,
         **kwargs,
-    ) -> List[Dict[str, Any]]:
+    ) -> list[dict[str, Any]]:
         """Search for similar vectors"""
         if not self._initialized:
             return []
