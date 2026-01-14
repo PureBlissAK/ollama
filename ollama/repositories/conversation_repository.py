@@ -4,13 +4,13 @@ Conversation Repository - CRUD operations for Conversation model.
 
 import uuid
 from datetime import UTC, datetime
-from typing import Optional
+from typing import Any
 
 from sqlalchemy import and_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from ..models import Conversation
-from .base_repository import BaseRepository
+from ollama.models import Conversation
+from ollama.repositories.base_repository import BaseRepository
 
 
 class ConversationRepository(BaseRepository[Conversation]):
@@ -62,9 +62,9 @@ class ConversationRepository(BaseRepository[Conversation]):
         self,
         user_id: uuid.UUID,
         model: str,
-        title: Optional[str] = None,
-        system_prompt: Optional[str] = None,
-        parameters: Optional[dict] = None,
+        title: str | None = None,
+        system_prompt: str | None = None,
+        parameters: dict[str, Any] | None = None,
     ) -> Conversation:
         """Create a new conversation.
 
@@ -90,7 +90,7 @@ class ConversationRepository(BaseRepository[Conversation]):
         await self.commit()
         return conversation
 
-    async def update_accessed_at(self, conversation_id: uuid.UUID) -> Optional[Conversation]:
+    async def update_accessed_at(self, conversation_id: uuid.UUID) -> Conversation | None:
         """Update accessed_at timestamp (for sorting by recent).
 
         Args:
@@ -104,7 +104,7 @@ class ConversationRepository(BaseRepository[Conversation]):
             await self.commit()
         return conversation
 
-    async def archive_conversation(self, conversation_id: uuid.UUID) -> Optional[Conversation]:
+    async def archive_conversation(self, conversation_id: uuid.UUID) -> Conversation | None:
         """Archive a conversation.
 
         Args:
@@ -118,7 +118,7 @@ class ConversationRepository(BaseRepository[Conversation]):
             await self.commit()
         return conversation
 
-    async def unarchive_conversation(self, conversation_id: uuid.UUID) -> Optional[Conversation]:
+    async def unarchive_conversation(self, conversation_id: uuid.UUID) -> Conversation | None:
         """Unarchive a conversation.
 
         Args:
@@ -132,7 +132,7 @@ class ConversationRepository(BaseRepository[Conversation]):
             await self.commit()
         return conversation
 
-    async def update_title(self, conversation_id: uuid.UUID, title: str) -> Optional[Conversation]:
+    async def update_title(self, conversation_id: uuid.UUID, title: str) -> Conversation | None:
         """Update conversation title.
 
         Args:
@@ -162,7 +162,7 @@ class ConversationRepository(BaseRepository[Conversation]):
         return [
             c
             for c in conversations
-            if query_lower in c.title.lower() or query_lower in c.model.lower()
+            if (c.title and query_lower in c.title.lower()) or query_lower in c.model.lower()
         ]
 
     async def get_recent_conversations(

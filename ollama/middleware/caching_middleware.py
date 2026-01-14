@@ -1,11 +1,12 @@
 """Middleware for caching GET requests and safe endpoints."""
 
 import logging
-from collections.abc import Callable
+from typing import Any, ClassVar, cast
 
 from fastapi import Request
-from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
 from starlette.responses import Response
+from starlette.types import ASGIApp
 
 from ollama.services import CacheManager
 
@@ -15,18 +16,18 @@ logger = logging.getLogger(__name__)
 class CachingMiddleware(BaseHTTPMiddleware):
     """Middleware for caching GET requests and safe endpoints."""
 
-    CACHEABLE_ENDPOINTS = {
+    CACHEABLE_ENDPOINTS: ClassVar[dict[str, int]] = {
         "/health": 3600,  # 1 hour
         "/api/v1/models": 3600,  # 1 hour
         "/api/v1/models/": 3600,  # Model details
         "/metrics": 60,  # 1 minute
     }
 
-    def __init__(self, app, cache_manager: CacheManager):
+    def __init__(self, app: ASGIApp, cache_manager: CacheManager) -> None:
         super().__init__(app)
         self.cache_manager = cache_manager
 
-    async def dispatch(self, request: Request, call_next: Callable) -> Response:
+    async def dispatch(self, request: Request, call_next: RequestResponseEndpoint) -> Response:
         """Cache GET requests to specific endpoints."""
 
         # Only cache GET requests
@@ -65,7 +66,10 @@ class CachingMiddleware(BaseHTTPMiddleware):
             try:
                 # Read response body
                 body = b""
-                async for chunk in response.body_iterator:
+                # BaseHTTPMiddleware's response is often a StreamingResponse
+                # which has body_iterator. We cast to Any to avoid type errors.
+                response_any = cast(Any, response)
+                async for chunk in response_any.body_iterator:
                     body += chunk
 
                 # Store in cache

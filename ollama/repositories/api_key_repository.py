@@ -4,11 +4,11 @@ API Key Repository - CRUD operations for APIKey model.
 
 import uuid
 from datetime import UTC, datetime
-from typing import Optional
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from ..models import APIKey
+from ollama.models.api_key import APIKey
+
 from .base_repository import BaseRepository
 
 
@@ -18,7 +18,7 @@ class APIKeyRepository(BaseRepository[APIKey]):
     def __init__(self, session: AsyncSession):
         super().__init__(APIKey, session)
 
-    async def get_by_key_hash(self, key_hash: str) -> Optional[APIKey]:
+    async def get_by_key_hash(self, key_hash: str) -> APIKey | None:
         """Get API key by key hash.
 
         Args:
@@ -59,9 +59,9 @@ class APIKeyRepository(BaseRepository[APIKey]):
         user_id: uuid.UUID,
         key_hash: str,
         name: str,
-        scopes: Optional[list[str]] = None,
+        scopes: list[str] | None = None,
         rate_limit: int = 100,
-        expires_at: Optional[datetime] = None,
+        expires_at: datetime | None = None,
     ) -> APIKey:
         """Create a new API key.
 
@@ -87,7 +87,7 @@ class APIKeyRepository(BaseRepository[APIKey]):
         await self.commit()
         return key
 
-    async def revoke_key(self, key_id: uuid.UUID) -> Optional[APIKey]:
+    async def revoke_key(self, key_id: uuid.UUID) -> APIKey | None:
         """Revoke (delete) an API key.
 
         Args:
@@ -102,7 +102,7 @@ class APIKeyRepository(BaseRepository[APIKey]):
             await self.commit()
         return key
 
-    async def update_last_used(self, key_id: uuid.UUID) -> Optional[APIKey]:
+    async def update_last_used(self, key_id: uuid.UUID) -> APIKey | None:
         """Update last_used timestamp for a key.
 
         Args:
@@ -161,6 +161,36 @@ class APIKeyRepository(BaseRepository[APIKey]):
             True if rate limited, False otherwise
         """
         key = await self.get_by_key_hash(key_hash)
-        if not key:
-            return True
+        if not key or key.rate_limit is None:
+            return False
         return bool(current_requests >= key.rate_limit)
+
+    async def verify_and_get_user(self, key_hash: str) -> APIKey | None:
+        """Verify API key and return associated user record.
+
+        Args:
+            key_hash: Hashed API key
+
+        Returns:
+            APIKey record or None
+        """
+        key = await self.get_by_key_hash(key_hash)
+        if not key:
+            return None
+
+        if not key.is_active:
+            return None
+
+        # Check expiration
+        if key.expires_at and key.expires_at < datetime.now(UTC):
+            return None
+
+        return key
+
+    async def mark_used(self, key_id: uuid.UUID) -> None:
+        """Mark API key as used.
+
+        Args:
+            key_id: API key ID
+        """
+        await self.update_last_used(key_id)

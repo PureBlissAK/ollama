@@ -4,6 +4,8 @@
 **Effective**: January 14, 2026
 **Standard Level**: Top 0.01% Master Developer (Meta/Google/Amazon/Apple/Netflix level)
 
+**Platform**: [https://elevatediq.ai/ollama](https://elevatediq.ai/ollama)
+
 ---
 
 ## Executive Standard
@@ -504,6 +506,7 @@ git commit -S -m "docs(api): document health endpoint"     # 1 file
 - **Minimum**: Every 2 hours of development
 - **Maximum**: Never hold >5 commits locally
 - **Workflow**:
+
   ```bash
   # Every 30-60 minutes
   git add .                    # Stage changes

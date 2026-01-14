@@ -7,6 +7,7 @@ import logging
 import sys
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
+from typing import Any
 
 import uvicorn
 from fastapi import FastAPI, HTTPException, Request, status
@@ -35,7 +36,11 @@ from ollama.monitoring.metrics_middleware import (
 )
 from ollama.services import get_db_manager, init_cache, init_database, init_vector_db
 from ollama.services.cache import CacheManager
-from ollama.services.ollama_client import get_ollama_client, init_ollama_client
+from ollama.services.ollama_client import (
+    clear_ollama_client,
+    get_ollama_client,
+    init_ollama_client,
+)
 from ollama.services.vector import VectorManager
 
 # Configure logging
@@ -67,6 +72,95 @@ async def get_vector_manager() -> VectorManager:
     return _vector_manager
 
 
+async def _startup_firebase(settings: Any) -> None:
+    """Initialize Firebase OAuth if enabled."""
+    if settings.firebase_enabled:
+        logger.info("🔐 Initializing Firebase OAuth...")
+        try:
+            from ollama.auth import init_firebase
+
+            init_firebase(settings.firebase_credentials_path)
+            logger.info("✅ Firebase OAuth initialized")
+        except Exception as e:
+            logger.warning(f"⚠️  Firebase OAuth initialization failed: {e}")
+            logger.warning("⚠️  Protected endpoints will return 503 Service Unavailable")
+    else:
+        logger.info("⚠️  Firebase OAuth disabled (FIREBASE_ENABLED=false)")
+
+
+async def _startup_database(settings: Any) -> None:
+    """Initialize database connection pool."""
+    logger.info("📦 Initializing database connection...")
+    try:
+        db_manager = init_database(settings.database_url, echo=False)
+        await db_manager.initialize()
+        logger.info("✅ Database connected")
+    except Exception as e:
+        logger.warning(f"⚠️  Database unavailable: {e}")
+        logger.warning("⚠️  Running in degraded mode - persistence disabled")
+
+
+async def _startup_cache(settings: Any) -> None:
+    """Initialize Redis connection."""
+    logger.info("🔴 Connecting to Redis...")
+    try:
+        cache_manager = init_cache(settings.redis_url, db=0)
+        await cache_manager.initialize()
+        logger.info("✅ Redis connected")
+    except Exception as e:
+        logger.warning(f"⚠️  Redis unavailable: {e}")
+        logger.warning("⚠️  Caching disabled")
+
+
+async def _startup_vector_db(settings: Any) -> None:
+    """Initialize Qdrant client."""
+    logger.info("🔷 Connecting to Qdrant...")
+    try:
+        vector_manager = init_vector_db(f"http://{settings.qdrant_host}:{settings.qdrant_port}")
+        await vector_manager.initialize()
+        logger.info("✅ Qdrant connected")
+    except Exception as e:
+        logger.warning(f"⚠️  Qdrant unavailable: {e}")
+        logger.warning("⚠️  Vector search disabled")
+
+
+async def _startup_ollama(settings: Any) -> None:
+    """Initialize Ollama inference client."""
+    logger.info("🤖 Connecting to Ollama inference engine...")
+    ollama_base_url = (
+        settings.ollama_base_url
+        if hasattr(settings, "ollama_base_url")
+        else "http://ollama:11434"
+    )
+    ollama_client = init_ollama_client(
+        base_url=ollama_base_url,
+        timeout=getattr(settings, "ollama_request_timeout", 300.0),
+    )
+    try:
+        await ollama_client.initialize()
+        logger.info("✅ Ollama inference engine connected")
+    except Exception as e:
+        clear_ollama_client()
+        logger.warning(f"⚠️  Ollama inference engine not available: {e}")
+        logger.warning("⚠️  API will return stub responses for model operations")
+
+
+async def _startup_jaeger() -> None:
+    """Initialize Jaeger distributed tracing."""
+    logger.info("🔍 Initializing Jaeger distributed tracing...")
+    try:
+        jaeger_config = init_jaeger(
+            service_name="ollama-api",
+            jaeger_host="jaeger",
+            jaeger_port=6831,
+            trace_sample_rate=0.1,
+        )
+        jaeger_config.initialize_tracer()
+        logger.info("✅ Jaeger tracing initialized")
+    except Exception as e:
+        logger.warning(f"⚠️  Jaeger tracing not available: {e}")
+
+
 # Application lifespan management
 @asynccontextmanager
 async def lifespan(_: FastAPI) -> AsyncGenerator[None, None]:
@@ -79,79 +173,12 @@ async def lifespan(_: FastAPI) -> AsyncGenerator[None, None]:
 
     # Startup tasks
     try:
-        # Initialize Firebase OAuth (if enabled)
-        if settings.firebase_enabled:
-            logger.info("🔐 Initializing Firebase OAuth...")
-            try:
-                from ollama.auth import init_firebase
-
-                init_firebase(settings.firebase_credentials_path)
-                logger.info("✅ Firebase OAuth initialized")
-            except Exception as e:
-                logger.warning(f"⚠️  Firebase OAuth initialization failed: {e}")
-                logger.warning("⚠️  Protected endpoints will return 503 Service Unavailable")
-        else:
-            logger.info("⚠️  Firebase OAuth disabled (FIREBASE_ENABLED=false)")
-
-        # Initialize database connection pool
-        logger.info("📦 Initializing database connection...")
-        try:
-            db_manager = init_database(settings.database_url, echo=False)
-            await db_manager.initialize()
-            logger.info("✅ Database connected")
-        except Exception as e:
-            logger.warning(f"⚠️  Database unavailable: {e}")
-            logger.warning("⚠️  Running in degraded mode - persistence disabled")
-
-        # Initialize Redis connection
-        logger.info("🔴 Connecting to Redis...")
-        try:
-            cache_manager = init_cache(settings.redis_url, db=0)
-            await cache_manager.initialize()
-            logger.info("✅ Redis connected")
-        except Exception as e:
-            logger.warning(f"⚠️  Redis unavailable: {e}")
-            logger.warning("⚠️  Caching disabled")
-
-        # Initialize Qdrant client
-        logger.info("🔷 Connecting to Qdrant...")
-        try:
-            vector_manager = init_vector_db(f"http://{settings.qdrant_host}:{settings.qdrant_port}")
-            await vector_manager.initialize()
-            logger.info("✅ Qdrant connected")
-        except Exception as e:
-            logger.warning(f"⚠️  Qdrant unavailable: {e}")
-            logger.warning("⚠️  Vector search disabled")
-
-        # Initialize Ollama inference client
-        logger.info("🤖 Connecting to Ollama inference engine...")
-        ollama_base_url = (
-            settings.ollama_base_url
-            if hasattr(settings, "ollama_base_url")
-            else "http://ollama:11434"
-        )
-        ollama_client = init_ollama_client(base_url=ollama_base_url)
-        try:
-            await ollama_client.initialize()
-            logger.info("✅ Ollama inference engine connected")
-        except Exception as e:
-            logger.warning(f"⚠️  Ollama inference engine not available: {e}")
-            logger.warning("⚠️  API will return stub responses for model operations")
-
-        # Initialize Jaeger tracing
-        logger.info("🔍 Initializing Jaeger distributed tracing...")
-        try:
-            jaeger_config = init_jaeger(
-                service_name="ollama-api",
-                jaeger_host="jaeger",
-                jaeger_port=6831,
-                trace_sample_rate=0.1,
-            )
-            jaeger_config.initialize_tracer()
-            logger.info("✅ Jaeger tracing initialized")
-        except Exception as e:
-            logger.warning(f"⚠️  Jaeger tracing not available: {e}")
-
+        await _startup_firebase(settings)
+        await _startup_database(settings)
+        await _startup_cache(settings)
+        await _startup_vector_db(settings)
+        await _startup_ollama(settings)
+        await _startup_jaeger()
         logger.info("✅ Ollama API Server started successfully")
 
     except Exception as e:
@@ -239,7 +266,7 @@ def create_app() -> FastAPI:
 
     # Request ID middleware
     @app.middleware("http")
-    async def add_request_id(request: Request, call_next):
+    async def add_request_id(request: Request, call_next: Any) -> Any:
         request_id = request.headers.get("X-Request-ID", "no-request-id")
         response = await call_next(request)
         response.headers["X-Request-ID"] = request_id
@@ -247,7 +274,7 @@ def create_app() -> FastAPI:
 
     # Security headers middleware
     @app.middleware("http")
-    async def add_security_headers(request: Request, call_next):
+    async def add_security_headers(request: Request, call_next: Any) -> Any:
         response = await call_next(request)
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["X-Frame-Options"] = "DENY"

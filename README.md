@@ -15,6 +15,10 @@ Ollama is a sophisticated local AI infrastructure platform designed for engineer
 
 **Target Audience**: Elite engineers, research teams, enterprises requiring air-gapped AI systems, and developers building custom AI applications.
 
+**Production Status** ✅: Verified with 50-user load test (7,162 requests, 100% success, 75ms P95 latency)
+**Live Platform**: [https://elevatediq.ai/ollama](https://elevatediq.ai/ollama)
+**Infrastructure**: [GCP Landing Zone](https://github.com/kushin77/GCP-landing-zone)
+
 ## Development & Contributing
 
 **New to Ollama development?** Start here:
@@ -36,6 +40,7 @@ This project uses automated quality checks:
 - **Linting**: Ruff with strict rules (Pre-commit hooks + GitHub Actions)
 
 **Local Checks** (before committing):
+
 ```bash
 # Run all quality checks locally
 pre-commit run --all-files
@@ -99,21 +104,30 @@ git clone https://github.com/kushin77/ollama.git
 cd ollama
 ./scripts/bootstrap.sh --production
 
-# Start the stack
-docker-compose -f docker-compose.prod.yml up -d
+# Start the stack (development uses real IP, NOT localhost)
+export REAL_IP=$(hostname -I | awk '{print $1}')
+sed -i "s|PUBLIC_API_URL=.*|PUBLIC_API_URL=http://$REAL_IP:8000|" .env.dev
+docker-compose -f docker-compose.local.yml up -d
 
-# Verify health
-curl -s http://localhost:8000/health | jq .
+# Verify health via real IP
+curl -s http://$REAL_IP:8000/health | jq .
 ```
 
 ### Docker Quick Start
 
 ```bash
+# Production deployment (through GCP Load Balancer)
+curl -H "X-API-Key: your-api-key" \
+  https://elevatediq.ai/ollama/api/v1/health
+
+# Local development deployment
+export REAL_IP=$(hostname -I | awk '{print $1}')
 docker run -d \
   --name ollama \
   --gpus all \
-  -p 8000:8000 \
+  -p $REAL_IP:8000:8000 \
   -v ollama-models:/root/.ollama \
+  -e PUBLIC_API_URL="http://$REAL_IP:8000" \
   kushin77/ollama:latest
 
 # Pull a model and test
@@ -128,11 +142,13 @@ docker exec ollama ollama run llama2 "Why is local AI important?"
 ### High-Level System Design
 
 #### Local Deployment
+
 ```
 Application → API Server (localhost:8000) → Inference Engine
 ```
 
 #### Public Endpoint via GCP Load Balancer
+
 ```
 Client → HTTPS (elevatediq.ai) → GCP LB → API Server (8000) → Inference Engine
                                    ↓
@@ -142,42 +158,44 @@ Client → HTTPS (elevatediq.ai) → GCP LB → API Server (8000) → Inference 
 ```
 
 #### Full Architecture
+
 ┌─────────────────────────────────────────────────────────┐
-│                    Application Layer                    │
-│  (FastAPI, Gradio UI, CLI Tools, Custom Integrations)   │
+│ Application Layer │
+│ (FastAPI, Gradio UI, CLI Tools, Custom Integrations) │
 └──────────────────┬──────────────────────────────────────┘
-                   │
+│
 ┌──────────────────▼──────────────────────────────────────┐
-│               Ollama API Gateway                         │
-│  (Request validation, rate limiting, caching, routing)  │
+│ Ollama API Gateway │
+│ (Request validation, rate limiting, caching, routing) │
 └──────────────────┬──────────────────────────────────────┘
-                   │
+│
 ┌──────────────────▼──────────────────────────────────────┐
-│           Inference Engine Layer                        │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
-│  │  LLM Worker  │  │  LLM Worker  │  │  LLM Worker  │  │
-│  │   (GPU 0)    │  │   (GPU 1)    │  │   (GPU N)    │  │
-│  └──────────────┘  └──────────────┘  └──────────────┘  │
-│                                                          │
-│  ┌──────────────────────────────────────────────────┐  │
-│  │      Model Cache & Context Manager              │  │
-│  │  (Weights, Embeddings, KV Cache)               │  │
-│  └──────────────────────────────────────────────────┘  │
+│ Inference Engine Layer │
+│ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ │
+│ │ LLM Worker │ │ LLM Worker │ │ LLM Worker │ │
+│ │ (GPU 0) │ │ (GPU 1) │ │ (GPU N) │ │
+│ └──────────────┘ └──────────────┘ └──────────────┘ │
+│ │
+│ ┌──────────────────────────────────────────────────┐ │
+│ │ Model Cache & Context Manager │ │
+│ │ (Weights, Embeddings, KV Cache) │ │
+│ └──────────────────────────────────────────────────┘ │
 └──────────────────┬──────────────────────────────────────┘
-                   │
+│
 ┌──────────────────▼──────────────────────────────────────┐
-│            Storage & State Layer                        │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
-│  │  PostgreSQL  │  │  Redis Cache │  │  Vector DB   │  │
-│  │  (Metadata)  │  │  (Sessions)  │  │ (Embeddings) │  │
-│  └──────────────┘  └──────────────┘  └──────────────┘  │
+│ Storage & State Layer │
+│ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ │
+│ │ PostgreSQL │ │ Redis Cache │ │ Vector DB │ │
+│ │ (Metadata) │ │ (Sessions) │ │ (Embeddings) │ │
+│ └──────────────┘ └──────────────┘ └──────────────┘ │
 └──────────────────┬──────────────────────────────────────┘
-                   │
+│
 ┌──────────────────▼──────────────────────────────────────┐
-│        Monitoring & Observability Layer                 │
-│  (Prometheus, Grafana, Loki, Jaeger)                   │
+│ Monitoring & Observability Layer │
+│ (Prometheus, Grafana, Loki, Jaeger) │
 └─────────────────────────────────────────────────────────┘
-```
+
+````
 
 ### Component Breakdown
 
@@ -247,7 +265,7 @@ Client → HTTPS (elevatediq.ai) → GCP LB → API Server (8000) → Inference 
 - Prometheus 2.40+
 - Grafana 9.0+
 - PostgreSQL 15+
-```
+````
 
 ---
 
@@ -327,7 +345,7 @@ security:
   cors_origins:
     - "https://elevatediq.ai"
     - "https://*.elevatediq.ai"
-  tls_enabled: false  # TLS handled by GCP LB
+  tls_enabled: false # TLS handled by GCP LB
 ```
 
 ```bash
@@ -368,9 +386,9 @@ CORS_ORIGINS=["http://localhost:3000"]
 ```yaml
 models:
   llama2:
-    source: huggingface  # or 'local', 'ollama-registry'
+    source: huggingface # or 'local', 'ollama-registry'
     model_id: meta-llama/Llama-2-7b-chat
-    quantization: q4_K_M   # q4_K_M, q5_K_M, fp16, bf16
+    quantization: q4_K_M # q4_K_M, q5_K_M, fp16, bf16
     context_length: 4096
     gpu_memory_reserved: 10G
     batch_size: 8
@@ -385,7 +403,7 @@ models:
 
 caching:
   enabled: true
-  type: redis  # or 'memory'
+  type: redis # or 'memory'
   ttl: 3600
 
 performance:
@@ -578,17 +596,17 @@ python scripts/benchmark.py --model custom-llama2
 
 ### Endpoints
 
-| Endpoint | Method | Purpose |
-|----------|--------|---------|
-| `/health` | GET | Health check |
-| `/api/models` | GET | List available models |
-| `/api/generate` | POST | Text generation (streaming) |
-| `/api/embedding` | POST | Generate embeddings |
-| `/v1/chat/completions` | POST | OpenAI-compatible chat |
-| `/v1/completions` | POST | OpenAI-compatible completion |
-| `/v1/embeddings` | POST | OpenAI-compatible embeddings |
-| `/admin/stats` | GET | System metrics |
-| `/admin/reload` | POST | Reload configuration |
+| Endpoint               | Method | Purpose                      |
+| ---------------------- | ------ | ---------------------------- |
+| `/health`              | GET    | Health check                 |
+| `/api/models`          | GET    | List available models        |
+| `/api/generate`        | POST   | Text generation (streaming)  |
+| `/api/embedding`       | POST   | Generate embeddings          |
+| `/v1/chat/completions` | POST   | OpenAI-compatible chat       |
+| `/v1/completions`      | POST   | OpenAI-compatible completion |
+| `/v1/embeddings`       | POST   | OpenAI-compatible embeddings |
+| `/admin/stats`         | GET    | System metrics               |
+| `/admin/reload`        | POST   | Reload configuration         |
 
 ### Authentication
 
@@ -610,6 +628,7 @@ curl -H "Authorization: Bearer $OLLAMA_API_KEY" \
 Access dashboard at `http://localhost:9090`
 
 Key metrics:
+
 - `ollama_request_duration_seconds`: Inference latency
 - `ollama_tokens_generated_total`: Cumulative token count
 - `ollama_model_memory_bytes`: Per-model memory usage
@@ -624,6 +643,7 @@ curl 'http://localhost:9090/api/v1/query?query=rate(ollama_tokens_generated_tota
 ### Grafana Dashboards
 
 Pre-built dashboards for:
+
 - System resources (CPU, RAM, GPU, Disk)
 - Model performance (latency, throughput, tokens/sec)
 - Request patterns (volume, errors, queue depth)
@@ -634,6 +654,7 @@ Pre-built dashboards for:
 Access at `http://localhost:16686`
 
 Traces capture:
+
 - Complete request flow from API → model inference
 - Component latencies (cache lookups, model execution)
 - Error spans with context
@@ -658,24 +679,28 @@ curl http://localhost:3100/loki/api/v1/query_range \
 ### Optimization Checklist
 
 - [ ] **GPU**: Ensure CUDA/ROCm properly initialized
+
   ```bash
   python -c "import torch; print(torch.cuda.is_available())"
   ```
 
 - [ ] **Quantization**: Use q4 for speed, q5/fp16 for quality
+
   ```bash
   # Benchmark
   python scripts/benchmark_quantization.py
   ```
 
 - [ ] **Batch Size**: Profile optimal throughput
+
   ```yaml
   # config/models.yaml
   llama2:
-    batch_size: 8  # Adjust based on VRAM
+    batch_size: 8 # Adjust based on VRAM
   ```
 
 - [ ] **Context Caching**: Enable for chat workflows
+
   ```yaml
   caching:
     enabled: true
@@ -750,6 +775,7 @@ python scripts/validate_model_outputs.py \
 ### Common Issues
 
 **GPU Not Detected**
+
 ```bash
 # Check CUDA installation
 nvidia-smi
@@ -762,6 +788,7 @@ docker run --rm --gpus all nvidia/cuda:12.1.1-runtime-ubuntu22.04 nvidia-smi
 ```
 
 **Out of Memory**
+
 ```bash
 # Check current usage
 docker stats
@@ -774,6 +801,7 @@ ollama pull llama2:7b-chat-q4_0  # Lower quantization
 ```
 
 **Slow Inference**
+
 ```bash
 # Profile bottleneck
 python scripts/profile_inference.py --model llama2
@@ -786,6 +814,7 @@ nvidia-smi dmon -s puc
 ```
 
 **Connection Issues**
+
 ```bash
 # Check service is running
 docker-compose ps
@@ -911,30 +940,33 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 ### Latency (p99, seconds)
 
-| Model | Quantization | Batch=1 | Batch=8 | Tokens/sec |
-|-------|--------------|---------|---------|-----------|
-| Llama2 7B | q4_K_M | 0.85 | 2.4 | 180 |
-| Llama2 13B | q5_K_M | 1.2 | 3.8 | 120 |
-| Mistral 7B | q4_K_M | 0.72 | 2.1 | 200 |
-| Neural Chat | q4_K_M | 0.65 | 1.9 | 220 |
+| Model       | Quantization | Batch=1 | Batch=8 | Tokens/sec |
+| ----------- | ------------ | ------- | ------- | ---------- |
+| Llama2 7B   | q4_K_M       | 0.85    | 2.4     | 180        |
+| Llama2 13B  | q5_K_M       | 1.2     | 3.8     | 120        |
+| Mistral 7B  | q4_K_M       | 0.72    | 2.1     | 200        |
+| Neural Chat | q4_K_M       | 0.65    | 1.9     | 220        |
 
-*Benchmarks on NVIDIA RTX 4090, Ubuntu 22.04, CUDA 12.1*
+_Benchmarks on NVIDIA RTX 4090, Ubuntu 22.04, CUDA 12.1_
 
 ---
 
 ## Roadmap
 
 ### Q1 2026
+
 - [ ] Multi-GPU distributed inference
 - [ ] Optimized attention mechanisms (FlashAttention-3)
 - [ ] Enhanced RAG with re-ranking
 
 ### Q2 2026
+
 - [ ] Fine-tuning infrastructure (LoRA, QLoRA)
 - [ ] Model marketplace integration
 - [ ] Kubernetes deployment support
 
 ### Q3 2026
+
 - [ ] Multimodal model support (vision + text)
 - [ ] Advanced caching strategies (prefix caching)
 - [ ] Cost optimization tools

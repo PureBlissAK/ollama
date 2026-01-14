@@ -6,7 +6,6 @@ GCP Load Balancer topology and Docker-internal networking.
 """
 
 from functools import lru_cache
-from typing import Optional
 
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -43,7 +42,7 @@ class Settings(BaseSettings):
         default="redis://redis:6379/0",
         description="Redis connection URL (use 'redis' service name in Docker, NOT localhost)",
     )
-    redis_password: Optional[str] = Field(default=None, description="Redis password")
+    redis_password: str | None = Field(default=None, description="Redis password")
 
     # Qdrant - Docker service name
     qdrant_host: str = Field(
@@ -59,6 +58,7 @@ class Settings(BaseSettings):
     )
 
     # Authentication
+    admin_key: str = Field(default="ollama-admin-secret-key", description="Admin authorization key")
     jwt_secret: str = Field(
         default="development-secret-change-me",
         description="JWT signing secret key. REQUIRED in production. See .env.example",
@@ -82,12 +82,12 @@ class Settings(BaseSettings):
     cors_expose_headers: list[str] = Field(default=["Content-Type"])
 
     # Security
-    trusted_hosts: Optional[list[str]] = Field(default=None, description="Trusted host names")
+    trusted_hosts: list[str] | None = Field(default=None, description="Trusted host names")
     api_key_auth_enabled: bool = Field(default=False)
 
     # Firebase OAuth (optional)
     firebase_enabled: bool = Field(default=False)
-    firebase_credentials_path: Optional[str] = Field(default=None)
+    firebase_credentials_path: str | None = Field(default=None)
     firebase_project_id: str = Field(default="project-131055855980")
     root_admin_email: str = Field(default="admin@example.com")
 

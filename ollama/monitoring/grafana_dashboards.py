@@ -177,11 +177,11 @@ SYSTEM_HEALTH_DASHBOARD: dict[str, Any] = {
 }
 
 
-def get_ollama_dashboard() -> dict:
+def get_ollama_dashboard() -> dict[str, Any]:
     """Get Ollama API dashboard definition"""
     return OLLAMA_API_DASHBOARD
 
 
-def get_system_health_dashboard() -> dict:
+def get_system_health_dashboard() -> dict[str, Any]:
     """Get system health dashboard definition"""
     return SYSTEM_HEALTH_DASHBOARD

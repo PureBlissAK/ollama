@@ -4,7 +4,8 @@ import logging
 from collections.abc import Awaitable, Callable
 from typing import Any
 
-from fastapi import HTTPException, Request, status
+from fastapi import Request, status
+from fastapi.responses import JSONResponse
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import Response
 
@@ -74,9 +75,15 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
 
         if not allowed:
             logger.warning(f"Rate limit exceeded for {rate_limit_key} on {request.url.path}")
-            raise HTTPException(
+            return JSONResponse(
                 status_code=status.HTTP_429_TOO_MANY_REQUESTS,
-                detail="Rate limit exceeded",
+                content={
+                    "error": {
+                        "message": "Rate limit exceeded",
+                        "type": "rate_limit_error",
+                        "status_code": status.HTTP_429_TOO_MANY_REQUESTS,
+                    }
+                },
                 headers={
                     "X-RateLimit-Limit": str(limit_info["limit"]),
                     "X-RateLimit-Remaining": "0",

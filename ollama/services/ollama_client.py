@@ -21,17 +21,18 @@ from ollama.services.ollama_client_main import OllamaClient
 _ollama_client: OllamaClient | None = None
 
 
-def init_ollama_client(base_url: str) -> OllamaClient:
+def init_ollama_client(base_url: str, timeout: float = 60.0) -> OllamaClient:
     """Initialize and store a global OllamaClient instance.
 
     Args:
         base_url: Base URL for the Ollama backend service.
+        timeout: Request timeout in seconds.
 
     Returns:
         The initialized OllamaClient instance.
     """
     global _ollama_client
-    _ollama_client = OllamaClient(base_url=base_url)
+    _ollama_client = OllamaClient(base_url=base_url, timeout=timeout)
     return _ollama_client
 
 
@@ -46,11 +47,19 @@ def get_ollama_client() -> OllamaClient:
     return _ollama_client
 
 
+def clear_ollama_client() -> None:
+    """Clear the global OllamaClient instance."""
+
+    global _ollama_client
+    _ollama_client = None
+
+
 __all__ = [
     "ChatMessage",
     "ChatRequest",
     "GenerateRequest",
     "OllamaClient",
     "init_ollama_client",
+    "clear_ollama_client",
     "get_ollama_client",
 ]

@@ -82,7 +82,7 @@ ALERT_RULES: list[dict[str, Any]] = [
 ]
 
 
-def get_prometheus_config() -> dict:
+def get_prometheus_config() -> dict[str, Any]:
     """
     Get Prometheus configuration
 
@@ -92,7 +92,7 @@ def get_prometheus_config() -> dict:
     return PROMETHEUS_CONFIG
 
 
-def get_alert_rules() -> list:
+def get_alert_rules() -> list[dict[str, Any]]:
     """
     Get Prometheus alert rules
 

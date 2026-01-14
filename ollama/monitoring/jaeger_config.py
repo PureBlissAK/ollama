@@ -4,32 +4,33 @@ Distributes tracing context across microservices
 """
 
 import logging
-from typing import Optional
+from typing import Any
 
 from opentelemetry import trace
 from opentelemetry.exporter.jaeger.thrift import JaegerExporter
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
+from opentelemetry.sdk.trace.sampling import ParentBased, TraceIdRatioBased
 
 try:
     from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
 except ImportError:  # pragma: no cover - optional dependency
-    FastAPIInstrumentor = None
+    FastAPIInstrumentor: Any = None  # type: ignore[no-redef]
 
 try:
     from opentelemetry.instrumentation.httpx import HTTPXClientInstrumentor
 except ImportError:  # pragma: no cover - optional dependency
-    HTTPXClientInstrumentor = None
+    HTTPXClientInstrumentor: Any = None  # type: ignore[no-redef]
 
 try:
     from opentelemetry.instrumentation.redis import RedisInstrumentor
 except ImportError:  # pragma: no cover - optional dependency
-    RedisInstrumentor = None
+    RedisInstrumentor: Any = None  # type: ignore[no-redef]
 
 try:
     from opentelemetry.instrumentation.sqlalchemy import SQLAlchemyInstrumentor
 except ImportError:  # pragma: no cover - optional dependency
-    SQLAlchemyInstrumentor = None
+    SQLAlchemyInstrumentor: Any = None  # type: ignore[no-redef]
 
 logger = logging.getLogger(__name__)
 
@@ -60,7 +61,7 @@ class JaegerConfig:
         self.jaeger_port = jaeger_port
         self.jaeger_udp_port = jaeger_udp_port
         self.trace_sample_rate = trace_sample_rate
-        self._tracer_provider: Optional[TracerProvider] = None
+        self._tracer_provider: TracerProvider | None = None
 
     def initialize_tracer(self) -> TracerProvider:
         """
@@ -76,8 +77,9 @@ class JaegerConfig:
                 agent_port=self.jaeger_udp_port,
             )
 
-            # Create tracer provider
-            trace_provider = TracerProvider()
+            # Create tracer provider with sampler
+            sampler = ParentBased(root=TraceIdRatioBased(self.trace_sample_rate))
+            trace_provider = TracerProvider(sampler=sampler)
 
             # Add Jaeger exporter
             trace_provider.add_span_processor(BatchSpanProcessor(jaeger_exporter))
@@ -94,7 +96,7 @@ class JaegerConfig:
             logger.error(f"❌ Failed to initialize Jaeger tracer: {e}")
             raise
 
-    def instrument_fastapi(self, app):
+    def instrument_fastapi(self, app: Any) -> None:
         """
         Instrument FastAPI app for tracing
 
@@ -110,7 +112,7 @@ class JaegerConfig:
         except Exception as e:
             logger.error(f"⚠️  Failed to instrument FastAPI: {e}")
 
-    def instrument_sqlalchemy(self, engine):
+    def instrument_sqlalchemy(self, engine: Any) -> None:
         """
         Instrument SQLAlchemy for tracing
 
@@ -126,7 +128,7 @@ class JaegerConfig:
         except Exception as e:
             logger.error(f"⚠️  Failed to instrument SQLAlchemy: {e}")
 
-    def instrument_httpx(self):
+    def instrument_httpx(self) -> None:
         """
         Instrument httpx for tracing
         """
@@ -139,7 +141,7 @@ class JaegerConfig:
         except Exception as e:
             logger.error(f"⚠️  Failed to instrument httpx: {e}")
 
-    def instrument_redis(self):
+    def instrument_redis(self) -> None:
         """
         Instrument Redis for tracing
         """
@@ -169,7 +171,7 @@ class JaegerConfig:
 
 
 # Global Jaeger config instance
-_jaeger_config: Optional[JaegerConfig] = None
+_jaeger_config: JaegerConfig | None = None
 
 
 def init_jaeger(
@@ -200,7 +202,7 @@ def init_jaeger(
     return _jaeger_config
 
 
-def get_jaeger_config() -> Optional[JaegerConfig]:
+def get_jaeger_config() -> JaegerConfig | None:
     """
     Get global Jaeger config instance
 

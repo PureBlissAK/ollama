@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 from fastapi import APIRouter, Depends, status
@@ -24,7 +24,9 @@ class HealthResponse(BaseModel):
 
 
 @router.get("/health", response_model=HealthResponse, status_code=status.HTTP_200_OK)
-async def health_check(user: dict[str, Any] | None = Depends(verify_token_optional)) -> HealthResponse:
+async def health_check(
+    user: dict[str, Any] | None = Depends(verify_token_optional),
+) -> HealthResponse:
     """
     Public health check endpoint (OAuth optional).
 
@@ -42,7 +44,7 @@ async def health_check(user: dict[str, Any] | None = Depends(verify_token_option
 
     return HealthResponse(
         status="healthy",
-        timestamp=datetime.now(timezone.utc).isoformat(),
+        timestamp=datetime.now(UTC).isoformat(),
         version="1.0.0",
         services=services,
     )
@@ -86,13 +88,14 @@ async def health_check_protected(
 
     return HealthResponse(
         status="healthy",
-        timestamp=datetime.now(timezone.utc).isoformat(),
+        timestamp=datetime.now(UTC).isoformat(),
         version="1.0.0",
         services=services,
     )
 
+
 @router.get("/health/ready", status_code=status.HTTP_200_OK)
-async def readiness():
+async def readiness() -> dict[str, str]:
     """Kubernetes readiness probe - checks if app can serve traffic"""
     # Models loaded asynchronously on startup
     # DB connections managed by pool with health checks

@@ -1,5 +1,7 @@
 """Embeddings endpoints - Semantic search with sentence-transformers"""
 
+from typing import Any
+
 from fastapi import APIRouter, HTTPException, status
 
 from ollama.api.schemas.embeddings_request import EmbeddingsRequest
@@ -12,11 +14,11 @@ router = APIRouter()
 
 # Initialize embedding model on module load
 try:
-    from sentence_transformers import SentenceTransformer
+    from sentence_transformers import SentenceTransformer  # type: ignore[import-untyped]
 
-    _embedding_models = {}
+    _embedding_models: dict[str, Any] = {}
 
-    def get_embedding_model(model_name: str = "all-minilm-l6-v2"):
+    def get_embedding_model(model_name: str = "all-minilm-l6-v2") -> Any:
         """Get or load embedding model (cached)"""
         if model_name not in _embedding_models:
             _embedding_models[model_name] = SentenceTransformer(model_name)
@@ -24,7 +26,7 @@ try:
 
 except ImportError:
 
-    def get_embedding_model(model_name: str = "all-minilm-l6-v2"):
+    def get_embedding_model(model_name: str = "all-minilm-l6-v2") -> Any:
         raise ImportError(
             "sentence-transformers not installed. "
             "Install with: pip install sentence-transformers"
@@ -32,7 +34,7 @@ except ImportError:
 
 
 @router.post("/embeddings", response_model=EmbeddingsResponse)
-async def create_embeddings(request: EmbeddingsRequest):
+async def create_embeddings(request: EmbeddingsRequest) -> EmbeddingsResponse:
     """
     Generate text embeddings using sentence transformers
 
@@ -68,7 +70,7 @@ async def create_embeddings(request: EmbeddingsRequest):
 
 
 @router.post("/semantic-search", response_model=SemanticSearchResponse)
-async def semantic_search(request: SemanticSearchRequest):
+async def semantic_search(request: SemanticSearchRequest) -> SemanticSearchResponse:
     """
     Perform semantic search in Qdrant vector database
 

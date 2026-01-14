@@ -8,7 +8,6 @@ single-class-per-file standards.
 """
 
 import logging
-from typing import Optional
 from uuid import UUID
 
 from fastapi import Depends, HTTPException, Security, status
@@ -18,6 +17,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from ollama.auth.manager import AuthManager
 from ollama.config import get_settings
 from ollama.exceptions.authentication import AuthenticationError
+from ollama.models.user import User
 from ollama.repositories.factory import RepositoryFactory
 from ollama.services import get_db
 
@@ -29,7 +29,7 @@ api_key_header = APIKeyHeader(name="X-API-Key", auto_error=False)
 
 
 # Global auth manager instance
-_auth_manager: Optional[AuthManager] = None
+_auth_manager: AuthManager | None = None
 
 
 def get_auth_manager() -> AuthManager:
@@ -49,9 +49,9 @@ def get_auth_manager() -> AuthManager:
 
 # FastAPI Dependencies
 async def get_current_user_from_token(
-    credentials: Optional[HTTPAuthorizationCredentials] = Security(bearer_scheme),
+    credentials: HTTPAuthorizationCredentials | None = Security(bearer_scheme),
     db: AsyncSession = Depends(get_db),
-):
+) -> User:
     """
     Get current user from JWT token
 
@@ -76,7 +76,11 @@ async def get_current_user_from_token(
         auth_manager = get_auth_manager()
         payload = auth_manager.decode_token(credentials.credentials)
 
-        user_id = UUID(payload.get("sub"))
+        sub = payload.get("sub")
+        if not sub:
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
+
+        user_id = UUID(str(sub))
 
         # Get user from database
         repo_factory = RepositoryFactory(db)
@@ -107,8 +111,8 @@ async def get_current_user_from_token(
 
 
 async def get_current_user_from_api_key(
-    api_key: Optional[str] = Security(api_key_header), db: AsyncSession = Depends(get_db)
-):
+    api_key: str | None = Security(api_key_header), db: AsyncSession = Depends(get_db)
+) -> User:
     """
     Get current user from API key
 
@@ -162,9 +166,9 @@ async def get_current_user_from_api_key(
 
 
 async def get_current_user(
-    bearer_user=Depends(get_current_user_from_token),
-    api_key_user=Depends(get_current_user_from_api_key),
-):
+    bearer_user: User = Depends(get_current_user_from_token),
+    api_key_user: User = Depends(get_current_user_from_api_key),
+) -> User:
     """
     Get current user from either JWT token or API key
 
@@ -178,7 +182,7 @@ async def get_current_user(
     return bearer_user or api_key_user
 
 
-def require_admin(current_user=Depends(get_current_user_from_token)):
+def require_admin(current_user: User = Depends(get_current_user_from_token)) -> User:
     """
     Require admin privileges
 
@@ -200,10 +204,10 @@ def require_admin(current_user=Depends(get_current_user_from_token)):
 
 # Optional authentication (doesn't fail if not authenticated)
 async def get_current_user_optional(
-    credentials: Optional[HTTPAuthorizationCredentials] = Security(bearer_scheme),
-    api_key: Optional[str] = Security(api_key_header),
+    credentials: HTTPAuthorizationCredentials | None = Security(bearer_scheme),
+    api_key: str | None = Security(api_key_header),
     db: AsyncSession = Depends(get_db),
-):
+) -> User | None:
     """
     Get current user if authenticated, None otherwise
 

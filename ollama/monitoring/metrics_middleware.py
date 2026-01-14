@@ -5,9 +5,10 @@ Collects HTTP and business metrics for monitoring
 
 import logging
 import time
-from typing import TYPE_CHECKING
+from collections.abc import Awaitable, Callable
+from typing import TYPE_CHECKING, Any
 
-from fastapi import Request
+from fastapi import Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.types import ASGIApp
 
@@ -45,7 +46,9 @@ class MetricsCollectionMiddleware(BaseHTTPMiddleware):
         """
         super().__init__(app)
 
-    async def dispatch(self, request: Request, call_next) -> any:
+    async def dispatch(
+        self, request: Request, call_next: Callable[[Request], Awaitable[Response]]
+    ) -> Response:
         """
         Process request and collect metrics
 
@@ -106,19 +109,18 @@ def setup_metrics_endpoints(app: "FastAPI") -> None:
     Args:
         app: FastAPI application
     """
-    from fastapi.responses import Response
     from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
 
     # Prometheus metrics endpoint - return metrics as direct response
     @app.get("/metrics", include_in_schema=False)
-    async def metrics():
+    async def metrics() -> Response:
         """Get Prometheus metrics in text format"""
         metrics_data = generate_latest()
         return Response(content=metrics_data, media_type=CONTENT_TYPE_LATEST)
 
     # Metrics summary endpoint
     @app.get("/api/v1/metrics/summary")
-    async def metrics_summary():
+    async def metrics_summary() -> dict[str, Any]:
         """Get metrics summary"""
         from ollama.metrics import get_metrics_summary
 

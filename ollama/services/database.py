@@ -5,10 +5,14 @@ Provides SQLAlchemy connection pooling and async database operations
 
 import logging
 from collections.abc import AsyncGenerator
-from typing import Optional
 
 from fastapi import HTTPException, status
-from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from sqlalchemy.ext.asyncio import (
+    AsyncEngine,
+    AsyncSession,
+    async_sessionmaker,
+    create_async_engine,
+)
 from sqlalchemy.pool import AsyncAdaptedQueuePool
 
 logger = logging.getLogger(__name__)
@@ -17,7 +21,7 @@ logger = logging.getLogger(__name__)
 class DatabaseManager:
     """Manages PostgreSQL connection pool and session lifecycle"""
 
-    def __init__(self, database_url: str, echo: bool = False):
+    def __init__(self, database_url: str, echo: bool = False) -> None:
         """
         Initialize database manager
 
@@ -26,12 +30,10 @@ class DatabaseManager:
             echo: Enable SQL echo for debugging
         """
         self.database_url = database_url
-        self.engine = None
-        self.SessionLocal = None
         self._initialized = False
 
         # Create async engine with connection pool
-        self.engine = create_async_engine(
+        self.engine: AsyncEngine = create_async_engine(
             database_url,
             echo=echo,
             poolclass=AsyncAdaptedQueuePool,
@@ -71,9 +73,8 @@ class DatabaseManager:
 
     async def close(self) -> None:
         """Close database connection pool (called on shutdown)"""
-        if self.engine:
-            await self.engine.dispose()
-            logger.info("✅ Database connection pool closed")
+        await self.engine.dispose()
+        logger.info("✅ Database connection pool closed")
 
     async def get_session(self) -> AsyncGenerator[AsyncSession, None]:
         """Get database session for dependency injection"""
@@ -88,7 +89,7 @@ class DatabaseManager:
 
 
 # Global database manager instance
-_db_manager: Optional[DatabaseManager] = None
+_db_manager: DatabaseManager | None = None
 
 
 def init_database(database_url: str, echo: bool = False) -> DatabaseManager:

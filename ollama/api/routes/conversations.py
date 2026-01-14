@@ -4,10 +4,12 @@ Provides full conversation management and retrieval functionality.
 """
 
 import uuid
+from typing import Any, cast
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 
-from ...repositories import RepositoryFactory, get_repositories
+from ollama.models import Conversation
+from ollama.repositories import RepositoryFactory, get_repositories
 
 router = APIRouter(
     prefix="/api/v1/conversations",
@@ -22,7 +24,7 @@ async def list_conversations(
     page: int = Query(1, ge=1, description="Page number"),
     page_size: int = Query(10, ge=1, le=100, description="Items per page"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """List conversations for a user.
 
     Args:
@@ -70,7 +72,7 @@ async def list_conversations(
             ],
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to list conversations: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Failed to list conversations: {e!s}") from e
 
 
 @router.post("/")
@@ -80,7 +82,7 @@ async def create_conversation(
     title: str = Query(None, description="Conversation title"),
     system_prompt: str = Query(None, description="System prompt"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """Create a new conversation.
 
     Args:
@@ -113,7 +115,7 @@ async def create_conversation(
             "accessed_at": conversation.accessed_at.isoformat(),
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to create conversation: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Failed to create conversation: {e!s}") from e
 
 
 @router.get("/{conversation_id}")
@@ -121,7 +123,7 @@ async def get_conversation(
     conversation_id: uuid.UUID,
     user_id: uuid.UUID = Query(..., description="User ID"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """Get conversation details by ID.
 
     Args:
@@ -158,7 +160,7 @@ async def get_conversation(
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to get conversation: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Failed to get conversation: {e!s}") from e
 
 
 @router.put("/{conversation_id}")
@@ -169,7 +171,7 @@ async def update_conversation(
     system_prompt: str = Query(None, description="New system prompt"),
     is_archived: bool = Query(None, description="Archive status"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """Update conversation details.
 
     Args:
@@ -204,7 +206,7 @@ async def update_conversation(
                 await conv_repo.unarchive_conversation(conversation_id)
 
         # Get updated conversation
-        updated = await conv_repo.get_by_id(conversation_id)
+        updated = cast(Conversation, await conv_repo.get_by_id(conversation_id))
 
         return {
             "id": str(updated.id),
@@ -216,7 +218,7 @@ async def update_conversation(
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to update conversation: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Failed to update conversation: {e!s}") from e
 
 
 @router.delete("/{conversation_id}")
@@ -224,7 +226,7 @@ async def delete_conversation(
     conversation_id: uuid.UUID,
     user_id: uuid.UUID = Query(..., description="User ID"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """Delete a conversation and all its messages.
 
     Args:
@@ -253,7 +255,7 @@ async def delete_conversation(
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to delete conversation: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Failed to delete conversation: {e!s}") from e
 
 
 @router.get("/{conversation_id}/messages")
@@ -264,7 +266,7 @@ async def get_conversation_messages(
     page_size: int = Query(50, ge=1, le=100, description="Messages per page"),
     role: str = Query(None, description="Filter by role (user, assistant, system)"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """Get messages in a conversation.
 
     Args:
@@ -318,7 +320,7 @@ async def get_conversation_messages(
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to get messages: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Failed to get messages: {e!s}") from e
 
 
 @router.post("/{conversation_id}/messages")
@@ -329,7 +331,7 @@ async def add_message(
     content: str = Query(..., description="Message content"),
     tokens: int = Query(None, description="Token count"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """Add a message to a conversation.
 
     Args:
@@ -386,7 +388,7 @@ async def add_message(
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to add message: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Failed to add message: {e!s}") from e
 
 
 @router.get("/{conversation_id}/search")
@@ -395,7 +397,7 @@ async def search_conversation(
     user_id: uuid.UUID = Query(..., description="User ID"),
     query: str = Query(..., description="Search query"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """Search messages in a conversation.
 
     Args:
@@ -435,7 +437,7 @@ async def search_conversation(
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to search: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Failed to search: {e!s}") from e
 
 
 @router.get("/{conversation_id}/export")
@@ -444,7 +446,7 @@ async def export_conversation(
     user_id: uuid.UUID = Query(..., description="User ID"),
     format: str = Query("json", description="Export format (json, markdown, txt)"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """Export a conversation in various formats.
 
     Args:
@@ -502,4 +504,4 @@ async def export_conversation(
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to export: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Failed to export: {e!s}") from e

@@ -1,7 +1,7 @@
 """Main Ollama client interface."""
 
 import os
-from typing import Any, Dict, List, Optional
+from typing import Any, cast
 
 import httpx
 
@@ -29,9 +29,9 @@ class Client:
 
     def __init__(
         self,
-        base_url: Optional[str] = None,
-        api_key: Optional[str] = None,
-    ):
+        base_url: str | None = None,
+        api_key: str | None = None,
+    ) -> None:
         """
         Initialize Ollama client.
 
@@ -51,9 +51,9 @@ class Client:
                 if os.getenv("OLLAMA_ENV") == "production":
                     base_url = "https://elevatediq.ai/ollama"
                 else:
-                    base_url = os.getenv("OLLAMA_HOST", "http://ollama-api:8000")
+                    base_url = os.getenv("OLLAMA_HOST", "http://localhost:8000")
 
-        self.base_url = base_url.rstrip("/")
+        self.base_url = (base_url or "http://localhost:8000").rstrip("/")
         self.api_key = api_key or os.getenv("OLLAMA_API_KEY")
 
         # Setup headers
@@ -71,11 +71,11 @@ class Client:
             timeout=300.0,
         )
 
-    def health(self) -> Dict[str, Any]:
+    def health(self) -> dict[str, Any]:
         """Check server health."""
         response = self.client.get("/health")
         response.raise_for_status()
-        return response.json()
+        return cast(dict[str, Any], response.json())
 
     def generate(
         self,
@@ -83,7 +83,7 @@ class Client:
         prompt: str,
         stream: bool = False,
         **kwargs: Any,
-    ) -> Any:
+    ) -> dict[str, Any]:
         """
         Generate text using specified model.
 
@@ -115,14 +115,14 @@ class Client:
         }
         response = self.client.post("/api/generate", json=payload)
         response.raise_for_status()
-        return response.json()
+        return cast(dict[str, Any], response.json())
 
     def chat(
         self,
         model: str,
-        messages: List[Dict[str, str]],
+        messages: list[dict[str, str]],
         **kwargs: Any,
-    ) -> Any:
+    ) -> dict[str, Any]:
         """
         Chat interface (OpenAI-compatible).
 
@@ -141,14 +141,14 @@ class Client:
         }
         response = self.client.post("/v1/chat/completions", json=payload)
         response.raise_for_status()
-        return response.json()
+        return cast(dict[str, Any], response.json())
 
     def embeddings(
         self,
         model: str,
         input_text: str,
         **kwargs: Any,
-    ) -> Any:
+    ) -> dict[str, Any]:
         """
         Generate embeddings.
 
@@ -167,14 +167,14 @@ class Client:
         }
         response = self.client.post("/v1/embeddings", json=payload)
         response.raise_for_status()
-        return response.json()
+        return cast(dict[str, Any], response.json())
 
-    def list_models(self) -> Dict[str, Any]:
+    def list_models(self) -> dict[str, Any]:
         """List available models."""
         response = self.client.get("/api/models")
         response.raise_for_status()
-        return response.json()
+        return cast(dict[str, Any], response.json())
 
-    def __del__(self):
+    def __del__(self) -> None:
         """Cleanup client connection."""
         self.client.close()

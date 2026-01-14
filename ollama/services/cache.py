@@ -3,16 +3,18 @@ Cache Service - Redis-based caching layer
 Provides distributed caching for multi-instance deployments
 """
 
+from __future__ import annotations
+
 import json
 import logging
-from typing import Any, Optional
+from typing import Any, cast
 
 import redis.asyncio as aioredis
 
 logger = logging.getLogger(__name__)
 
 # Global cache manager instance
-_cache_manager: Optional["CacheManager"] = None
+_cache_manager: CacheManager | None = None
 
 
 class CacheManager:
@@ -27,13 +29,15 @@ class CacheManager:
         """
         self.redis_url = redis_url
         self.db = db
-        self.client: Optional[aioredis.Redis] = None
+        self.client: aioredis.Redis | None = None
 
     async def initialize(self) -> None:
         """Initialize Redis connection"""
         try:
-            self.client = await aioredis.from_url(self.redis_url, db=self.db)
-            await self.client.ping()
+            # from_url is a sync call in redis-py 4.0+
+            self.client = aioredis.from_url(self.redis_url, db=self.db)  # type: ignore[no-untyped-call]
+            if self.client is not None:
+                await self.client.ping()
             logger.info(f"Cache manager initialized: {self.redis_url}")
         except Exception as e:
             logger.error(f"Failed to initialize cache manager: {e}")
@@ -45,7 +49,7 @@ class CacheManager:
             await self.client.close()
             logger.info("Cache manager closed")
 
-    async def get(self, key: str) -> Optional[Any]:
+    async def get(self, key: str) -> Any | None:
         """Get value from cache
 
         Args:
@@ -60,15 +64,13 @@ class CacheManager:
         try:
             value = await self.client.get(key)
             if value:
-                return json.loads(value)
+                return json.loads(cast(str, value))
             return None
         except Exception as e:
             logger.warning(f"Cache get failed for key {key}: {e}")
             return None
 
-    async def set(
-        self, key: str, value: Any, ttl: Optional[int] = None
-    ) -> bool:
+    async def set(self, key: str, value: Any, ttl: int | None = None) -> bool:
         """Set value in cache
 
         Args:
@@ -100,16 +102,54 @@ class CacheManager:
             key: Cache key
 
         Returns:
-            True if key was deleted, False otherwise
+            True if successful, False otherwise
         """
         if not self.client:
             return False
 
         try:
-            result = await self.client.delete(key)
-            return bool(result)
+            await self.client.delete(key)
+            return True
         except Exception as e:
             logger.warning(f"Cache delete failed for key {key}: {e}")
+            return False
+
+    async def increment(self, key: str, amount: int = 1) -> int:
+        """Increment a counter.
+
+        Args:
+            key: Cache key
+            amount: Amount to increment by
+
+        Returns:
+            Updated counter value
+        """
+        if not self.client:
+            return 0
+
+        try:
+            return int(await self.client.incrby(key, amount))
+        except Exception as e:
+            logger.warning(f"Cache increment failed for key {key}: {e}")
+            return 0
+
+    async def expire(self, key: str, seconds: int) -> bool:
+        """Set expiration for a key.
+
+        Args:
+            key: Cache key
+            seconds: Time to live in seconds
+
+        Returns:
+            True if successful, False otherwise
+        """
+        if not self.client:
+            return False
+
+        try:
+            return bool(await self.client.expire(key, seconds))
+        except Exception as e:
+            logger.warning(f"Cache expire failed for key {key}: {e}")
             return False
 
     async def exists(self, key: str) -> bool:
@@ -158,9 +198,7 @@ class CacheManager:
             return 0
 
 
-def init_cache(
-    redis_url: str = "redis://redis:6379/0", db: int = 0
-) -> CacheManager:
+def init_cache(redis_url: str = "redis://redis:6379/0", db: int = 0) -> CacheManager:
     """Initialize cache manager
 
     Args:
@@ -175,7 +213,7 @@ def init_cache(
     return _cache_manager
 
 
-def get_cache_manager() -> Optional[CacheManager]:
+def get_cache_manager() -> CacheManager | None:
     """Get global cache manager instance
 
     Returns:

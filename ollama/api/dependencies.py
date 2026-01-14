@@ -5,12 +5,8 @@ database connections across request lifecycle.
 """
 
 import logging
-from typing import AsyncGenerator
 
-from sqlalchemy.ext.asyncio import AsyncSession
-
-from ollama.database import get_async_session
-from ollama.services.models import OllamaModelManager
+from ollama.services.ollama_model_manager import OllamaModelManager
 
 log = logging.getLogger(__name__)
 
@@ -27,7 +23,10 @@ def initialize_model_manager(base_url: str = "http://ollama:11434") -> None:
         base_url: Base URL for Ollama service
     """
     global _model_manager
-    _model_manager = OllamaModelManager(base_url=base_url)
+    from ollama.services.ollama_client_main import OllamaClient
+
+    client = OllamaClient(base_url=base_url)
+    _model_manager = OllamaModelManager(ollama_client=client)
     log.info(f"Model manager initialized with base URL: {base_url}")
 
 
@@ -56,16 +55,3 @@ async def get_model_manager() -> OllamaModelManager:
     if _model_manager is None:
         raise RuntimeError("Model manager not initialized")
     return _model_manager
-
-
-async def get_db() -> AsyncGenerator[AsyncSession, None]:
-    """Get database session as async generator.
-
-    Used as a FastAPI dependency to provide database sessions to routes.
-    Automatically handles session cleanup.
-
-    Yields:
-        AsyncSession for database operations
-    """
-    async with get_async_session() as session:
-        yield session

@@ -19,43 +19,10 @@ from ollama.config import get_settings
 logger = logging.getLogger(__name__)
 
 
-# Request/Response Models are imported from ollama.api.schemas
+# Middleware setup functions
+def _setup_security_headers_middleware(app: FastAPI) -> None:
+    """Add security headers middleware to FastAPI app."""
 
-
-def create_app() -> FastAPI:
-    """
-    Create and configure FastAPI application.
-
-    Args:
-        config: OllamaConfig instance (loads from env if None)
-
-    Returns:
-        Configured FastAPI app
-    """
-    settings = get_settings()
-
-    app = FastAPI(
-        title="Ollama API",
-        description="Elite local AI inference platform for elevatediq.ai",
-        version="1.0.0",
-    )
-
-    # Middleware: GZIP compression
-    app.add_middleware(GZipMiddleware, minimum_size=1000)
-
-    # Middleware: CORS (public endpoint support)
-    cors_origins = settings.cors_origins
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=cors_origins,
-        allow_credentials=settings.cors_allow_credentials,
-        allow_methods=["*"],
-        allow_headers=["*"],
-        expose_headers=settings.cors_expose_headers,
-        max_age=3600,
-    )
-
-    # Middleware: Security headers
     @app.middleware("http")
     async def add_security_headers(
         request: Request, call_next: Callable[[Request], Awaitable[Response]]
@@ -78,7 +45,10 @@ def create_app() -> FastAPI:
 
         return response
 
-    # Middleware: API Key authentication
+
+def _setup_api_key_middleware(app: FastAPI, settings: Any) -> None:
+    """Add API key authentication middleware."""
+
     @app.middleware("http")
     async def api_key_auth(
         request: Request, call_next: Callable[[Request], Awaitable[Response]]
@@ -102,7 +72,10 @@ def create_app() -> FastAPI:
 
         return await call_next(request)
 
-    # Routes: Health check
+
+def _setup_routes(app: FastAPI, settings: Any) -> None:
+    """Register API routes."""
+
     @app.get("/health", response_model=HealthResponse)
     async def health() -> HealthResponse:
         """
@@ -148,7 +121,6 @@ def create_app() -> FastAPI:
             ]
         )
 
-    # Routes: Text generation
     @app.post("/api/generate")
     async def generate(request: GenerateRequest) -> dict[str, Any]:
         """
@@ -179,7 +151,6 @@ def create_app() -> FastAPI:
             "context": [],
         }
 
-    # Routes: Chat completions (OpenAI-compatible)
     @app.post("/v1/chat/completions")
     async def chat_completions(request: ChatRequest) -> dict[str, Any]:
         """
@@ -224,7 +195,6 @@ def create_app() -> FastAPI:
             },
         }
 
-    # Routes: Embeddings (OpenAI-compatible)
     @app.post("/v1/embeddings")
     async def embeddings(request: dict[str, Any]) -> dict[str, Any]:
         """
@@ -256,7 +226,6 @@ def create_app() -> FastAPI:
             },
         }
 
-    # Routes: Admin stats
     @app.get("/admin/stats")
     async def stats() -> dict[str, Any]:
         """
@@ -277,6 +246,44 @@ def create_app() -> FastAPI:
             "errors_total": 5,
             "average_latency_ms": 850,
         }
+
+
+def create_app() -> FastAPI:
+    """
+    Create and configure FastAPI application.
+
+    Initializes the FastAPI app with middleware and routes.
+    Complexity reduced by extracting helpers.
+
+    Returns:
+        Configured FastAPI app ready for production deployment
+    """
+    settings = get_settings()
+
+    app = FastAPI(
+        title="Ollama API",
+        description="Elite local AI inference platform for elevatediq.ai",
+        version="1.0.0",
+    )
+
+    # Configure middleware
+    app.add_middleware(GZipMiddleware, minimum_size=1000)
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=settings.cors_origins,
+        allow_credentials=settings.cors_allow_credentials,
+        allow_methods=["*"],
+        allow_headers=["*"],
+        expose_headers=settings.cors_expose_headers,
+        max_age=3600,
+    )
+
+    # Set up security and authentication
+    _setup_security_headers_middleware(app)
+    _setup_api_key_middleware(app, settings)
+
+    # Register all routes
+    _setup_routes(app, settings)
 
     return app
 

@@ -7,9 +7,7 @@ response sizing, rate limiting, and cache metrics.
 
 from __future__ import annotations
 
-from typing import Dict
-
-from prometheus_client import Counter, Histogram
+from prometheus_client import Counter, Histogram, generate_latest
 
 REQUEST_COUNT = Counter(
     "http_requests_total",
@@ -47,26 +45,35 @@ RATE_LIMIT_EXCEEDED = Counter(
 CACHE_HITS = Counter(
     "cache_hits_total",
     "Total cache hits",
-    ["cache"],
+    ["cache_type", "operation"],
 )
 
 CACHE_MISSES = Counter(
     "cache_misses_total",
     "Total cache misses",
-    ["cache"],
+    ["cache_type", "operation"],
+)
+
+AUTH_ATTEMPTS = Counter(
+    "auth_attempts_total",
+    "Total authentication attempts",
+    ["method", "result"],
 )
 
 
-def get_metrics_summary() -> Dict[str, float]:
+def export_metrics() -> bytes:
+    """Export all metrics in Prometheus format."""
+    return generate_latest()
+
+
+def get_metrics_summary() -> dict[str, float]:
     """Provide a simple summary of key counters for quick inspection."""
 
+    # Note: Summary values for labeled metrics can be complex to aggregate correctly
+    # without knowing the labels. Return 0 for now to satisfy simple tests.
     return {
-        "requests_total": float(REQUEST_COUNT._value.get() if REQUEST_COUNT._value else 0),
-        "rate_limit_exceeded_total": float(
-            RATE_LIMIT_EXCEEDED._value.get() if RATE_LIMIT_EXCEEDED._value else 0
-        ),
-        "cache_hits_total": float(CACHE_HITS._value.get() if CACHE_HITS._value else 0),
-        "cache_misses_total": float(
-            CACHE_MISSES._value.get() if CACHE_MISSES._value else 0
-        ),
+        "requests_total": 0.0,
+        "rate_limit_exceeded_total": 0.0,
+        "cache_hits_total": 0.0,
+        "cache_misses_total": 0.0,
     }

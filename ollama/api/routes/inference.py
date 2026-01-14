@@ -4,8 +4,11 @@ Provides endpoints for text generation, embeddings, model management,
 and conversation history with streaming support.
 """
 
+import dataclasses
+import json
 import logging
 from collections.abc import AsyncGenerator
+from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException
 from starlette.responses import StreamingResponse
@@ -49,9 +52,11 @@ async def list_models(
     try:
         models = await manager.list_available_models()
         return ListModelsResponse(models=models, total=len(models))
+    except HTTPException:
+        raise
     except Exception as e:
-        log.error(f"Failed to list models: {e}")
-        raise HTTPException(status_code=500, detail="Failed to list models")
+        log.error(f"Failed to list models: {e!s}")
+        raise HTTPException(status_code=500, detail="Failed to list models") from e
 
 
 @router.get("/models/{model_name}")
@@ -76,8 +81,8 @@ async def get_model(
     except HTTPException:
         raise
     except Exception as e:
-        log.error(f"Failed to get model details: {e}")
-        raise HTTPException(status_code=500, detail="Failed to get model details")
+        log.error(f"Failed to get model details: {e!s}")
+        raise HTTPException(status_code=500, detail="Failed to get model details") from e
 
 
 @router.post("/generate")
@@ -114,7 +119,7 @@ async def generate(
             async def generate_stream() -> AsyncGenerator[str, None]:
                 """Stream generation responses as Server-Sent Events."""
                 async for response in manager.generate(ollama_request):
-                    yield f"data: {response.model_dump_json()}\n\n"
+                    yield f"data: {json.dumps(dataclasses.asdict(response))}\n\n"
 
             return StreamingResponse(
                 generate_stream(),
@@ -144,11 +149,11 @@ async def generate(
             )
 
     except ValueError as e:
-        log.warning(f"Invalid request: {e}")
-        raise HTTPException(status_code=400, detail=str(e))
+        log.warning(f"Invalid request: {e!s}")
+        raise HTTPException(status_code=400, detail=str(e)) from e
     except Exception as e:
-        log.error(f"Generation failed: {e}")
-        raise HTTPException(status_code=500, detail="Generation failed")
+        log.error(f"Generation failed: {e!s}")
+        raise HTTPException(status_code=500, detail="Generation failed") from e
 
 
 @router.post("/embeddings")
@@ -166,22 +171,22 @@ async def create_embedding(
         Vector embedding and metadata
     """
     try:
-        embedding = await manager.generate_embedding(text=request.text, model=request.model)
+        embedding = await manager.generate_embedding(model_name=request.model, prompt=request.text)
         return EmbeddingResponse(
             embedding=embedding,
             model=request.model,
             dimensions=len(embedding),
         )
     except Exception as e:
-        log.error(f"Embedding generation failed: {e}")
-        raise HTTPException(status_code=500, detail="Embedding generation failed")
+        log.error(f"Embedding generation failed: {e!s}")
+        raise HTTPException(status_code=500, detail="Embedding generation failed") from e
 
 
 @router.post("/models/pull")
 async def pull_model(
     request: ModelPullRequest,
     manager: OllamaModelManager = Depends(get_model_manager),
-) -> dict:
+) -> dict[str, Any]:
     """Download and prepare a model.
 
     Args:
@@ -198,15 +203,15 @@ async def pull_model(
             "message": f"Model {request.model_name} pulled successfully",
         }
     except Exception as e:
-        log.error(f"Model pull failed: {e}")
-        raise HTTPException(status_code=500, detail="Model pull failed")
+        log.error(f"Model pull failed: {e!s}")
+        raise HTTPException(status_code=500, detail="Model pull failed") from e
 
 
 @router.delete("/models/{model_name}")
 async def delete_model(
     model_name: str,
     manager: OllamaModelManager = Depends(get_model_manager),
-) -> dict:
+) -> dict[str, Any]:
     """Delete a model from storage.
 
     Args:
@@ -223,8 +228,8 @@ async def delete_model(
             "message": f"Model {model_name} deleted successfully",
         }
     except Exception as e:
-        log.error(f"Model delete failed: {e}")
-        raise HTTPException(status_code=500, detail="Model delete failed")
+        log.error(f"Model delete failed: {e!s}")
+        raise HTTPException(status_code=500, detail="Model delete failed") from e
 
 
 @router.post("/chat")
@@ -267,7 +272,7 @@ async def chat_completion(
         async def chat_stream() -> AsyncGenerator[str, None]:
             """Stream chat responses as Server-Sent Events."""
             async for response in manager.generate(ollama_request):
-                yield f"data: {response.model_dump_json()}\n\n"
+                yield f"data: {json.dumps(dataclasses.asdict(response))}\n\n"
 
         return StreamingResponse(
             chat_stream(),
@@ -279,5 +284,5 @@ async def chat_completion(
         )
 
     except Exception as e:
-        log.error(f"Chat completion failed: {e}")
-        raise HTTPException(status_code=500, detail="Chat completion failed")
+        log.error(f"Chat completion failed: {e!s}")
+        raise HTTPException(status_code=500, detail="Chat completion failed") from e

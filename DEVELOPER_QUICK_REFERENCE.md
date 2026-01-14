@@ -1,6 +1,7 @@
 # ⚡ OLLAMA DEVELOPER QUICK REFERENCE
 
-**Version**: 2.0.0 | **Last Updated**: January 13, 2026
+**Version**: 2.1.0 | **Last Updated**: January 14, 2026
+**Production Status**: ✅ Verified (Tier 2 Load Test: 50 users, 75ms P95, 100% success)
 
 ---
 
@@ -15,33 +16,49 @@ python -m venv .venv && source .venv/bin/activate
 pip install -e .
 ```
 
-### 2. Start Local Services
+### 2. Start Local Services (Using Real IP, NOT localhost)
 
 ```bash
-docker-compose up -d postgres redis ollama
+# IMPORTANT: Set real IP for development (never use localhost)
+export REAL_IP=$(hostname -I | awk '{print $1}')
+sed -i "s|PUBLIC_API_URL=.*|PUBLIC_API_URL=http://$REAL_IP:8000|" .env.dev
+
+# Start services
+docker-compose -f docker-compose.local.yml up -d postgres redis ollama
 docker-compose logs -f  # Watch logs
 ```
 
 ### 3. Run Development Server
 
 ```bash
-# Terminal 1: Start server (auto-reload)
+# Terminal 1: Start server with real IP (auto-reload)
+export REAL_IP=$(hostname -I | awk '{print $1}')
 uvicorn ollama.main:app --reload --host 0.0.0.0 --port 8000
 
-# Terminal 2: Test endpoint
-curl http://localhost:8000/health
+# Terminal 2: Test endpoint via real IP (NOT localhost)
+curl http://$REAL_IP:8000/health
 ```
 
 ### 4. Make Your First Request
 
 ```bash
+# Use real IP or DNS in development
+export REAL_IP=$(hostname -I | awk '{print $1}')
+
 # List available models
-curl http://localhost:8000/api/v1/models
+curl http://$REAL_IP:8000/api/v1/models
 
 # Generate text
-curl -X POST http://localhost:8000/api/v1/generate \
+curl -X POST http://$REAL_IP:8000/api/v1/generate \
   -H "Content-Type: application/json" \
   -d '{"model": "llama3.2", "prompt": "Hello world"}'
+
+# Production: Use https://elevatediq.ai/ollama endpoint
+curl -H "X-API-Key: your-api-key" \
+  https://elevatediq.ai/ollama/api/v1/generate \
+  -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"model": "llama3.2", "prompt": "Hello"}'
 ```
 
 ---
@@ -57,17 +74,31 @@ mypy ollama/ --strict
 ruff check ollama/
 pip-audit
 
-# Or run single check
-pytest tests/unit/                      # Unit tests
-mypy ollama/ --strict                   # Type checking
-ruff check ollama/                      # Linting
+# Or run individual checks
+pytest tests/unit/                      # Unit tests only
+mypy ollama/ --strict                   # Type checking only
+ruff check ollama/ --fix                # Linting with fixes
 black ollama/ tests/                    # Format code
 pip-audit                               # Security audit
 
-# Run with pre-commit hooks
+# Pre-commit hooks (automatic on git commit -S)
 .githooks/setup.sh                      # Install hooks
 git add .
-git commit -m "feat: my feature"        # Hooks run automatically
+git commit -S -m "feat: my feature"     # Requires GPG signature
+```
+
+### Production Endpoints
+
+```bash
+# Primary production endpoint (GCP Load Balancer)
+curl -H "X-API-Key: your-api-key" \
+  https://elevatediq.ai/ollama/api/v1/health
+
+# Health check
+curl https://elevatediq.ai/ollama/api/v1/health
+
+# Direct service (internal only)
+# ❌ NOT accessible from internet: ollama-service-sozvlwbwva-uc.a.run.app
 ```
 
 ### Git Workflow
@@ -177,16 +208,16 @@ ollama/
 
 ## 🔑 Key Files to Know
 
-| File | Purpose | Lines |
-|------|---------|-------|
-| `ollama/main.py` | FastAPI app initialization | 80 |
-| `ollama/api/routes/inference.py` | Main API endpoints | 426 |
-| `ollama/services/models.py` | Ollama integration | 403 |
-| `ollama/models.py` | Database models | 243 |
-| `.github/workflows/quality-checks.yml` | CI/CD checks | 75 |
-| `.github/workflows/deploy-production.yml` | Auto deployment | 103 |
-| `docker-compose.yml` | Local services | 80 |
-| `docs/DEPLOYMENT_RUNBOOK.md` | Deployment guide | 300+ |
+| File                                      | Purpose                    | Lines |
+| ----------------------------------------- | -------------------------- | ----- |
+| `ollama/main.py`                          | FastAPI app initialization | 80    |
+| `ollama/api/routes/inference.py`          | Main API endpoints         | 426   |
+| `ollama/services/models.py`               | Ollama integration         | 403   |
+| `ollama/models.py`                        | Database models            | 243   |
+| `.github/workflows/quality-checks.yml`    | CI/CD checks               | 75    |
+| `.github/workflows/deploy-production.yml` | Auto deployment            | 103   |
+| `docker-compose.yml`                      | Local services             | 80    |
+| `docs/DEPLOYMENT_RUNBOOK.md`              | Deployment guide           | 300+  |
 
 ---
 
@@ -318,6 +349,7 @@ settings = Settings()
 ### Issue: "Connection refused" to Ollama
 
 **Solution**:
+
 ```bash
 # Check if Ollama is running
 docker ps | grep ollama
@@ -332,6 +364,7 @@ curl http://ollama:11434/api/tags
 ### Issue: "Database connection error"
 
 **Solution**:
+
 ```bash
 # Check PostgreSQL
 docker ps | grep postgres
@@ -346,6 +379,7 @@ psql $DATABASE_URL -c "SELECT 1"
 ### Issue: "Rate limit exceeded"
 
 **Solution**:
+
 ```bash
 # Reset rate limiting
 redis-cli -h localhost FLUSHALL
@@ -356,6 +390,7 @@ redis-cli -h localhost FLUSHALL
 ### Issue: "Pre-commit hook failed"
 
 **Solution**:
+
 ```bash
 # Fix issues manually
 black ollama/ tests/          # Format code
@@ -393,15 +428,15 @@ Before pushing:
 
 ## 📖 Documentation
 
-| Document | Purpose |
-|----------|---------|
-| [README.md](README.md) | Project overview |
-| [DEPLOYMENT_RUNBOOK.md](DEPLOYMENT_RUNBOOK.md) | Complete deployment guide |
-| [docs/architecture.md](docs/architecture.md) | System architecture (40 pages) |
-| [PUBLIC_API.md](PUBLIC_API.md) | API reference |
-| [docs/POSTGRESQL_INTEGRATION.md](docs/POSTGRESQL_INTEGRATION.md) | Database guide |
-| [docs/troubleshooting.md](docs/troubleshooting.md) | Common issues |
-| [CONTRIBUTING.md](CONTRIBUTING.md) | Contribution guide |
+| Document                                                         | Purpose                        |
+| ---------------------------------------------------------------- | ------------------------------ |
+| [README.md](README.md)                                           | Project overview               |
+| [DEPLOYMENT_RUNBOOK.md](DEPLOYMENT_RUNBOOK.md)                   | Complete deployment guide      |
+| [docs/architecture.md](docs/architecture.md)                     | System architecture (40 pages) |
+| [PUBLIC_API.md](PUBLIC_API.md)                                   | API reference                  |
+| [docs/POSTGRESQL_INTEGRATION.md](docs/POSTGRESQL_INTEGRATION.md) | Database guide                 |
+| [docs/troubleshooting.md](docs/troubleshooting.md)               | Common issues                  |
+| [CONTRIBUTING.md](CONTRIBUTING.md)                               | Contribution guide             |
 
 ---
 

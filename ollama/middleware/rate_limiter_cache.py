@@ -21,13 +21,14 @@ class RateLimiterCache:
 
         # Set expiration on first increment
         if count == 1:
-            await self.cache_manager.client.expire(counter_key, window)
+            await self.cache_manager.expire(counter_key, window)
 
         return count <= limit
 
     async def get_remaining(self, key: str, limit: int) -> int:
         """Get remaining requests in current window."""
         counter_key = f"rate:{key}"
-        current = await self.cache_manager.client.get(counter_key)
-        count = int(current) if current else 0
+        # We use raw get if we had one, but get() handles numbers as well
+        current = await self.cache_manager.get(counter_key)
+        count = int(current) if current is not None else 0
         return max(0, limit - count)

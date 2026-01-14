@@ -1,7 +1,8 @@
 """Ollama API client for model inference."""
 
+from collections.abc import AsyncGenerator
 from types import TracebackType
-from typing import Any
+from typing import Any, cast
 
 import httpx
 import structlog
@@ -23,16 +24,21 @@ class OllamaClient:
     model management, and embedding generation.
     """
 
-    def __init__(self, base_url: str = "http://localhost:11434") -> None:
+    def __init__(
+        self,
+        base_url: str = "http://localhost:11434",
+        timeout: float = 60.0,
+    ) -> None:
         """Initialize Ollama client.
 
         Args:
             base_url: Base URL for Ollama API (default: localhost:11434).
+            timeout: Request timeout in seconds.
         """
         self.base_url = base_url.rstrip("/")
         self.client = httpx.AsyncClient(
             base_url=self.base_url,
-            timeout=httpx.Timeout(60.0),
+            timeout=httpx.Timeout(timeout),
         )
 
     async def initialize(self) -> None:
@@ -42,12 +48,8 @@ class OllamaClient:
         the backend is unavailable; exceptions should be handled by callers.
         """
         # Perform a simple request to validate the base URL; ignore response content
-        try:
-            resp = await self.client.get("/api/tags")
-            resp.raise_for_status()
-        except httpx.HTTPError:
-            # Defer handling to caller; this method is for connectivity warmup
-            pass
+        resp = await self.client.get("/api/tags")
+        resp.raise_for_status()
 
     async def list_models(self) -> list[Model]:
         """List all available models on Ollama server.
@@ -80,6 +82,52 @@ class OllamaClient:
 
         log.info("ollama_models_listed", count=len(models))
         return models
+
+    async def generate_stream(
+        self, request: GenerateRequest
+    ) -> AsyncGenerator[GenerateResponse, None]:
+        """Generate text completion with streaming.
+
+        Args:
+            request: Generation request with prompt and parameters.
+
+        Yields:
+            Generated response chunks.
+        """
+        log.info("ollama_generate_stream", model=request.model, prompt_len=len(request.prompt))
+
+        payload: dict[str, Any] = {
+            "model": request.model,
+            "prompt": request.prompt,
+            "temperature": request.temperature,
+            "top_p": request.top_p,
+            "top_k": request.top_k,
+            "num_predict": request.num_predict,
+            "stop": request.stop,
+            "stream": True,
+        }
+
+        async with self.client.stream("POST", "/api/generate", json=payload) as response:
+            response.raise_for_status()
+            async for line in response.aiter_lines():
+                if not line:
+                    continue
+                import json
+
+                data = json.loads(line)
+                yield GenerateResponse(
+                    model=data["model"],
+                    prompt=request.prompt,
+                    response=data["response"],
+                    done=data.get("done", False),
+                    context=data.get("context", []),
+                    total_duration=data.get("total_duration", 0),
+                    load_duration=data.get("load_duration", 0),
+                    prompt_eval_count=data.get("prompt_eval_count", 0),
+                    prompt_eval_duration=data.get("prompt_eval_duration", 0),
+                    eval_count=data.get("eval_count", 0),
+                    eval_duration=data.get("eval_duration", 0),
+                )
 
     async def generate(self, request: GenerateRequest) -> GenerateResponse:
         """Generate text completion.
@@ -158,6 +206,48 @@ class OllamaClient:
         message = data["message"]
 
         return ChatMessage(role=message["role"], content=message["content"])
+
+    async def pull_model(self, name: str) -> dict[str, Any]:
+        """Pull a model from Ollama library.
+
+        Args:
+            name: Model name to pull.
+
+        Returns:
+            Success response.
+        """
+        log.info("ollama_pull_model", model=name)
+        response = await self.client.post("/api/pull", json={"name": name, "stream": False})
+        response.raise_for_status()
+        return cast(dict[str, Any], response.json())
+
+    async def delete_model(self, name: str) -> None:
+        """Delete a model from Ollama.
+
+        Args:
+            name: Model name to delete.
+        """
+        log.info("ollama_delete_model", model=name)
+        response = await self.client.request("DELETE", "/api/delete", json={"name": name})
+        response.raise_for_status()
+
+    async def generate_embeddings(self, model: str, prompt: str) -> list[float]:
+        """Generate embeddings for a prompt.
+
+        Args:
+            model: Model name.
+            prompt: Text to embed.
+
+        Returns:
+            List of floats representing the embedding.
+        """
+        log.info("ollama_embeddings", model=model, prompt_len=len(prompt))
+        response = await self.client.post(
+            "/api/embeddings", json={"model": model, "prompt": prompt}
+        )
+        response.raise_for_status()
+        data = response.json()
+        return cast(list[float], data.get("embedding", []))
 
     async def close(self) -> None:
         """Close HTTP client connection."""

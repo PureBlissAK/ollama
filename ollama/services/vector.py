@@ -4,7 +4,7 @@ Provides vector database client for semantic search and RAG
 """
 
 import logging
-from typing import Any, Optional
+from typing import Any, cast
 
 from qdrant_client import AsyncQdrantClient
 from qdrant_client.http.models import Distance, VectorParams
@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 class VectorManager:
     """Manages Qdrant vector database connection and operations"""
 
-    def __init__(self, qdrant_url: str, api_key: Optional[str] = None):
+    def __init__(self, qdrant_url: str, api_key: str | None = None) -> None:
         """
         Initialize vector manager
 
@@ -25,7 +25,7 @@ class VectorManager:
         """
         self.qdrant_url = qdrant_url
         self.api_key = api_key
-        self.client: Optional[AsyncQdrantClient] = None
+        self.client: AsyncQdrantClient | None = None
         self._initialized = False
 
     async def initialize(self) -> None:
@@ -38,7 +38,7 @@ class VectorManager:
             )
 
             # Test connection
-            await self.client.get_collections()
+            await cast(Any, self.client).get_collections()
             self._initialized = True
             logger.info("✅ Qdrant connection established")
 
@@ -53,7 +53,11 @@ class VectorManager:
         logger.info("✅ Qdrant client closed")
 
     async def create_collection(
-        self, collection_name: str, vector_size: int, distance: Distance = Distance.COSINE, **kwargs
+        self,
+        collection_name: str,
+        vector_size: int,
+        distance: Distance = Distance.COSINE,
+        **kwargs: Any,
     ) -> bool:
         """Create new vector collection"""
         if not self._initialized:
@@ -61,7 +65,7 @@ class VectorManager:
             return False
 
         try:
-            await self.client.create_collection(
+            await cast(Any, self.client).create_collection(
                 collection_name=collection_name,
                 vectors_config=VectorParams(size=vector_size, distance=distance),
                 **kwargs,
@@ -72,13 +76,15 @@ class VectorManager:
             logger.warning(f"Collection creation error: {e}")
             return False
 
-    async def upsert_vectors(self, collection_name: str, points: list[dict[str, Any]]) -> bool:
+    async def upsert_vectors(self, collection_name: str, points: list[Any]) -> bool:
         """Upsert vectors to collection"""
-        if not self._initialized:
+        if not self.client:
             return False
 
         try:
-            await self.client.upsert(collection_name=collection_name, points=points, wait=True)
+            await cast(Any, self.client).upsert(
+                collection_name=collection_name, points=points, wait=True
+            )
             return True
         except Exception as e:
             logger.warning(f"Upsert error: {e}")
@@ -89,33 +95,33 @@ class VectorManager:
         collection_name: str,
         query_vector: list[float],
         limit: int = 10,
-        score_threshold: Optional[float] = None,
-        **kwargs,
-    ) -> list[dict[str, Any]]:
+        score_threshold: float | None = None,
+        **kwargs: Any,
+    ) -> list[Any]:
         """Search for similar vectors"""
-        if not self._initialized:
+        if not self.client:
             return []
 
         try:
-            results = await self.client.search(
+            results = await cast(Any, self.client).search(
                 collection_name=collection_name,
                 query_vector=query_vector,
                 limit=limit,
                 score_threshold=score_threshold,
                 **kwargs,
             )
-            return results
+            return cast(list[Any], results)
         except Exception as e:
             logger.warning(f"Search error: {e}")
             return []
 
     async def delete_collection(self, collection_name: str) -> bool:
         """Delete vector collection"""
-        if not self._initialized:
+        if not self.client:
             return False
 
         try:
-            await self.client.delete_collection(collection_name)
+            await cast(Any, self.client).delete_collection(collection_name)
             logger.info(f"✅ Deleted collection: {collection_name}")
             return True
         except Exception as e:
@@ -124,11 +130,11 @@ class VectorManager:
 
     async def collection_exists(self, collection_name: str) -> bool:
         """Check if collection exists"""
-        if not self._initialized:
+        if not self.client:
             return False
 
         try:
-            collections = await self.client.get_collections()
+            collections = await cast(Any, self.client).get_collections()
             return any(c.name == collection_name for c in collections.collections)
         except Exception as e:
             logger.warning(f"Collection check error: {e}")
@@ -136,10 +142,10 @@ class VectorManager:
 
 
 # Global vector manager instance
-_vector_manager: Optional[VectorManager] = None
+_vector_manager: VectorManager | None = None
 
 
-def init_vector_db(qdrant_url: str, api_key: Optional[str] = None) -> VectorManager:
+def init_vector_db(qdrant_url: str, api_key: str | None = None) -> VectorManager:
     """Initialize global vector manager"""
     global _vector_manager
     _vector_manager = VectorManager(qdrant_url, api_key=api_key)

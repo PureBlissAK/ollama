@@ -2,6 +2,10 @@
 
 Thank you for your interest in contributing to Ollama! This document provides guidelines and instructions for contributing to the project.
 
+**Production Status**: ✅ Live at [https://elevatediq.ai/ollama](https://elevatediq.ai/ollama)
+**Performance**: 50-user load test verified (7,162 requests, 75ms P95, 100% success)
+**Infrastructure**: [GCP Landing Zone](https://github.com/kushin77/GCP-landing-zone)
+
 ## Code of Conduct
 
 We are committed to providing a welcoming and inspiring community for all. Please read and adhere to our Code of Conduct.
@@ -9,9 +13,11 @@ We are committed to providing a welcoming and inspiring community for all. Pleas
 ## Getting Started
 
 ### Prerequisites
+
 - Python 3.11+
 - Docker & Docker Compose
 - Git (with signed commits enabled)
+- Real IP/DNS (NOT localhost for development)
 
 ### Setup Development Environment
 
@@ -19,6 +25,11 @@ We are committed to providing a welcoming and inspiring community for all. Pleas
 git clone https://github.com/kushin77/ollama.git
 cd ollama
 bash scripts/bootstrap.sh
+
+# IMPORTANT: Development must use real IP, not localhost
+export REAL_IP=$(hostname -I | awk '{print $1}')
+sed -i "s|PUBLIC_API_URL=.*|PUBLIC_API_URL=http://$REAL_IP:8000|" .env.dev
+
 source venv/bin/activate
 ```
 
@@ -31,18 +42,21 @@ git checkout -b feature/your-feature-name
 ```
 
 Branch naming convention:
+
 - `feature/`: New features
 - `bugfix/`: Bug fixes
 - `refactor/`: Code refactoring
 - `infra/`: Infrastructure changes
 - `docs/`: Documentation updates
+- `security/`: Security-related changes
 
 ### 2. Make Changes
 
-- Follow the elite development standards in `.copilot-instructions`
-- Write code with type hints
+- Follow the elite development standards in `.github/copilot-instructions.md`
+- Write code with type hints (100% coverage required)
 - Include comprehensive docstrings
-- Write tests for new functionality
+- Write tests for new functionality (≥90% coverage)
+- Use real IP/DNS in development (never localhost)
 
 ### 3. Commit Changes
 
@@ -116,12 +130,14 @@ git push origin feature/your-feature-name
 ```
 
 Then create a PR on GitHub with:
+
 - Clear title describing the change
 - Detailed description of what and why
 - Reference to related issues
 - Screenshots/benchmarks if applicable
 
 **CI/CD Pipeline** will automatically:
+
 - ✅ Run all tests on Python 3.11 and 3.12
 - ✅ Check type safety with mypy
 - ✅ Lint with Ruff
@@ -211,6 +227,7 @@ footer
 ```
 
 ### Types
+
 - `feat`: New feature
 - `fix`: Bug fix
 - `refactor`: Code refactoring
@@ -288,6 +305,7 @@ Include benchmarks in PR description showing improvements.
 Clear description of the bug
 
 **Steps to Reproduce**
+
 1. Step one
 2. Step two
 
@@ -298,14 +316,18 @@ What should happen
 What actually happens
 
 **Environment**
+
 - OS: Ubuntu 22.04
 - Python: 3.11.2
 - Ollama version: 1.0.0
 
 **Logs**
 ```
+
 Error log output
+
 ```
+
 ```
 
 ### Feature Request Template

@@ -10,7 +10,7 @@ import pytest
 from ollama.services.ollama_client import ChatMessage, ChatRequest, GenerateRequest, OllamaClient
 
 
-@pytest.fixture
+@pytest.fixture()
 def mock_httpx_client():
     """Mock httpx AsyncClient"""
     return AsyncMock()
@@ -43,7 +43,7 @@ class TestOllamaClientInitialization:
 class TestOllamaClientModels:
     """Test model management operations"""
 
-    @pytest.mark.asyncio
+    @pytest.mark.asyncio()
     async def test_list_models(self):
         """Test listing available models"""
         client = OllamaClient()
@@ -51,7 +51,7 @@ class TestOllamaClientModels:
         # Should have list_models method
         assert hasattr(client, "list_models")
 
-    @pytest.mark.asyncio
+    @pytest.mark.asyncio()
     async def test_show_model(self):
         """Test getting model details"""
         client = OllamaClient()
@@ -63,14 +63,14 @@ class TestOllamaClientModels:
 class TestOllamaClientGeneration:
     """Test text generation"""
 
-    @pytest.mark.asyncio
+    @pytest.mark.asyncio()
     async def test_generate_method_exists(self):
         """Test generate method exists"""
         client = OllamaClient()
 
         assert hasattr(client, "generate")
 
-    @pytest.mark.asyncio
+    @pytest.mark.asyncio()
     async def test_generate_request_model(self):
         """Test GenerateRequest model"""
         request = GenerateRequest(
@@ -82,7 +82,7 @@ class TestOllamaClientGeneration:
         assert request.stream is False
         assert request.temperature == 0.7
 
-    @pytest.mark.asyncio
+    @pytest.mark.asyncio()
     async def test_generate_with_parameters(self):
         """Test generate with various parameters"""
         request = GenerateRequest(
@@ -98,14 +98,14 @@ class TestOllamaClientGeneration:
 class TestOllamaClientChat:
     """Test chat completion"""
 
-    @pytest.mark.asyncio
+    @pytest.mark.asyncio()
     async def test_chat_method_exists(self):
         """Test chat method exists"""
         client = OllamaClient()
 
         assert hasattr(client, "chat")
 
-    @pytest.mark.asyncio
+    @pytest.mark.asyncio()
     async def test_chat_request_model(self):
         """Test ChatRequest model"""
         messages = [
@@ -119,7 +119,7 @@ class TestOllamaClientChat:
         assert len(request.messages) == 2
         assert request.messages[0].role == "user"
 
-    @pytest.mark.asyncio
+    @pytest.mark.asyncio()
     async def test_chat_message_model(self):
         """Test ChatMessage model"""
         message = ChatMessage(role="system", content="You are helpful")
@@ -131,7 +131,7 @@ class TestOllamaClientChat:
 class TestOllamaClientEmbeddings:
     """Test embeddings generation"""
 
-    @pytest.mark.asyncio
+    @pytest.mark.asyncio()
     async def test_embeddings_method_exists(self):
         """Test embeddings method exists"""
         client = OllamaClient()
@@ -142,7 +142,7 @@ class TestOllamaClientEmbeddings:
 class TestOllamaClientErrorHandling:
     """Test error handling"""
 
-    @pytest.mark.asyncio
+    @pytest.mark.asyncio()
     async def test_connection_error_handling(self):
         """Test handling connection errors"""
         # Client creation should not fail even if server unavailable
@@ -150,7 +150,7 @@ class TestOllamaClientErrorHandling:
 
         assert client is not None
 
-    @pytest.mark.asyncio
+    @pytest.mark.asyncio()
     async def test_invalid_model_handling(self):
         """Test handling invalid model requests"""
         client = OllamaClient()
@@ -162,7 +162,7 @@ class TestOllamaClientErrorHandling:
 class TestOllamaClientStreaming:
     """Test streaming responses"""
 
-    @pytest.mark.asyncio
+    @pytest.mark.asyncio()
     async def test_streaming_supported(self):
         """Test client supports streaming"""
         client = OllamaClient()
@@ -175,14 +175,14 @@ class TestOllamaClientStreaming:
 class TestOllamaClientContext:
     """Test context management"""
 
-    @pytest.mark.asyncio
+    @pytest.mark.asyncio()
     async def test_client_initialize(self):
         """Test client initialization"""
         client = OllamaClient()
 
         assert hasattr(client, "initialize")
 
-    @pytest.mark.asyncio
+    @pytest.mark.asyncio()
     async def test_client_close(self):
         """Test client cleanup"""
         client = OllamaClient()
@@ -212,3 +212,17 @@ class TestOllamaClientSingleton:
         client = init_ollama_client(base_url="http://localhost:11434")
         assert client is not None
         assert client.base_url == "http://localhost:11434"
+
+    def test_clear_ollama_client(self):
+        """Confirm clear_ollama_client resets the singleton"""
+        from ollama.services.ollama_client import (
+            clear_ollama_client,
+            get_ollama_client,
+            init_ollama_client,
+        )
+
+        init_ollama_client(base_url="http://localhost:11434")
+        clear_ollama_client()
+
+        with pytest.raises(RuntimeError):
+            get_ollama_client()

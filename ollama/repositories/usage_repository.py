@@ -4,12 +4,13 @@ Usage Repository - CRUD operations for Usage analytics model.
 
 import uuid
 from datetime import UTC, datetime, timedelta
+from typing import Any
 
 from sqlalchemy import and_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from ..models import Usage
-from .base_repository import BaseRepository
+from ollama.models import Usage
+from ollama.repositories.base_repository import BaseRepository
 
 
 class UsageRepository(BaseRepository[Usage]):
@@ -134,7 +135,7 @@ class UsageRepository(BaseRepository[Usage]):
         total_time = sum(u.response_time_ms for u in usage_records)
         return total_time / len(usage_records)
 
-    async def get_endpoint_stats(self, endpoint: str, days: int = 30) -> dict:
+    async def get_endpoint_stats(self, endpoint: str, days: int = 30) -> dict[str, Any]:
         """Get statistics for an endpoint.
 
         Args:
@@ -171,7 +172,7 @@ class UsageRepository(BaseRepository[Usage]):
             / len(usage_records),
         }
 
-    async def get_user_stats(self, user_id: uuid.UUID, days: int = 30) -> dict:
+    async def get_user_stats(self, user_id: uuid.UUID, days: int = 30) -> dict[str, Any]:
         """Get comprehensive statistics for a user.
 
         Args:
@@ -210,7 +211,7 @@ class UsageRepository(BaseRepository[Usage]):
             / len(usage_records),
         }
 
-    async def get_daily_usage(self, user_id: uuid.UUID, days: int = 30) -> dict:
+    async def get_daily_usage(self, user_id: uuid.UUID, days: int = 30) -> dict[str, Any]:
         """Get daily usage breakdown for a user.
 
         Args:
@@ -222,7 +223,7 @@ class UsageRepository(BaseRepository[Usage]):
         """
         usage_records = await self.get_user_usage(user_id, days)
 
-        daily_stats = {}
+        daily_stats: dict[str, dict[str, Any]] = {}
         for record in usage_records:
             date_key = record.created_at.date().isoformat()
             if date_key not in daily_stats:

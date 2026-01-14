@@ -33,5 +33,8 @@ class ChatRequest:
     stop: list[str] = field(default_factory=list)
     """Stop sequences."""
 
+    stream: bool = False
+    """Whether to stream generated tokens."""
+
     context: list[int] = field(default_factory=list)
     """Prompt context tokens."""

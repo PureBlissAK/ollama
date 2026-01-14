@@ -1,6 +1,7 @@
 """Model management and generation orchestration."""
 
-from typing import TYPE_CHECKING
+from collections.abc import AsyncGenerator
+from typing import TYPE_CHECKING, Any
 
 import structlog
 
@@ -22,7 +23,7 @@ class OllamaModelManager:
     the Ollama backend service.
     """
 
-    def __init__(self, ollama_client: "OllamaClient") -> None:  # type: ignore
+    def __init__(self, ollama_client: "OllamaClient") -> None:
         """Initialize model manager with Ollama client.
 
         Args:
@@ -32,7 +33,7 @@ class OllamaModelManager:
         self._models: dict[str, Model] = {}
         self._model_cache: dict[str, Model] = {}
 
-    async def list_models(self) -> list[Model]:
+    async def list_available_models(self) -> list[Model]:
         """List all available models from Ollama.
 
         Returns:
@@ -41,7 +42,7 @@ class OllamaModelManager:
         Raises:
             ModelNotFoundError: If unable to fetch model list.
         """
-        log.info("listing_models")
+        log.info("listing_available_models")
         models = await self.client.list_models()
         self._models = {m.name: m for m in models}
         return models
@@ -62,7 +63,7 @@ class OllamaModelManager:
             return self._model_cache[name]
 
         if name not in self._models:
-            await self.list_models()
+            await self.list_available_models()
 
         if name not in self._models:
             log.error("model_not_found", model=name)
@@ -75,34 +76,66 @@ class OllamaModelManager:
     async def generate(
         self,
         request: GenerateRequest,
-    ) -> GenerateResponse:
+    ) -> AsyncGenerator[GenerateResponse, None]:
         """Generate text using specified model.
 
         Args:
             request: Generation request with prompt and parameters.
 
-        Returns:
-            Generated response with text and metadata.
-
-        Raises:
-            ModelNotFoundError: If model not available.
+        Yields:
+            Generated response chunks.
         """
         log.info("generate_request", model=request.model, prompt_len=len(request.prompt))
 
         # Validate model exists
         await self.get_model(request.model)
 
-        # Call Ollama backend
-        response = await self.client.generate(request)
+        if getattr(request, "stream", False):
+            async for chunk in self.client.generate_stream(request):
+                yield chunk
+        else:
+            response = await self.client.generate(request)
+            yield response
 
-        log.info(
-            "generate_complete",
-            model=request.model,
-            tokens=response.eval_count,
-            duration_ms=response.eval_duration // 1_000_000,
-        )
+    async def generate_embedding(self, model_name: str, prompt: str) -> list[float]:
+        """Generate embedding for prompt.
 
-        return response
+        Args:
+            model_name: Model to use.
+            prompt: Text to embed.
+
+        Returns:
+            List of floats.
+        """
+        await self.get_model(model_name)
+        return await self.client.generate_embeddings(model_name, prompt)
+
+    async def pull_model(self, model_name: str) -> dict[str, Any]:
+        """Pull model from library.
+
+        Args:
+            model_name: Model to pull.
+
+        Returns:
+            Success response.
+        """
+        return await self.client.pull_model(model_name)
+
+    async def delete_model(self, model_name: str) -> None:
+        """Delete model.
+
+        Args:
+            model_name: Model to delete.
+        """
+        await self.client.delete_model(model_name)
+        if model_name in self._models:
+            del self._models[model_name]
+        if model_name in self._model_cache:
+            del self._model_cache[model_name]
+
+    async def close(self) -> None:
+        """Close model manager."""
+        await self.client.close()
 
     def clear_cache(self) -> None:
         """Clear in-memory model cache."""

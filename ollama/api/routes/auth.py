@@ -6,7 +6,6 @@ Handles user login, registration, API key management
 import logging
 import secrets
 from datetime import UTC, datetime, timedelta
-from typing import cast
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -76,7 +75,7 @@ async def register(user_data: UserCreate, db: AsyncSession = Depends(get_db)) ->
     )
     logger.info(f"User registered: {created_user.username}")
 
-    return created_user
+    return UserResponse.model_validate(created_user)
 
 
 @router.post("/login", response_model=TokenResponse)
@@ -98,33 +97,28 @@ async def login(credentials: LoginRequest, db: AsyncSession = Depends(get_db)) -
         )
 
     # Verify password
-    password_hash = cast(str, user.password_hash)
-    if not auth_manager.verify_password(credentials.password, password_hash):
+    if not auth_manager.verify_password(credentials.password, user.password_hash):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect username or password"
         )
 
     # Check if user is active
-    is_active = cast(bool, user.is_active)
-    if not is_active:
+    if not user.is_active:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Account is inactive")
 
     # Update last login
-    user.last_login_at = datetime.now(UTC)
-    await user_repo.update(user)
+    await user_repo.update(user.id, last_login=datetime.now(UTC))
 
     # Create tokens
-    user_id = cast(UUID, user.id)
-    username = cast(str, user.username)
     access_token = auth_manager.create_access_token(
-        user_id=user_id, username=username, expires_delta=timedelta(hours=1)
+        user_id=user.id, username=user.username, expires_delta=timedelta(hours=1)
     )
 
     refresh_token = auth_manager.create_refresh_token(
-        user_id=user_id, expires_delta=timedelta(days=7)
+        user_id=user.id, expires_delta=timedelta(days=7)
     )
 
-    logger.info(f"User logged in: {username}")
+    logger.info(f"User logged in: {user.username}")
 
     return TokenResponse(
         access_token=access_token,
@@ -159,15 +153,15 @@ async def refresh_token(
         user_repo = repo_factory.get_user_repository()
         user = await user_repo.get_by_id(user_id)
 
-        if not user or not cast(bool, user.is_active):
+        if not user or not user.is_active:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED, detail="User not found or inactive"
             )
 
         # Create new access token
         access_token = auth_manager.create_access_token(
-            user_id=cast(UUID, user.id),
-            username=cast(str, user.username),
+            user_id=user.id,
+            username=user.username,
             expires_delta=timedelta(hours=1),
         )
 
@@ -187,7 +181,7 @@ async def get_current_user(
     """
     Get current authenticated user
     """
-    return current_user
+    return UserResponse.model_validate(current_user)
 
 
 @router.post("/change-password")
@@ -202,24 +196,18 @@ async def change_password(
     auth_manager = get_auth_manager()
 
     # Verify old password
-    if not auth_manager.verify_password(
-        password_data.old_password, cast(str, current_user.password_hash)
-    ):
+    if not auth_manager.verify_password(password_data.old_password, current_user.password_hash):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Incorrect password")
 
     # Hash new password
     new_hash = auth_manager.hash_password(password_data.new_password)
 
-    # Update password (create new instance to avoid Column assignment issues)
-    updated_user = current_user
-    updated_user.password_hash = new_hash  # type: ignore
-    updated_user.updated_at = datetime.now(UTC)  # type: ignore
-
+    # Update password
     repo_factory = RepositoryFactory(db)
     user_repo = repo_factory.get_user_repository()
-    await user_repo.update(updated_user)
+    await user_repo.update(current_user.id, password_hash=new_hash, updated_at=datetime.now(UTC))
 
-    logger.info(f"Password changed for user: {cast(str, current_user.username)}")
+    logger.info(f"Password changed for user: {current_user.username}")
 
     return {"message": "Password changed successfully"}
 
@@ -255,12 +243,12 @@ async def create_api_key(
         name=key_data.name,
         key_hash=key_hash,
         key_prefix=key_prefix,
-        user_id=cast(UUID, current_user.id),
+        user_id=current_user.id,
         is_active=True,
         expires_at=expires_at,
     )
 
-    logger.info(f"API key created for user {cast(str, current_user.username)}: {key_data.name}")
+    logger.info(f"API key created for user {current_user.username}: {key_data.name}")
 
     # Return key with plain text (only time it's visible)
     response = APIKeyResponse.model_validate(created_key)
@@ -279,7 +267,7 @@ async def list_api_keys(
     repo_factory = RepositoryFactory(db)
     api_key_repo = repo_factory.get_api_key_repository()
 
-    keys: list[APIKey] = await api_key_repo.get_by_user_id(cast(UUID, current_user.id))
+    keys: list[APIKey] = await api_key_repo.get_by_user_id(current_user.id)
 
     return APIKeyList(keys=[APIKeyResponse.model_validate(k) for k in keys], total=len(keys))
 
@@ -302,16 +290,15 @@ async def revoke_api_key(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="API key not found")
 
     # Verify ownership
-    if cast(UUID, key.user_id) != cast(UUID, current_user.id):
+    if key.user_id != current_user.id:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized to revoke this API key"
         )
 
     # Revoke key
-    key.is_active = False  # type: ignore
-    await api_key_repo.update(key)
+    await api_key_repo.update(key_id, is_active=False)
 
-    logger.info(f"API key revoked: {key.name} for user {cast(str, current_user.username)}")
+    logger.info(f"API key revoked: {key.name} for user {current_user.username}")
 
     return {"message": "API key revoked successfully"}
 
@@ -345,10 +332,8 @@ async def deactivate_user(
     if not user:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
 
-    user.is_active = False  # type: ignore
-    user.updated_at = datetime.now(UTC)  # type: ignore
-    await user_repo.update(user)
+    await user_repo.update(user_id, is_active=False, updated_at=datetime.now(UTC))
 
-    logger.info(f"User deactivated by admin: {cast(str, user.username)}")
+    logger.info(f"User deactivated by admin: {user.username}")
 
     return {"message": "User deactivated successfully"}

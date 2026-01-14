@@ -42,7 +42,7 @@ async def list_models() -> ListModelsResponse:
             models.append(
                 ModelInfo(
                     name=model.name,
-                    size=model.size,
+                    size=str(model.size),
                     digest="",
                     modified_at="",
                 )

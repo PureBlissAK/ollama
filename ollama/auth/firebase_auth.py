@@ -9,7 +9,8 @@ CRITICAL: This implementation mirrors Gov-AI-Scout for seamless client compatibi
 from __future__ import annotations
 
 import logging
-from typing import Any, Callable, Optional
+from collections.abc import Awaitable, Callable
+from typing import Any, Optional, cast
 
 from fastapi import Depends, HTTPException, Request, status
 
@@ -20,7 +21,7 @@ _firebase_initialized = False
 _firebase_app: Any = None
 
 try:
-    import firebase_admin
+    import firebase_admin  # type: ignore[import-untyped]
     from firebase_admin import auth as firebase_auth
     from firebase_admin import credentials
 except ImportError:
@@ -58,12 +59,107 @@ def init_firebase(credentials_path: Optional[str] = None) -> None:
 
     except Exception as e:
         logger.error(f"❌ Failed to initialize Firebase: {e}")
-        raise RuntimeError(f"Firebase initialization failed: {e}")
+        raise RuntimeError(f"Firebase initialization failed: {e}") from e
 
 
-async def get_current_user(
-    request: Request, require_auth: bool = True
+def _extract_token_from_header(auth_header: str) -> tuple[bool, str]:
+    """Extract and validate Authorization header.
+
+    Args:
+        auth_header: Authorization header value
+
+    Returns:
+        Tuple of (is_valid, token)
+    """
+    if not auth_header.startswith("Bearer "):
+        return False, ""
+    return True, auth_header[7:]  # Remove "Bearer " prefix
+
+
+def _check_firebase_available(require_auth: bool) -> None:
+    """Check if Firebase is initialized.
+
+    Args:
+        require_auth: If True, raise error if not initialized
+
+    Raises:
+        HTTPException: 503 if Firebase not available and require_auth=True
+    """
+    if not _firebase_initialized:
+        if require_auth:
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="Authentication service not available",
+            )
+
+
+def _verify_firebase_token(token: str) -> dict[str, Any]:
+    """Verify Firebase JWT token.
+
+    Args:
+        token: JWT token to verify
+
+    Returns:
+        Decoded token claims
+
+    Raises:
+        Exception: If token verification fails
+    """
+    decoded_token = cast(dict[str, Any], firebase_auth.verify_id_token(token))
+    logger.debug(f"✅ Token verified for user: {decoded_token.get('email')}")
+    return decoded_token
+
+
+def _handle_token_verification_error(
+    error: Exception, require_auth: bool
 ) -> dict[str, Any]:
+    """Handle token verification errors.
+
+    Args:
+        error: The verification error
+        require_auth: If True, raise HTTPException; if False, return empty dict
+
+    Returns:
+        Empty dict if not require_auth
+
+    Raises:
+        HTTPException: If require_auth=True
+    """
+    if isinstance(error, firebase_auth.ExpiredSignInError):
+        logger.warning("⚠️ Expired authentication token")
+        if require_auth:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED, detail="Token has expired"
+            ) from None
+        return {}
+
+    if isinstance(error, firebase_auth.RevokedSignInError):
+        logger.warning("⚠️ Revoked authentication token - user must re-authenticate")
+        if require_auth:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Authentication revoked. Please sign in again.",
+            ) from None
+        return {}
+
+    if isinstance(error, firebase_auth.InvalidIdTokenError):
+        logger.warning("⚠️ Invalid authentication token")
+        if require_auth:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token"
+            ) from None
+        return {}
+
+    logger.error(f"❌ Token verification failed: {error}")
+    if require_auth:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Authentication failed",
+        ) from error
+    return {}
+
+
+async def get_current_user(request: Request, require_auth: bool = True) -> dict[str, Any]:
     """Extract and verify Firebase JWT token from request.
 
     Args:
@@ -78,7 +174,9 @@ async def get_current_user(
     """
     # Extract token from Authorization header
     auth_header = request.headers.get("Authorization", "")
-    if not auth_header.startswith("Bearer "):
+    is_valid, token = _extract_token_from_header(auth_header)
+
+    if not is_valid:
         if require_auth:
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
@@ -86,58 +184,20 @@ async def get_current_user(
             )
         return {}
 
-    token = auth_header[7:]  # Remove "Bearer " prefix
+    # Check Firebase is initialized
+    _check_firebase_available(require_auth)
 
+    # Verify token
     try:
-        if not _firebase_initialized:
-            if require_auth:
-                raise HTTPException(
-                    status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-                    detail="Authentication service not available",
-                )
-            return {}
-
-        # Verify token with Firebase
-        decoded_token = firebase_auth.verify_id_token(token)
-        logger.debug(f"✅ Token verified for user: {decoded_token.get('email')}")
-        return decoded_token
-
-    except firebase_auth.ExpiredSignInError:
-        logger.warning("⚠️ Expired authentication token")
-        if require_auth:
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED, detail="Token has expired"
-            )
-        return {}
-
-    except firebase_auth.RevokedSignInError:
-        logger.warning("⚠️ Revoked authentication token - user must re-authenticate")
-        if require_auth:
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Authentication revoked. Please sign in again.",
-            )
-        return {}
-
-    except firebase_auth.InvalidIdTokenError:
-        logger.warning("⚠️ Invalid authentication token")
-        if require_auth:
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token"
-            )
-        return {}
+        return _verify_firebase_token(token)
 
     except Exception as e:
-        logger.error(f"❌ Token verification failed: {e}")
-        if require_auth:
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Authentication failed",
-            )
-        return {}
+        return _handle_token_verification_error(e, require_auth)
 
 
-async def require_role(allowed_roles: list[str]) -> Callable[[dict[str, Any]], dict[str, Any]]:
+def require_role(
+    allowed_roles: list[str],
+) -> Callable[[dict[str, Any]], Awaitable[dict[str, Any]]]:
     """Dependency to check if user has required role.
 
     Args:
@@ -149,7 +209,7 @@ async def require_role(allowed_roles: list[str]) -> Callable[[dict[str, Any]], d
 
     async def role_checker(user: dict[str, Any] = Depends(get_current_user)) -> dict[str, Any]:
         """Verify user has required role."""
-        user_roles = user.get("roles", [])
+        user_roles = cast(list[str], user.get("roles", []))
 
         if not any(role in user_roles for role in allowed_roles):
             logger.warning(
@@ -166,7 +226,9 @@ async def require_role(allowed_roles: list[str]) -> Callable[[dict[str, Any]], d
     return role_checker
 
 
-def require_root_admin(root_admin_email: str) -> Callable[[dict[str, Any]], dict[str, Any]]:
+def require_root_admin(
+    root_admin_email: str,
+) -> Callable[[dict[str, Any]], Awaitable[dict[str, Any]]]:
     """Dependency to check if user is root admin (specific email).
 
     Args:
@@ -246,8 +308,8 @@ def get_or_create_user(email: str, display_name: Optional[str] = None) -> dict[s
 
         except Exception as e:
             logger.error(f"❌ Failed to create user {email}: {e}")
-            raise RuntimeError(f"User creation failed: {e}")
+            raise RuntimeError(f"User creation failed: {e}") from e
 
     except Exception as e:
         logger.error(f"❌ Failed to get user {email}: {e}")
-        raise RuntimeError(f"User lookup failed: {e}")
+        raise RuntimeError(f"User lookup failed: {e}") from e

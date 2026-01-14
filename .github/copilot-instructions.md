@@ -4,6 +4,13 @@
 
 **Ollama** is a production-grade local AI infrastructure platform for building, deploying, and monitoring large language models. All AI workloads run locally on Docker containers with optional GCP Load Balancer for public access via `https://elevatediq.ai/ollama`.
 
+**Production Status** ✅: **Verified and Live**
+
+- Tier 1 Load Test: 10 users, 1,436 requests, 100% success, 55ms P95
+- Tier 2 Load Test: 50 users, 7,162 requests, 100% success, 75ms P95
+- Live Platform: [https://elevatediq.ai/ollama](https://elevatediq.ai/ollama)
+- Infrastructure: [GCP Landing Zone](https://github.com/kushin77/GCP-landing-zone)
+
 **Core Purpose**: Provide engineers with enterprise-grade reliability, security, and performance for local AI inference.
 
 **Target Audience**: Elite engineers, research teams, enterprises requiring air-gapped AI systems.
@@ -11,6 +18,7 @@
 ## Core Development Principles
 
 ### 1. Precision & Quality First
+
 - Every line of code is production-ready—no sketches, prototypes, or placeholders
 - Type hints are mandatory on all function signatures (Python 3.11+)
 - 100% test coverage for critical paths; ≥90% overall coverage
@@ -18,6 +26,7 @@
 - **MANDATE**: No commits without passing all quality checks (tests, type checking, linting, security audit)
 
 ### 2. Local Sovereignty with Public Access
+
 - All AI models and inference engines run locally (Docker containers)
 - Zero cloud dependencies for model execution
 - **MANDATE**: Default deployment targets `https://elevatediq.ai/ollama` (GCP Load Balancer only)
@@ -31,9 +40,10 @@
 - Data never leaves local infrastructure unless explicitly configured
 
 ### 3. Security & Privacy Non-Negotiable
+
 - API key authentication for all public endpoints
 - Rate limiting enforced at LB and application layers
-- CORS with explicit allow lists (never use *)
+- CORS with explicit allow lists (never use \*)
 - TLS 1.3+ for public traffic, mutual TLS for internal services
 - Never commit credentials—use `.env.example` templates
 - **MANDATE**: Sign all git commits with GPG: `git commit -S` (enforced by hooks)
@@ -41,6 +51,7 @@
 - Regular security audits with `pip-audit`, `safety`, Snyk
 
 ### 4. Architecture Excellence
+
 - **Language**: Python 3.11+ (primary), TypeScript for tooling
 - **Framework**: FastAPI (async-first), SQLAlchemy 2.0+
 - **Database**: PostgreSQL (primary), Redis (cache/queues)
@@ -105,12 +116,14 @@
 **All services and configurations MUST default to:**
 
 1. **Single Entry Point**: `https://elevatediq.ai/ollama`
+
    - All client requests route through GCP Load Balancer
    - Load Balancer authenticates with API keys
    - Load Balancer enforces rate limits
    - Load Balancer applies security policies
 
 2. **Internal Communication Only**
+
    - FastAPI server listens on `localhost:8000` (not exposed)
    - Database on `postgres:5432` (Docker network only)
    - Redis on `redis:6379` (Docker network only)
@@ -118,6 +131,7 @@
    - All inter-service communication via Docker network
 
 3. **No Direct Client Access**
+
    - Firewall MUST block external connections to ports:
      - 8000 (FastAPI) - Internal only
      - 5432 (PostgreSQL) - Internal only
@@ -166,7 +180,7 @@ LOG_LEVEL=info
 **docker-compose.yml MUST:**
 
 ```yaml
-version: '3.9'
+version: "3.9"
 
 services:
   api:
@@ -175,7 +189,7 @@ services:
     # ❌ NEVER expose port directly to host
     # ✅ ONLY accessible from Docker network
     ports:
-      - "127.0.0.1:8000:8000"  # localhost only (development)
+      - "127.0.0.1:8000:8000" # localhost only (development)
       # Production: NO ports mapping, internal only
     environment:
       FASTAPI_HOST: 0.0.0.0
@@ -196,7 +210,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     # ❌ NEVER expose database to external clients
     ports:
-      - "127.0.0.1:5432:5432"  # localhost only
+      - "127.0.0.1:5432:5432" # localhost only
     networks:
       - ollama-net
     volumes:
@@ -207,7 +221,7 @@ services:
     container_name: ollama-redis
     # ❌ NEVER expose cache to external clients
     ports:
-      - "127.0.0.1:6379:6379"  # localhost only
+      - "127.0.0.1:6379:6379" # localhost only
     networks:
       - ollama-net
     command: redis-server --requirepass ${REDIS_PASSWORD}
@@ -217,7 +231,7 @@ services:
     container_name: ollama-inference
     # ❌ NEVER expose model server to external clients
     ports:
-      - "127.0.0.1:11434:11434"  # localhost only
+      - "127.0.0.1:11434:11434" # localhost only
     networks:
       - ollama-net
     volumes:
@@ -347,32 +361,32 @@ if __name__ == "__main__":
 - ingress:
     from_internet: true
     protocol: tcp
-    port: 443  # HTTPS only
+    port: 443 # HTTPS only
     target: gcp-load-balancer
 
 # Block external access to all internal services
 - ingress:
     from_internet: true
     protocol: tcp
-    port: 8000  # FastAPI
+    port: 8000 # FastAPI
     deny: true
 
 - ingress:
     from_internet: true
     protocol: tcp
-    port: 5432  # PostgreSQL
+    port: 5432 # PostgreSQL
     deny: true
 
 - ingress:
     from_internet: true
     protocol: tcp
-    port: 6379  # Redis
+    port: 6379 # Redis
     deny: true
 
 - ingress:
     from_internet: true
     protocol: tcp
-    port: 11434  # Ollama
+    port: 11434 # Ollama
     deny: true
 
 # Allow internal container communication
@@ -494,12 +508,14 @@ def test_firewall_blocks_internal_ports():
 **All deployment documentation MUST include:**
 
 1. **Architecture diagram** showing:
+
    - GCP LB as single entry point
    - Internal Docker network with no external access
    - Service communication paths
    - Default endpoint: `https://elevatediq.ai/ollama`
 
 2. **Configuration guide** stating:
+
    - Default values for all services
    - Environment variables and their defaults
    - No way to expose internal services directly
@@ -516,6 +532,7 @@ def test_firewall_blocks_internal_ports():
 ## Code Structure and Patterns
 
 ### Directory Layout
+
 ```
 ollama/
 ├── app/                    # FastAPI application
@@ -569,6 +586,7 @@ ollama/
 **MANDATE**: Filesystem structure is non-negotiable and strictly enforced.
 
 #### Naming Conventions
+
 - **Modules**: `lowercase_with_underscores.py` (snake_case)
 - **Classes**: `PascalCase` (CapWords)
 - **Functions**: `snake_case`
@@ -577,6 +595,7 @@ ollama/
 - **Directories**: Singular or plural consistently (`services/`, `repositories/`, `api/routes/`)
 
 #### File Organization Rules
+
 ```python
 # Standard module header (ALWAYS INCLUDE)
 """Module description in one sentence.
@@ -624,6 +643,7 @@ class APIKeyManager:
 ```
 
 #### Test File Mirroring
+
 - Tests mirror app structure exactly
 - Test file: `tests/unit/test_auth.py` mirrors `ollama/services/auth.py`
 - Test class: `TestAPIKeyManager` for `APIKeyManager` class
@@ -631,13 +651,16 @@ class APIKeyManager:
 - Prefix test methods with `test_` and use descriptive names
 
 #### Directory Creation Rules
+
 - Create parent directories only when needed (no premature structure)
 - Use consistent naming across the codebase
 - Document directory purpose in `__init__.py` docstring
 - One domain per directory (never mix auth with models)
 
 ### Module Organization
+
 Every Python module must include:
+
 - Clear docstring explaining module purpose (not class, not function, but module)
 - Single responsibility principle (one domain = one file)
 - Type hints on all functions (no exceptions)
@@ -649,6 +672,7 @@ Every Python module must include:
 ## Function Separation & Elite Coding Standards
 
 ### Single Responsibility Principle (SRP)
+
 - **MANDATE**: Every function has ONE reason to change
 - **Function Length**: Maximum 50 lines (ideal), 100 lines (acceptable)
 - **Cognitive Complexity**: Max complexity score of 10 (measure with flake8-cognitive-complexity)
@@ -656,6 +680,7 @@ Every Python module must include:
 - **Returns**: Return single value or explicit tuple (never implicit)
 
 #### Function Design Rules
+
 ```python
 # ❌ BAD: Function does too much (violates SRP)
 def process_user_and_generate_token(user_data: dict) -> dict:
@@ -698,6 +723,7 @@ async def register_user(user_data: dict) -> dict:
 ```
 
 ### Pure Functions & Immutability
+
 - **MANDATE**: Favor pure functions (no side effects)
 - **Rule**: If function has side effects, prefix name with verb: `send_email()`, `persist_user()`
 - **Never modify inputs**: Use `dataclasses.replace()` or `copy.deepcopy()`
@@ -718,6 +744,7 @@ def apply_discount(product: Product) -> Product:
 ```
 
 ### Error Handling: Explicit Over Implicit
+
 - **MANDATE**: Always use custom exception hierarchy
 - **Never**: Catch `Exception` (catch specific exceptions)
 - **Never**: Silent failures or bare `except` clauses
@@ -750,6 +777,7 @@ except InferenceTimeoutError as e:
 ```
 
 ### Type Safety: Always
+
 - **MANDATE**: 100% type coverage for all functions
 - **Rule**: `mypy ollama/ --strict` must pass without errors
 - **Never**: Use `Any` without explicit `# type: ignore` with justification
@@ -776,6 +804,7 @@ async def process_request(request: Request) -> QueryResponse:
 ```
 
 ### Testing & Coverage
+
 - **MANDATE**: ≥90% code coverage, 100% for critical paths
 - **Rule**: Test file for every module (mirror structure)
 - **Never**: Skip test or use `# pragma: no cover` without approval
@@ -818,6 +847,7 @@ class TestValidateInput:
 ```
 
 ### Code Organization: Vertical Density
+
 - **Related code should be close together** (but not crowded)
 - **Unrelated code should be separated** (different files/modules)
 - **Order of declarations**: Classes before functions, public before private
@@ -873,6 +903,7 @@ def _parse_token(token: str) -> dict:
 **MANDATE**: Perfect git history is non-negotiable.
 
 #### Commit Frequency & Size
+
 - **Commit Early, Commit Often**: Minimum of 1 meaningful commit per 30 minutes of development
 - **Atomic Commits**: Each commit represents ONE logical unit of work
   - Commit should be reversible without breaking other commits
@@ -889,6 +920,7 @@ def _parse_token(token: str) -> dict:
   - Never: Single commits > 1000 lines (always split)
 
 #### Commit Message Standards
+
 - **Format**: `type(scope): description`
 - **Rules**:
   - First line (subject): Max 50 characters
@@ -899,6 +931,7 @@ def _parse_token(token: str) -> dict:
   - Reference issues: `Fixes #123` or `Relates to #456`
 
 **Types** (must be lowercase):
+
 - `feat`: New feature (always increases version minor)
 - `fix`: Bug fix (increases patch version)
 - `refactor`: Code refactoring without behavior change
@@ -910,6 +943,7 @@ def _parse_token(token: str) -> dict:
 - `chore`: Maintenance, dependency updates
 
 **Scope** (lowercase, 15 chars max):
+
 - `api`: API routes and endpoints
 - `auth`: Authentication and authorization
 - `models`: ML model integration
@@ -923,6 +957,7 @@ def _parse_token(token: str) -> dict:
 - `types`: Type hints and mypy fixes
 
 **Examples**:
+
 ```
 feat(api): add streaming response support
 
@@ -962,6 +997,7 @@ Test coverage maintained at 94%.
 ```
 
 #### Push Frequency
+
 - **MANDATE**: Push commits at least every 4 hours of active development
 - **Rationale**: Reduces risk of local loss, enables early detection of conflicts
 - **Workflow**: After each atomic commit that passes all checks → Push immediately
@@ -975,6 +1011,7 @@ Test coverage maintained at 94%.
 - **Rule**: One push per meaningful feature segment
 
 #### Branch Naming (Strict Rules)
+
 - **Format**: `{type}/{descriptive-name}`
 - **Valid Types**: `feature`, `bugfix`, `refactor`, `infra`, `security`, `docs`
 - **Rules**:
@@ -1009,6 +1046,7 @@ git push origin feature/branch-name
 Or run all at once with VS Code task (See "Run All Checks" task).
 
 #### Conflict Resolution Rules
+
 - **Always resolve locally** before pushing
 - **Never commit with conflict markers** (`<<<<<<<`, `=======`, `>>>>>>>`)
 - **When pulling**: Check for conflicts immediately
@@ -1022,12 +1060,14 @@ Or run all at once with VS Code task (See "Run All Checks" task).
   ```
 
 #### Force Push Policy
+
 - **MANDATE**: No force pushes without explicit approval (enforce in CI/CD)
 - **Rationale**: Maintains immutable, traceable history
 - **Exception**: Only on personal feature branches (never on main/develop)
 - **Alternative**: Use `git rebase -i` locally, then force push (after approval)
 
 #### PR Creation Workflow
+
 1. Ensure all commits follow naming standards
 2. Verify branch name matches pattern
 3. Ensure all tests pass on branch
@@ -1038,6 +1078,7 @@ Or run all at once with VS Code task (See "Run All Checks" task).
 8. Merge only after approval + all checks pass
 
 ### Git Commit Standards
+
 - **Format**: `type(scope): description`
 - **Types**: `feat`, `fix`, `refactor`, `perf`, `test`, `docs`, `infra`, `security`
 - **Examples**:
@@ -1048,6 +1089,7 @@ Or run all at once with VS Code task (See "Run All Checks" task).
   - `docs(readme): update deployment instructions`
 
 ### Branch Naming
+
 - `feature/add-conversation-api`
 - `bugfix/fix-token-refresh`
 - `refactor/simplify-model-loading`
@@ -1055,6 +1097,7 @@ Or run all at once with VS Code task (See "Run All Checks" task).
 - `security/add-rate-limiting`
 
 ### Required Checks Before Commit
+
 1. All tests pass: `pytest tests/ -v`
 2. Type checking passes: `mypy ollama/ --strict`
 3. Linting passes: `ruff check ollama/`
@@ -1064,6 +1107,7 @@ Or run all at once with VS Code task (See "Run All Checks" task).
 ## Testing Strategy
 
 ### Test Types and Coverage
+
 ```python
 # Unit Test Example (tests/unit/test_auth.py)
 import pytest
@@ -1093,11 +1137,13 @@ async def test_verify_api_key_rate_limit(redis_client):
 ```
 
 ### Integration Tests
+
 - Test real component interactions (DB, Redis, model inference)
 - Use Docker Compose for isolated test environments
 - Clean up resources after each test
 
 ### Performance Tests
+
 - Benchmark critical paths (inference latency, API response time)
 - Track regressions with historical data
 - Document performance characteristics
@@ -1105,6 +1151,7 @@ async def test_verify_api_key_rate_limit(redis_client):
 ## API Design Principles
 
 ### RESTful Endpoints
+
 ```
 POST   /api/v1/generate          # Generate text completion
 POST   /api/v1/chat              # Chat completion with context
@@ -1119,6 +1166,7 @@ GET    /metrics                  # Prometheus metrics (internal only)
 ```
 
 ### Response Format
+
 ```json
 {
   "success": true,
@@ -1136,6 +1184,7 @@ GET    /metrics                  # Prometheus metrics (internal only)
 ```
 
 ### Error Handling
+
 ```json
 {
   "success": false,
@@ -1158,24 +1207,28 @@ GET    /metrics                  # Prometheus metrics (internal only)
 ## Security Requirements
 
 ### Authentication & Authorization
+
 - API keys for all endpoints (except `/health`)
 - JWT tokens for user sessions (future)
 - Role-based access control (RBAC) for team deployments
 - Audit logging for all authenticated requests
 
 ### Input Validation
+
 - Validate all user inputs with Pydantic models
 - Sanitize prompts to prevent injection attacks
 - Limit request sizes (10MB max for documents)
 - Rate limiting per API key (100 req/min default)
 
 ### Network Security
+
 - TLS 1.3+ for public endpoints
 - Internal services use mutual TLS
 - Firewall rules for container network isolation
 - DDoS protection via Cloud Armor (public endpoint)
 
 ### Data Protection
+
 - Encrypt sensitive data at rest (API keys, user data)
 - Secure credential management (env vars, secret managers)
 - PII detection and redaction for compliance
@@ -1184,6 +1237,7 @@ GET    /metrics                  # Prometheus metrics (internal only)
 ## Performance Optimization
 
 ### Inference Optimization
+
 - Batch processing for multiple requests
 - Model caching with LRU eviction
 - Quantization for memory efficiency (4-bit, 8-bit)
@@ -1191,6 +1245,7 @@ GET    /metrics                  # Prometheus metrics (internal only)
 - Streaming responses for long-form generation
 
 ### Application Performance
+
 - Connection pooling for database and Redis
 - Async I/O for all network operations
 - Response caching with TTL
@@ -1198,6 +1253,7 @@ GET    /metrics                  # Prometheus metrics (internal only)
 - Lazy loading for large models
 
 ### Performance Baselines
+
 - API response time: <500ms p99 (excluding inference)
 - Model inference: Document per-model (e.g., llama3.2: 50 tok/s)
 - Startup time: <10s for full stack
@@ -1207,6 +1263,7 @@ GET    /metrics                  # Prometheus metrics (internal only)
 ## Monitoring & Observability
 
 ### Metrics to Track
+
 ```python
 # Prometheus metrics
 inference_requests_total = Counter(
@@ -1230,6 +1287,7 @@ model_cache_hits = Counter(
 ```
 
 ### Structured Logging
+
 ```python
 import structlog
 
@@ -1246,6 +1304,7 @@ log.info(
 ```
 
 ### Alerting
+
 - API error rate > 1%
 - Inference latency p99 > 10s
 - Model cache hit rate < 70%
@@ -1258,6 +1317,7 @@ log.info(
 ### MANDATE: Container Hygiene
 
 **Image Management**:
+
 - All images use explicit version tags (never `latest` tag)
 - All images from trusted registries (Docker Hub official, GCR, ECR)
 - Minimal base images: `alpine:3.18`, `python:3.12-slim`, `postgres:15-alpine`
@@ -1268,6 +1328,7 @@ log.info(
 - Document all image contents and dependencies
 
 **Container Consistency**:
+
 - All containers use same network driver (`bridge`)
 - Container names follow pattern: `ollama-{service}-{env}` (e.g., `ollama-api-dev`)
 - All containers have resource limits: `memory`, `cpus`
@@ -1278,6 +1339,7 @@ log.info(
 - Structured logging with consistent JSON format
 
 **Volume & Mount Consistency**:
+
 - Named volumes for persistent data (not bind mounts in production)
 - Read-only mounts when possible (`ro` flag)
 - Mount paths consistent across all environments
@@ -1287,6 +1349,7 @@ log.info(
 - Document all volume purposes in docker-compose comments
 
 **Environment Variable Consistency**:
+
 - All env vars defined in `.env.example` template
 - Dev env vars in `.env.dev` (gitignored)
 - Production env vars in GCP Secret Manager (never in `.env`)
@@ -1296,6 +1359,7 @@ log.info(
 - Fail fast if required env vars missing
 
 **Docker Compose Standards**:
+
 - Version: `3.9` or higher
 - Use `services`, `networks`, `volumes` top-level keys
 - Indent consistently (2 spaces, no tabs)
@@ -1330,6 +1394,7 @@ PUBLIC_API_URL=http://$REAL_IP:8000       # ✅ Use real IP in URLs
 ```
 
 **Why Real IP Mandate**:
+
 1. **Feature Parity**: Development matches production networking behavior
 2. **Service Discovery**: Validates DNS resolution and multi-host communication
 3. **Network Testing**: Catches network-specific bugs before production
@@ -1337,6 +1402,7 @@ PUBLIC_API_URL=http://$REAL_IP:8000       # ✅ Use real IP in URLs
 5. **Load Balancer Testing**: Simulates public endpoint routing
 
 **Development Environment File** (`.env.dev`):
+
 ```bash
 # Required for all local development
 ENVIRONMENT=development
@@ -1366,6 +1432,7 @@ OLLAMA_BASE_URL=http://ollama:11434
 ## Deployment Practices
 
 ### Local Development
+
 ```bash
 # 1. Set real IP/DNS in environment
 export REAL_IP=$(hostname -I | awk '{print $1}')
@@ -1399,6 +1466,7 @@ curl http://dev-ollama.internal:8000/api/v1/health  # If using DNS
 ```
 
 ### Production Deployment
+
 ```bash
 # Build production image
 docker build -t ollama:latest -f docker/Dockerfile .
@@ -1426,6 +1494,7 @@ curl http://<server-ip>:11434           # Should fail
 ### Deployment Topology (MANDATORY)
 
 **Development Topology** (using real IP):
+
 ```
 Development Clients
 (Real IP: 192.168.1.100 or dns: dev-ollama.internal)
@@ -1442,6 +1511,7 @@ Docker Container Network (Internal Only)
 ```
 
 **Production Topology** (GCP Load Balancer):
+
 ```
 External Clients (Internet)
          ↓
@@ -1458,6 +1528,7 @@ Docker Container Network (Internal Only)
 ```
 
 **Key Points:**
+
 - ✅ Development uses real IP or DNS (never localhost)
 - ✅ All services bind to 0.0.0.0 (listen on all interfaces)
 - ✅ Services referenced by Docker service names internally
@@ -1469,6 +1540,7 @@ Docker Container Network (Internal Only)
 - ❌ Never bypass GCP LB for client requests (production)
 
 ### Deployment Checklist
+
 - [ ] All tests passing
 - [ ] Security audit clean
 - [ ] Performance benchmarks meet baselines
@@ -1488,12 +1560,14 @@ Docker Container Network (Internal Only)
 ## Documentation Standards
 
 ### Code Documentation
+
 - All modules have docstrings explaining purpose
 - Complex algorithms include step-by-step comments
 - Public APIs have usage examples
 - Type hints on all function signatures
 
 ### External Documentation
+
 - `README.md`: Quick start and overview
 - `docs/architecture.md`: System design and components
 - `docs/DEPLOYMENT.md`: Deployment procedures
@@ -1502,7 +1576,9 @@ Docker Container Network (Internal Only)
 - `CONTRIBUTING.md`: Contribution guidelines
 
 ### Architecture Decision Records (ADRs)
+
 Document major architectural decisions:
+
 - Context: What problem are we solving?
 - Decision: What approach did we choose?
 - Consequences: What are the trade-offs?
@@ -1511,6 +1587,7 @@ Document major architectural decisions:
 ## Copilot Collaboration Guidelines
 
 ### When I Ask for "Implementation"
+
 - Write production-ready code with type hints
 - Include comprehensive error handling
 - Add unit tests alongside implementation
@@ -1518,6 +1595,7 @@ Document major architectural decisions:
 - No TODOs or placeholders—complete the feature
 
 ### When I Ask for "Analysis"
+
 - Provide deep technical analysis
 - List trade-offs for each approach
 - Quantify performance implications
@@ -1525,6 +1603,7 @@ Document major architectural decisions:
 - Recommend best option with rationale
 
 ### When I Ask for "Review"
+
 - Check type safety and error handling
 - Verify test coverage for new code
 - Identify security vulnerabilities
@@ -1532,6 +1611,7 @@ Document major architectural decisions:
 - Suggest improvements with examples
 
 ### When I Ask for "Optimization"
+
 - Profile code before optimizing
 - Benchmark before and after changes
 - Quantify improvements (latency, memory, throughput)
@@ -1539,6 +1619,7 @@ Document major architectural decisions:
 - Document optimization strategy
 
 ### What I Won't Accept Without Escalation
+
 - Code without type hints
 - Missing tests for critical paths
 - Unvetted dependencies
@@ -1549,6 +1630,7 @@ Document major architectural decisions:
 ## Common Tasks and Examples
 
 ### Adding a New API Endpoint
+
 1. Define Pydantic schema in `ollama/api/schemas/`
 2. Create route handler in `ollama/api/routes/`
 3. Add business logic in `ollama/services/`
@@ -1558,6 +1640,7 @@ Document major architectural decisions:
 7. Add to `PUBLIC_API.md` if public-facing
 
 ### Adding a New Model
+
 1. Download model: `ollama pull model_name`
 2. Add model config to `config/models.yaml`
 3. Create model adapter in `ollama/services/models/`
@@ -1567,6 +1650,7 @@ Document major architectural decisions:
 7. Add to monitoring dashboard
 
 ### Database Migration
+
 1. Create migration: `alembic revision -m "description"`
 2. Write upgrade and downgrade logic
 3. Test migration on dev database
@@ -1578,6 +1662,7 @@ Document major architectural decisions:
 ## Dependencies Management
 
 ### Adding New Dependencies
+
 ```bash
 # Add to pyproject.toml
 poetry add package_name
@@ -1593,6 +1678,7 @@ safety check
 ```
 
 ### Approved Dependencies
+
 - **Web**: FastAPI, Uvicorn, Pydantic, SQLAlchemy
 - **ML**: PyTorch, Transformers, Ollama, LangChain
 - **Data**: Pandas, NumPy, Polars (for large datasets)
@@ -1604,6 +1690,7 @@ safety check
 ## Troubleshooting Common Issues
 
 ### Model Loading Failures
+
 ```python
 # Check if model exists
 ollama list
@@ -1617,6 +1704,7 @@ df -h
 ```
 
 ### Database Connection Issues
+
 ```python
 # Verify PostgreSQL is running
 docker ps | grep postgres
@@ -1629,6 +1717,7 @@ psql $DATABASE_URL -c "SELECT 1"
 ```
 
 ### Performance Degradation
+
 ```python
 # Profile API endpoint
 python -m cProfile -o profile.out main.py
@@ -1646,6 +1735,7 @@ py-spy record -o profile.svg -- python main.py
 ## Success Criteria
 
 ### Code Quality
+
 - ✅ All code has type hints
 - ✅ Test coverage ≥90%
 - ✅ No security warnings from audits
@@ -1653,12 +1743,14 @@ py-spy record -o profile.svg -- python main.py
 - ✅ Documentation matches implementation
 
 ### Performance
+
 - ✅ API response time <500ms p99
 - ✅ Model inference meets documented baselines
 - ✅ Memory usage within limits
 - ✅ Zero memory leaks in 24h stress test
 
 ### Security
+
 - ✅ All commits signed
 - ✅ No hardcoded credentials
 - ✅ Dependencies audited
@@ -1666,6 +1758,7 @@ py-spy record -o profile.svg -- python main.py
 - ✅ Rate limiting functional
 
 ### Deployment
+
 - ✅ Health checks passing
 - ✅ Monitoring configured
 - ✅ Alerts firing correctly

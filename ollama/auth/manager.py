@@ -5,6 +5,7 @@ Provides JWT token management, API key validation, and user authentication.
 
 import logging
 from datetime import UTC, datetime, timedelta
+from typing import Any, cast
 from uuid import UUID
 
 import bcrypt
@@ -114,7 +115,7 @@ class AuthManager:
         token = jwt.encode(payload, self.secret_key, algorithm=self.algorithm)
         return token
 
-    def decode_token(self, token: str) -> dict:
+    def decode_token(self, token: str) -> dict[str, Any]:
         """Decode and validate JWT token.
 
         Args:
@@ -128,7 +129,7 @@ class AuthManager:
         """
         try:
             payload = jwt.decode(token, self.secret_key, algorithms=[self.algorithm])
-            return payload
+            return cast(dict[str, Any], payload)
         except jwt.ExpiredSignatureError:
             raise AuthenticationError("Token has expired") from None
         except jwt.InvalidTokenError as e:

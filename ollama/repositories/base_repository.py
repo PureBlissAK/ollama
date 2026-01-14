@@ -6,7 +6,7 @@ Provides common CRUD operations with async SQLAlchemy support.
 import uuid
 from typing import Any, Generic, TypeVar
 
-from sqlalchemy import delete, select, update
+from sqlalchemy import delete, func, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import DeclarativeBase
 
@@ -102,19 +102,15 @@ class BaseRepository(Generic[T]):
         Returns:
             Tuple of (records, total_count)
         """
+        # Get total count
+        total = await self.count(**filters)
+
         query = select(self.model)
 
         # Apply filters
         for key, value in filters.items():
             if hasattr(self.model, key):
                 query = query.where(getattr(self.model, key) == value)
-
-        # Count total before pagination
-        count_query = select(self.model)
-        for key, value in filters.items():
-            if hasattr(self.model, key):
-                count_query = count_query.where(getattr(self.model, key) == value)
-        count_result = await self.session.execute(select(count_query).subquery())
 
         # Apply ordering
         if order_by and hasattr(self.model, order_by):
@@ -125,15 +121,7 @@ class BaseRepository(Generic[T]):
         query = query.offset(offset).limit(page_size)
 
         result = await self.session.execute(query)
-        records = list(result.scalars().all())
-
-        # Get total count
-        count_query = select(self.model)
-        for key, value in filters.items():
-            if hasattr(self.model, key):
-                count_query = count_query.where(getattr(self.model, key) == value)
-        count_result = await self.session.execute(count_query)
-        total = len(list(count_result.scalars().all()))
+        records: list[T] = list(result.scalars().all())
 
         return records, total
 
@@ -230,7 +218,7 @@ class BaseRepository(Generic[T]):
         result = await self.session.execute(query)
         return result.scalar_one_or_none() is not None
 
-    async def count(self, **filters) -> int:
+    async def count(self, **filters: Any) -> int:
         """Count records matching filters.
 
         Args:
@@ -239,13 +227,13 @@ class BaseRepository(Generic[T]):
         Returns:
             Number of matching records
         """
-        query = select(self.model)
+        query = select(func.count()).select_from(self.model)
         for key, value in filters.items():
             if hasattr(self.model, key):
                 query = query.where(getattr(self.model, key) == value)
 
         result = await self.session.execute(query)
-        return len(result.scalars().all())
+        return int(result.scalar() or 0)
 
     async def commit(self) -> None:
         """Commit transaction."""

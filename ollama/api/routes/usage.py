@@ -4,11 +4,12 @@ Provides detailed usage tracking, cost analysis, and performance metrics.
 """
 
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
+from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException, Path, Query
 
-from ...repositories import RepositoryFactory, get_repositories
+from ollama.repositories import RepositoryFactory, get_repositories
 
 router = APIRouter(
     prefix="/api/v1/usage",
@@ -21,7 +22,7 @@ async def get_user_usage(
     user_id: uuid.UUID = Query(..., description="User ID"),
     days: int = Query(30, ge=1, le=365, description="Days to look back"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """Get comprehensive usage statistics for a user.
 
     Args:
@@ -39,11 +40,11 @@ async def get_user_usage(
 
         return {
             "period_days": days,
-            "period_end": datetime.now(timezone.utc).isoformat(),
+            "period_end": datetime.now(UTC).isoformat(),
             "statistics": stats,
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to get usage: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Failed to get usage: {e!s}") from e
 
 
 @router.get("/user/daily")
@@ -51,7 +52,7 @@ async def get_user_daily_usage(
     user_id: uuid.UUID = Query(..., description="User ID"),
     days: int = Query(30, ge=1, le=365, description="Days to look back"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """Get daily usage breakdown for a user.
 
     Args:
@@ -84,7 +85,7 @@ async def get_user_daily_usage(
             "daily_breakdown": daily_list,
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to get daily usage: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Failed to get daily usage: {e!s}") from e
 
 
 @router.get("/user/tokens")
@@ -92,7 +93,7 @@ async def get_user_tokens(
     user_id: uuid.UUID = Query(..., description="User ID"),
     days: int = Query(30, ge=1, le=365, description="Days to look back"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """Get token usage summary for a user.
 
     Args:
@@ -116,7 +117,7 @@ async def get_user_tokens(
             "total_tokens": input_tokens + output_tokens,
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to get token usage: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Failed to get token usage: {e!s}") from e
 
 
 @router.get("/user/cost")
@@ -124,7 +125,7 @@ async def get_user_cost(
     user_id: uuid.UUID = Query(..., description="User ID"),
     days: int = Query(30, ge=1, le=365, description="Days to look back"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """Get cost summary for a user.
 
     Args:
@@ -148,7 +149,7 @@ async def get_user_cost(
             "avg_cost_per_day": f"${avg_cost_per_day:.4f}",
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to get cost: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Failed to get cost: {e!s}") from e
 
 
 @router.get("/user/performance")
@@ -156,7 +157,7 @@ async def get_user_performance(
     user_id: uuid.UUID = Query(..., description="User ID"),
     days: int = Query(30, ge=1, le=365, description="Days to look back"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """Get performance metrics for a user.
 
     Args:
@@ -196,7 +197,7 @@ async def get_user_performance(
             "success_rate": f"{success_rate:.2f}%",
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to get performance: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Failed to get performance: {e!s}") from e
 
 
 @router.get("/endpoint/{endpoint}")
@@ -204,7 +205,7 @@ async def get_endpoint_usage(
     endpoint: str = Path(..., description="API endpoint"),
     days: int = Query(30, ge=1, le=365, description="Days to look back"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """Get usage statistics for a specific endpoint.
 
     Args:
@@ -225,7 +226,7 @@ async def get_endpoint_usage(
             "statistics": stats,
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to get endpoint usage: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Failed to get endpoint usage: {e!s}") from e
 
 
 @router.post("/cleanup")
@@ -233,7 +234,7 @@ async def cleanup_old_usage(
     admin_key: str = Query(..., description="Admin authorization key"),
     days: int = Query(90, ge=1, description="Delete records older than N days"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """Delete old usage records for retention policy.
 
     Args:
@@ -265,7 +266,7 @@ async def cleanup_old_usage(
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Cleanup failed: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Cleanup failed: {e!s}") from e
 
 
 @router.get("/export")
@@ -274,7 +275,7 @@ async def export_usage(
     days: int = Query(30, ge=1, le=365, description="Days to look back"),
     format: str = Query("json", description="Export format (json, csv)"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """Export usage data for analysis.
 
     Args:
@@ -295,7 +296,7 @@ async def export_usage(
             return {
                 "user_id": str(user_id),
                 "period_days": days,
-                "export_date": datetime.now(timezone.utc).isoformat(),
+                "export_date": datetime.now(UTC).isoformat(),
                 "records": [
                     {
                         "endpoint": u.endpoint,
@@ -356,14 +357,14 @@ async def export_usage(
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Export failed: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Export failed: {e!s}") from e
 
 
 @router.get("/summary")
 async def get_usage_summary(
     user_id: uuid.UUID = Query(..., description="User ID"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """Get quick usage summary for dashboard.
 
     Args:
@@ -404,4 +405,4 @@ async def get_usage_summary(
             },
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to get summary: {str(e)}") from e
+        raise HTTPException(status_code=500, detail=f"Failed to get summary: {e!s}") from e

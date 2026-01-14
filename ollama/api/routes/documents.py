@@ -5,13 +5,14 @@ Provides document ingestion, indexing, and retrieval for RAG pipeline.
 
 import logging
 import uuid
-from typing import Any
+from typing import Any, cast
 
 from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile
 
+from ollama import main as ollama_main  #  _vector_manager
+from ollama.models import Document
 from ollama.repositories import RepositoryFactory, get_repositories
 from ollama.services.vector import VectorManager
-from ollama import main as ollama_main; #  _vector_manager
 
 logger = logging.getLogger(__name__)
 
@@ -160,7 +161,7 @@ async def get_document(
     user_id: uuid.UUID = Query(..., description="User ID"),
     include_content: bool = Query(False, description="Include full content"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """Get document details.
 
     Args:
@@ -206,7 +207,7 @@ async def update_document(
     user_id: uuid.UUID = Query(..., description="User ID"),
     title: str = Query(None, description="New title"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """Update document metadata.
 
     Args:
@@ -228,7 +229,7 @@ async def update_document(
         if title is not None:
             await doc_repo.update(document_id, title=title)
 
-        updated = await doc_repo.get_by_id(document_id)
+        updated = cast(Document, await doc_repo.get_by_id(document_id))
 
         return {
             "id": str(updated.id),
@@ -247,7 +248,7 @@ async def delete_document(
     document_id: uuid.UUID,
     user_id: uuid.UUID = Query(..., description="User ID"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """Delete a document.
 
     Args:
@@ -281,7 +282,7 @@ async def index_document(
     collection_name: str = Query(..., description="Qdrant collection name"),
     model_name: str = Query("all-minilm-l6-v2", description="Embedding model"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """Index document chunks into vector database.
 
     Args:
@@ -369,7 +370,7 @@ async def get_document_chunks(
     page: int = Query(1, ge=1, description="Page number"),
     page_size: int = Query(10, ge=1, le=100, description="Chunks per page"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """Get document chunks with pagination.
 
     Args:
@@ -389,7 +390,7 @@ async def get_document_chunks(
         if not document or document.user_id != user_id:
             raise HTTPException(status_code=404, detail="Document not found")
 
-        chunks = document.chunks or []
+        chunks = document.chunks
         total = len(chunks)
 
         # Manual pagination
@@ -424,7 +425,7 @@ async def semantic_search_documents(
     limit: int = Query(5, ge=1, le=50, description="Number of results"),
     threshold: float = Query(0.5, ge=0, le=1, description="Similarity threshold"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """Search documents semantically across all chunks.
 
     Args:
@@ -486,7 +487,7 @@ async def semantic_search_documents(
 async def get_user_document_stats(
     user_id: uuid.UUID = Query(..., description="User ID"),
     repos: RepositoryFactory = Depends(get_repositories),
-):
+) -> dict[str, Any]:
     """Get document statistics for user.
 
     Args:
