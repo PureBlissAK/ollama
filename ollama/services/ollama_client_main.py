@@ -83,6 +83,33 @@ class OllamaClient:
         log.info("ollama_models_listed", count=len(models))
         return models
 
+    async def show_model(self, name: str) -> Model:
+        """Get details for a specific model.
+
+        Args:
+            name: Model name/identifier.
+
+        Returns:
+            Model information and metadata.
+        """
+        models = await self.list_models()
+        for model in models:
+            if model.name == name:
+                return model
+        raise ValueError(f"Model {name} not found")
+
+    async def embeddings(self, model: str, prompt: str) -> list[float]:
+        """Generate embeddings for text (alias for generate_embeddings).
+
+        Args:
+            model: Model to use for embeddings.
+            prompt: Text to generate embeddings for.
+
+        Returns:
+            List of embedding values.
+        """
+        return await self.generate_embeddings(model, prompt)
+
     async def generate_stream(
         self, request: GenerateRequest
     ) -> AsyncGenerator[GenerateResponse, None]:

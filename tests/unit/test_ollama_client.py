@@ -26,9 +26,9 @@ class TestOllamaClientInitialization:
         assert client is not None
         assert client.base_url == "http://localhost:11434"
 
-    def test_client_custom_timeout(self):
+    def test_client_custom_timeout(self) -> None:
         """Test creating client with custom timeout"""
-        client = OllamaClient(base_url="http://localhost:11434", timeout=60.0, connect_timeout=10.0)
+        client = OllamaClient(base_url="http://localhost:11434", timeout=60.0)
 
         assert client is not None
         assert client.base_url == "http://localhost:11434"

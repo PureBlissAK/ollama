@@ -36,28 +36,47 @@ def auth_manager() -> Mock:
         """Create a mock JWT access token."""
         # Mock JWT format: header.payload.signature
         import base64
+        import json
         header = base64.b64encode(b'{"alg":"HS256","typ":"JWT"}').decode()
-        payload = base64.b64encode(f'{{"sub":"{user_id}","username":"{username}"}}'.encode()).decode()
+        payload_data = {"sub": str(user_id), "username": username, "type": "access"}
+        payload = base64.b64encode(json.dumps(payload_data).encode()).decode()
         signature = base64.b64encode(b"mock_signature").decode()
         return f"{header}.{payload}.{signature}"
 
     def mock_create_refresh_token(user_id: any) -> str:  # noqa: ANN002
         """Create a mock refresh token."""
         import base64
+        import json
         header = base64.b64encode(b'{"alg":"HS256","typ":"JWT"}').decode()
-        payload = base64.b64encode(f'{{"sub":"{user_id}","type":"refresh"}}'.encode()).decode()
+        payload_data = {"sub": str(user_id), "type": "refresh"}
+        payload = base64.b64encode(json.dumps(payload_data).encode()).decode()
         signature = base64.b64encode(b"mock_refresh_sig").decode()
         return f"{header}.{payload}.{signature}"
 
     def mock_decode_token(token: str) -> dict[str, any]:  # noqa: ANN002
         """Decode a mock token."""
+        import base64
+        import json
         if "invalid" in token:
             raise ValueError("Invalid token")
         if "expired" in token:
             raise ValueError("Token has expired")
         if token.count(".") != 2:
             raise ValueError("Invalid token format")
-        return {"sub": "user", "type": "access"}
+        try:
+            # Extract and decode payload
+            parts = token.split(".")
+            if len(parts) != 3:
+                raise ValueError("Invalid token format")
+            # Add padding if needed
+            payload_part = parts[1]
+            padding = 4 - len(payload_part) % 4
+            if padding != 4:
+                payload_part += "=" * padding
+            payload_json = base64.b64decode(payload_part).decode()
+            return json.loads(payload_json)
+        except Exception as e:
+            raise ValueError(f"Token decode failed: {e}") from e
 
     # Mock API key operations
     def mock_hash_api_key(key: str) -> str:
