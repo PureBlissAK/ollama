@@ -87,6 +87,7 @@ bash scripts/setup-faang.sh
 ```
 
 This script:
+
 - ✅ Creates virtual environment
 - ✅ Installs dependencies
 - ✅ Installs pre-commit hooks
@@ -125,6 +126,7 @@ cp .vscode/settings-faang.json .vscode/settings.json
 ```
 
 Settings include:
+
 - ✅ Type checking: `mypy --strict` on every file save
 - ✅ Linting: `ruff` auto-fix on save
 - ✅ Formatting: `black` on save
@@ -224,6 +226,7 @@ class TestInferenceService:
 #### 5. Atomic, Signed Commits
 
 Every commit must:
+
 - Be GPG signed (`-S` flag)
 - Follow format: `type(scope): description`
 - Be reversible without breaking other commits
@@ -483,6 +486,7 @@ async def complex_operation(data: dict[str, str]) -> ProcessResult:
 ### Q2: "Can I commit without GPG signing?"
 
 **A**: No. GPG signing is MANDATORY for all commits. This ensures:
+
 - Commit authenticity (proves you wrote it)
 - Non-repudiation (can't deny authorship)
 - Compliance (required for enterprise)
@@ -572,13 +576,13 @@ except KeyError as e:
 
 ### Documentation
 
-| Need | Resource |
-|------|----------|
-| **Standards Overview** | [FAANG-ELITE-STANDARDS.md](.github/FAANG-ELITE-STANDARDS.md) |
-| **Folder Structure** | [FOLDER-STRUCTURE-STANDARDS.md](.github/FOLDER-STRUCTURE-STANDARDS.md) |
-| **Daily Quick Reference** | [QUICK-REFERENCE.md](.github/QUICK-REFERENCE.md) |
-| **Implementation Details** | [IMPLEMENTATION-SUMMARY.md](.github/IMPLEMENTATION-SUMMARY.md) |
-| **Navigation Hub** | [MASTER-INDEX.md](.github/MASTER-INDEX.md) |
+| Need                       | Resource                                                               |
+| -------------------------- | ---------------------------------------------------------------------- |
+| **Standards Overview**     | [FAANG-ELITE-STANDARDS.md](.github/FAANG-ELITE-STANDARDS.md)           |
+| **Folder Structure**       | [FOLDER-STRUCTURE-STANDARDS.md](.github/FOLDER-STRUCTURE-STANDARDS.md) |
+| **Daily Quick Reference**  | [QUICK-REFERENCE.md](.github/QUICK-REFERENCE.md)                       |
+| **Implementation Details** | [IMPLEMENTATION-SUMMARY.md](.github/IMPLEMENTATION-SUMMARY.md)         |
+| **Navigation Hub**         | [MASTER-INDEX.md](.github/MASTER-INDEX.md)                             |
 
 ### Common Issues
 
@@ -655,6 +659,7 @@ When ALL above show ✅, you're ready!
 You're now part of a team that develops at the Top 0.01% standard, equivalent to Google L5-L6, Meta E5-E6, Amazon SDE-III+.
 
 **Key Mindset**:
+
 - Type safety is not optional - it's mandatory
 - Tests prove your code works - aim for >95% coverage
 - Commits are forever - make them atomic and signed
@@ -662,6 +667,7 @@ You're now part of a team that develops at the Top 0.01% standard, equivalent to
 - Standards are non-negotiable - they protect product quality
 
 **Next Steps**:
+
 1. Read [QUICK-REFERENCE.md](.github/QUICK-REFERENCE.md) (5 min)
 2. Create your first feature branch
 3. Make first commit with standards

@@ -7,9 +7,9 @@ body:
     attributes:
       value: |
         # FAANG Elite Feature Template
-        
+
         This template ensures your feature meets Top 0.01% development standards.
-        
+
         **Required**: Answer all sections. Incomplete submissions will be rejected.
 
   - type: textarea

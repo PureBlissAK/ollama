@@ -7,11 +7,13 @@ These rules enforce FAANG standards on all pull requests before merge to `main` 
 ### Setup Instructions
 
 **Step 1**: Navigate to Repository Settings
+
 ```
 GitHub → Repository → Settings → Branches
 ```
 
 **Step 2**: Add Branch Protection Rule
+
 ```
 Click "Add rule" → Enter pattern: "main"
 ```
@@ -128,11 +130,13 @@ resource "github_branch_protection" "main" {
 ### Automatic Workflow
 
 1. **Developer Creates PR**
+
    - All 3 enforcement layers activate automatically
    - Pre-commit hooks run on local machine
    - CI/CD workflows run on GitHub
 
 2. **Status Checks Run** (~2 minutes)
+
    - ✅ Type checking: `mypy ollama/ --strict`
    - ✅ Linting: `ruff check ollama/`
    - ✅ Testing: `pytest ≥95% coverage`
@@ -140,11 +144,13 @@ resource "github_branch_protection" "main" {
    - ❌ All must pass (blocking)
 
 3. **Human Code Review**
+
    - Assigned reviewers notified
    - Review with CODE-REVIEW-CHECKLIST
    - PR comments added for feedback
 
 4. **Conversation Resolution**
+
    - Developer addresses feedback
    - Comments marked as resolved
    - Status checks re-run if changes made
@@ -178,19 +184,20 @@ git push origin feature/my-feature
 
 ### Required Approvers by Change Type
 
-| Change Type | Approvers | Why |
-|---|---|---|
-| Documentation | 1 (any) | Low risk, broad expertise |
-| Tests/CI | 1 (team-leads) | Affects all developers |
-| API Changes | 2 (1 API, 1 leads) | High impact, public interface |
-| Database Changes | 2 (1 database, 1 leads) | Data consistency risk |
-| Security Changes | 2 (security, leads) | Must be vetted |
-| Core Modules | 2 (domain expert, leads) | Critical systems |
-| Configuration | 1 (ops or leads) | Infrastructure impact |
+| Change Type      | Approvers                | Why                           |
+| ---------------- | ------------------------ | ----------------------------- |
+| Documentation    | 1 (any)                  | Low risk, broad expertise     |
+| Tests/CI         | 1 (team-leads)           | Affects all developers        |
+| API Changes      | 2 (1 API, 1 leads)       | High impact, public interface |
+| Database Changes | 2 (1 database, 1 leads)  | Data consistency risk         |
+| Security Changes | 2 (security, leads)      | Must be vetted                |
+| Core Modules     | 2 (domain expert, leads) | Critical systems              |
+| Configuration    | 1 (ops or leads)         | Infrastructure impact         |
 
 ### Reviewer Responsibilities
 
 **Checklist**:
+
 - [ ] Automatic checks all pass ✅
 - [ ] Code quality standards met (see CODE-REVIEW-CHECKLIST)
 - [ ] Test coverage ≥95%
@@ -200,18 +207,22 @@ git push origin feature/my-feature
 - [ ] Performance impact acceptable
 
 **Feedback**:
-```markdown
+
+````markdown
 # Code Review Comment
 
 **Issue**: Missing type hint on function parameter
 
 **Current**:
+
 ```python
 def process_data(items):
     return [x.value for x in items]
 ```
+````
 
 **Required**:
+
 ```python
 def process_data(items: list[DataItem]) -> list[Any]:
     return [x.value for x in items]
@@ -220,6 +231,7 @@ def process_data(items: list[DataItem]) -> list[Any]:
 **Reason**: FAANG standards require 100% type coverage (mypy --strict)
 
 **Reference**: .github/FAANG-ELITE-STANDARDS.md (TIER 1)
+
 ```
 
 ---
@@ -228,31 +240,39 @@ def process_data(items: list[DataItem]) -> list[Any]:
 
 ### Squash Merge (Default)
 ```
+
 Recommended for: Feature branches, bug fixes
 Result: Single commit on main
 Benefit: Clean history, atomic changes
+
 ```
 
 ### Rebase Merge
 ```
+
 Recommended for: Refactoring, documentation
 Result: All commits preserved, rebased on main
 Benefit: Full context in history
+
 ```
 
 ### Merge Commit
 ```
+
 Recommended for: Major releases, merges
 Result: Merge commit created
 Benefit: Explicit merge point
+
 ```
 
 ### Policy
 ```
+
 ✅ Use squash merge by default (one feature = one commit)
 ✅ Use rebase merge for refactoring (preserve commit history)
 ❌ Avoid merge commits (unnecessary clutter)
-```
+
+````
 
 ---
 
@@ -272,13 +292,14 @@ Optional Checks:
 ├─ Performance Regression (if applicable)
 ├─ Documentation Build (if docs changed)
 └─ Deployment Preview (if applicable)
-```
+````
 
 ---
 
 ## Protecting Against Common Issues
 
 ### Issue: Stale Branch Blocks Merge
+
 ```
 Solution: Check "Require branches to be up to date before merging"
 Action: GitHub automatically disables merge button if branch out of sync
@@ -286,6 +307,7 @@ Fix: Developer clicks "Update branch" button
 ```
 
 ### Issue: Developer Force Pushes and Loses Review
+
 ```
 Solution: Set "Dismiss stale pull request approvals when new commits are pushed"
 Action: Force push invalidates previous approvals
@@ -293,6 +315,7 @@ Fix: Request another approval (typically quick second review)
 ```
 
 ### Issue: Unsigned Commits Bypass Protection
+
 ```
 Solution: Check "Require signed commits"
 Action: Blocks merge if any commit lacks GPG signature
@@ -300,6 +323,7 @@ Fix: Developer signs all commits locally, force pushes with GPG key
 ```
 
 ### Issue: Tests Pass Locally But Fail in CI
+
 ```
 Solution: Use same Python version in CI as local (3.11, 3.12 tested)
 Action: Run `pytest` with same configuration as CI
@@ -307,6 +331,7 @@ Fix: Check GitHub Actions workflow to match local setup
 ```
 
 ### Issue: Code Owner Doesn't Approve
+
 ```
 Solution: Use CODEOWNERS file to auto-request reviews
 Action: GitHub automatically requests CODEOWNERS review on PRs
@@ -318,6 +343,7 @@ Fix: Discuss with code owner if approval taking too long
 ## Troubleshooting
 
 ### Status Check Taking Too Long
+
 ```
 Expected time: <2 minutes
 If longer:
@@ -328,6 +354,7 @@ If longer:
 ```
 
 ### Can't Push to Main
+
 ```
 Reason: Branch protection prevents direct pushes
 Solution: Use pull request instead
@@ -341,6 +368,7 @@ Steps:
 ```
 
 ### Need to Bypass Protection (Emergency Only)
+
 ```
 Rare case: Production incident requiring immediate fix
 Process:
@@ -406,6 +434,6 @@ Problem → Resolution:
 
 ---
 
-**Last Updated**: January 14, 2026  
-**Status**: 🟢 Active  
-**Maintained By**: @kushin77  
+**Last Updated**: January 14, 2026
+**Status**: 🟢 Active
+**Maintained By**: @kushin77

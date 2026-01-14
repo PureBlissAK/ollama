@@ -10,16 +10,20 @@ from ollama.auth.firebase_auth import (
     require_root_admin,
     revoke_user_tokens,
 )
+from ollama.auth.manager import AuthManager
 from ollama.auth.middleware import AuthMiddleware, require_auth, verify_token_optional
+from ollama.exceptions.authentication import AuthenticationError
 
 __all__ = [
-    "init_firebase",
+    "AuthManager",
+    "AuthMiddleware",
+    "AuthenticationError",
     "get_current_user",
+    "get_or_create_user",
+    "init_firebase",
+    "require_auth",
     "require_role",
     "require_root_admin",
     "revoke_user_tokens",
-    "get_or_create_user",
-    "AuthMiddleware",
-    "require_auth",
     "verify_token_optional",
 ]

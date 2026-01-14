@@ -34,6 +34,7 @@ These checks run automatically in CI/CD. **ALL MUST PASS** before human review:
 - [ ] Docstring types match parameter types
 
 **Example**:
+
 ```python
 # ❌ REVIEW: Missing types
 def process_request(request, data):
@@ -56,6 +57,7 @@ def process_request(request: Request, data: dict) -> dict[str, str]:
 - [ ] Names are descriptive (>3 chars, <30 chars)
 
 **Example**:
+
 ```python
 # ❌ REVIEW: Single letter variable, camelCase function
 def getUserData(u):
@@ -79,6 +81,7 @@ def get_user_data(user: User) -> dict[str, Any]:
 - [ ] Related functionality grouped together
 
 **Example**:
+
 ```python
 # ❌ REVIEW: Multiple unrelated classes
 # File: services/auth.py
@@ -108,6 +111,7 @@ class SessionManager:
 - [ ] Error responses include error codes
 
 **Example**:
+
 ```python
 # ❌ REVIEW: Silent failure
 try:
@@ -136,6 +140,7 @@ except ModelNotFoundError as e:
 - [ ] Function parameters are validated
 
 **Measurement**:
+
 ```bash
 # Check complexity
 flake8 ollama/ --select=C901  # Cyclomatic
@@ -158,6 +163,7 @@ flake8 ollama/ --select=CCR   # Cognitive
 - [ ] Test method names descriptive
 
 **Example**:
+
 ```python
 # Module: ollama/services/llm.py
 class LLMService:
@@ -174,7 +180,7 @@ class TestLLMService:
         service = LLMService()
         result = await service.generate("test")
         assert isinstance(result, str)
-    
+
     @pytest.mark.asyncio
     async def test_generate_raises_on_empty_prompt(self) -> None:
         """Error path: Raises on empty input."""
@@ -209,31 +215,32 @@ class TestLLMService:
 - [ ] Docstrings include usage example (if complex)
 
 **Format** (Google-style):
+
 ```python
 class MyService:
     """Service for processing requests.
-    
+
     Handles validation, transformation, and persistence of request data.
     """
-    
+
     def process(
         self,
         request: Request,
         options: dict[str, str] | None = None,
     ) -> Response:
         """Process incoming request.
-        
+
         Args:
             request: HTTP request object
             options: Optional processing options
-        
+
         Returns:
             Response object with results
-        
+
         Raises:
             ValidationError: If request invalid
             ProcessingError: If processing fails
-        
+
         Example:
             >>> service = MyService()
             >>> response = service.process(request)
@@ -323,6 +330,7 @@ class MyService:
 - [ ] Feature branch deleted after merge
 
 **Example PR**:
+
 ```
 Title: feat(api): add streaming response support
 
@@ -369,18 +377,19 @@ Implements RFC-001
 
 ## Final Checklist Before Approval
 
-| Check | Status |
-|-------|--------|
-| ✅ All CI/CD checks pass | Required |
+| Check                         | Status   |
+| ----------------------------- | -------- |
+| ✅ All CI/CD checks pass      | Required |
 | ✅ Code quality standards met | Required |
-| ✅ Test coverage ≥95% | Required |
-| ✅ Documentation complete | Required |
-| ✅ Security review passed | Required |
-| ✅ Performance acceptable | Required |
-| ✅ Commits properly signed | Required |
-| ✅ Folder structure correct | Required |
+| ✅ Test coverage ≥95%         | Required |
+| ✅ Documentation complete     | Required |
+| ✅ Security review passed     | Required |
+| ✅ Performance acceptable     | Required |
+| ✅ Commits properly signed    | Required |
+| ✅ Folder structure correct   | Required |
 
-**Result**: 
+**Result**:
+
 - ✅ **APPROVE** if ALL checks pass
 - ❌ **REQUEST CHANGES** if any check fails
 - ⏸️ **COMMENT** if clarification needed before review
@@ -415,7 +424,7 @@ done
 
 ### Constructive Feedback
 
-```markdown
+````markdown
 ### Type Safety Issue
 
 Found missing type hints in function:
@@ -424,6 +433,7 @@ Found missing type hints in function:
 def process_data(items):  # ❌ No types
     return [x.value for x in items]
 ```
+````
 
 **Fix**: Add parameter and return types
 
@@ -433,7 +443,8 @@ def process_data(items: list[DataItem]) -> list[Any]:  # ✅ Types added
 ```
 
 This ensures mypy --strict passes.
-```
+
+````
 
 ### Coverage Issue
 
@@ -445,7 +456,7 @@ Lines 45-50 in `ollama/services/auth.py` not covered:
 ```python
 45: if not token:
 46:     raise InvalidTokenError()  # ❌ Not tested
-```
+````
 
 **Fix**: Add test case
 
@@ -457,6 +468,7 @@ def test_raises_on_empty_token(self) -> None:
 ```
 
 This brings coverage to 95%+.
+
 ```
 
 ---
@@ -465,3 +477,4 @@ This brings coverage to 95%+.
 
 **Last Updated**: January 14, 2026
 **Status**: 🟢 In Use
+```

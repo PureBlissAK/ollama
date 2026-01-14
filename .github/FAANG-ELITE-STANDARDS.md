@@ -1,7 +1,7 @@
 # FAANG-Elite Master Development Standards (Top 0.01%)
 
-**Version**: 3.0.0-FAANG  
-**Effective**: January 14, 2026  
+**Version**: 3.0.0-FAANG
+**Effective**: January 14, 2026
 **Standard Level**: Top 0.01% Master Developer (Meta/Google/Amazon/Apple/Netflix level)
 
 ---
@@ -20,6 +20,7 @@ This document defines **non-negotiable** development standards at the **top 0.01
 ## TIER 1: Code Quality Absolutism
 
 ### 1.1 Type Safety: 100% Strict Mode
+
 ```python
 # MANDATORY: All Python code uses Pylance strict mode
 # Command: mypy ollama/ --strict --warn-unused-ignores
@@ -57,6 +58,7 @@ def handle_optional(value: Optional[str]) -> int:
 ```
 
 ### 1.2 Cognitive Complexity: Maximum 5 (FAANG Standard)
+
 - Each function: Max complexity 5 (measured with `radon cc --min B`)
 - Average complexity: < 3
 - No nested loops (max 1 level deep)
@@ -98,12 +100,14 @@ def process_users(
 ```
 
 ### 1.3 Function Purity: 85% Pure Functions
+
 - Pure functions (no side effects): ≥85% of codebase
 - Impure functions: Clearly named with verb prefix (`send_`, `persist_`, `mutate_`)
 - Immutability first: Use `dataclasses.replace()`, `copy.deepcopy()`
 - No module-level state mutation
 
 ### 1.4 Test Coverage Mandate
+
 - **Critical paths**: 100% coverage (enforce with coverage minimum)
 - **Overall**: ≥95% coverage (top 0.01% standard)
 - **Performance tests**: ≥50% of test count
@@ -131,6 +135,7 @@ addopts = [
 ```
 
 ### 1.5 Error Handling: Explicit Errors Only
+
 ```python
 # ❌ WRONG - Any bare except or generic Exception
 try:
@@ -347,6 +352,7 @@ docs/                                      # Documentation (Markdown)
 ### 2.2 File Organization Rules (Strict)
 
 **RULE 1: One Class Per File** (except enums, constants)
+
 ```python
 # ❌ WRONG - Multiple classes in one file
 # services/models.py
@@ -366,11 +372,13 @@ class ModelMetrics: ...
 ```
 
 **RULE 2: Logical Module Grouping**
+
 - Group related functionality in packages
 - Each package has `__init__.py` with clear exports
 - No circular imports (enforce with `import-graph` tool)
 
 **RULE 3: Naming Consistency**
+
 - Module files: `snake_case.py`
 - Classes: `PascalCase`
 - Functions: `snake_case`
@@ -381,6 +389,7 @@ class ModelMetrics: ...
 ### 2.3 Module Header Requirements
 
 **EVERY Python file MUST have:**
+
 ```python
 """Module-level docstring (one sentence summary).
 
@@ -422,6 +431,7 @@ log = structlog.get_logger(__name__)
 ### 3.1 Commit Excellence
 
 **Commit Message Format (STRICT)**
+
 ```
 type(scope): imperative description [max 50 chars]
 
@@ -437,6 +447,7 @@ Performance: 40% latency improvement
 ```
 
 **Type Classification (Mandatory)**:
+
 - `feat`: Feature addition (bumps minor version)
 - `fix`: Bug fix (bumps patch version)
 - `refactor`: Code reorganization (no behavior change)
@@ -449,6 +460,7 @@ Performance: 40% latency improvement
 - `revert`: Revert previous commit
 
 **Scope Classification (Mandatory)**:
+
 - `api`: HTTP API layer
 - `auth`: Authentication/authorization
 - `models`: ML model management
@@ -467,6 +479,7 @@ Performance: 40% latency improvement
 ### 3.2 Atomic Commits Mandate
 
 **RULE: Each commit must**:
+
 1. ✅ Be reversible independently
 2. ✅ Pass all tests (zero test failures)
 3. ✅ Pass type checking (mypy --strict)
@@ -627,10 +640,10 @@ def calculate_batch_size(model_memory_mb: int, available_memory_mb: int) -> int:
     """Calculate optimal batch size for given memory constraints."""
     # Use 70% of available memory to leave headroom for OS and caches
     usable_memory = int(available_memory_mb * 0.7)
-    
+
     # Ensure minimum batch size of 1 to avoid division errors
     batch_size = max(1, usable_memory // model_memory_mb)
-    
+
     return batch_size
 ```
 
@@ -848,7 +861,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
       - run: pip install -e ".[dev]"
-      - run: mypy ollama/ --strict  # MANDATORY
+      - run: mypy ollama/ --strict # MANDATORY
 
   lint:
     runs-on: ubuntu-latest
@@ -856,7 +869,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
       - run: pip install -e ".[dev]"
-      - run: ruff check ollama/ tests/  # MANDATORY
+      - run: ruff check ollama/ tests/ # MANDATORY
 
   tests:
     runs-on: ubuntu-latest
@@ -880,8 +893,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
       - run: pip install -e ".[dev]"
-      - run: pip-audit  # MANDATORY
-      - run: bandit -r ollama/ -ll  # MANDATORY
+      - run: pip-audit # MANDATORY
+      - run: bandit -r ollama/ -ll # MANDATORY
 
   coverage:
     runs-on: ubuntu-latest
@@ -892,7 +905,7 @@ jobs:
       - run: pytest tests/ --cov=ollama --cov-report=xml
       - uses: codecov/codecov-action@v3
         with:
-          fail_ci_if_error: true  # MANDATORY
+          fail_ci_if_error: true # MANDATORY
 ```
 
 ---
@@ -901,15 +914,15 @@ jobs:
 
 ### 8.1 Performance Baselines (Non-Negotiable)
 
-| Metric | Baseline | Tolerance | Enforcement |
-|--------|----------|-----------|-------------|
-| Unit test execution | <1ms each | N/A | Fail if >100ms |
-| Full test suite | <30s | ±5% | Fail if >31.5s |
-| API response time (p99) | <500ms | ±10% | Alert if >550ms |
-| Model inference latency | Model-specific | ±5% | Benchmark on merge |
-| Memory footprint | <2GB baseline | ±10% | Track with regression tests |
-| Startup time | <10s | ±20% | Fail if >12s |
-| Cache hit rate | >85% | ±5% | Alert if <80% |
+| Metric                  | Baseline       | Tolerance | Enforcement                 |
+| ----------------------- | -------------- | --------- | --------------------------- |
+| Unit test execution     | <1ms each      | N/A       | Fail if >100ms              |
+| Full test suite         | <30s           | ±5%       | Fail if >31.5s              |
+| API response time (p99) | <500ms         | ±10%      | Alert if >550ms             |
+| Model inference latency | Model-specific | ±5%       | Benchmark on merge          |
+| Memory footprint        | <2GB baseline  | ±10%      | Track with regression tests |
+| Startup time            | <10s           | ±20%      | Fail if >12s                |
+| Cache hit rate          | >85%           | ±5%       | Alert if <80%               |
 
 ### 8.2 Benchmarking (Mandatory)
 
@@ -929,7 +942,7 @@ class TestInferencePerformance:
     ) -> None:
         """Inference latency must stay within baseline."""
         latencies: list[float] = []
-        
+
         for _ in range(100):
             start = time.perf_counter()
             await inference_service.generate(
@@ -937,12 +950,12 @@ class TestInferencePerformance:
                 prompt="Test prompt"
             )
             latencies.append(time.perf_counter() - start)
-        
+
         p99 = statistics.quantiles(latencies, n=100)[98]
-        
+
         # MANDATORY: p99 latency within tolerance
         assert p99 < 0.550, f"p99 latency {p99}s exceeds 550ms baseline"
-        
+
         print(f"p99 latency: {p99*1000:.1f}ms")
         print(f"p50 latency: {statistics.median(latencies)*1000:.1f}ms")
         print(f"std dev: {statistics.stdev(latencies)*1000:.1f}ms")
@@ -975,26 +988,32 @@ Before ANY merge:
 ### ✅ Approved (with minor comments)
 
 #### Type Safety ✅
+
 - All functions have type hints
 - No `Any` types without justification
 
 #### Test Coverage ✅
+
 - New code has 96% coverage
 - Edge cases tested
 
 #### Performance ✅
+
 - No regression vs baseline
 - Optimized hot paths
 
 #### Security ✅
+
 - No credentials exposed
 - Input validation present
 
 #### Documentation ✅
+
 - Docstrings complete
 - Examples provided
 
 #### Suggestions for improvement:
+
 1. Consider extracting `_validate_input` to reduce complexity
 2. Add performance benchmark for large batch sizes
 
@@ -1059,6 +1078,7 @@ git config --global alias.push-check '!git push --force-if-includes'
 ## Enforcement & Automation
 
 ### Automated Checks
+
 - ✅ Type checking: mypy (on every commit)
 - ✅ Linting: ruff (on every commit)
 - ✅ Testing: pytest (on every push)
@@ -1069,6 +1089,7 @@ git config --global alias.push-check '!git push --force-if-includes'
 - ✅ Git hygiene: Enforced via pre-commit hooks (no force push, commit message format, signing)
 
 ### Manual Checks
+
 - Code review with checklist
 - Security review for sensitive changes
 - Performance review for latency-sensitive code
@@ -1080,20 +1101,20 @@ git config --global alias.push-check '!git push --force-if-includes'
 
 Your code meets **Top 0.01% FAANG standards** if:
 
-✅ Type coverage: 100% (mypy --strict passes)  
-✅ Test coverage: ≥95% (all new code tested)  
-✅ Cognitive complexity: All functions <5  
-✅ Performance: Zero regressions  
-✅ Security: Zero vulnerabilities  
-✅ Git commits: Atomic, signed, formatted perfectly  
-✅ Folder structure: Exact match to standards  
-✅ Documentation: Complete, examples included  
-✅ Code review: Approved by peer + tech lead  
-✅ CI/CD: All checks passing  
+✅ Type coverage: 100% (mypy --strict passes)
+✅ Test coverage: ≥95% (all new code tested)
+✅ Cognitive complexity: All functions <5
+✅ Performance: Zero regressions
+✅ Security: Zero vulnerabilities
+✅ Git commits: Atomic, signed, formatted perfectly
+✅ Folder structure: Exact match to standards
+✅ Documentation: Complete, examples included
+✅ Code review: Approved by peer + tech lead
+✅ CI/CD: All checks passing
 
 ---
 
-**Version**: 3.0.0-FAANG  
-**Last Updated**: January 14, 2026  
-**Maintained By**: Elite Engineering Team  
+**Version**: 3.0.0-FAANG
+**Last Updated**: January 14, 2026
+**Maintained By**: Elite Engineering Team
 **Status**: ACTIVE - NO EXCEPTIONS

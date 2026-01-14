@@ -1,7 +1,7 @@
 # FAANG-Level Folder Structure & File Organization Standards
 
-**Version**: 3.0.0  
-**Effective**: January 14, 2026  
+**Version**: 3.0.0
+**Effective**: January 14, 2026
 **Enforcement Level**: Mandatory (Automated)
 
 ## Executive Summary
@@ -309,6 +309,7 @@ TokenManager             →  test_token_manager.py
 ```
 
 **Test Class Naming**:
+
 ```python
 class TestModelService:           # Test class for ModelService
     def test_load_model_success(self): ...
@@ -365,14 +366,14 @@ docs/
 
 ### 4.1 File Naming Rules
 
-| Type | Format | Example |
-|------|--------|---------|
-| Module | `snake_case.py` | `model_service.py` |
-| Class | `PascalCase` | `class ModelService:` |
-| Function | `snake_case` | `def generate_response():` |
-| Constant | `SCREAMING_SNAKE_CASE` | `MAX_RETRIES = 3` |
-| Private Function | `_snake_case` | `def _validate_input():` |
-| Internal Variable | `__double_underscore` | `__instance: Optional[T]` |
+| Type              | Format                 | Example                    |
+| ----------------- | ---------------------- | -------------------------- |
+| Module            | `snake_case.py`        | `model_service.py`         |
+| Class             | `PascalCase`           | `class ModelService:`      |
+| Function          | `snake_case`           | `def generate_response():` |
+| Constant          | `SCREAMING_SNAKE_CASE` | `MAX_RETRIES = 3`          |
+| Private Function  | `_snake_case`          | `def _validate_input():`   |
+| Internal Variable | `__double_underscore`  | `__instance: Optional[T]`  |
 
 ### 4.2 Directory Naming Rules
 
@@ -461,7 +462,7 @@ BATCH_SIZE = 32
 
 ---
 
-## TIER 6: __init__.py Files
+## TIER 6: **init**.py Files
 
 ### 6.1 Package Initialization Rules
 
@@ -486,7 +487,7 @@ __all__ = ["router"]
 # if __name__ == "__main__":  # WRONG: Init should not have side effects
 ```
 
-### 6.2 When to Add __init__.py
+### 6.2 When to Add **init**.py
 
 - **Always** for packages (directories with modules)
 - **Never** for simple utility folders (unless they're packages)
@@ -496,13 +497,13 @@ __all__ = ["router"]
 
 ## TIER 7: File Size Guidelines
 
-| File Type | Ideal Size | Maximum | Enforcement |
-|-----------|-----------|---------|-------------|
+| File Type    | Ideal Size    | Maximum   | Enforcement                |
+| ------------ | ------------- | --------- | -------------------------- |
 | Module (.py) | 200-400 lines | 600 lines | Soft limit, review if over |
-| Class | 100-300 lines | 500 lines | Extract methods if over |
-| Function | 20-50 lines | 100 lines | Refactor if over |
-| Test file | 300-500 lines | 800 lines | Split into focused tests |
-| Docstring | 5-15 lines | 30 lines | Be concise |
+| Class        | 100-300 lines | 500 lines | Extract methods if over    |
+| Function     | 20-50 lines   | 100 lines | Refactor if over           |
+| Test file    | 300-500 lines | 800 lines | Split into focused tests   |
+| Docstring    | 5-15 lines    | 30 lines  | Be concise                 |
 
 ---
 
@@ -536,25 +537,25 @@ REQUIRED_STRUCTURE = {
 def check_structure():
     """Validate folder structure."""
     root = Path(".")
-    
+
     # Check required directories exist
     for required_dir in REQUIRED_STRUCTURE.keys():
         if not (root / required_dir).exists():
             print(f"ERROR: Missing required directory: {required_dir}")
             return False
-    
+
     # Check no forbidden directories exist
     for forbidden in FORBIDDEN_DIRS:
         if (root / forbidden).exists():
             print(f"ERROR: Forbidden directory found: {forbidden}")
             return False
-    
+
     # Check one class per file (except special cases)
     for py_file in (root / "ollama").rglob("*.py"):
         if py_file.stem == "__init__":
             continue
         # Implementation to check class count
-    
+
     print("✅ Folder structure is valid")
     return True
 
@@ -586,6 +587,7 @@ jobs:
 ### 9.1 File Commit Guidelines
 
 **DO commit**:
+
 - Source code (`.py`)
 - Documentation (`.md`)
 - Configuration (`.yaml`, `.toml`)
@@ -594,6 +596,7 @@ jobs:
 - Dockerfile
 
 **DON'T commit**:
+
 - `__pycache__/`
 - `.pytest_cache/`
 - `.mypy_cache/`
@@ -655,7 +658,7 @@ Use this checklist on every commit:
 - [ ] File naming follows snake_case
 - [ ] Module docstrings present
 - [ ] One class per file (except constants/enums)
-- [ ] __init__.py files minimal
+- [ ] **init**.py files minimal
 - [ ] No circular imports
 - [ ] Test files mirror source structure
 - [ ] File sizes within guidelines
@@ -678,6 +681,6 @@ git commit -S -m "refactor(structure): reorganize module location"
 
 ---
 
-**Version**: 3.0.0  
-**Last Updated**: January 14, 2026  
+**Version**: 3.0.0
+**Last Updated**: January 14, 2026
 **Status**: MANDATORY STANDARD - NO EXCEPTIONS

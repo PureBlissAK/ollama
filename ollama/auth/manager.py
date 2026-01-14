@@ -5,7 +5,6 @@ Provides JWT token management, API key validation, and user authentication.
 
 import logging
 from datetime import UTC, datetime, timedelta
-from typing import Optional
 from uuid import UUID
 
 import bcrypt
@@ -62,7 +61,7 @@ class AuthManager:
         return bcrypt.checkpw(password.encode("utf-8"), hashed.encode("utf-8"))
 
     def create_access_token(
-        self, user_id: UUID, username: str, expires_delta: Optional[timedelta] = None
+        self, user_id: UUID, username: str, expires_delta: timedelta | None = None
     ) -> str:
         """Create JWT access token.
 
@@ -90,9 +89,7 @@ class AuthManager:
         token = jwt.encode(payload, self.secret_key, algorithm=self.algorithm)
         return token
 
-    def create_refresh_token(
-        self, user_id: UUID, expires_delta: Optional[timedelta] = None
-    ) -> str:
+    def create_refresh_token(self, user_id: UUID, expires_delta: timedelta | None = None) -> str:
         """Create JWT refresh token.
 
         Args:
@@ -135,7 +132,7 @@ class AuthManager:
         except jwt.ExpiredSignatureError:
             raise AuthenticationError("Token has expired") from None
         except jwt.InvalidTokenError as e:
-            raise AuthenticationError(f"Invalid token: {str(e)}") from e
+            raise AuthenticationError(f"Invalid token: {e!s}") from e
 
     def hash_api_key(self, api_key: str) -> str:
         """Hash an API key.

@@ -3,4 +3,3 @@
 
 class AuthenticationError(Exception):
     """Custom authentication error."""
-

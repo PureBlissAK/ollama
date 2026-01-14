@@ -1,7 +1,7 @@
 # FAANG-Elite Quick Reference Guide
 
-**Version**: 3.0.0  
-**For**: Top 0.01% Master Developers  
+**Version**: 3.0.0
+**For**: Top 0.01% Master Developers
 **Updated**: January 14, 2026
 
 ---
@@ -67,6 +67,7 @@ ollama/api/routes/      →  tests/integration/api/
 ```
 
 **GOLDEN RULES**:
+
 - ✅ One class per file
 - ✅ snake_case for files, PascalCase for classes
 - ✅ Module docstrings on every file
@@ -79,6 +80,7 @@ ollama/api/routes/      →  tests/integration/api/
 ## 🔤 Naming Conventions
 
 ### Commit Types
+
 ```
 feat(scope):     New feature
 fix(scope):      Bug fix
@@ -91,12 +93,14 @@ security(scope): Security-related changes
 ```
 
 ### Scopes
+
 ```
 api, auth, models, inference, cache, db, config,
 docker, k8s, monitoring, testing, types, docs, security
 ```
 
 ### Example Commits
+
 ```
 feat(api): add conversation history endpoint
 fix(auth): resolve token expiration race condition
@@ -112,6 +116,7 @@ security(auth): add rate limiting
 ## 🧪 Testing Standards
 
 ### Coverage Targets
+
 ```
 Critical paths:    100% coverage (non-negotiable)
 Overall code:      ≥95% coverage
@@ -121,6 +126,7 @@ Security tests:    ≥30% of total tests
 ```
 
 ### Test File Template
+
 ```python
 # tests/unit/services/test_my_service.py
 """Tests for MyService.
@@ -176,6 +182,7 @@ def handle_optional(value: Optional[str]) -> int:
 ```
 
 ### Common Type Patterns
+
 ```python
 from typing import Optional, List, Dict, Union, Callable, Any
 from dataclasses import dataclass
@@ -207,6 +214,7 @@ class Response:
 ## 💾 Git Workflow
 
 ### Daily Workflow
+
 ```bash
 # 1. Start feature branch
 git checkout develop
@@ -239,6 +247,7 @@ git push origin feature/new-feature
 ```
 
 ### Force-Push Policy
+
 - ❌ NEVER on main or develop
 - ⚠️ Only on personal feature branches
 - ⚠️ Only after explicit approval
@@ -248,22 +257,23 @@ git push origin feature/new-feature
 
 ## 📝 Code Quality Thresholds
 
-| Metric | Threshold | Action |
-|--------|-----------|--------|
-| Type Coverage | 100% | Fail if not 100% |
-| Test Coverage | ≥95% | Fail if lower |
-| Cognitive Complexity | <5 | Refactor if higher |
-| Function Length | <100 lines | Review if longer |
-| File Size | <600 lines | Split if larger |
-| Test Execution | <30s | Optimize if slower |
-| Linting Errors | 0 | Auto-fix with ruff |
-| Security Issues | 0 | Fix immediately |
+| Metric               | Threshold  | Action             |
+| -------------------- | ---------- | ------------------ |
+| Type Coverage        | 100%       | Fail if not 100%   |
+| Test Coverage        | ≥95%       | Fail if lower      |
+| Cognitive Complexity | <5         | Refactor if higher |
+| Function Length      | <100 lines | Review if longer   |
+| File Size            | <600 lines | Split if larger    |
+| Test Execution       | <30s       | Optimize if slower |
+| Linting Errors       | 0          | Auto-fix with ruff |
+| Security Issues      | 0          | Fix immediately    |
 
 ---
 
 ## 🛠️ Essential Commands
 
 ### Development
+
 ```bash
 # Format code
 black ollama/ tests/
@@ -296,6 +306,7 @@ docker-compose logs -f api
 ```
 
 ### Git
+
 ```bash
 # Commit (atomic, signed)
 git commit -S -m "type(scope): message"
@@ -318,6 +329,7 @@ git stash pop
 ```
 
 ### Debugging
+
 ```bash
 # Add breakpoint
 breakpoint()  # Or: import ipdb; ipdb.set_trace()
@@ -337,13 +349,13 @@ snakeviz profile.out
 
 ## 📚 Documentation Links
 
-| Document | Purpose |
-|----------|---------|
-| [FAANG-ELITE-STANDARDS.md](.github/FAANG-ELITE-STANDARDS.md) | Top 0.01% dev standards |
+| Document                                                               | Purpose                 |
+| ---------------------------------------------------------------------- | ----------------------- |
+| [FAANG-ELITE-STANDARDS.md](.github/FAANG-ELITE-STANDARDS.md)           | Top 0.01% dev standards |
 | [FOLDER-STRUCTURE-STANDARDS.md](.github/FOLDER-STRUCTURE-STANDARDS.md) | Project structure guide |
-| [copilot-instructions.md](.github/copilot-instructions.md) | Copilot behavior rules |
-| [ARCHITECTURE.md](docs/ARCHITECTURE.md) | System design |
-| [API_DESIGN.md](docs/API_DESIGN.md) | API conventions |
+| [copilot-instructions.md](.github/copilot-instructions.md)             | Copilot behavior rules  |
+| [ARCHITECTURE.md](docs/ARCHITECTURE.md)                                | System design           |
+| [API_DESIGN.md](docs/API_DESIGN.md)                                    | API conventions         |
 
 ---
 
@@ -378,6 +390,7 @@ Testing:
 ## 🆘 Troubleshooting
 
 ### Tests Failing
+
 ```bash
 # Run with verbose output
 pytest tests/ -v -s
@@ -393,6 +406,7 @@ pytest --snapshot-update
 ```
 
 ### Type Errors
+
 ```bash
 # Check specific file
 mypy ollama/services/auth.py --strict
@@ -405,6 +419,7 @@ mypy ollama/ --strict --show-error-context
 ```
 
 ### Import Errors
+
 ```bash
 # Check Python path
 python -c "import sys; print(sys.path)"
@@ -417,6 +432,7 @@ find ollama -name "__init__.py" | head -20
 ```
 
 ### Git Issues
+
 ```bash
 # Undo last commit (keep changes)
 git reset --soft HEAD~1
@@ -457,12 +473,14 @@ Model inference (p99)   | Per-model   | ±5% regression (register)
 ## 📞 Getting Help
 
 **Questions?** Check:
+
 1. [FAANG-ELITE-STANDARDS.md](.github/FAANG-ELITE-STANDARDS.md) - Most comprehensive
 2. [FOLDER-STRUCTURE-STANDARDS.md](.github/FOLDER-STRUCTURE-STANDARDS.md) - Structure questions
 3. Code examples in `tests/` directory
 4. Review recent PRs for patterns
 
 **Issues?**
+
 1. Create a GitHub issue with full context
 2. Include reproduction steps
 3. Include relevant error messages
@@ -473,32 +491,34 @@ Model inference (p99)   | Per-model   | ±5% regression (register)
 ## 🏆 Top 0.01% Habits
 
 ### DO
-✅ Commit frequently (every 30-60 minutes)  
-✅ Write atomic, focused commits  
-✅ Test all code paths  
-✅ Use type hints everywhere  
-✅ Document public APIs  
-✅ Review your own code first  
-✅ Keep functions small (<50 lines)  
-✅ Extract helper functions  
-✅ Use meaningful variable names  
-✅ Follow folder structure strictly  
+
+✅ Commit frequently (every 30-60 minutes)
+✅ Write atomic, focused commits
+✅ Test all code paths
+✅ Use type hints everywhere
+✅ Document public APIs
+✅ Review your own code first
+✅ Keep functions small (<50 lines)
+✅ Extract helper functions
+✅ Use meaningful variable names
+✅ Follow folder structure strictly
 
 ### DON'T
-❌ Work locally >4 hours without pushing  
-❌ Mix refactoring with features  
-❌ Commit unformatted code  
-❌ Use bare `except` clauses  
-❌ Use `Any` type without justification  
-❌ Commit credentials or secrets  
-❌ Use force push on shared branches  
-❌ Skip tests to "save time"  
-❌ Leave TODOs without tickets  
-❌ Ignore linting warnings  
+
+❌ Work locally >4 hours without pushing
+❌ Mix refactoring with features
+❌ Commit unformatted code
+❌ Use bare `except` clauses
+❌ Use `Any` type without justification
+❌ Commit credentials or secrets
+❌ Use force push on shared branches
+❌ Skip tests to "save time"
+❌ Leave TODOs without tickets
+❌ Ignore linting warnings
 
 ---
 
-**Remember**: Every line of code you write reflects the team's standards.  
+**Remember**: Every line of code you write reflects the team's standards.
 **Quality is not negotiable at top 0.01% level.**
 
 Last updated: January 14, 2026

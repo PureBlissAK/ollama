@@ -19,8 +19,17 @@ class StandardsValidator:
     """Validates code against FAANG standards."""
 
     FORBIDDEN_DIRS: ClassVar[set[str]] = {
-        "Utils", "Utility", "utils_old", "old_code", "backup",
-        "temp", "tmp", "test_", "tests_old", "__old__", "deprecated"
+        "Utils",
+        "Utility",
+        "utils_old",
+        "old_code",
+        "backup",
+        "temp",
+        "tmp",
+        "test_",
+        "tests_old",
+        "__old__",
+        "deprecated",
     }
 
     REQUIRED_DIRS: ClassVar[dict[str, str]] = {
@@ -39,8 +48,11 @@ class StandardsValidator:
     }
 
     MULTIPLE_CLASSES_ALLOWED: ClassVar[set[str]] = {
-        "exceptions.py", "types.py", "constants.py",
-        "enums.py", "schemas.py"
+        "exceptions.py",
+        "types.py",
+        "constants.py",
+        "enums.py",
+        "schemas.py",
     }
 
     def __init__(self, root: Path | None = None, verbose: bool = False) -> None:
@@ -80,9 +92,7 @@ class StandardsValidator:
 
             # Should be lowercase
             if item.name != item.name.lower():
-                self.warnings.append(
-                    f"⚠️  Directory not lowercase: {item.relative_to(self.root)}"
-                )
+                self.warnings.append(f"⚠️  Directory not lowercase: {item.relative_to(self.root)}")
 
             # Should use underscores, not hyphens
             if "-" in item.name and item.name not in {"api-routes"}:
@@ -106,22 +116,15 @@ class StandardsValidator:
         # Check for excessive initialization logic
         lines = content.strip().split("\n")
         if len([line for line in lines if line.strip() and not line.strip().startswith("#")]) > 10:
-            self.warnings.append(
-                f"⚠️  __init__.py too complex: {file.relative_to(self.root)}"
-            )
+            self.warnings.append(f"⚠️  __init__.py too complex: {file.relative_to(self.root)}")
 
     def _validate_module_file(self, file: Path) -> None:
         """Validate regular module file."""
         content = file.read_text()
 
         # Check for module docstring
-        if not (
-            content.strip().startswith('"""') or
-            content.strip().startswith("'''")
-        ):
-            self.errors.append(
-                f"❌ Missing module docstring: {file.relative_to(self.root)}"
-            )
+        if not (content.strip().startswith('"""') or content.strip().startswith("'''")):
+            self.errors.append(f"❌ Missing module docstring: {file.relative_to(self.root)}")
 
         # Count classes
         class_count = len(re.findall(r"^class\s+\w+", content, re.MULTILINE))
@@ -135,8 +138,7 @@ class StandardsValidator:
         lines = len(content.split("\n"))
         if lines > 600:
             self.warnings.append(
-                f"⚠️  File too large: {file.relative_to(self.root)} "
-                f"({lines} lines, max 600)"
+                f"⚠️  File too large: {file.relative_to(self.root)} " f"({lines} lines, max 600)"
             )
 
     def _report_results(self) -> bool:
