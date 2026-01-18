@@ -147,3 +147,17 @@ service-account-key.json
 
 # Snyk Security Extension - AI Rules (auto-generated)
 .github/instructions/snyk_rules.instructions.md
+
+# Terraform
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+tfplan
+crash.log
+crash.*.log
+.terraformrc
+terraform.rc
+.terraform/providers/
