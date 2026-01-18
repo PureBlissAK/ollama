@@ -1,7 +1,21 @@
 # GCP Budget Alerts Configuration
 # Sets up budget monitoring and alerts at 50%, 80%, and 100% thresholds
 # Part of GCP Landing Zone compliance for cost governance
-# Note: terraform and locals blocks are centralized in main.tf
+# Note: terraform block centralized in main.tf
+
+# Local labels for budget resources
+locals {
+  budget_labels = {
+    environment      = var.environment
+    team             = var.team
+    application      = "ollama"
+    component        = "budget"
+    cost-center      = var.cost_center
+    managed-by       = "terraform"
+    git_repo         = "github.com/kushin77/ollama"
+    lifecycle_status = var.lifecycle_status
+  }
+}
 
 # Get current billing account
 data "google_billing_account" "account" {
