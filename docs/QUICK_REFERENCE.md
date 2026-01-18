@@ -1,6 +1,7 @@
 # 🚀 Quick Reference Guide
 
 ## One-Line Setup
+
 ```bash
 git clone https://github.com/kushin77/ollama.git && cd ollama && ./scripts/bootstrap.sh
 ```
@@ -8,6 +9,7 @@ git clone https://github.com/kushin77/ollama.git && cd ollama && ./scripts/boots
 ## Development Commands
 
 ### Local Development
+
 ```bash
 # Activate environment
 source venv/bin/activate
@@ -22,6 +24,7 @@ python -m ollama.server
 ```
 
 ### Code Quality
+
 ```bash
 # Format code
 black ollama/ tests/
@@ -40,6 +43,7 @@ pip-audit
 ```
 
 ### Production Deployment
+
 ```bash
 # Start full stack
 docker-compose -f docker-compose.prod.yml up -d
@@ -52,23 +56,47 @@ curl http://localhost:9090/api/v1/query?query=up
 docker-compose -f docker-compose.prod.yml logs -f ollama-api
 ```
 
+## 🏗 Infrastructure (GCP Landing Zone)
+
+For infrastructure management and onboarding, refer to [Infrastructure Onboarding Guide](ONBOARDING_INFRA.md).
+
+### Core Tools
+
+- **Terraform** (v1.7+)
+- **gcloud CLI**
+- **kubectl**
+
+### Critical Commands
+
+```bash
+# Authenticate
+gcloud auth login
+gcloud config set project gcp-eiq
+
+# Terraform basic workflow
+terraform init
+terraform plan
+terraform apply
+```
+
 ## Key Files
 
-| File | Purpose |
-|------|---------|
-| `.copilot-instructions` | Elite development guidelines |
-| `README.md` | Complete documentation |
-| `CONTRIBUTING.md` | Contribution workflow |
-| `docker-compose.yml` | Local development stack |
-| `docker-compose.prod.yml` | Production stack |
-| `config/development.yaml` | Dev configuration |
-| `config/production.yaml` | Prod configuration |
-| `.env.example` | Environment template |
-| `scripts/bootstrap.sh` | Automated setup |
+| File                      | Purpose                      |
+| ------------------------- | ---------------------------- |
+| `.copilot-instructions`   | Elite development guidelines |
+| `README.md`               | Complete documentation       |
+| `CONTRIBUTING.md`         | Contribution workflow        |
+| `docker-compose.yml`      | Local development stack      |
+| `docker-compose.prod.yml` | Production stack             |
+| `config/development.yaml` | Dev configuration            |
+| `config/production.yaml`  | Prod configuration           |
+| `.env.example`            | Environment template         |
+| `scripts/bootstrap.sh`    | Automated setup              |
 
 ## API Examples
 
 ### REST API
+
 ```bash
 # Health check
 curl http://localhost:8000/health
@@ -97,6 +125,7 @@ curl -X POST http://localhost:8000/v1/chat/completions \
 ```
 
 ### Python Client
+
 ```python
 from ollama import Client
 
@@ -127,6 +156,7 @@ health = client.health()
 ## Git Workflow
 
 ### Feature Development
+
 ```bash
 # Create branch
 git checkout -b feature/my-feature
@@ -139,6 +169,7 @@ git push origin feature/my-feature
 ```
 
 ### Commit Message Format
+
 ```
 type(scope): subject
 
@@ -178,6 +209,7 @@ CUDA_VISIBLE_DEVICES=0
 - **Jaeger**: http://localhost:16686
 
 Query metrics:
+
 ```bash
 # Request rate
 curl 'http://localhost:9090/api/v1/query?query=rate(ollama_requests_total[5m])'
@@ -211,18 +243,21 @@ pytest tests/unit/test_client.py::test_client_initialization
 ## Troubleshooting
 
 ### GPU Not Detected
+
 ```bash
 nvidia-smi  # Check CUDA
 python -c "import torch; print(torch.cuda.is_available())"
 ```
 
 ### Connection Issues
+
 ```bash
 docker-compose ps  # Check services
 curl -i http://localhost:8000/health
 ```
 
 ### Database Issues
+
 ```bash
 docker-compose logs postgres
 psql -U ollama -d ollama -h localhost
@@ -281,6 +316,6 @@ docker-compose down -v  # Remove volumes too
 
 ---
 
-**Version**: 1.0.0  
-**Repository**: https://github.com/kushin77/ollama  
+**Version**: 1.0.0
+**Repository**: https://github.com/kushin77/ollama
 **Status**: Production Ready

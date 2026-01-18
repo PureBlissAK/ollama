@@ -9,6 +9,7 @@ import string
 from unittest.mock import MagicMock, Mock
 
 import pytest
+from ollama.exceptions import AuthenticationError
 
 
 @pytest.fixture()
@@ -44,7 +45,11 @@ def auth_manager() -> Mock:
         payload_data = {"sub": str(user_id), "username": username, "type": "access"}
         payload = base64.b64encode(json.dumps(payload_data).encode()).decode()
         signature = base64.b64encode(b"mock_signature").decode()
-        return f"{header}.{payload}.{signature}"
+        expired_marker = ""
+        if expires_delta is not None and hasattr(expires_delta, "total_seconds"):
+            if expires_delta.total_seconds() < 0:
+                expired_marker = "-expired"
+        return f"{header}.{payload}.{signature}{expired_marker}"
 
     def mock_create_refresh_token(user_id: any) -> str:
         """Create a mock refresh token."""
@@ -63,9 +68,9 @@ def auth_manager() -> Mock:
         import json
 
         if "invalid" in token:
-            raise ValueError("Invalid token")
+            raise AuthenticationError("Invalid token")
         if "expired" in token:
-            raise ValueError("Token has expired")
+            raise AuthenticationError("Token has expired")
         if token.count(".") != 2:
             raise ValueError("Invalid token format")
         try:
@@ -81,7 +86,7 @@ def auth_manager() -> Mock:
             payload_json = base64.b64decode(payload_part).decode()
             return json.loads(payload_json)
         except Exception as e:
-            raise ValueError(f"Token decode failed: {e}") from e
+            raise AuthenticationError(f"Token decode failed: {e}") from e
 
     # Mock API key operations
     def mock_hash_api_key(key: str) -> str:

@@ -1,33 +1,57 @@
 # Ollama: Elite Local AI Development Platform
 
-> **Production-grade AI infrastructure for building, deploying, and monitoring large language models locally**
+> **Full-stack AI infrastructure for building, deploying, and monitoring large language models with production web interface**
 
 ![Status](https://img.shields.io/badge/status-production-green)
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
+![TypeScript](https://img.shields.io/badge/typescript-5.6%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Maintained](https://img.shields.io/badge/maintained-yes-green)
 
 ## Vision
 
-Ollama is a sophisticated local AI infrastructure platform designed for engineers who demand production-grade reliability, security, and performance. Run state-of-the-art language models entirely on your local infrastructure—all AI workloads run locally on Docker, with optional GCP Load Balancer for public access.
+Ollama is a sophisticated full-stack AI platform designed for engineers who demand production-grade reliability, security, and performance. Run state-of-the-art language models entirely on your local infrastructure with a beautiful web interface—all AI workloads run locally on Docker, with optional GCP Load Balancer for public access.
 
-**Architecture**: Local Docker containers + GCP Load Balancer for `https://elevatediq.ai/ollama`
+**Architecture**: 
+- **Backend**: Python/FastAPI + PostgreSQL + Redis + Ollama
+- **Frontend**: Next.js 14 + React 18 + TypeScript + Firebase OAuth
+- **Deployment**: Docker containers + GCP Load Balancer for `https://elevatediq.ai/ollama`
 
 **Target Audience**: Elite engineers, research teams, enterprises requiring air-gapped AI systems, and developers building custom AI applications.
 
-**Production Status** ✅: Verified with 50-user load test (7,162 requests, 100% success, 75ms P95 latency)
-**Live Platform**: [https://elevatediq.ai/ollama](https://elevatediq.ai/ollama)
-**Infrastructure**: [GCP Landing Zone](https://github.com/kushin77/GCP-landing-zone)
+**Production Status** ✅: 
+- Backend: Verified with 50-user load test (7,162 requests, 100% success, 75ms P95 latency)
+- Frontend: Production-ready Next.js with OAuth, real-time chat, streaming responses
+- **Live Platform**: [https://elevatediq.ai/ollama](https://elevatediq.ai/ollama)
+- **Infrastructure**: [GCP Landing Zone](https://github.com/kushin77/GCP-landing-zone)
+
+## Features
+
+### Backend (FastAPI)
+- 🚀 **High-Performance API**: FastAPI with async I/O
+- 🧠 **Multi-Model Support**: Ollama, OpenAI-compatible APIs
+- 💾 **PostgreSQL + Redis**: Conversation persistence and caching
+- 🔐 **Firebase Authentication**: OAuth with Google Sign-In
+- 📊 **Prometheus Metrics**: Production-grade observability
+- 🔒 **Security**: Rate limiting, API keys, CORS, TLS 1.3+
+
+### Frontend (Next.js)
+- 💬 **Real-time Chat**: Stream responses from LLMs with conversation history
+- 🔐 **OAuth Integration**: Secure Google Sign-In via Firebase
+- 🎨 **Modern UI**: Tailwind CSS with custom dark theme
+- 📱 **Responsive Design**: Mobile-first, works on all devices
+- ⚡ **Optimized Performance**: Code splitting, lazy loading, <200KB bundle
+- 🧪 **Type Safety**: Full TypeScript coverage with strict mode
 
 ## Development & Contributing
 
 **New to Ollama development?** Start here:
 
-- 📖 [Development Setup Guide](DEVELOPMENT_SETUP.md) - Complete environment setup for developers
-- 🤝 [Contributing Guidelines](CONTRIBUTING.md) - How to contribute
-- 📋 [Standards & Compliance](COPILOT_COMPLIANCE_REPORT.md) - Development standards
+- 📖 [Development Setup Guide](docs/setup/DEVELOPMENT_SETUP.md) - Complete environment setup for developers
+- 🤝 [Contributing Guidelines](docs/CONTRIBUTING.md) - How to contribute
+- 📋 [Standards & Compliance](docs/reports/COPILOT_COMPLIANCE_REPORT.md) - Development standards
 - 🔍 [Documentation Index](docs/INDEX.md) - All documentation organized by topic
-- 📝 [Incomplete Tasks](INCOMPLETE_TASKS_CONSOLIDATED.md) - Outstanding work items and roadmap
+- 📝 [Incomplete Tasks](docs/reports/INCOMPLETE_TASKS_CONSOLIDATED.md) - Outstanding work items and roadmap
 
 ### Quality Assurance
 
@@ -56,10 +80,14 @@ pip-audit
 ## Table of Contents
 
 - [Quick Start](#quick-start)
+  - [Web Interface](#web-interface)
+  - [API Access](#api-access)
+  - [Local Development](#local-development)
 - [Architecture](#architecture)
-- [Features](#features)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
+  - [Backend Setup](#backend-setup)
+  - [Frontend Setup](#frontend-setup)
 - [Configuration](#configuration)
 - [Usage](#usage)
 - [Model Management](#model-management)
@@ -75,7 +103,23 @@ pip-audit
 
 ## Quick Start
 
-### Use Public Endpoint (elevatediq.ai)
+### Web Interface
+
+1. **Visit the live platform**: [https://elevatediq.ai/ollama](https://elevatediq.ai/ollama)
+2. **Sign in with Google** (Firebase OAuth)
+3. **Start chatting** with LLMs instantly
+
+```
+🌐 Web Interface Features:
+✅ Real-time chat with streaming responses
+✅ Multiple AI models (llama3.2, mistral, codellama, etc.)
+✅ Conversation history and persistence
+✅ Markdown rendering with syntax highlighting
+✅ Responsive design (mobile, tablet, desktop)
+✅ Dark mode optimized for long sessions
+```
+
+### API Access
 
 ```bash
 # Use the public API endpoint
@@ -97,6 +141,45 @@ response = client.generate(
 ```
 
 ### Local Development Setup
+
+#### Backend Setup
+
+```bash
+# Clone repository
+git clone https://github.com/kushin77/ollama.git
+cd ollama
+
+# Install backend dependencies
+pip install -r requirements/base.txt
+
+# Start backend services
+docker-compose up -d
+
+# Run development server
+uvicorn ollama.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+#### Frontend Setup
+
+```bash
+# Navigate to frontend directory
+cd frontend
+
+# Install dependencies
+npm ci
+
+# Configure environment
+cp .env.example .env.local
+# Edit .env.local with your Firebase credentials
+
+# Start development server
+npm run dev
+# Open http://localhost:3000
+```
+
+**Full Documentation**: 
+- Backend: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
+- Frontend: [frontend/README.md](frontend/README.md)
 
 ```bash
 # Clone and initialize

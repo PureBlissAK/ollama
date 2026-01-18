@@ -1,13 +1,36 @@
-"""
-Monitoring Module - Exports initialization functions
-"""
+"""Monitoring domain."""
 
-from .jaeger_config import get_jaeger_config, init_jaeger
-from .prometheus_config import get_alert_rules, get_prometheus_config
+from .impl.jaeger_config import init_jaeger
+from .impl.metrics import (
+    AUTH_ATTEMPTS,
+    CACHE_HITS,
+    CACHE_MISSES,
+    OLLAMA_TOKENS_GENERATED,
+    RATE_LIMIT_EXCEEDED,
+    REQUEST_COUNT,
+    REQUEST_DURATION,
+    REQUEST_SIZE,
+    RESPONSE_SIZE,
+    export_metrics,
+    generate_latest,
+    get_metrics_summary,
+)
+from .impl.metrics_middleware import MetricsCollectionMiddleware, setup_metrics_endpoints
 
 __all__ = [
-    "get_prometheus_config",
-    "get_alert_rules",
+    "setup_metrics_endpoints",
+    "MetricsCollectionMiddleware",
     "init_jaeger",
-    "get_jaeger_config",
+    "AUTH_ATTEMPTS",
+    "CACHE_HITS",
+    "CACHE_MISSES",
+    "OLLAMA_TOKENS_GENERATED",
+    "RATE_LIMIT_EXCEEDED",
+    "REQUEST_COUNT",
+    "REQUEST_DURATION",
+    "REQUEST_SIZE",
+    "RESPONSE_SIZE",
+    "export_metrics",
+    "generate_latest",
+    "get_metrics_summary",
 ]

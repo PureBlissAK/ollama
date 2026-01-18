@@ -27,7 +27,8 @@ class TestCaching:
 
             key_data = {"args": str(args), "kwargs": str(sorted(kwargs.items()))}
             key_str = json.dumps(key_data, sort_keys=True)
-            return hashlib.md5(key_str.encode()).hexdigest()
+            # Use a modern hash to avoid weak algorithms in tests
+            return hashlib.sha256(key_str.encode()).hexdigest()[:32]
 
         key1 = cache_key(1, 2, 3)
         key2 = cache_key(1, 2, 3)
@@ -38,7 +39,7 @@ class TestCaching:
         # Different args should produce different key
         assert key1 != key3
         # Key should be valid
-        assert len(key1) == 32  # MD5 hash length
+        assert len(key1) == 32  # truncated SHA-256 digest length
 
 
 # ==================== Database Optimization Tests ====================

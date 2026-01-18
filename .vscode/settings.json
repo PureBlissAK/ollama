@@ -132,6 +132,46 @@
     "git.promptToSaveFilesBeforeCommit": "always",
     "git.checkoutPublishingBranch": true,
 
+    // ============================================================
+    // FOLDER STRUCTURE ENFORCEMENT - 5 LEVEL MANDATE
+    // ============================================================
+    // Elite Filesystem Standards: Enforce 5-level hierarchy
+    // See: .github/copilot-instructions.md (Folder Structure Enforcement)
+
+    // Pre-commit validation runs:
+    // python scripts/validate_folder_structure.py --strict
+    // This validates:
+    // - Max 5 levels deep (absolute limit)
+    // - Level-specific directory count limits
+    // - Snake_case naming for all directories
+    // - __init__.py with docstrings in all domain/container dirs
+    // - Max 1 class per Level 5 file, 500 lines per file
+
+    "files.exclude": {
+        "**/.git": true,
+        "**/__pycache__": true,
+        "**/*.pyc": true
+    },
+
+    // ============================================================
+    // RULES ENCODED IN VALIDATOR
+    // ============================================================
+    // Level 1 (root): MAX 10 directories
+    // Level 2 (ollama/): MAX 12 subdir + 5 files (allowed: _models_compat.py, etc)
+    // Level 3 (domain): MAX 4 subdirs (api/, auth/, config/, exceptions/, etc)
+    // Level 4 (functional): MAX 20 files/container (40 for schemas)
+    // Level 5: LEAF LEVEL - No subdirs allowed
+
+    // CRITICAL VIOLATIONS (will fail pre-commit):
+    // ❌ Directories deeper than 5 levels
+    // ❌ Python files at Level 3 (domain root)
+    // ❌ Non-snake_case directory names
+    // ❌ __init__.py missing docstrings
+    // ❌ Level 4 containers with subdirectories
+
+    // Run validator manually:
+    // python scripts/validate_folder_structure.py --strict --verbose
+
     // GitHub Copilot Configuration
     "github.copilot.enable": {
         "*": true,
@@ -217,6 +257,16 @@
     // Ruff Configuration - LINTING ENFORCEMENT
     "ruff.enable": true,
     "ruff.lint.run": "onSave",
+    "github.copilot.chat.codeGeneration.instructions": [
+        "Strictly follow the .copilot-instructions mandate for all code generation",
+        "Maintain the 5-layer folder depth mandate (non-negotiable)",
+        "Security by default: private IPs, least privilege, CMEK encryption",
+        "No secrets in code: utilize GCP Secret Manager or environment variables",
+        "All infrastructure MUST be 100% IaC using Terraform",
+        "GPG sign all commits (enforced by project standards)",
+        "Resource naming: {environment}-{service}-{purpose} (lowercase with hyphens)"
+    ],
+
     "ruff.lint.args": [
         "--select=E,W,F,N,I,UP,RUF,B,S,C4,FA,PIE,PT,TID,ARG,PERF",
         "--ignore=E501",

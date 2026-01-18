@@ -6,7 +6,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from ollama.middleware.rate_limit import RedisRateLimiter
+from ollama.middleware import RedisRateLimiter
 
 
 class TestRedisRateLimiter:
@@ -65,9 +65,7 @@ class TestRedisRateLimiter:
         assert limit_info["remaining"] == 0
 
     @pytest.mark.asyncio
-    async def test_check_rate_limit_different_keys(
-        self, rate_limiter: RedisRateLimiter
-    ) -> None:
+    async def test_check_rate_limit_different_keys(self, rate_limiter: RedisRateLimiter) -> None:
         """Test that different keys have independent rate limits."""
         mock_pipeline = MagicMock()
 
@@ -135,9 +133,7 @@ class TestRedisRateLimiter:
         mock_pipeline.execute.assert_called_once()
 
     @pytest.mark.asyncio
-    async def test_check_rate_limit_custom_requests_per_minute(
-        self, mock_redis: MagicMock
-    ) -> None:
+    async def test_check_rate_limit_custom_requests_per_minute(self, mock_redis: MagicMock) -> None:
         """Test rate limiter with custom requests per minute."""
         custom_limiter = RedisRateLimiter(mock_redis, requests_per_minute=100)
 
@@ -178,9 +174,7 @@ class TestRedisRateLimiterIntegration:
         try:
             import redis
 
-            client = redis.Redis(
-                host="localhost", port=6379, db=0, decode_responses=True
-            )
+            client = redis.Redis(host="localhost", port=6379, db=0, decode_responses=True)
             client.ping()  # Test connection
             return client
         except Exception:

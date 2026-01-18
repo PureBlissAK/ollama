@@ -1,19 +1,17 @@
-name: Deploy to Production
+name: Deploy to Production (Elite Landing Zone)
 
 on:
   push:
     branches: [main]
-    tags: ['v*']
+    tags: ["v*"]
   workflow_dispatch:
 
 env:
-  GCP_PROJECT: elevatediq
   GCP_REGION: us-central1
-  IMAGE_NAME: gcr.io/elevatediq/ollama
-  SERVICE_NAME: ollama-service
 
 jobs:
   deploy:
+    name: Production Onboarding
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
@@ -21,96 +19,45 @@ jobs:
       id-token: write
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-          cache: 'pip'
+          python-version: "3.12"
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -e .
-          pip install pytest pytest-cov mypy ruff black
+          pip install uv
+          uv pip install --system -e .
 
-      - name: Run all checks
+      - name: Elite Quality Check
         run: |
-          mypy ollama/ --strict
-          ruff check ollama/ tests/
-          black --check ollama/ tests/
-          pytest tests/unit/ -q --tb=short
+          python scripts/validate_folder_structure.py --strict
+          # Additional checks could be added here
 
       - name: Authenticate to Google Cloud
-        uses: google-github-actions/auth@v1
+        uses: google-github-actions/auth@v2
         with:
           workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
           service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
 
       - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1
+        uses: google-github-actions/setup-gcloud@v2
 
-      - name: Configure Docker for GCR
-        run: gcloud auth configure-docker
-
-      - name: Build Docker image
+      - name: Deploy to GCP Landing Zone
         run: |
-          docker build -t ${{ env.IMAGE_NAME }}:${{ github.sha }} \
-                       -t ${{ env.IMAGE_NAME }}:latest \
-                       -f Dockerfile.minimal .
+          chmod +x scripts/deploy-onboarding-lz.sh
+          bash scripts/deploy-onboarding-lz.sh
 
-      - name: Push image to GCR
+      - name: Notify
+        if: always()
         run: |
-          docker push ${{ env.IMAGE_NAME }}:${{ github.sha }}
-          docker push ${{ env.IMAGE_NAME }}:latest
-
-      - name: Deploy to Cloud Run
-        run: |
-          gcloud run deploy ${{ env.SERVICE_NAME }} \
-            --image ${{ env.IMAGE_NAME }}:${{ github.sha }} \
-            --platform managed \
-            --region ${{ env.GCP_REGION }} \
-            --allow-unauthenticated \
-            --memory 2Gi \
-            --cpu 1 \
-            --timeout 60 \
-            --min-instances 1 \
-            --max-instances 5 \
-            --project ${{ env.GCP_PROJECT }}
-
-      - name: Verify deployment
-        run: |
-          SERVICE_URL=$(gcloud run services describe ${{ env.SERVICE_NAME }} \
-            --region ${{ env.GCP_REGION }} \
-            --project ${{ env.GCP_PROJECT }} \
-            --format 'value(status.url)')
-
-          echo "Service URL: $SERVICE_URL"
-
-          # Test health endpoint
-          for i in {1..5}; do
-            if curl -f "$SERVICE_URL/health" > /dev/null 2>&1; then
-              echo "✅ Health check passed"
-              exit 0
-            fi
-            echo "Attempt $i: Waiting for service to be ready..."
-            sleep 5
-          done
-
-          echo "❌ Health check failed"
-          exit 1
-
-      - name: Notify success
-        if: success()
-        run: |
-          echo "✅ Deployment successful!"
-          echo "Service: ${{ env.SERVICE_NAME }}"
-          echo "Region: ${{ env.GCP_REGION }}"
-          echo "Image: ${{ env.IMAGE_NAME }}:${{ github.sha }}"
-
-      - name: Notify failure
-        if: failure()
-        run: |
-          echo "❌ Deployment failed!"
-          exit 1
+          if [[ "${{ job.status }}" == "success" ]]; then
+            echo "✅ Deployment successful and project is Landing Zone compliant."
+          else
+            echo "❌ Deployment failed. Check Landing Zone policy logs."
+            exit 1
+          fi

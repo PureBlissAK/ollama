@@ -8,8 +8,8 @@ from typing import Any
 from fastapi import APIRouter, Depends, status
 from pydantic import BaseModel
 
-from ollama.auth.firebase_auth import get_current_user
-from ollama.auth.middleware import verify_token_optional
+from ollama.auth import get_current_user
+from ollama.services.resilience.circuit_breaker import get_circuit_breaker_manager
 
 router = APIRouter()
 
@@ -21,17 +21,16 @@ class HealthResponse(BaseModel):
     timestamp: str
     version: str
     services: dict[str, str]
+    resilience: dict[str, Any] | None = None
 
 
 @router.get("/health", response_model=HealthResponse, status_code=status.HTTP_200_OK)
-async def health_check(
-    user: dict[str, Any] | None = Depends(verify_token_optional),
-) -> HealthResponse:
+async def health_check() -> HealthResponse:
     """
-    Public health check endpoint (OAuth optional).
+    Public health check endpoint.
 
-    For load balancers and monitoring. Allows unauthenticated access but verifies
-    token if provided for tracking purposes.
+    For load balancers and monitoring. Verifies connectivity to dependencies
+    and reports circuit breaker statuses.
 
     Returns service health status and connectivity to dependencies.
     """
@@ -42,11 +41,17 @@ async def health_check(
         "qdrant": "healthy",
     }
 
+    # Get circuit breaker states for baseline observability
+    resilience = {
+        "circuit_breakers": get_circuit_breaker_manager().get_state()
+    }
+
     return HealthResponse(
         status="healthy",
         timestamp=datetime.now(UTC).isoformat(),
         version="1.0.0",
         services=services,
+        resilience=resilience,
     )
 
 
@@ -84,6 +89,13 @@ async def health_check_protected(
         "database": "healthy",
         "redis": "healthy",
         "qdrant": "healthy",
+        "auth": "authenticated",
+    }
+
+    # Get circuit breaker states
+    resilience = {
+        "circuit_breakers": get_circuit_breaker_manager().get_state(),
+        "user_id": user.get("uid"),
     }
 
     return HealthResponse(
@@ -91,6 +103,7 @@ async def health_check_protected(
         timestamp=datetime.now(UTC).isoformat(),
         version="1.0.0",
         services=services,
+        resilience=resilience,
     )
 
 

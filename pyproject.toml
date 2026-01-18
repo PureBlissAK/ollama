@@ -29,6 +29,7 @@ dependencies = [
     "pydantic-settings>=2.0.0",
     "pydantic[email]>=2.0.0",
     "redis>=5.0.0",
+    "tenacity>=8.2.0",
     "structlog>=24.0.0",
     "httpx>=0.25.0",
     "aiofiles>=23.0.0",
@@ -43,6 +44,14 @@ dependencies = [
     "deprecated>=1.2.13",
     "prometheus-client>=0.17.0",
     "transformers>=4.53.0",
+    "sentence-transformers>=2.2.0",
+    "peft>=0.7.0",
+    "bitsandbytes>=0.41.0",
+    "accelerate>=0.25.0",
+    "opentelemetry-instrumentation-fastapi>=0.40b0",
+    "opentelemetry-instrumentation-httpx>=0.40b0",
+    "opentelemetry-instrumentation-redis>=0.40b0",
+    "opentelemetry-instrumentation-sqlalchemy>=0.40b0",
 ]
 
 [project.optional-dependencies]
@@ -57,6 +66,9 @@ dev = [
     "isort>=5.0.0",
     "pip-audit>=2.0.0",
 ]
+
+[tool.setuptools]
+packages = ["ollama"]
 
 [tool.black]
 line-length = 100
@@ -100,7 +112,7 @@ strict_equality = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-v --cov=ollama --cov-report=html --cov-report=term-missing"
+addopts = "-v --cov=ollama --cov-report=html --cov-report=term-missing --cov-fail-under=90"
 asyncio_mode = "auto"
 python_files = ["test_*.py", "*_test.py"]
 
@@ -114,6 +126,7 @@ omit = [
 ]
 
 [tool.coverage.report]
+fail_under = 90
 precision = 2
 show_missing = true
 skip_covered = false

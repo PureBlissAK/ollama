@@ -106,6 +106,26 @@
                 "isDefault": false
             },
             "problemMatcher": []
+        },
+        {
+            "label": "Cleanup Root Directory",
+            "type": "shell",
+            "command": "bash scripts/cleanup-root-directory.sh",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            }
+        },
+        {
+            "label": "Validate Folder Structure",
+            "type": "shell",
+            "command": "python scripts/validate_folder_structure.py --strict",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated"
+            }
         }
     ]
 }

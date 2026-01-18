@@ -46,7 +46,7 @@ check_depth() {
 validate_naming() {
     local file="$1"
     local filename=$(basename "$file")
-    
+
     # Check for .py files
     if [[ $file == *.py ]]; then
         # Should be lowercase_with_underscores.py
@@ -63,24 +63,24 @@ validate_naming() {
 validate_test_mirroring() {
     # For each source file, check if test file exists or is being created
     local source_file="$1"
-    
+
     # Only check ollama/ files, not tests/
     if [[ $source_file != ollama/* ]]; then
         return 0
     fi
-    
+
     # Skip __init__.py files
     if [[ $source_file == */__init__.py ]]; then
         return 0
     fi
-    
+
     # Construct expected test file path
     local test_file="${source_file/ollama\//tests/unit/}"
     test_file="tests/unit/${test_file#tests/unit/}"
     test_file="${test_file%.py}/test_$(basename ${source_file%.py}).py"
     test_file="tests/unit/$(echo $source_file | sed 's|ollama/||' | sed 's|\.py|_|' | sed 's|/|_|g')py"
     test_file="tests/unit/$(echo $source_file | sed 's|ollama/||' | sed 's|/|/test_|' | sed 's|^|test_|')"
-    
+
     # For now, just validate the structure exists
     return 0
 }
@@ -91,10 +91,10 @@ for file in $ALL_STAGED_FILES; do
     if [[ $file != *.py ]] && [[ $file != *.md ]] && [[ $file != *.json ]] && [[ $file != *.yaml ]] && [[ $file != *.yml ]]; then
         continue
     fi
-    
+
     # Check depth
     check_depth "$file" || true
-    
+
     # Validate naming for .py files
     if [[ $file == *.py ]]; then
         validate_naming "$file" || true
@@ -114,7 +114,22 @@ if [ -z "$PYTHON_FILES" ]; then
     exit 0
 fi
 
-# 1. Type checking with mypy
+# 1. FOLDER STRUCTURE VALIDATION (MANDATORY - 5-Level Mandate)
+echo ""
+echo "📁 Validating 5-level folder structure compliance..."
+if python3 scripts/validate_folder_structure.py --strict > /tmp/structure_validation.txt 2>&1; then
+    echo -e "${GREEN}✅ Folder structure validation passed${NC}"
+else
+    echo -e "${RED}❌ Folder structure violations detected!${NC}"
+    cat /tmp/structure_validation.txt
+    echo ""
+    echo "Folder structure is CRITICAL - violations must be fixed before commit!"
+    echo "Run: python3 scripts/validate_folder_structure.py --strict --verbose"
+    FAILED=$((FAILED + 1))
+fi
+
+# 2. Type checking with mypy
+echo ""
 echo "📋 Type checking with mypy..."
 if ! mypy $PYTHON_FILES --strict 2>&1 | grep -q "error:"; then
     echo -e "${GREEN}✅ Type checking passed${NC}"
@@ -124,7 +139,7 @@ else
     FAILED=$((FAILED + 1))
 fi
 
-# 2. Linting with ruff
+# 3. Linting with ruff
 echo ""
 echo "🔍 Linting with ruff..."
 if ruff check $PYTHON_FILES > /dev/null 2>&1; then
@@ -135,7 +150,7 @@ else
     FAILED=$((FAILED + 1))
 fi
 
-# 3. Code formatting check (black)
+# 4. Code formatting check (black)
 echo ""
 echo "💅 Checking code format with black..."
 if black --check $PYTHON_FILES > /dev/null 2>&1; then
@@ -147,7 +162,7 @@ else
     git add $PYTHON_FILES
 fi
 
-# 4. Security audit (pip-audit)
+# 5. Security audit (pip-audit)
 echo ""
 echo "🔐 Security audit with pip-audit..."
 if pip-audit --desc > /dev/null 2>&1; then
@@ -158,7 +173,7 @@ else
     # Don't fail on audit - let user decide
 fi
 
-# 5. Test coverage check
+# 6. Test coverage check
 echo ""
 echo "🧪 Running tests..."
 if pytest tests/unit/ -q --tb=short > /dev/null 2>&1; then

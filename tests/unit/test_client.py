@@ -1,5 +1,7 @@
 """Test suite for Ollama client library."""
 
+from uuid import uuid4
+
 from ollama.client import Client
 
 
@@ -23,8 +25,9 @@ class TestClientInitialization:
 
     def test_client_with_api_key(self):
         """Test client initialization with API key."""
-        client = Client(base_url="https://elevatediq.ai/ollama", api_key="test-key-123")
-        assert client.api_key == "test-key-123"
+        api_key = f"key-{uuid4().hex}"
+        client = Client(base_url="https://elevatediq.ai/ollama", api_key=api_key)
+        assert client.api_key == api_key
         assert "X-API-Key" in client.client.headers
 
     def test_client_url_normalization(self):
@@ -40,15 +43,17 @@ class TestClientInitialization:
 
     def test_client_from_env_api_key(self, monkeypatch):
         """Test client respects OLLAMA_API_KEY environment variable."""
-        monkeypatch.setenv("OLLAMA_API_KEY", "env-api-key")
+        api_key = f"env-api-key-{uuid4().hex}"
+        monkeypatch.setenv("OLLAMA_API_KEY", api_key)
         client = Client()
-        assert client.api_key == "env-api-key"
+        assert client.api_key == api_key
 
     def test_client_prioritizes_explicit_api_key(self, monkeypatch):
         """Test explicit API key takes priority over environment."""
-        monkeypatch.setenv("OLLAMA_API_KEY", "env-key")
-        client = Client(api_key="explicit-key")
-        assert client.api_key == "explicit-key"
+        monkeypatch.setenv("OLLAMA_API_KEY", f"env-key-{uuid4().hex}")
+        explicit_key = f"explicit-key-{uuid4().hex}"
+        client = Client(api_key=explicit_key)
+        assert client.api_key == explicit_key
 
 
 class TestClientConfiguration:
@@ -56,7 +61,8 @@ class TestClientConfiguration:
 
     def test_client_supports_bearer_token(self):
         """Test client supports Bearer token authentication."""
-        client = Client(base_url="https://elevatediq.ai/ollama", api_key="bearer-token")
+        bearer_token = f"bearer-{uuid4().hex}"
+        client = Client(base_url="https://elevatediq.ai/ollama", api_key=bearer_token)
         # Both X-API-Key and Authorization headers should be set
         assert "X-API-Key" in client.client.headers
         assert "Authorization" in client.client.headers

@@ -18,30 +18,29 @@ from fastapi.responses import JSONResponse
 
 from ollama.api.routes import (
     auth,
-    chat,
     conversations,
     documents,
-    embeddings,
-    generate,
     health,
-    models,
+    inference,
     usage,
 )
 from ollama.config import get_settings
-from ollama.middleware.rate_limit import RateLimitMiddleware
-from ollama.monitoring import init_jaeger
-from ollama.monitoring.metrics_middleware import (
+from ollama.middleware.impl.rate_limit import RateLimitMiddleware
+from ollama.monitoring import (
     MetricsCollectionMiddleware,
+    init_jaeger,
     setup_metrics_endpoints,
 )
 from ollama.services import get_db_manager, init_cache, init_database, init_vector_db
-from ollama.services.cache import CacheManager
-from ollama.services.ollama_client import (
+from ollama.services.inference.ollama_client import (
     clear_ollama_client,
     get_ollama_client,
     init_ollama_client,
 )
-from ollama.services.vector import VectorManager
+from ollama.services.models.vector import VectorManager
+from ollama.services.persistence.cache import CacheManager
+from ollama.services.resources.manager import ResourceManager
+from ollama.training.routes import jobs as training_jobs
 
 # Configure logging
 logging.basicConfig(
@@ -54,6 +53,9 @@ logger = logging.getLogger(__name__)
 # Global manager instances
 _cache_manager: CacheManager | None = None
 _vector_manager: VectorManager | None = None
+# Global resource manager and workers
+_resource_manager: ResourceManager | None = None
+_training_worker: Any = None
 
 
 async def get_cache_manager() -> CacheManager:
@@ -70,6 +72,22 @@ async def get_vector_manager() -> VectorManager:
     if _vector_manager is None:
         raise RuntimeError("Vector manager not initialized")
     return _vector_manager
+
+
+async def get_resource_manager() -> ResourceManager:
+    """Get resource manager instance"""
+    global _resource_manager
+    if _resource_manager is None:
+        raise RuntimeError("Resource manager not initialized")
+    return _resource_manager
+
+
+async def get_training_engine() -> Any:
+    """Get training engine instance from worker"""
+    global _training_worker
+    if _training_worker is None:
+        return None
+    return _training_worker.engine
 
 
 async def _startup_firebase(settings: Any) -> None:
@@ -104,9 +122,17 @@ async def _startup_cache(settings: Any) -> None:
     """Initialize Redis connection."""
     logger.info("🔴 Connecting to Redis...")
     try:
+        from ollama.api.dependencies.cache import set_global_cache_manager
+        from ollama.services.cache.resilient_cache import ResilientCacheManager
+
         cache_manager = init_cache(settings.redis_url, db=0)
         await cache_manager.initialize()
-        logger.info("✅ Redis connected")
+
+        # Wrap in resilient manager
+        resilient_cache = ResilientCacheManager(cache_manager)
+        set_global_cache_manager(resilient_cache)
+
+        logger.info("✅ Redis connected (Resilience enabled)")
     except Exception as e:
         logger.warning(f"⚠️  Redis unavailable: {e}")
         logger.warning("⚠️  Caching disabled")
@@ -116,9 +142,17 @@ async def _startup_vector_db(settings: Any) -> None:
     """Initialize Qdrant client."""
     logger.info("🔷 Connecting to Qdrant...")
     try:
+        from ollama.api.dependencies.vector import set_global_vector_manager
+        from ollama.services.models.resilient_vector import ResilientVectorManager
+
         vector_manager = init_vector_db(f"http://{settings.qdrant_host}:{settings.qdrant_port}")
         await vector_manager.initialize()
-        logger.info("✅ Qdrant connected")
+
+        # Wrap in resilient manager
+        resilient_vector = ResilientVectorManager(vector_manager)
+        set_global_vector_manager(resilient_vector)
+
+        logger.info("✅ Qdrant connected (Resilience enabled)")
     except Exception as e:
         logger.warning(f"⚠️  Qdrant unavailable: {e}")
         logger.warning("⚠️  Vector search disabled")
@@ -141,6 +175,43 @@ async def _startup_ollama(settings: Any) -> None:
         clear_ollama_client()
         logger.warning(f"⚠️  Ollama inference engine not available: {e}")
         logger.warning("⚠️  API will return stub responses for model operations")
+
+
+async def _startup_training_worker() -> None:
+    """Initialize and start the training background worker."""
+    logger.info("🏋️ Initializing training worker...")
+    try:
+        from pathlib import Path
+
+        from ollama.main import get_resource_manager
+        from ollama.services.persistence.database import get_db_manager
+        from ollama.training.services.engine import TrainingEngine
+        from ollama.training.services.worker import TrainingWorker
+
+        db_manager = get_db_manager()
+        resource_manager = await get_resource_manager()
+
+        # FAANG-Grade Architecture: The engine configuration should come from settings
+        # Local dev defaults:
+        base_model_path = Path("/home/akushnir/ollama/models/base")
+        output_dir = Path("/home/akushnir/ollama/models/trained")
+
+        engine = TrainingEngine(base_model_path=base_model_path, output_dir=output_dir)
+        worker = TrainingWorker(
+            db_manager=db_manager,
+            engine=engine,
+            resources=resource_manager,
+            poll_interval=10.0,
+        )
+
+        global _training_worker
+        _training_worker = worker
+        await worker.start()
+        logger.info("✅ Training worker started")
+
+    except Exception as e:
+        logger.error(f"❌ Failed to start training worker: {e}")
+        # We don't raise here as training is an enhancement, not core to inference
 
 
 async def _startup_jaeger() -> None:
@@ -177,6 +248,7 @@ async def lifespan(_: FastAPI) -> AsyncGenerator[None, None]:
         await _startup_vector_db(settings)
         await _startup_ollama(settings)
         await _startup_jaeger()
+        await _startup_training_worker()
         logger.info("✅ Ollama API Server started successfully")
 
     except Exception as e:
@@ -188,6 +260,12 @@ async def lifespan(_: FastAPI) -> AsyncGenerator[None, None]:
     # Shutdown tasks
     logger.info("🛑 Shutting down Ollama API Server")
     try:
+        # Stop training worker
+        global _training_worker
+        if _training_worker:
+            await _training_worker.stop()
+            logger.info("✅ Training worker stopped")
+
         # Close Ollama client
         try:
             ollama_client = get_ollama_client()
@@ -217,6 +295,10 @@ async def lifespan(_: FastAPI) -> AsyncGenerator[None, None]:
 def create_app() -> FastAPI:
     """Create and configure FastAPI application"""
     settings = get_settings()
+
+    # Initialize resource manager
+    global _resource_manager
+    _resource_manager = ResourceManager()
 
     app = FastAPI(
         title="Ollama API",
@@ -311,13 +393,12 @@ def create_app() -> FastAPI:
     # Include routers
     app.include_router(health.router, tags=["Health"])
     app.include_router(auth.router, prefix="/api/v1", tags=["Authentication"])
-    app.include_router(models.router, prefix="/api/v1/models", tags=["Models"])
-    app.include_router(generate.router, prefix="/api/v1", tags=["Generation"])
-    app.include_router(chat.router, prefix="/api/v1", tags=["Chat"])
-    app.include_router(embeddings.router, prefix="/api/v1", tags=["Embeddings"])
+    # Centralized inference router (covers models, generate, chat, embeddings)
+    app.include_router(inference.router)
     app.include_router(conversations.router, tags=["Conversations"])
     app.include_router(documents.router, tags=["Documents"])
     app.include_router(usage.router, tags=["Usage"])
+    app.include_router(training_jobs.router, prefix="/api/v1/training", tags=["Training"])
 
     # Setup metrics endpoints
     setup_metrics_endpoints(app)

@@ -1,143 +1,77 @@
-"""Embeddings endpoints - Semantic search with sentence-transformers"""
+"""Embeddings API routes.
 
-from typing import Any
+Provides endpoints for generating vector embeddings from text
+for semantic search and indexing.
+"""
 
-from fastapi import APIRouter, HTTPException, status
+import time
+from typing import Annotated, Any
 
-from ollama.api.schemas.embeddings_request import EmbeddingsRequest
-from ollama.api.schemas.embeddings_response import EmbeddingsResponse
-from ollama.api.schemas.search_result import SearchResult
-from ollama.api.schemas.semantic_search_request import SemanticSearchRequest
-from ollama.api.schemas.semantic_search_response import SemanticSearchResponse
+import structlog
+from fastapi import APIRouter, Depends, HTTPException
+
+from ollama.api.dependencies import get_model_manager
+from ollama.api.schemas.inference import (
+    EmbeddingRequest,
+    EmbeddingResponse,
+)
+from ollama.auth_manager import get_current_user_from_api_key
+from ollama.models import User
+from ollama.repositories import RepositoryFactory, get_repositories
+from ollama.services.models.models import OllamaModelManager
+
+log = structlog.get_logger(__name__)
 
 router = APIRouter()
 
-# Initialize embedding model on module load
-try:
-    from sentence_transformers import SentenceTransformer  # type: ignore[import-untyped]
 
-    _embedding_models: dict[str, Any] = {}
+def get_embedding_model(name: str) -> Any:
+    """Return a sentence-transformers model instance for embeddings.
 
-    def get_embedding_model(model_name: str = "all-minilm-l6-v2") -> Any:
-        """Get or load embedding model (cached)"""
-        if model_name not in _embedding_models:
-            _embedding_models[model_name] = SentenceTransformer(model_name)
-        return _embedding_models[model_name]
-
-except ImportError:
-
-    def get_embedding_model(model_name: str = "all-minilm-l6-v2") -> Any:
-        raise ImportError(
-            "sentence-transformers not installed. "
-            "Install with: pip install sentence-transformers"
-        )
-
-
-@router.post("/embeddings", response_model=EmbeddingsResponse)
-async def create_embeddings(request: EmbeddingsRequest) -> EmbeddingsResponse:
-    """
-    Generate text embeddings using sentence transformers
-
-    Creates vector representations of text for semantic search and RAG applications.
-
-    **Models:**
-    - `all-minilm-l6-v2`: Fast, 384 dimensions (default)
-    - `all-mpnet-base-v2`: Accurate, 768 dimensions
-    - `all-distilroberta-v1`: Balanced, 768 dimensions
-
-    **Usage:**
-    ```json
-    {
-        "model": "all-minilm-l6-v2",
-        "prompt": "What is machine learning?"
-    }
-    ```
+    Raises a RuntimeError if `sentence-transformers` is not installed.
     """
     try:
-        model = get_embedding_model(request.model)
+        from sentence_transformers import SentenceTransformer
+    except ImportError as e:
+        raise RuntimeError(
+            "sentence-transformers not installed. Install with: pip install sentence-transformers"
+        ) from e
 
-        # Generate embedding
-        embedding = model.encode(request.prompt).tolist()
+    return SentenceTransformer(name)
 
-        return EmbeddingsResponse(
+
+@router.post("/embeddings")
+async def embeddings(
+    request: EmbeddingRequest,
+    manager: Annotated[OllamaModelManager, Depends(get_model_manager)],
+    current_user: Annotated[User, Depends(get_current_user_from_api_key)],
+    repos: Annotated[RepositoryFactory, Depends(get_repositories)],
+) -> EmbeddingResponse:
+    """Generate embeddings for text using specified model.
+
+    Telemetry is logged for vector generation tracking.
+    """
+    start_time = time.time()
+
+    try:
+        embedding = await manager.generate_embedding(model_name=request.model, prompt=request.text)
+
+        # Log usage for embeddings
+        await repos.get_usage_repository().log_usage(
+            user_id=current_user.id,
+            endpoint="/api/v1/embeddings",
+            method="POST",
+            response_time_ms=int((time.time() - start_time) * 1000),
+            status_code=200,
+            input_tokens=0,  # Ollama doesn't return tokens for embeddings easily
+            output_tokens=len(embedding),
+            usage_metadata={"model": request.model, "type": "embedding"},
+        )
+
+        return EmbeddingResponse(
             embedding=embedding, model=request.model, dimensions=len(embedding)
         )
+
     except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Embedding generation failed: {e!s}",
-        ) from e
-
-
-@router.post("/semantic-search", response_model=SemanticSearchResponse)
-async def semantic_search(request: SemanticSearchRequest) -> SemanticSearchResponse:
-    """
-    Perform semantic search in Qdrant vector database
-
-    Finds similar vectors based on semantic meaning.
-
-    **Process:**
-    1. Embed query text using specified model
-    2. Search Qdrant collection for similar vectors
-    3. Return results with similarity scores
-
-    **Usage:**
-    ```json
-    {
-        "collection": "documents",
-        "query": "How to use embeddings?",
-        "model": "all-minilm-l6-v2",
-        "limit": 10,
-        "score_threshold": 0.7
-    }
-    ```
-    """
-    try:
-        from ollama.services.vector import _vector_manager
-
-        if _vector_manager is None:
-            raise HTTPException(
-                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-                detail="Vector database not initialized",
-            )
-
-        # Check if collection exists
-        if not await _vector_manager.collection_exists(request.collection):
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"Collection '{request.collection}' not found",
-            )
-
-        # Generate query embedding
-        model = get_embedding_model(request.model)
-        query_vector = model.encode(request.query).tolist()
-
-        # Search in vector database
-        results = await _vector_manager.search_vectors(
-            collection_name=request.collection,
-            query_vector=query_vector,
-            limit=request.limit,
-            score_threshold=request.score_threshold,
-        )
-
-        # Format results
-        search_results = []
-        for result in results:
-            search_results.append(
-                SearchResult(
-                    id=str(result.id),
-                    score=float(result.score),
-                    text=getattr(result.payload, "text", None),
-                )
-            )
-
-        return SemanticSearchResponse(
-            query=request.query, results=search_results, count=len(search_results)
-        )
-
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Search failed: {e!s}"
-        ) from e
+        log.error("embeddings_failed", model=request.model, error=str(e))
+        raise HTTPException(status_code=500, detail="Embeddings generation failed") from e

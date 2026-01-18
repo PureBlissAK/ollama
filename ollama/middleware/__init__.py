@@ -1,23 +1,21 @@
-"""Ollama Middleware - HTTP middleware for request/response processing."""
+"""Middleware domain.
 
-# Cache middleware components
-from ollama.middleware.cache_decorator import cache_response
-from ollama.middleware.cache_key import CacheKey
-from ollama.middleware.cache_stats import CacheStats
-from ollama.middleware.caching_middleware import CachingMiddleware
+This module provides the public API for the middleware domain,
+re-exporting components from the implementation submodules.
+"""
 
-# Rate limiting middleware components
-from ollama.middleware.endpoint_rate_limiter import EndpointRateLimiter
-from ollama.middleware.rate_limit_middleware import RateLimitMiddleware
-from ollama.middleware.rate_limiter import RateLimiter
-from ollama.middleware.rate_limiter_cache import RateLimiterCache
-from ollama.middleware.redis_rate_limiter import RedisRateLimiter
+from .impl.cache_decorator import cache_response
+from .impl.cache_key import CacheKey
+from .impl.cache_stats import CacheStats
+from .impl.caching_middleware import CachingMiddleware
+from .impl.rate_limit import RateLimiter, RateLimitMiddleware
+from .impl.rate_limiter_cache import RateLimiterCache
+from .impl.redis_rate_limiter import RedisRateLimiter
 
 __all__ = [
     "CacheKey",
     "CacheStats",
     "CachingMiddleware",
-    "EndpointRateLimiter",
     "RateLimitMiddleware",
     "RateLimiter",
     "RateLimiterCache",

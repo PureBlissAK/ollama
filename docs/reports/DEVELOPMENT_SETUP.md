@@ -9,6 +9,12 @@ This guide walks you through setting up your development environment for contrib
 - **Docker & Docker Compose**: For local development stack
 - **VS Code**: Recommended editor with extensions
 
+## 🏗 Infrastructure Onboarding
+
+If you need to work on the underlying GCP infrastructure (GCP Landing Zone), please refer to the dedicated onboarding guide:
+
+- 📖 [Infrastructure Onboarding Guide](docs/ONBOARDING_INFRA.md)
+
 ## Initial Setup
 
 ### 1. Clone Repository
@@ -170,6 +176,7 @@ code .env
 ```
 
 **Key variables to configure**:
+
 ```env
 DATABASE_URL=postgresql://ollama:password@localhost:5432/ollama
 REDIS_URL=redis://localhost:6379/0
@@ -218,6 +225,7 @@ code --install-extension eamodio.gitlens
 ### 3. Configure Git in VS Code
 
 Git is already configured, but verify:
+
 1. Open Settings: `Ctrl+,`
 2. Search: `"git.enableCommitSigning"`
 3. Should be enabled (✓)
@@ -378,6 +386,7 @@ git commit
 ```
 
 **Commit Types**:
+
 - `feat`: New feature
 - `fix`: Bug fix
 - `refactor`: Code refactoring
@@ -574,16 +583,16 @@ pytest tests/unit/test_file.py::test_function -vv
 
 ## Tools & Extensions Reference
 
-| Tool | Purpose | Command |
-|------|---------|---------|
-| pytest | Testing | `pytest tests/` |
-| mypy | Type checking | `mypy ollama/ --strict` |
-| ruff | Linting | `ruff check ollama/` |
-| black | Code formatting | `black ollama/` |
-| pip-audit | Security scanning | `pip-audit` |
-| alembic | Database migrations | `alembic upgrade head` |
-| uvicorn | Dev server | `uvicorn ollama.main:app --reload` |
-| docker-compose | Local stack | `docker-compose up -d` |
+| Tool           | Purpose             | Command                            |
+| -------------- | ------------------- | ---------------------------------- |
+| pytest         | Testing             | `pytest tests/`                    |
+| mypy           | Type checking       | `mypy ollama/ --strict`            |
+| ruff           | Linting             | `ruff check ollama/`               |
+| black          | Code formatting     | `black ollama/`                    |
+| pip-audit      | Security scanning   | `pip-audit`                        |
+| alembic        | Database migrations | `alembic upgrade head`             |
+| uvicorn        | Dev server          | `uvicorn ollama.main:app --reload` |
+| docker-compose | Local stack         | `docker-compose up -d`             |
 
 ## Additional Resources
 

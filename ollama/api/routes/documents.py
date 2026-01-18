@@ -9,10 +9,9 @@ from typing import Any, cast
 
 from fastapi import APIRouter, Depends, File, HTTPException, Query, UploadFile
 
-from ollama import main as ollama_main  #  _vector_manager
+from ollama.api.dependencies.vector import get_vector_manager
 from ollama.models import Document
 from ollama.repositories import RepositoryFactory, get_repositories
-from ollama.services.vector import VectorManager
 
 logger = logging.getLogger(__name__)
 
@@ -22,14 +21,7 @@ router = APIRouter(
 )
 
 
-async def get_vector_manager() -> VectorManager:
-    """Get vector manager instance"""
-    if ollama_main._vector_manager is None:
-        raise RuntimeError("Vector manager not initialized")
-    return ollama_main._vector_manager
-
-
-@router.get("/")
+@router.get("")
 async def list_documents(
     user_id: uuid.UUID = Query(..., description="User ID"),
     indexed_only: bool = Query(False, description="Only indexed documents"),

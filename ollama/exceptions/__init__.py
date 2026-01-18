@@ -1,13 +1,10 @@
-"""Ollama exception hierarchy."""
+"""Exception hierarchy."""
 
-from .authentication import AuthenticationError
-from .base import OllamaError
-from .model import ModelError, ModelLoadError, ModelNotFoundError
+from .impl.base import AuthenticationError, OllamaError
+from .impl.model import ModelNotFoundError
 
 __all__ = [
-    "AuthenticationError",
     "OllamaError",
-    "ModelError",
-    "ModelLoadError",
+    "AuthenticationError",
     "ModelNotFoundError",
 ]

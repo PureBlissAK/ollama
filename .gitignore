@@ -144,3 +144,6 @@ service-account-key.json
 
 # Editor backups
 *.orig
+
+# Snyk Security Extension - AI Rules (auto-generated)
+.github/instructions/snyk_rules.instructions.md

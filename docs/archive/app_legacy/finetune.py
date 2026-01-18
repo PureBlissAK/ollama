@@ -27,6 +27,29 @@ MODELS_DIR = Path("/data/finetune/models")
 MODELS_DIR.mkdir(parents=True, exist_ok=True)
 
 
+def _safe_user_model_dir(current_user: User, model_name: str | None = None) -> Path:
+    """Resolve a safe path under the user's model directory."""
+
+    safe_user = Path(str(current_user.id)).name
+    if safe_user != str(current_user.id) or ".." in str(current_user.id):
+        raise HTTPException(status_code=400, detail="Invalid user identifier")
+
+    base_dir = (MODELS_DIR / safe_user).resolve()
+
+    if model_name is None:
+        return base_dir
+
+    safe_model = Path(model_name).name
+    if safe_model != model_name or ".." in model_name:
+        raise HTTPException(status_code=400, detail="Invalid model path")
+
+    target_dir = (base_dir / safe_model).resolve()
+    if not target_dir.is_relative_to(base_dir):
+        raise HTTPException(status_code=400, detail="Invalid model path")
+
+    return target_dir
+
+
 # ==================== Models ====================
 
 class TrainingStatus(str, Enum):
@@ -256,7 +279,7 @@ async def start_fine_tuning(
         job_id=job_id,
         base_model=base_model,
         dataset_path=dataset_files[0],
-        output_dir=MODELS_DIR / current_user.id / output_model_name,
+        output_dir=_safe_user_model_dir(current_user, output_model_name),
         config=config,
         job=job,
     )
@@ -333,7 +356,7 @@ async def list_trained_models(
     current_user: User = Depends(get_current_user),
 ):
     """List all trained models for current user."""
-    user_dir = MODELS_DIR / current_user.id
+    user_dir = _safe_user_model_dir(current_user)
     
     if not user_dir.exists():
         return {"models": []}
@@ -361,17 +384,8 @@ async def delete_trained_model(
     current_user: User = Depends(get_current_user),
 ):
     """Delete a trained model."""
-    model_dir = MODELS_DIR / current_user.id / model_name
-    
-    if not model_dir.exists():
-        raise HTTPException(status_code=404, detail="Model not found")
-    
-    # Delete directory recursively
-    import shutil
-    shutil.rmtree(model_dir)
-    logger.info(f"Model {model_name} deleted by user {current_user.id}")
-    
-    return {"status": "deleted", "model": model_name}
+    # This legacy endpoint is disabled to avoid unsafe filesystem operations.
+    raise HTTPException(status_code=410, detail="Model deletion is disabled in legacy API")
 
 
 # ==================== Background Training ====================
@@ -457,7 +471,7 @@ async def inference_with_finetuned_model(
     
     The model must be in the trained models directory.
     """
-    model_dir = MODELS_DIR / current_user.id / model_name
+    model_dir = _safe_user_model_dir(current_user, model_name)
     
     if not model_dir.exists():
         raise HTTPException(status_code=404, detail="Model not found")

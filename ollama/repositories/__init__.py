@@ -1,25 +1,24 @@
-"""
-Database Repository Layer
-Provides CRUD operations for all ORM models with async support.
-"""
+"""Repositories module - Data access layer."""
 
-from .api_key_repository import APIKeyRepository
-from .base_repository import BaseRepository
-from .conversation_repository import ConversationRepository
-from .document_repository import DocumentRepository
-from .factory import RepositoryFactory, get_repositories
-from .message_repository import MessageRepository
-from .usage_repository import UsageRepository
-from .user_repository import UserRepository
+from .impl.api_key_repository import APIKeyRepository
+from .impl.base_repository import BaseRepository
+from .impl.conversation_repository import ConversationRepository
+from .impl.document_repository import DocumentRepository
+from .impl.message_repository import MessageRepository
+from .impl.repository_factory import RepositoryFactory, get_repositories
+from .impl.training_job_repository import TrainingJobRepository
+from .impl.usage_repository import UsageRepository
+from .impl.user_repository import UserRepository
 
 __all__ = [
-    "BaseRepository",
-    "UserRepository",
-    "APIKeyRepository",
-    "ConversationRepository",
-    "MessageRepository",
-    "DocumentRepository",
-    "UsageRepository",
     "RepositoryFactory",
     "get_repositories",
+    "UserRepository",
+    "ConversationRepository",
+    "DocumentRepository",
+    "MessageRepository",
+    "UsageRepository",
+    "TrainingJobRepository",
+    "APIKeyRepository",
+    "BaseRepository",
 ]

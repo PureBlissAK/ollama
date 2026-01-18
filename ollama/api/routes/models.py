@@ -1,143 +1,49 @@
-"""Model management endpoints"""
+"""Model management API routes.
 
-from typing import cast
+Provides endpoints for discovering, retrieving, and managing
+available AI models.
+"""
 
-import httpx
-from fastapi import APIRouter, HTTPException, status
+from dataclasses import asdict
+from typing import Annotated, Any
 
-from ollama.api.schemas.models_list_models_response import ListModelsResponse
-from ollama.api.schemas.models_model_info import ModelInfo
-from ollama.services.ollama_client import get_ollama_client
+import structlog
+from fastapi import APIRouter, Depends, HTTPException
+
+from ollama.api.dependencies import get_model_manager
+from ollama.auth_manager import get_current_user_from_api_key
+from ollama.models import User
+from ollama.services.models.models import OllamaModelManager
+
+log = structlog.get_logger(__name__)
 
 router = APIRouter()
 
 
-@router.get("", response_model=ListModelsResponse)
-async def list_models() -> ListModelsResponse:
-    """
-    List all available models
-
-    Returns list of models available for inference
-    """
+@router.get("/")
+async def list_models(
+    manager: Annotated[OllamaModelManager, Depends(get_model_manager)],
+    _current_user: Annotated[User, Depends(get_current_user_from_api_key)],
+) -> dict[str, Any]:
+    """List all models available in the system."""
     try:
-        client = get_ollama_client()
-    except RuntimeError:
-        # Fallback stub models when Ollama client is unavailable (e.g., tests)
-        return ListModelsResponse(
-            models=[
-                ModelInfo(
-                    name="test-model",
-                    size="1.0MB",
-                    digest="stub-digest",
-                    modified_at="now",
-                )
-            ]
-        )
-
-    try:
-        ollama_models = await client.list_models()
-
-        models = []
-        for model in ollama_models:
-            models.append(
-                ModelInfo(
-                    name=model.name,
-                    size=str(model.size),
-                    digest="",
-                    modified_at="",
-                )
-            )
-
-        return ListModelsResponse(models=models)
-
+        models = await manager.list_available_models()
+        return {"models": [asdict(m) for m in models]}
     except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail=f"Ollama service error: {e!s}",
-        ) from e
+        log.error("list_models_failed", error=str(e))
+        raise HTTPException(status_code=500, detail="Failed to list models") from e
 
 
-@router.get("/{model_name}")
-async def get_model(model_name: str) -> dict[str, object]:
-    """Get information about a specific model"""
+@router.get("/{name}")
+async def get_model(
+    name: str,
+    manager: Annotated[OllamaModelManager, Depends(get_model_manager)],
+    _current_user: Annotated[User, Depends(get_current_user_from_api_key)],
+) -> dict[str, Any]:
+    """Get detailed information about a specific model."""
     try:
-        client = get_ollama_client()
-        async with httpx.AsyncClient(timeout=30.0) as http_client:
-            response = await http_client.post(
-                f"{client.base_url}/api/show", json={"name": model_name}
-            )
-            response.raise_for_status()
-            return cast(dict[str, object], response.json())
-
-    except RuntimeError as e:
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail=f"Ollama client not initialized: {e!s}",
-        ) from e
-    except httpx.HTTPStatusError as e:
-        raise HTTPException(
-            status_code=(
-                status.HTTP_404_NOT_FOUND
-                if e.response.status_code == 404
-                else status.HTTP_503_SERVICE_UNAVAILABLE
-            ),
-            detail=f"Model not found or service error: {e!s}",
-        ) from e
+        model = await manager.get_model(name)
+        return asdict(model)
     except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Failed to get model info: {e!s}",
-        ) from e
-
-
-@router.post("/pull")
-async def pull_model(model_name: str) -> dict[str, object]:
-    """Download a model"""
-    try:
-        client = get_ollama_client()
-        # The ollama client doesn't have a direct pull method, so we use httpx
-        async with httpx.AsyncClient(
-            timeout=600.0
-        ) as http_client:  # 10 min timeout for model download
-            response = await http_client.post(
-                f"{client.base_url}/api/pull", json={"name": model_name}
-            )
-            response.raise_for_status()
-            return cast(dict[str, object], response.json())
-    except httpx.HTTPStatusError as e:
-        raise HTTPException(
-            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-            detail=f"Failed to pull model: {e!s}",
-        ) from e
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Model pull failed: {e!s}",
-        ) from e
-
-
-@router.delete("/{model_name}")
-async def delete_model(model_name: str) -> dict[str, str]:
-    """Delete a model"""
-    try:
-        client = get_ollama_client()
-        async with httpx.AsyncClient(timeout=30.0) as http_client:
-            response = await http_client.post(
-                f"{client.base_url}/api/delete", json={"name": model_name}
-            )
-            response.raise_for_status()
-            return {"status": "deleted", "model": model_name}
-    except httpx.HTTPStatusError as e:
-        raise HTTPException(
-            status_code=(
-                status.HTTP_404_NOT_FOUND
-                if e.response.status_code == 404
-                else status.HTTP_503_SERVICE_UNAVAILABLE
-            ),
-            detail=f"Failed to delete model: {e!s}",
-        ) from e
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Model deletion failed: {e!s}",
-        ) from e
+        log.error("get_model_failed", model=name, error=str(e))
+        raise HTTPException(status_code=404, detail=f"Model {name} not found") from e

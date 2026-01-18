@@ -17,7 +17,7 @@ router = APIRouter(
 )
 
 
-@router.get("/")
+@router.get("")
 async def list_conversations(
     user_id: uuid.UUID = Query(..., description="User ID"),
     archived: bool = Query(False, description="Include archived conversations"),
@@ -75,7 +75,7 @@ async def list_conversations(
         raise HTTPException(status_code=500, detail=f"Failed to list conversations: {e!s}") from e
 
 
-@router.post("/")
+@router.post("")
 async def create_conversation(
     user_id: uuid.UUID = Query(..., description="User ID"),
     model: str = Query(..., description="Model to use"),

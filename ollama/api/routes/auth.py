@@ -28,7 +28,7 @@ from ollama.auth_manager import (
     require_admin,
 )
 from ollama.models import APIKey, User
-from ollama.repositories.factory import RepositoryFactory
+from ollama.repositories import RepositoryFactory
 from ollama.services import get_db
 
 logger = logging.getLogger(__name__)
@@ -196,7 +196,7 @@ async def change_password(
     auth_manager = get_auth_manager()
 
     # Verify old password
-    if not auth_manager.verify_password(password_data.old_password, current_user.password_hash):
+    if not auth_manager.verify_password(password_data.current_password, current_user.password_hash):
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Incorrect password")
 
     # Hash new password

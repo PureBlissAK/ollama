@@ -14,11 +14,11 @@ from fastapi import Depends, HTTPException, Security, status
 from fastapi.security import APIKeyHeader, HTTPAuthorizationCredentials, HTTPBearer
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from ollama.auth.manager import AuthManager
+from ollama.auth import AuthManager
 from ollama.config import get_settings
-from ollama.exceptions.authentication import AuthenticationError
-from ollama.models.user import User
-from ollama.repositories.factory import RepositoryFactory
+from ollama.exceptions import AuthenticationError
+from ollama.models import User
+from ollama.repositories import RepositoryFactory
 from ollama.services import get_db
 
 logger = logging.getLogger(__name__)

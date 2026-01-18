@@ -5,10 +5,12 @@ Provides detailed usage tracking, cost analysis, and performance metrics.
 
 import uuid
 from datetime import UTC, datetime
-from typing import Any
+from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, HTTPException, Path, Query
 
+from ollama.auth_manager import get_current_user_from_token
+from ollama.models import User
 from ollama.repositories import RepositoryFactory, get_repositories
 
 router = APIRouter(
@@ -19,20 +21,16 @@ router = APIRouter(
 
 @router.get("/user")
 async def get_user_usage(
-    user_id: uuid.UUID = Query(..., description="User ID"),
-    days: int = Query(30, ge=1, le=365, description="Days to look back"),
-    repos: RepositoryFactory = Depends(get_repositories),
+    user_id: Annotated[uuid.UUID, Query(description="User ID")],
+    current_user: Annotated[User, Depends(get_current_user_from_token)],
+    repos: Annotated[RepositoryFactory, Depends(get_repositories)],
+    days: Annotated[int, Query(ge=1, le=365, description="Days to look back")] = 30,
 ) -> dict[str, Any]:
-    """Get comprehensive usage statistics for a user.
+    """Get comprehensive usage statistics for a user."""
+    # Authorization: Only user themselves or an admin can see this
+    if not current_user.is_admin and current_user.id != user_id:
+        raise HTTPException(status_code=403, detail="Not authorized to view other user's usage")
 
-    Args:
-        user_id: User ID
-        days: Number of days to look back
-        repos: Repository factory dependency
-
-    Returns:
-        User usage statistics
-    """
     try:
         usage_repo = repos.get_usage_repository()
 
@@ -49,20 +47,15 @@ async def get_user_usage(
 
 @router.get("/user/daily")
 async def get_user_daily_usage(
-    user_id: uuid.UUID = Query(..., description="User ID"),
-    days: int = Query(30, ge=1, le=365, description="Days to look back"),
-    repos: RepositoryFactory = Depends(get_repositories),
+    user_id: Annotated[uuid.UUID, Query(description="User ID")],
+    current_user: Annotated[User, Depends(get_current_user_from_token)],
+    repos: Annotated[RepositoryFactory, Depends(get_repositories)],
+    days: Annotated[int, Query(ge=1, le=365, description="Days to look back")] = 30,
 ) -> dict[str, Any]:
-    """Get daily usage breakdown for a user.
+    """Get daily usage breakdown for a user."""
+    if not current_user.is_admin and current_user.id != user_id:
+        raise HTTPException(status_code=403, detail="Not authorized to view other user's usage")
 
-    Args:
-        user_id: User ID
-        days: Number of days to look back
-        repos: Repository factory dependency
-
-    Returns:
-        Daily usage statistics
-    """
     try:
         usage_repo = repos.get_usage_repository()
 
@@ -90,20 +83,15 @@ async def get_user_daily_usage(
 
 @router.get("/user/tokens")
 async def get_user_tokens(
-    user_id: uuid.UUID = Query(..., description="User ID"),
-    days: int = Query(30, ge=1, le=365, description="Days to look back"),
-    repos: RepositoryFactory = Depends(get_repositories),
+    user_id: Annotated[uuid.UUID, Query(description="User ID")],
+    current_user: Annotated[User, Depends(get_current_user_from_token)],
+    repos: Annotated[RepositoryFactory, Depends(get_repositories)],
+    days: Annotated[int, Query(ge=1, le=365, description="Days to look back")] = 30,
 ) -> dict[str, Any]:
-    """Get token usage summary for a user.
+    """Get token usage summary for a user."""
+    if not current_user.is_admin and current_user.id != user_id:
+        raise HTTPException(status_code=403, detail="Not authorized to view other user's usage")
 
-    Args:
-        user_id: User ID
-        days: Number of days to look back
-        repos: Repository factory dependency
-
-    Returns:
-        Token usage breakdown
-    """
     try:
         usage_repo = repos.get_usage_repository()
 
@@ -122,20 +110,15 @@ async def get_user_tokens(
 
 @router.get("/user/cost")
 async def get_user_cost(
-    user_id: uuid.UUID = Query(..., description="User ID"),
-    days: int = Query(30, ge=1, le=365, description="Days to look back"),
-    repos: RepositoryFactory = Depends(get_repositories),
+    user_id: Annotated[uuid.UUID, Query(description="User ID")],
+    current_user: Annotated[User, Depends(get_current_user_from_token)],
+    repos: Annotated[RepositoryFactory, Depends(get_repositories)],
+    days: Annotated[int, Query(ge=1, le=365, description="Days to look back")] = 30,
 ) -> dict[str, Any]:
-    """Get cost summary for a user.
+    """Get cost summary for a user."""
+    if not current_user.is_admin and current_user.id != user_id:
+        raise HTTPException(status_code=403, detail="Not authorized to view other user's usage")
 
-    Args:
-        user_id: User ID
-        days: Number of days to look back
-        repos: Repository factory dependency
-
-    Returns:
-        Cost breakdown
-    """
     try:
         usage_repo = repos.get_usage_repository()
 
@@ -154,20 +137,15 @@ async def get_user_cost(
 
 @router.get("/user/performance")
 async def get_user_performance(
-    user_id: uuid.UUID = Query(..., description="User ID"),
-    days: int = Query(30, ge=1, le=365, description="Days to look back"),
-    repos: RepositoryFactory = Depends(get_repositories),
+    user_id: Annotated[uuid.UUID, Query(description="User ID")],
+    current_user: Annotated[User, Depends(get_current_user_from_token)],
+    repos: Annotated[RepositoryFactory, Depends(get_repositories)],
+    days: Annotated[int, Query(ge=1, le=365, description="Days to look back")] = 30,
 ) -> dict[str, Any]:
-    """Get performance metrics for a user.
+    """Get performance metrics for a user."""
+    if not current_user.is_admin and current_user.id != user_id:
+        raise HTTPException(status_code=403, detail="Not authorized to view other user's usage")
 
-    Args:
-        user_id: User ID
-        days: Number of days to look back
-        repos: Repository factory dependency
-
-    Returns:
-        Performance statistics
-    """
     try:
         usage_repo = repos.get_usage_repository()
 
@@ -202,20 +180,15 @@ async def get_user_performance(
 
 @router.get("/endpoint/{endpoint}")
 async def get_endpoint_usage(
-    endpoint: str = Path(..., description="API endpoint"),
-    days: int = Query(30, ge=1, le=365, description="Days to look back"),
-    repos: RepositoryFactory = Depends(get_repositories),
+    endpoint: Annotated[str, Path(description="API endpoint")],
+    current_user: Annotated[User, Depends(get_current_user_from_token)],
+    repos: Annotated[RepositoryFactory, Depends(get_repositories)],
+    days: Annotated[int, Query(ge=1, le=365, description="Days to look back")] = 30,
 ) -> dict[str, Any]:
-    """Get usage statistics for a specific endpoint.
+    """Get usage statistics for a specific endpoint."""
+    if not current_user.is_admin:
+        raise HTTPException(status_code=403, detail="Only admins can view endpoint-wide usage")
 
-    Args:
-        endpoint: API endpoint path
-        days: Number of days to look back
-        repos: Repository factory dependency
-
-    Returns:
-        Endpoint usage statistics
-    """
     try:
         usage_repo = repos.get_usage_repository()
 
@@ -231,30 +204,15 @@ async def get_endpoint_usage(
 
 @router.post("/cleanup")
 async def cleanup_old_usage(
-    admin_key: str = Query(..., description="Admin authorization key"),
-    days: int = Query(90, ge=1, description="Delete records older than N days"),
-    repos: RepositoryFactory = Depends(get_repositories),
+    current_user: Annotated[User, Depends(get_current_user_from_token)],
+    repos: Annotated[RepositoryFactory, Depends(get_repositories)],
+    days: Annotated[int, Query(ge=1, description="Delete records older than N days")] = 90,
 ) -> dict[str, Any]:
-    """Delete old usage records for retention policy.
+    """Delete old usage records for retention policy."""
+    if not current_user.is_admin:
+        raise HTTPException(status_code=403, detail="Only admins can perform cleanup")
 
-    Args:
-        admin_key: Admin authorization key
-        days: Age threshold in days
-        repos: Repository factory dependency
-
-    Returns:
-        Cleanup result
-    """
     try:
-        # Verify admin key (in production, use proper auth)
-        # This is a placeholder - implement proper admin verification
-        from ollama.config import get_settings
-
-        settings = get_settings()
-
-        if admin_key != settings.admin_key:
-            raise HTTPException(status_code=403, detail="Unauthorized")
-
         usage_repo = repos.get_usage_repository()
 
         deleted_count = await usage_repo.delete_old_usage(days)
@@ -263,36 +221,28 @@ async def cleanup_old_usage(
             "message": f"Deleted {deleted_count} usage records older than {days} days",
             "deleted_count": deleted_count,
         }
-    except HTTPException:
-        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Cleanup failed: {e!s}") from e
 
 
 @router.get("/export")
 async def export_usage(
-    user_id: uuid.UUID = Query(..., description="User ID"),
-    days: int = Query(30, ge=1, le=365, description="Days to look back"),
-    format: str = Query("json", description="Export format (json, csv)"),
-    repos: RepositoryFactory = Depends(get_repositories),
+    user_id: Annotated[uuid.UUID, Query(description="User ID")],
+    current_user: Annotated[User, Depends(get_current_user_from_token)],
+    repos: Annotated[RepositoryFactory, Depends(get_repositories)],
+    days: Annotated[int, Query(ge=1, le=365, description="Days to look back")] = 30,
+    export_format: Annotated[str, Query(description="Export format (json, csv)")] = "json",
 ) -> dict[str, Any]:
-    """Export usage data for analysis.
+    """Export usage data for analysis."""
+    if not current_user.is_admin and current_user.id != user_id:
+        raise HTTPException(status_code=403, detail="Not authorized to export other user's usage")
 
-    Args:
-        user_id: User ID
-        days: Number of days to look back
-        format: Export format
-        repos: Repository factory dependency
-
-    Returns:
-        Exported usage data
-    """
     try:
         usage_repo = repos.get_usage_repository()
 
         usage_records = await usage_repo.get_user_usage(user_id, days)
 
-        if format == "json":
+        if export_format == "json":
             return {
                 "user_id": str(user_id),
                 "period_days": days,
@@ -312,7 +262,7 @@ async def export_usage(
                 ],
             }
 
-        elif format == "csv":
+        elif export_format == "csv":
             import csv
             from io import StringIO
 
@@ -362,18 +312,14 @@ async def export_usage(
 
 @router.get("/summary")
 async def get_usage_summary(
-    user_id: uuid.UUID = Query(..., description="User ID"),
-    repos: RepositoryFactory = Depends(get_repositories),
+    user_id: Annotated[uuid.UUID, Query(description="User ID")],
+    current_user: Annotated[User, Depends(get_current_user_from_token)],
+    repos: Annotated[RepositoryFactory, Depends(get_repositories)],
 ) -> dict[str, Any]:
-    """Get quick usage summary for dashboard.
+    """Get quick usage summary for dashboard."""
+    if not current_user.is_admin and current_user.id != user_id:
+        raise HTTPException(status_code=403, detail="Not authorized to view other user's summary")
 
-    Args:
-        user_id: User ID
-        repos: Repository factory dependency
-
-    Returns:
-        Quick usage summary
-    """
     try:
         usage_repo = repos.get_usage_repository()
 

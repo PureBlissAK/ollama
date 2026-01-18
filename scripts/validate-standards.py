@@ -177,11 +177,12 @@ def main() -> int:
 
     parser = argparse.ArgumentParser(description="Validate FAANG standards compliance")
     parser.add_argument("--verbose", "-v", action="store_true", help="Verbose output")
-    parser.add_argument("--root", default=".", help="Root directory to validate")
 
     args = parser.parse_args()
+    project_root = Path(__file__).resolve().parent.parent
+    root_path = project_root
 
-    validator = StandardsValidator(Path(args.root), verbose=args.verbose)
+    validator = StandardsValidator(root_path, verbose=args.verbose)
     success = validator.validate_all()
 
     return 0 if success else 1

@@ -15,10 +15,44 @@
 
 **Target Audience**: Elite engineers, research teams, enterprises requiring air-gapped AI systems.
 
+## GCP Landing Zone Compliance Mandate
+
+**CRITICAL MANDATE**: This repository is a tenant of the [GCP Landing Zone](https://github.com/kushin77/GCP-landing-zone). EVERY PROMPT and EVERY CODE GENERATION must be checked against Landing Zone standards for compliance.
+
+### Mandatory Compliance Checks (Every Prompt)
+
+1. **Verify Infrastructure Alignment**: All cloud resources must follow the Landing Zone's "Three-Lens" decision framework (Executive, Security, Platform).
+2. **Mandatory Labeling**: Every resource MUST contain at least 8 (up to 20) mandatory labels:
+   - `environment`: `production|staging|development|sandbox`
+   - `team`: Owning team name
+   - `application`: `ollama`
+   - `component`: `api|inference|database|cache|etc`
+   - `cost-center`: Finance department code
+   - `managed-by`: `terraform`
+   - `git_repo`: `github.com/kushin77/ollama`
+   - `lifecycle_status`: `active|maintenance|sunset`
+3. **Naming Conventions**: Projects and resources MUST follow the `{environment}-{application}-{component}` pattern (e.g., `prod-ollama-api`).
+4. **Zero Trust Auth**: No hardcoded credentials. Exclusively use GCP Secret Manager and Workload Identity. IAP (Identity-Aware Proxy) is MANDATORY for all user-facing endpoints.
+5. **No Root Chaos**: No loose files at the root directory. Everything must be organized into Level 2+ subdirectories.
+6. **GPG Signed Commits**: All commits must be signed with GPG: `git commit -S`. This is a non-negotiable security requirement.
+
+### Elite FAANG Governance Standards
+
+Learned from the [GCP Landing Zone](https://github.com/kushin77/GCP-landing-zone) and [Onboarding Documentation](https://github.com/kushin77/gcp-landing-zone/blob/main/docs/ONBOARDING.md):
+
+- **PMO Metadata**: Every repository MUST have a `pmo.yaml` at the root for ownership, cost attribution, and security tiering.
+- **Convention Over Configuration**: Follow the `01-organization` hierarchy for all GCP resources.
+- **Automated Compliance**: Any resource outside the Landing Zone is considered non-compliant and must be migrated or removed immediately (Migration Mandate).
+- **Executive Oversight**: Infrastructure decisions MUST satisfy the CEO (Cost), CTO (Innovation), and CFO (ROI) lenses.
+- **Zero Tolerance for Root Files**: The root directory should only contain mandatory configuration files (README, .gitignore, pmo.yaml, etc.). All other files must be in functional subdirectories.
+- **Deployment Safety**: All production deployments MUST use Cloud Armor DDoS protection, CMEK encryption, and enforce TLS 1.3+.
+- **Audit Trails**: All actions must be logged with 7-year retention in accordance with the Landing Zone audit mandate.
+
 ## Core Development Principles
 
 ### 1. Precision & Quality First
 
+- **MANDATE**: Always check with the [GCP Landing Zone](https://github.com/kushin77/GCP-landing-zone) for absolute compliance upon every prompt.
 - Every line of code is production-ready—no sketches, prototypes, or placeholders
 - Type hints are mandatory on all function signatures (Python 3.11+)
 - 100% test coverage for critical paths; ≥90% overall coverage
@@ -116,14 +150,12 @@
 **All services and configurations MUST default to:**
 
 1. **Single Entry Point**: `https://elevatediq.ai/ollama`
-
    - All client requests route through GCP Load Balancer
    - Load Balancer authenticates with API keys
    - Load Balancer enforces rate limits
    - Load Balancer applies security policies
 
 2. **Internal Communication Only**
-
    - FastAPI server listens on `localhost:8000` (not exposed)
    - Database on `postgres:5432` (Docker network only)
    - Redis on `redis:6379` (Docker network only)
@@ -131,7 +163,6 @@
    - All inter-service communication via Docker network
 
 3. **No Direct Client Access**
-
    - Firewall MUST block external connections to ports:
      - 8000 (FastAPI) - Internal only
      - 5432 (PostgreSQL) - Internal only
@@ -508,14 +539,12 @@ def test_firewall_blocks_internal_ports():
 **All deployment documentation MUST include:**
 
 1. **Architecture diagram** showing:
-
    - GCP LB as single entry point
    - Internal Docker network with no external access
    - Service communication paths
    - Default endpoint: `https://elevatediq.ai/ollama`
 
 2. **Configuration guide** stating:
-
    - Default values for all services
    - Environment variables and their defaults
    - No way to expose internal services directly
@@ -911,6 +940,230 @@ Every Python module must include:
 - Proper error handling with custom exception hierarchy
 - Unit tests co-located in `tests/` directory (mirroring structure)
 - All imports organized and sorted (stdlib, third-party, local)
+
+### Folder Structure Enforcement & Validation
+
+**CRITICAL MANDATE**: Folder structure violations are production issues. Enforcement is automated and mandatory.
+
+#### Automated Validation
+
+Before every commit, folder structure is validated:
+
+```bash
+# Run structure validator (runs automatically via pre-commit hook)
+python scripts/validate_folder_structure.py
+
+# Manual validation (if needed)
+python scripts/validate_folder_structure.py --strict --verbose
+```
+
+**What Gets Validated**:
+
+1. **Depth Limit**: No directories deeper than 5 levels from project root
+   - ✅ CORRECT: `/home/akushnir/ollama/ollama/api/routes/inference.py` (4 levels)
+   - ❌ WRONG: `/home/akushnir/ollama/ollama/api/routes/inference/v1/handlers.py` (6 levels)
+
+2. **Directory Count Per Level**:
+   - Level 1 (root): MAX 10 top-level directories
+   - Level 2 (package): MAX 12 subdirectories + 5 module files
+   - Level 3 (domain): MAX 4 subdirectories per domain
+   - Level 4 (functional): MAX 20 files per container
+   - Level 5 (implementation): Leaf level, no subdirectories
+
+3. **File Organization**:
+   - Only `__init__.py` allowed at Level 3 (rest go to Level 4)
+   - Max 1 public class per Level 5 file (exceptions: enums, constants)
+   - Max 500 lines per file (split if exceeding)
+   - All imports at top, constants in order, classes, functions, helpers at end
+
+4. **Naming Compliance**:
+   - Directories: lowercase_with_underscores (snake_case)
+   - Modules: lowercase_with_underscores.py (snake_case)
+   - Classes: PascalCase
+   - Functions: snake_case
+   - Constants: SCREAMING_SNAKE_CASE
+
+5. **Mandatory Documentation**:
+   - Every directory has docstring in `__init__.py`
+   - Every module has comprehensive docstring
+   - Every class has docstring explaining responsibility
+   - Public methods documented with examples
+
+#### Current Structure Compliance
+
+**✅ Compliant Level 3 Domains** (ollama/):
+
+- `api/` → routes/ + schemas/ + dependencies/ (ALL have **init**.py docstrings)
+- `auth/` → firebase_auth.py + jwt_handler.py + **init**.py
+- `config/` → settings.py + environment.py + **init**.py
+- `exceptions/` → base.py + api.py + auth.py + **init**.py
+- `middleware/` → logging.py + security.py + **init**.py
+- `models/` → user.py + conversation.py + **init**.py
+- `monitoring/` → metrics.py + logging.py + tracing.py + **init**.py
+- `repositories/` → user.py + conversation.py + **init**.py
+- `services/` → inference/ + cache/ + models/ + persistence/ (Level 4 containers)
+
+**✅ Services Module (Level 4 Containers)**:
+
+```
+ollama/services/              # Level 3: Business logic domain
+├── inference/                # Level 4: Inference container
+│   ├── ollama_client_main.py
+│   ├── ollama_client.py
+│   ├── generate_request.py
+│   ├── generate_response.py
+│   └── __init__.py           # Docstring: "Handles AI model inference..."
+├── cache/                    # Level 4: Caching container
+│   ├── cache.py
+│   └── __init__.py           # Docstring: "Handles Redis caching operations..."
+├── models/                   # Level 4: Model management container
+│   ├── model.py
+│   ├── models.py
+│   ├── model_type.py
+│   ├── ollama_model_manager.py
+│   ├── vector.py
+│   └── __init__.py           # Docstring: "Handles model lifecycle and management..."
+├── persistence/              # Level 4: Data persistence container
+│   ├── database.py
+│   ├── chat_message.py
+│   ├── chat_request.py
+│   └── __init__.py           # Docstring: "Handles data persistence and ORM..."
+└── __init__.py               # Docstring: "Services module - Business logic layer..."
+```
+
+#### Violation Examples & Fixes
+
+**Violation 1: File at Level 3 (Should be Level 4)**
+
+```
+❌ WRONG:
+ollama/services/
+├── cache.py          # ← At Level 3!
+├── inference.py      # ← At Level 3!
+└── models.py         # ← At Level 3!
+
+✅ CORRECT:
+ollama/services/
+├── cache/
+│   ├── cache.py
+│   └── __init__.py
+├── inference/
+│   ├── ollama_client.py
+│   └── __init__.py
+└── models/
+    ├── model.py
+    └── __init__.py
+```
+
+**Violation 2: Too Many Levels Deep**
+
+```
+❌ WRONG (6 levels):
+ollama/api/routes/inference/v1/handlers/generate.py
+
+✅ CORRECT (4 levels):
+ollama/api/routes/inference.py
+# All versions handled in single file or schema versioning
+```
+
+**Violation 3: Missing Domain Container**
+
+```
+❌ WRONG:
+ollama/
+├── auth.py
+├── logging.py
+├── metrics.py
+└── caching.py
+
+✅ CORRECT:
+ollama/
+├── auth/
+│   ├── __init__.py
+│   └── manager.py
+├── monitoring/
+│   ├── __init__.py
+│   ├── logging.py
+│   └── metrics.py
+└── config/
+    ├── __init__.py
+    └── settings.py
+```
+
+**Violation 4: Exceeding File Count per Level**
+
+```
+❌ WRONG (25+ files at Level 4):
+ollama/services/inference/
+├── handler1.py
+├── handler2.py
+├── ... (25 files)
+└── handler25.py
+
+✅ CORRECT (logical grouping, max 20):
+ollama/services/inference/
+├── ollama_client_main.py      # Main inference client (500 lines max)
+├── ollama_client.py           # Secondary client operations
+├── generate_request.py        # Request handling
+└── generate_response.py       # Response formatting
+# Additional functionality split to new Level 4 containers if needed
+```
+
+#### Pre-Commit Hook (Enforced)
+
+Add this to `.githooks/pre-commit`:
+
+```bash
+#!/bin/bash
+# Validate folder structure before commit
+
+echo "🔍 Validating folder structure..."
+python /home/akushnir/ollama/scripts/validate_folder_structure.py --strict
+
+if [ $? -ne 0 ]; then
+    echo "❌ Folder structure violations detected!"
+    echo "Fix violations and try again."
+    exit 1
+fi
+
+echo "✅ Folder structure validation passed"
+exit 0
+```
+
+#### When Adding New Code
+
+**Decision Tree**:
+
+1. **Is this a new domain?** (e.g., "payments", "analytics")
+   - → Create Level 3 directory
+   - → Add subdirectories for functional containers (Level 4)
+   - → Only if multiple related functions, else single module
+
+2. **Is this a new functional area within existing domain?** (e.g., "websocket handling" within "api")
+   - → Create Level 4 subdirectory
+   - → Add modules inside (Level 5)
+
+3. **Is this just a utility/helper?** (e.g., "format_response()")
+   - → Add to existing Level 5 file in appropriate domain
+   - → Don't create new Level 4 container for single function
+
+4. **Exceeding 500 lines in Level 5 file?**
+   - → Split into multiple Level 5 files in same Level 4 container
+   - → OR refactor into new Level 4 container if responsibility differs
+
+#### Validation Checklist
+
+Before committing:
+
+- [ ] No Python files at Level 3 (only `__init__.py`)
+- [ ] All directories ≤5 levels deep
+- [ ] Level 3+ directories have `__init__.py` with docstring
+- [ ] Files named snake_case (lowercase_with_underscores.py)
+- [ ] Max 1 class per Level 5 file
+- [ ] No Level 5 files > 500 lines
+- [ ] All imports organized and sorted
+- [ ] Module docstrings explain purpose clearly
+- [ ] Pre-commit hook validation passes: `python scripts/validate_folder_structure.py --strict`
 
 ## Function Separation & Elite Coding Standards
 
