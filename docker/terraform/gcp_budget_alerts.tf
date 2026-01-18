@@ -1,15 +1,7 @@
 # GCP Budget Alerts Configuration
 # Sets up budget monitoring and alerts at 50%, 80%, and 100% thresholds
 # Part of GCP Landing Zone compliance for cost governance
-
-terraform {
-  required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = "~> 5.0"
-    }
-  }
-}
+# Note: terraform and locals blocks are centralized in main.tf
 
 # Get current billing account
 data "google_billing_account" "account" {
@@ -19,7 +11,7 @@ data "google_billing_account" "account" {
 # Budget for Ollama project with threshold rules
 resource "google_billing_budget" "ollama_budget" {
   billing_account = data.google_billing_account.account.id
-  display_name    = "ollama-${var.environment}-budget-alerts"
+  display_name    = "${var.environment}-ollama-budget-alerts"
 
   budget_filter {
     projects = ["projects/${var.project_id}"]
@@ -54,7 +46,7 @@ resource "google_billing_budget" "ollama_budget" {
 
 # Email notification channel for warning alerts (50% and 80%)
 resource "google_monitoring_notification_channel" "budget_email" {
-  display_name = "ollama-budget-warning-email"
+  display_name = "${var.environment}-ollama-budget-warning-email"
   type         = "email"
 
   labels = {
@@ -66,7 +58,7 @@ resource "google_monitoring_notification_channel" "budget_email" {
 
 # Email notification channel for critical alerts (100%)
 resource "google_monitoring_notification_channel" "budget_email_critical" {
-  display_name = "ollama-budget-critical-email"
+  display_name = "${var.environment}-ollama-budget-critical-email"
   type         = "email"
 
   labels = {
@@ -82,7 +74,7 @@ resource "google_monitoring_notification_channel" "budget_email_critical" {
 # Cloud Monitoring dashboard for budget tracking
 resource "google_monitoring_dashboard" "budget_dashboard" {
   dashboard_json = jsonencode({
-    displayName = "Ollama Budget Dashboard - ${var.environment}"
+    displayName = "${var.environment}-ollama-budget-dashboard"
     mosaicLayout = {
       columns = 12
       tiles = [

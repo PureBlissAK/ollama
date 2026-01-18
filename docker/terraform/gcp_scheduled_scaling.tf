@@ -10,8 +10,21 @@
 #   - Expected savings: 30-50% monthly compute costs
 
 # Cloud Scheduler for scale-down jobs
+locals {
+  mandatory_labels = {
+    environment      = var.environment
+    team             = var.team
+    application      = "ollama"
+    component        = "api"
+    cost-center      = var.cost_center
+    managed-by       = "terraform"
+    git_repo         = "github.com/kushin77/ollama"
+    lifecycle_status = var.lifecycle_status
+  }
+}
+
 resource "google_cloud_scheduler_job" "ollama_scale_down_evening" {
-  name             = "prod-ollama-scale-down-evening"
+  name             = "${var.environment}-ollama-scale-down-evening"
   description      = "Scale down Ollama to minimal capacity at 6 PM (off-hours)"
   schedule         = "0 18 * * 1-5"  # 6 PM weekdays
   time_zone        = "America/New_York"
@@ -20,7 +33,7 @@ resource "google_cloud_scheduler_job" "ollama_scale_down_evening" {
 
   http_target {
     http_method = "PATCH"
-    uri         = "https://${var.gcp_region}-run.googleapis.com/apis/serving.knative.dev/v1/namespaces/${var.project_id}/services/ollama-api"
+    uri         = "https://${var.gcp_region}-run.googleapis.com/apis/serving.knative.dev/v1/namespaces/${var.project_id}/services/${var.environment}-ollama-api"
 
     headers = {
       "Content-Type" = "application/json"
@@ -35,8 +48,9 @@ resource "google_cloud_scheduler_job" "ollama_scale_down_evening" {
       apiVersion = "serving.knative.dev/v1"
       kind       = "Service"
       metadata = {
-        name      = "ollama-api"
+        name      = "${var.environment}-ollama-api"
         namespace = var.project_id
+        labels    = local.mandatory_labels
       }
       spec = {
         template = {
@@ -69,7 +83,7 @@ resource "google_cloud_scheduler_job" "ollama_scale_down_evening" {
 
 # Cloud Scheduler for scale-up jobs
 resource "google_cloud_scheduler_job" "ollama_scale_up_morning" {
-  name             = "prod-ollama-scale-up-morning"
+  name             = "${var.environment}-ollama-scale-up-morning"
   description      = "Scale up Ollama to full capacity at 9 AM (peak hours)"
   schedule         = "0 9 * * 1-5"  # 9 AM weekdays
   time_zone        = "America/New_York"
@@ -78,7 +92,7 @@ resource "google_cloud_scheduler_job" "ollama_scale_up_morning" {
 
   http_target {
     http_method = "PATCH"
-    uri         = "https://${var.gcp_region}-run.googleapis.com/apis/serving.knative.dev/v1/namespaces/${var.project_id}/services/ollama-api"
+    uri         = "https://${var.gcp_region}-run.googleapis.com/apis/serving.knative.dev/v1/namespaces/${var.project_id}/services/${var.environment}-ollama-api"
 
     headers = {
       "Content-Type" = "application/json"
@@ -93,8 +107,9 @@ resource "google_cloud_scheduler_job" "ollama_scale_up_morning" {
       apiVersion = "serving.knative.dev/v1"
       kind       = "Service"
       metadata = {
-        name      = "ollama-api"
+        name      = "${var.environment}-ollama-api"
         namespace = var.project_id
+        labels    = local.mandatory_labels
       }
       spec = {
         template = {
@@ -127,7 +142,7 @@ resource "google_cloud_scheduler_job" "ollama_scale_up_morning" {
 
 # Weekend scaling (minimal)
 resource "google_cloud_scheduler_job" "ollama_scale_weekend" {
-  name             = "prod-ollama-scale-weekend"
+  name             = "${var.environment}-ollama-scale-weekend"
   description      = "Scale down Ollama on weekends (minimal capacity)"
   schedule         = "0 0 * * 0,6"  # Midnight on Saturday/Sunday
   time_zone        = "America/New_York"
@@ -136,7 +151,7 @@ resource "google_cloud_scheduler_job" "ollama_scale_weekend" {
 
   http_target {
     http_method = "PATCH"
-    uri         = "https://${var.gcp_region}-run.googleapis.com/apis/serving.knative.dev/v1/namespaces/${var.project_id}/services/ollama-api"
+    uri         = "https://${var.gcp_region}-run.googleapis.com/apis/serving.knative.dev/v1/namespaces/${var.project_id}/services/${var.environment}-ollama-api"
 
     headers = {
       "Content-Type" = "application/json"
@@ -151,8 +166,9 @@ resource "google_cloud_scheduler_job" "ollama_scale_weekend" {
       apiVersion = "serving.knative.dev/v1"
       kind       = "Service"
       metadata = {
-        name      = "ollama-api"
+        name      = "${var.environment}-ollama-api"
         namespace = var.project_id
+        labels    = local.mandatory_labels
       }
       spec = {
         template = {
@@ -186,8 +202,8 @@ resource "google_cloud_scheduler_job" "ollama_scale_weekend" {
 # Service account for Cloud Scheduler
 resource "google_service_account" "cloud_scheduler" {
   account_id   = "cloud-scheduler-ollama"
-  display_name = "Cloud Scheduler for Ollama Scaling"
-  description  = "Service account for managing Ollama Cloud Run scaling"
+  display_name = "${var.environment}-ollama-scheduler"
+  description  = "Service account for managing ${var.environment} Ollama Cloud Run scaling"
 }
 
 # IAM binding for scheduler to update Cloud Run services
@@ -200,14 +216,14 @@ resource "google_cloud_run_service_iam_member" "scheduler_updater" {
 
 # Monitoring alert for scaling failures
 resource "google_monitoring_alert_policy" "scaling_failure" {
-  display_name = "Ollama Scaling Job Failure"
+  display_name = "${var.environment}-ollama-policy-scaling-failure"
   combiner     = "OR"
 
   conditions {
-    display_name = "Cloud Scheduler Job Failed"
+    display_name = "${var.environment}-ollama-scheduler-job-failed"
 
     condition_threshold {
-      filter          = "metric.type=\"cloudscheduler.googleapis.com/job_attempts\" AND resource.labels.job_name=~\"prod-ollama-scale.*\" AND metric.labels.attempt_type=\"FAILED\""
+      filter          = "metric.type=\"cloudscheduler.googleapis.com/job_attempts\" AND resource.labels.job_name=~\"${var.environment}-ollama-scale.*\" AND metric.labels.attempt_type=\"FAILED\""
       duration        = "300s"
       comparison      = "COMPARISON_GT"
       threshold_value = 0

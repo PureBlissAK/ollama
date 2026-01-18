@@ -1,30 +1,8 @@
 # CDN Infrastructure Variables
 # Variables for Cloud CDN, Storage, and related configuration
-
-variable "gcp_project_id" {
-  type        = string
-  description = "GCP Project ID"
-}
-
-variable "gcp_region" {
-  type        = string
-  description = "GCP Region for resources"
-  default     = "us-central1"
-}
-
-variable "environment" {
-  type        = string
-  description = "Environment name (development, staging, production)"
-  validation {
-    condition     = contains(["development", "staging", "production"], var.environment)
-    error_message = "Environment must be one of: development, staging, production."
-  }
-}
-
-variable "cost_center" {
-  type        = string
-  description = "Cost center for billing and attribution"
-}
+#
+# Note: gcp_project_id, gcp_region, environment, team, cost_center, lifecycle_status
+# are defined in variables.tf. This file contains CDN-specific variables only.
 
 variable "cdn_domains" {
   type        = list(string)

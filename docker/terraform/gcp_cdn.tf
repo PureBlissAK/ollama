@@ -10,22 +10,14 @@
 # - Latency reduction: 70% (from 500ms to 150ms p99)
 # - Bandwidth savings: 40% (via caching + compression)
 # - Cost reduction: 50% (reduced origin requests)
-
-terraform {
-  required_version = ">= 1.0"
-  required_providers {
-    google = {
-      source  = "hashicorp/google"
-      version = "~> 5.0"
-    }
-  }
-}
+#
+# Note: terraform and locals blocks are centralized in main.tf
 
 locals {
   environment = var.environment
   project_id = var.gcp_project_id
   region      = var.gcp_region
-  
+
   # Mandatory PMO labels for GCP Landing Zone compliance
   common_labels = {
     environment      = local.environment

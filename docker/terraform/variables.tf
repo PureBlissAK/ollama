@@ -59,6 +59,21 @@ variable "team" {
   default     = "platform"
 }
 
+variable "cost_center" {
+  type        = string
+  description = "Finance cost center code for mandatory labeling (e.g., FIN-1234)"
+}
+
+variable "lifecycle_status" {
+  type        = string
+  description = "Resource lifecycle status for labeling (active|maintenance|sunset)"
+  default     = "active"
+  validation {
+    condition     = contains(["active", "maintenance", "sunset"], var.lifecycle_status)
+    error_message = "lifecycle_status must be one of: active, maintenance, sunset"
+  }
+}
+
 variable "enable_pubsub_alerts" {
   type        = bool
   description = "Enable Pub/Sub topic for programmatic budget alerts"
