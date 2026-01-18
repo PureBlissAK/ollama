@@ -25,13 +25,12 @@ Example:
     >>> prometheus_output = metrics.collect_prometheus_metrics()
 """
 
-from dataclasses import dataclass
-from typing import Dict, List, Optional
-from datetime import datetime
 from collections import defaultdict
+from dataclasses import dataclass
+from datetime import datetime
 
 import structlog
-from prometheus_client import Counter, Histogram, Gauge, CollectorRegistry
+from prometheus_client import CollectorRegistry, Counter, Gauge, Histogram
 
 log = structlog.get_logger(__name__)
 
@@ -47,15 +46,15 @@ class ExperimentMetrics:
     requests_succeeded: int = 0
     requests_failed: int = 0
     requests_timeout: int = 0
-    error_types: Dict[str, int] = None
+    error_types: dict[str, int] = None
     circuit_breaker_trips: int = 0
     cascading_failures: int = 0
     latency_p50_ms: float = 0.0
     latency_p95_ms: float = 0.0
     latency_p99_ms: float = 0.0
     latency_max_ms: float = 0.0
-    recovery_time_seconds: Optional[float] = None
-    observed_failure_modes: List[str] = None
+    recovery_time_seconds: float | None = None
+    observed_failure_modes: list[str] = None
 
     def __post_init__(self) -> None:
         """Initialize default values."""
@@ -89,15 +88,15 @@ class ExperimentMetrics:
 class ChaosMetrics:
     """Collects metrics from chaos experiments."""
 
-    def __init__(self, registry: Optional[CollectorRegistry] = None) -> None:
+    def __init__(self, registry: CollectorRegistry | None = None) -> None:
         """Initialize metrics collector.
 
         Args:
             registry: Prometheus collector registry
         """
         self.registry = registry or CollectorRegistry()
-        self.experiments: Dict[str, ExperimentMetrics] = {}
-        self.latencies: Dict[str, List[float]] = defaultdict(list)
+        self.experiments: dict[str, ExperimentMetrics] = {}
+        self.latencies: dict[str, list[float]] = defaultdict(list)
 
         # Prometheus metrics
         self.experiments_total = Counter(
@@ -195,9 +194,7 @@ class ChaosMetrics:
         metrics.requests_succeeded += 1
         self.latencies[experiment_id].append(latency_ms)
 
-        self.requests_total.labels(
-            experiment_id=experiment_id, status="success"
-        ).inc()
+        self.requests_total.labels(experiment_id=experiment_id, status="success").inc()
         self.request_latency_ms.labels(experiment_id=experiment_id).observe(latency_ms)
 
     def record_request_failed(
@@ -227,17 +224,11 @@ class ChaosMetrics:
         metrics.error_types[error_type] += 1
         self.latencies[experiment_id].append(latency_ms)
 
-        self.requests_total.labels(
-            experiment_id=experiment_id, status="failed"
-        ).inc()
-        self.errors_total.labels(
-            experiment_id=experiment_id, error_type=error_type
-        ).inc()
+        self.requests_total.labels(experiment_id=experiment_id, status="failed").inc()
+        self.errors_total.labels(experiment_id=experiment_id, error_type=error_type).inc()
 
         if latency_ms > 0:
-            self.request_latency_ms.labels(experiment_id=experiment_id).observe(
-                latency_ms
-            )
+            self.request_latency_ms.labels(experiment_id=experiment_id).observe(latency_ms)
 
     def record_circuit_breaker_trip(self, experiment_id: str) -> None:
         """Record circuit breaker trip.
@@ -320,9 +311,7 @@ class ChaosMetrics:
 
         self.experiments_total.labels(status="completed").inc()
         self.experiment_duration_seconds.observe(recovery_time_seconds)
-        self.recovery_time_seconds.labels(experiment_id=experiment_id).set(
-            recovery_time_seconds
-        )
+        self.recovery_time_seconds.labels(experiment_id=experiment_id).set(recovery_time_seconds)
 
         log.info(
             "chaos_metrics_completed",
@@ -336,7 +325,7 @@ class ChaosMetrics:
             observed_failure_modes=metrics.observed_failure_modes,
         )
 
-    def get_experiment_metrics(self, experiment_id: str) -> Optional[ExperimentMetrics]:
+    def get_experiment_metrics(self, experiment_id: str) -> ExperimentMetrics | None:
         """Get metrics for specific experiment.
 
         Args:
@@ -347,7 +336,7 @@ class ChaosMetrics:
         """
         return self.experiments.get(experiment_id)
 
-    def get_aggregate_metrics(self) -> Dict[str, float]:
+    def get_aggregate_metrics(self) -> dict[str, float]:
         """Get aggregate metrics across all experiments.
 
         Returns:
@@ -380,11 +369,7 @@ class ChaosMetrics:
             "circuit_breaker_trips": total_cb_trips,
             "cascading_failures": total_cascading,
             "unique_failure_modes": len(
-                set(
-                    mode
-                    for e in experiments
-                    for mode in e.observed_failure_modes
-                )
+                set(mode for e in experiments for mode in e.observed_failure_modes)
             ),
         }
 
@@ -394,7 +379,6 @@ class ChaosMetrics:
         Returns:
             Prometheus-formatted metrics string
         """
-        from prometheus_client.core import CollectorRegistry
         from prometheus_client.exposition import generate_latest
 
         metrics_output = generate_latest(self.registry)

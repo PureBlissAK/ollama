@@ -5,23 +5,22 @@ Tests for Chaos Engineering Module
 Tests chaos experiment configuration, management, execution, and metrics.
 """
 
-import pytest
 from datetime import datetime, timedelta
-from typing import Dict, Any
+
+import pytest
 
 from ollama.services.chaos import (
     ChaosExperiment,
     ChaosManager,
-    ChaosExecutor,
     ChaosMetrics,
     ExperimentState,
     ExperimentType,
     SeverityLevel,
 )
 from ollama.services.chaos.config import (
-    NetworkConfig,
     ComputeConfig,
     FailureMode,
+    NetworkConfig,
     get_chaos_config,
 )
 

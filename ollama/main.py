@@ -10,12 +10,13 @@ from contextlib import asynccontextmanager
 from typing import Any
 
 import uvicorn
-from fastapi import FastAPI, HTTPException, Request, status
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
-from fastapi.responses import JSONResponse
 
+# Phase 6: Error handling and rate limiting
+from ollama.api.error_handlers import register_exception_handlers
 from ollama.api.routes import (
     auth,
     conversations,
@@ -24,8 +25,15 @@ from ollama.api.routes import (
     inference,
     usage,
 )
-from ollama.config import get_settings
+
+# Phase 8: Consolidated settings (replaces old config)
+from ollama.config.settings import get_settings
+
+# Phase 6: Rate limiting
+from ollama.middleware.rate_limiter import RateLimiter
 from ollama.middleware.impl.rate_limit import RateLimitMiddleware
+
+# Phase 7: Performance monitoring
 from ollama.monitoring import (
     MetricsCollectionMiddleware,
     init_jaeger,
@@ -50,40 +58,67 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Global manager instances
+# Global manager instances - MUST be initialized before use
 _cache_manager: CacheManager | None = None
 _vector_manager: VectorManager | None = None
-# Global resource manager and workers
 _resource_manager: ResourceManager | None = None
 _training_worker: Any = None
 
 
 async def get_cache_manager() -> CacheManager:
-    """Get cache manager instance"""
+    """Get cache manager instance.
+
+    Returns:
+        Initialized CacheManager instance
+
+    Raises:
+        RuntimeError: If cache manager not initialized
+    """
     global _cache_manager
     if _cache_manager is None:
-        raise RuntimeError("Cache manager not initialized")
+        msg = "Cache manager not initialized. Call init_cache() during startup."
+        raise RuntimeError(msg)
     return _cache_manager
 
 
 async def get_vector_manager() -> VectorManager:
-    """Get vector manager instance"""
+    """Get vector manager instance.
+
+    Returns:
+        Initialized VectorManager instance
+
+    Raises:
+        RuntimeError: If vector manager not initialized
+    """
     global _vector_manager
     if _vector_manager is None:
-        raise RuntimeError("Vector manager not initialized")
+        msg = "Vector manager not initialized. Call init_vector_db() during startup."
+        raise RuntimeError(msg)
     return _vector_manager
 
 
 async def get_resource_manager() -> ResourceManager:
-    """Get resource manager instance"""
+    """Get resource manager instance.
+
+    Returns:
+        Initialized ResourceManager instance
+
+    Raises:
+        RuntimeError: If resource manager not initialized
+    """
     global _resource_manager
     if _resource_manager is None:
-        raise RuntimeError("Resource manager not initialized")
+        msg = "Resource manager not initialized. Call init_resources() during startup."
+        raise RuntimeError(msg)
     return _resource_manager
 
 
-async def get_training_engine() -> Any:
-    """Get training engine instance from worker"""
+async def get_training_engine() -> Any | None:
+    """Get training engine instance from worker.
+
+    Returns:
+        Training engine instance or None if not available
+    """
     global _training_worker
     if _training_worker is None:
         return None
@@ -92,12 +127,14 @@ async def get_training_engine() -> Any:
 
 async def _startup_firebase(settings: Any) -> None:
     """Initialize Firebase OAuth if enabled."""
-    if settings.firebase_enabled:
+    firebase_enabled = getattr(settings, 'firebase_enabled', False)
+    if firebase_enabled:
         logger.info("🔐 Initializing Firebase OAuth...")
         try:
             from ollama.auth import init_firebase
 
-            init_firebase(settings.firebase_credentials_path)
+            firebase_creds = getattr(settings, 'firebase_credentials_path', None)
+            init_firebase(firebase_creds)
             logger.info("✅ Firebase OAuth initialized")
         except Exception as e:
             logger.warning(f"⚠️  Firebase OAuth initialization failed: {e}")
@@ -110,7 +147,9 @@ async def _startup_database(settings: Any) -> None:
     """Initialize database connection pool."""
     logger.info("📦 Initializing database connection...")
     try:
-        db_manager = init_database(settings.database_url, echo=False)
+        # Phase 8: Use consolidated settings with auto-generated URL
+        db_url = settings.database.url if hasattr(settings, 'database') else getattr(settings, 'database_url', None)
+        db_manager = init_database(db_url, echo=False)
         await db_manager.initialize()
         logger.info("✅ Database connected")
     except Exception as e:
@@ -125,7 +164,10 @@ async def _startup_cache(settings: Any) -> None:
         from ollama.api.dependencies.cache import set_global_cache_manager
         from ollama.services.cache.resilient_cache import ResilientCacheManager
 
-        cache_manager = init_cache(settings.redis_url, db=0)
+        # Phase 8: Use consolidated settings with auto-generated URL
+        redis_url = settings.redis.url if hasattr(settings, 'redis') else getattr(settings, 'redis_url', None)
+        redis_db = settings.redis.db if hasattr(settings, 'redis') else 0
+        cache_manager = init_cache(redis_url, db=redis_db)
         await cache_manager.initialize()
 
         # Wrap in resilient manager
@@ -145,7 +187,15 @@ async def _startup_vector_db(settings: Any) -> None:
         from ollama.api.dependencies.vector import set_global_vector_manager
         from ollama.services.models.resilient_vector import ResilientVectorManager
 
-        vector_manager = init_vector_db(f"http://{settings.qdrant_host}:{settings.qdrant_port}")
+        # Phase 8: Use consolidated settings with auto-generated URL
+        if hasattr(settings, 'vector_db'):
+            vector_url = settings.vector_db.url
+        else:
+            qdrant_host = getattr(settings, 'qdrant_host', 'qdrant')
+            qdrant_port = getattr(settings, 'qdrant_port', 6333)
+            vector_url = f"http://{qdrant_host}:{qdrant_port}"
+
+        vector_manager = init_vector_db(vector_url)
         await vector_manager.initialize()
 
         # Wrap in resilient manager
@@ -161,12 +211,17 @@ async def _startup_vector_db(settings: Any) -> None:
 async def _startup_ollama(settings: Any) -> None:
     """Initialize Ollama inference client."""
     logger.info("🤖 Connecting to Ollama inference engine...")
-    ollama_base_url = (
-        settings.ollama_base_url if hasattr(settings, "ollama_base_url") else "http://ollama:11434"
-    )
+    # Phase 8: Use consolidated settings
+    if hasattr(settings, 'ollama'):
+        ollama_base_url = settings.ollama.base_url
+        ollama_timeout = settings.ollama.timeout
+    else:
+        ollama_base_url = getattr(settings, "ollama_base_url", "http://ollama:11434")
+        ollama_timeout = getattr(settings, "ollama_request_timeout", 300.0)
+
     ollama_client = init_ollama_client(
         base_url=ollama_base_url,
-        timeout=getattr(settings, "ollama_request_timeout", 300.0),
+        timeout=ollama_timeout,
     )
     try:
         await ollama_client.initialize()
@@ -236,9 +291,18 @@ async def lifespan(_: FastAPI) -> AsyncGenerator[None, None]:
     """Manage application startup and shutdown"""
     settings = get_settings()
     logger.info("🚀 Starting Ollama API Server")
-    logger.info("Environment: production")
-    logger.info(f"Host: {settings.host}:{settings.port}")
-    logger.info(f"Public URL: {settings.public_url}")
+    # Phase 8: Environment detection
+    env = settings.environment.value if hasattr(settings, 'environment') else 'production'
+    logger.info(f"Environment: {env}")
+    # Phase 8: API settings
+    if hasattr(settings, 'api'):
+        logger.info(f"Host: {settings.api.host}:{settings.api.port}")
+    else:
+        host = getattr(settings, 'host', '0.0.0.0')
+        port = getattr(settings, 'port', 8000)
+        logger.info(f"Host: {host}:{port}")
+    public_url = getattr(settings, 'public_url', 'http://localhost:8000')
+    logger.info(f"Public URL: {public_url}")
 
     # Startup tasks
     try:
@@ -310,14 +374,34 @@ def create_app() -> FastAPI:
         lifespan=lifespan,
     )
 
+    # Phase 6: Register exception handlers for structured error responses
+    register_exception_handlers(app)
+    logger.info("✅ Phase 6: Exception handlers registered")
+
+    # Phase 6: Initialize rate limiter with Redis backend
+    try:
+        redis_url = settings.redis.url if hasattr(settings, 'redis') else settings.redis_url
+        app.state.rate_limiter = RateLimiter(redis_url=redis_url)
+        logger.info("✅ Phase 6: Rate limiter initialized (Redis backend)")
+    except Exception as e:
+        # Fallback to in-memory rate limiter
+        app.state.rate_limiter = RateLimiter()
+        logger.warning(f"⚠️  Phase 6: Rate limiter using in-memory fallback: {e}")
+
     # CORS Middleware
+    # Phase 8: Use consolidated API settings
+    if hasattr(settings, 'api'):
+        cors_origins = settings.api.cors_origins
+    else:
+        cors_origins = getattr(settings, 'cors_origins', ['*'])
+
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=settings.cors_origins,
-        allow_credentials=settings.cors_allow_credentials,
+        allow_origins=cors_origins,
+        allow_credentials=getattr(settings, 'cors_allow_credentials', True),
         allow_methods=["*"],
         allow_headers=["*"],
-        expose_headers=settings.cors_expose_headers,
+        expose_headers=getattr(settings, 'cors_expose_headers', []),
     )
 
     # Metrics collection middleware (early in stack for accurate timing)
@@ -328,8 +412,14 @@ def create_app() -> FastAPI:
     # For now, we'll add a hook to set it up after initialization
 
     # Rate limiting middleware (add before other middleware)
-    rate_limit_per_minute = getattr(settings, "rate_limit_per_minute", 60)
-    rate_limit_burst = getattr(settings, "rate_limit_burst", 100)
+    # Phase 8: Use consolidated API settings
+    if hasattr(settings, 'api'):
+        rate_limit_per_minute = settings.api.rate_limit_requests
+        rate_limit_burst = getattr(settings.api, 'rate_limit_burst', 100)
+    else:
+        rate_limit_per_minute = getattr(settings, "rate_limit_per_minute", 60)
+        rate_limit_burst = getattr(settings, "rate_limit_burst", 100)
+
     app.add_middleware(
         RateLimitMiddleware,
         requests_per_minute=rate_limit_per_minute,
@@ -341,8 +431,9 @@ def create_app() -> FastAPI:
     app.add_middleware(GZipMiddleware, minimum_size=1000)
 
     # Trusted hosts (when behind reverse proxy)
-    if settings.trusted_hosts:
-        app.add_middleware(TrustedHostMiddleware, allowed_hosts=settings.trusted_hosts)
+    trusted_hosts = getattr(settings, 'trusted_hosts', None)
+    if trusted_hosts:
+        app.add_middleware(TrustedHostMiddleware, allowed_hosts=trusted_hosts)
 
     # Request ID middleware
     @app.middleware("http")
@@ -362,33 +453,8 @@ def create_app() -> FastAPI:
         response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
         return response
 
-    # Exception handlers
-    @app.exception_handler(HTTPException)
-    async def http_exception_handler(_: Request, exc: HTTPException) -> JSONResponse:
-        return JSONResponse(
-            status_code=exc.status_code,
-            content={
-                "error": {
-                    "message": exc.detail,
-                    "type": "http_error",
-                    "status_code": exc.status_code,
-                }
-            },
-        )
-
-    @app.exception_handler(Exception)
-    async def general_exception_handler(_: Request, exc: Exception) -> JSONResponse:
-        logger.error(f"Unhandled exception: {exc}", exc_info=True)
-        return JSONResponse(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            content={
-                "error": {
-                    "message": "Internal server error",
-                    "type": "server_error",
-                    "status_code": 500,
-                }
-            },
-        )
+    # Phase 6: Exception handlers are now registered via register_exception_handlers()
+    # This provides structured error responses with request_id and timestamp
 
     # Include routers
     app.include_router(health.router, tags=["Health"])
@@ -425,13 +491,30 @@ def main() -> None:
     """Run the application with uvicorn"""
     settings = get_settings()
 
+    # Phase 8: Use consolidated API and monitoring settings
+    if hasattr(settings, 'api'):
+        host = settings.api.host
+        port = settings.api.port
+        workers = settings.api.workers
+        reload = settings.api.reload
+    else:
+        host = getattr(settings, 'host', '0.0.0.0')
+        port = getattr(settings, 'port', 8000)
+        workers = getattr(settings, 'workers', 4)
+        reload = False
+
+    if hasattr(settings, 'monitoring'):
+        log_level = settings.monitoring.log_level.lower()
+    else:
+        log_level = getattr(settings, 'log_level', 'info').lower()
+
     uvicorn.run(
         "ollama.main:app",
-        host=settings.host,
-        port=settings.port,
-        reload=False,
-        workers=settings.workers,
-        log_level=settings.log_level.lower(),
+        host=host,
+        port=port,
+        reload=reload,
+        workers=workers,
+        log_level=log_level,
         access_log=True,
         proxy_headers=True,
         forwarded_allow_ips="*",

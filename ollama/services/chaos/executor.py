@@ -26,12 +26,12 @@ Example:
 """
 
 import subprocess
-from typing import Optional, Dict, List, Any
 from dataclasses import dataclass
+from typing import Any
 
 import structlog
 
-from ollama.services.chaos.config import ChaosExperiment, NetworkConfig, ComputeConfig
+from ollama.services.chaos.config import ComputeConfig, NetworkConfig
 
 log = structlog.get_logger(__name__)
 
@@ -43,8 +43,8 @@ class ChaosInjectionStatus:
     target: str
     chaos_type: str
     active: bool
-    applied_at: Optional[str] = None
-    config: Dict[str, Any] = None
+    applied_at: str | None = None
+    config: dict[str, Any] = None
 
 
 class ChaosExecutor:
@@ -58,7 +58,7 @@ class ChaosExecutor:
 
     def __init__(self) -> None:
         """Initialize chaos executor."""
-        self.active_injections: Dict[str, ChaosInjectionStatus] = {}
+        self.active_injections: dict[str, ChaosInjectionStatus] = {}
         self.namespace = self.NAMESPACE
 
     async def inject_network_chaos(
@@ -199,9 +199,7 @@ class ChaosExecutor:
 
             # Inject memory pressure if configured
             if config.memory_pressure_percent > 0:
-                memory_alloc = int(
-                    (config.memory_limit_mb * config.memory_pressure_percent) / 100
-                )
+                memory_alloc = int((config.memory_limit_mb * config.memory_pressure_percent) / 100)
                 cmd = (
                     f"docker exec -d {container_id} stress --vm 1 "
                     f"--vm-bytes {memory_alloc}M --timeout {config.duration_seconds}s"
@@ -277,8 +275,7 @@ class ChaosExecutor:
             elif failure_mode == "timeout":
                 # Add long network latency (simulates timeout)
                 cmd = (
-                    f"docker exec {container_id} tc qdisc add dev eth0 root netem "
-                    f"delay 30000ms"
+                    f"docker exec {container_id} tc qdisc add dev eth0 root netem " f"delay 30000ms"
                 )
                 await self._execute_command(cmd)
                 log.info("container_timeout_simulated", target_pod=target_pod)
@@ -309,9 +306,9 @@ class ChaosExecutor:
     async def inject_cascading_failure(
         self,
         primary_pod: str,
-        dependent_pods: List[str],
+        dependent_pods: list[str],
         delay_seconds: int = 5,
-    ) -> Dict[str, ChaosInjectionStatus]:
+    ) -> dict[str, ChaosInjectionStatus]:
         """Inject cascading failure across multiple services.
 
         Args:
@@ -443,7 +440,7 @@ class ChaosExecutor:
             # Extract container ID from containerd:// format
             container_id = output.strip().split("//")[-1] if "//" in output else output
             return container_id
-        except Exception as e:
+        except Exception:
             # Fallback: assume it's a docker container name
             log.warning("pod_to_container_id_failed", target_pod=target_pod)
             return target_pod
@@ -470,9 +467,7 @@ class ChaosExecutor:
             )
 
             if result.returncode != 0:
-                raise RuntimeError(
-                    f"Command failed with code {result.returncode}: {result.stderr}"
-                )
+                raise RuntimeError(f"Command failed with code {result.returncode}: {result.stderr}")
 
             return result.stdout
 

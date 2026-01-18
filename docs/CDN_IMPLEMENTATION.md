@@ -1,12 +1,14 @@
 # Cloud CDN Implementation Guide
-**Status**: ✅ Complete Task 2 Implementation  
-**Phase**: Enhancement Phase 3  
-**Target Compliance**: 88%+ (from 82%)  
-**Expected Impact**: 70% latency reduction, 40% bandwidth savings  
+
+**Status**: ✅ Complete Task 2 Implementation
+**Phase**: Enhancement Phase 3
+**Target Compliance**: 88%+ (from 82%)
+**Expected Impact**: 70% latency reduction, 40% bandwidth savings
 
 ---
 
 ## Table of Contents
+
 1. [Architecture Overview](#architecture-overview)
 2. [Implementation Components](#implementation-components)
 3. [Configuration Management](#configuration-management)
@@ -93,6 +95,7 @@
 **Location**: `docker/terraform/gcp_cdn.tf`
 
 **Provides**:
+
 - GCS bucket for asset storage
 - Cloud CDN backend configuration
 - HTTPS load balancer with SSL
@@ -136,6 +139,7 @@ resource "google_compute_security_policy" "cdn_armor"
 ```
 
 **Deployment**:
+
 ```bash
 # Initialize Terraform
 cd docker/terraform/
@@ -154,6 +158,7 @@ terraform apply -var-file=production.tfvars
 **Location**: `scripts/sync-assets-to-cdn.py`
 
 **Features**:
+
 - Automatic image optimization (WebP conversion)
 - Incremental sync (hash-based deduplication)
 - Concurrent uploads (10 parallel workers)
@@ -165,18 +170,18 @@ terraform apply -var-file=production.tfvars
 ```python
 class CDNSyncer:
     """Manages asset synchronization to GCS."""
-    
+
     async def sync_directory(source_dir, prefix)
         - Uploads files to GCS bucket
         - Optimizes images on-the-fly
         - Maintains local cache metadata
         - Returns detailed statistics
-    
+
     def invalidate_cache(paths)
         - Invalidates CDN cache for paths
         - Supports wildcard patterns
         - Logs invalidation events
-    
+
     def generate_cost_report()
         - Calculates storage costs
         - Estimates bandwidth costs
@@ -219,22 +224,22 @@ on:
   push:
     branches: [main]
     paths:
-      - 'docs/**'
-      - 'frontend/**'
+      - "docs/**"
+      - "frontend/**"
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Sync assets to CDN
         run: |
           python scripts/sync-assets-to-cdn.py \
             --bucket prod-ollama-assets \
             --source docs/ \
             --prefix assets
-      
+
       - name: Invalidate CDN cache
         run: |
           python scripts/sync-assets-to-cdn.py \
@@ -247,6 +252,7 @@ jobs:
 **Location**: `ollama/config/cdn.py`
 
 **Provides**:
+
 - Asset type classification (8 types)
 - Cache policy management
 - Security policies
@@ -397,12 +403,14 @@ Local cache tracking file: `.cdn-cache.json`
 ### Image Optimization
 
 **Automatic WebP Conversion**:
+
 - Input: PNG, JPG, JPEG, GIF, BMP
 - Output: WebP (80% quality)
 - Size reduction: Typically 40-60%
 - Cache: Original + WebP variant
 
 **Example**:
+
 ```
 Original: logo.png (125 KB)
          ↓ (Optimization)
@@ -415,13 +423,14 @@ Assets are versioned by content hash for cache busting:
 
 ```html
 <!-- Standard URL (uses cache) -->
-<link rel="stylesheet" href="/assets/docs/style.css">
+<link rel="stylesheet" href="/assets/docs/style.css" />
 
 <!-- Versioned URL (bypasses cache) -->
-<link rel="stylesheet" href="/assets/docs/style-a1b2c3d4.css">
+<link rel="stylesheet" href="/assets/docs/style-a1b2c3d4.css" />
 ```
 
 **Generation**:
+
 ```python
 def generate_versioned_url(original_path: str, content_hash: str) -> str:
     """Generate versioned asset URL."""
@@ -439,20 +448,21 @@ url = generate_versioned_url("style.css", "a1b2c3d4")
 
 ### Default Policies by Asset Type
 
-| Asset Type | Extensions | Client TTL | CDN TTL | Max TTL | Compress |
-|------------|------------|-----------|---------|---------|----------|
-| Documentation | .html, .md | 1h | 1h | 1h | Yes |
-| Images | .png, .jpg, .webp, .gif | 1d | 7d | 7d | No |
-| Models | .onnx, .safetensors, .pt | 7d | 7d | 7d | No |
-| Stylesheets | .css | 1d | 7d | 7d | Yes |
-| Scripts | .js | 1d | 7d | 7d | Yes |
-| Fonts | .woff, .woff2, .ttf | 1y | 1y | 1y | No |
+| Asset Type    | Extensions               | Client TTL | CDN TTL | Max TTL | Compress |
+| ------------- | ------------------------ | ---------- | ------- | ------- | -------- |
+| Documentation | .html, .md               | 1h         | 1h      | 1h      | Yes      |
+| Images        | .png, .jpg, .webp, .gif  | 1d         | 7d      | 7d      | No       |
+| Models        | .onnx, .safetensors, .pt | 7d         | 7d      | 7d      | No       |
+| Stylesheets   | .css                     | 1d         | 7d      | 7d      | Yes      |
+| Scripts       | .js                      | 1d         | 7d      | 7d      | Yes      |
+| Fonts         | .woff, .woff2, .ttf      | 1y         | 1y      | 1y      | No       |
 
 ### Cache Hit Ratio Target
 
 **Goal**: ≥70% cache hit ratio (at least 70% requests served from cache)
 
 **Calculation**:
+
 ```
 Hit Ratio = Cache Hits / (Cache Hits + Cache Misses)
 
@@ -463,6 +473,7 @@ Example:
 ```
 
 **Factors Affecting Ratio**:
+
 - TTL configuration (longer TTL = higher ratio)
 - Asset popularity (frequently accessed assets have higher ratio)
 - Cache invalidation frequency (more invalidations = lower ratio)
@@ -506,6 +517,7 @@ cdn_errors_total{code="4xx"} 500
 **Location**: Provisioned via Terraform (`google_monitoring_dashboard.cdn_dashboard`)
 
 **Panels**:
+
 1. **Cache Hit Ratio** - Displays hit/miss ratio over time
 2. **Request Latency (P99)** - 99th percentile latency
 3. **Bandwidth (Bytes)** - Total bandwidth served
@@ -516,6 +528,7 @@ cdn_errors_total{code="4xx"} 500
 ### Alerting Rules
 
 **High Latency Alert** (P99 > 1000ms):
+
 ```yaml
 alert: CDNHighLatency
   expr: histogram_quantile(0.99, cdn_request_latency_seconds) > 1.0
@@ -524,6 +537,7 @@ alert: CDNHighLatency
 ```
 
 **Low Cache Hit Ratio Alert** (< 70%):
+
 ```yaml
 alert: CDNLowCacheHitRatio
   expr: cdn_cache_hit_ratio < 0.70
@@ -532,6 +546,7 @@ alert: CDNLowCacheHitRatio
 ```
 
 **Error Rate Alert** (> 1%):
+
 ```yaml
 alert: CDNHighErrorRate
   expr: (cdn_errors_total / cdn_requests_total) > 0.01
@@ -753,6 +768,7 @@ gcloud logging read \
 ### Monthly Cost Breakdown
 
 **Assumptions**:
+
 - 1M requests/month
 - 100GB data stored
 - 500GB bandwidth served
@@ -760,23 +776,25 @@ gcloud logging read \
 
 **Cost Calculation**:
 
-| Component | Usage | Unit Cost | Monthly Cost |
-|-----------|-------|-----------|--------------|
-| Cloud Storage | 100 GB | $0.020/GB | $2.00 |
-| CDN Egress | 500 GB | $0.085/GB | $42.50 |
-| HTTP Requests | 1M | $0.005/10K | $5.00 |
-| **Total Monthly** | - | - | **$49.50** |
-| **Annual Cost** | - | - | **$594.00** |
+| Component         | Usage  | Unit Cost  | Monthly Cost |
+| ----------------- | ------ | ---------- | ------------ |
+| Cloud Storage     | 100 GB | $0.020/GB  | $2.00        |
+| CDN Egress        | 500 GB | $0.085/GB  | $42.50       |
+| HTTP Requests     | 1M     | $0.005/10K | $5.00        |
+| **Total Monthly** | -      | -          | **$49.50**   |
+| **Annual Cost**   | -      | -          | **$594.00**  |
 
 ### Cost Comparison
 
 **Before CDN** (direct origin requests):
+
 - 1M requests × $0.005/10K = $50
 - No caching benefit
 - Higher origin bandwidth costs
 - **Total: ~$500/month**
 
 **After CDN** (with caching):
+
 - 70% cache hit ratio = 300K origin requests
 - CDN costs: $49.50
 - Reduced origin bandwidth
@@ -799,6 +817,7 @@ gcloud logging read \
 ### High Latency (P99 > 500ms)
 
 **Diagnosis**:
+
 ```bash
 # Check origin health
 curl -w "@curl-format.txt" -o /dev/null -s https://cdn.elevatediq.ai/assets/docs/index.html
@@ -809,6 +828,7 @@ gcloud monitoring read \
 ```
 
 **Solutions**:
+
 - ✅ Increase CDN TTL for static assets
 - ✅ Enable caching headers on origin
 - ✅ Check origin server health
@@ -817,12 +837,14 @@ gcloud monitoring read \
 ### Low Cache Hit Ratio (< 50%)
 
 **Causes**:
+
 - Frequent cache invalidations
 - Low asset popularity
 - Short TTL values
 - Excessive request variations (query parameters)
 
 **Solutions**:
+
 ```bash
 # Review cache policies
 python scripts/sync-assets-to-cdn.py \
@@ -837,11 +859,13 @@ python scripts/sync-assets-to-cdn.py \
 ### 403 Access Denied
 
 **Causes**:
+
 - IAM permissions issue
 - Bucket policy misconfiguration
 - Rate limiting blocking
 
 **Solutions**:
+
 ```bash
 # Verify bucket permissions
 gsutil iam ch serviceAccount:cdn@project.iam.gserviceaccount.com:objectViewer \
@@ -861,6 +885,7 @@ gcloud compute security-policies rules create 100 \
 ### CDN Returns 404 for Valid Asset
 
 **Diagnosis**:
+
 ```bash
 # Check GCS object exists
 gsutil ls -L gs://prod-ollama-assets/assets/docs/index.html
@@ -870,6 +895,7 @@ gsutil stat gs://prod-ollama-assets/assets/docs/index.html
 ```
 
 **Solutions**:
+
 - ✅ Re-sync assets using `sync-assets-to-cdn.py`
 - ✅ Verify TTL in CDN config
 - ✅ Check uniform bucket-level access is enabled
@@ -881,29 +907,32 @@ gsutil stat gs://prod-ollama-assets/assets/docs/index.html
 
 ### Target KPIs
 
-| Metric | Current | Target | Status |
-|--------|---------|--------|--------|
-| Cache Hit Ratio | 50% | 70%+ | 🟡 To improve |
-| P99 Latency | 500ms | <200ms | 🟡 To optimize |
-| Bandwidth Savings | 20% | 40%+ | 🟡 In progress |
-| Error Rate | 0.5% | <0.1% | ✅ Met |
-| Monthly Cost | $500 | $100 | 🟡 In progress |
+| Metric            | Current | Target | Status         |
+| ----------------- | ------- | ------ | -------------- |
+| Cache Hit Ratio   | 50%     | 70%+   | 🟡 To improve  |
+| P99 Latency       | 500ms   | <200ms | 🟡 To optimize |
+| Bandwidth Savings | 20%     | 40%+   | 🟡 In progress |
+| Error Rate        | 0.5%    | <0.1%  | ✅ Met         |
+| Monthly Cost      | $500    | $100   | 🟡 In progress |
 
 ### Monitoring Checklist
 
 Daily:
+
 - [ ] Cache hit ratio ≥70%
 - [ ] P99 latency <500ms
 - [ ] Error rate <1%
 - [ ] No alerts firing
 
 Weekly:
+
 - [ ] Cost tracking on target
 - [ ] Bandwidth usage trending
 - [ ] Popular assets identified
 - [ ] Old assets for archival
 
 Monthly:
+
 - [ ] TTL optimization review
 - [ ] Cost vs. performance analysis
 - [ ] Security audit (logs, WAF rules)
@@ -915,20 +944,22 @@ Monthly:
 
 **Task 2: CDN for Static Assets** successfully implements:
 
-✅ **Infrastructure**: GCS bucket, Cloud CDN, Load Balancer, SSL/TLS  
-✅ **Automation**: Asset sync script with optimization and deduplication  
-✅ **Configuration**: Type-safe CDN config with cache policies  
-✅ **Monitoring**: Prometheus metrics and Grafana dashboards  
-✅ **Security**: Cloud Armor DDoS, rate limiting, geo-restrictions  
-✅ **Cost**: 80% reduction in origin bandwidth costs  
+✅ **Infrastructure**: GCS bucket, Cloud CDN, Load Balancer, SSL/TLS
+✅ **Automation**: Asset sync script with optimization and deduplication
+✅ **Configuration**: Type-safe CDN config with cache policies
+✅ **Monitoring**: Prometheus metrics and Grafana dashboards
+✅ **Security**: Cloud Armor DDoS, rate limiting, geo-restrictions
+✅ **Cost**: 80% reduction in origin bandwidth costs
 
 **Estimated Impact**:
+
 - 70% latency reduction (500ms → 150ms P99)
 - 40% bandwidth savings
 - 80% cost reduction ($500 → $100/month)
 - ≥90% cache hit ratio
 
 **Next Steps**:
+
 1. Deploy Terraform infrastructure
 2. Run initial asset sync
 3. Configure DNS records
@@ -939,8 +970,7 @@ Monthly:
 
 ---
 
-**Status**: ✅ COMPLETE  
-**Completion Date**: January 13, 2026  
-**Compliance Impact**: 82% → 88% (GCP Landing Zone)  
+**Status**: ✅ COMPLETE
+**Completion Date**: January 13, 2026
+**Compliance Impact**: 82% → 88% (GCP Landing Zone)
 **Cost Impact**: -$4,800/year
-

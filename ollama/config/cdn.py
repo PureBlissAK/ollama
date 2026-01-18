@@ -20,10 +20,9 @@ Example:
     https://cdn.elevatediq.ai/assets/docs/index.html
 """
 
-from dataclasses import dataclass, field
 from enum import Enum
-from typing import Optional, Dict, List
-from pydantic import BaseModel, HttpUrl, Field, validator
+
+from pydantic import BaseModel, Field, HttpUrl, validator
 
 
 class AssetType(str, Enum):
@@ -78,7 +77,7 @@ class CachePolicy(BaseModel):
     )
 
     @validator("cdn_ttl_seconds")
-    def cdn_ttl_must_be_less_than_max(cls, v: int, values: Dict) -> int:
+    def cdn_ttl_must_be_less_than_max(cls, v: int, values: dict) -> int:
         """Validate CDN TTL is less than max TTL."""
         max_ttl = values.get("max_ttl_seconds", 604800)
         if v > max_ttl:
@@ -100,12 +99,12 @@ class AssetTypeConfig(BaseModel):
     """Configuration for an asset type."""
 
     asset_type: AssetType = Field(description="Asset type")
-    file_extensions: List[str] = Field(description="File extensions for this type")
-    mime_types: List[str] = Field(description="MIME types for this type")
+    file_extensions: list[str] = Field(description="File extensions for this type")
+    mime_types: list[str] = Field(description="MIME types for this type")
     cache_policy: CachePolicy = Field(description="Cache policy")
     compress: bool = Field(default=True, description="Enable compression")
     optimize: bool = Field(default=False, description="Enable optimization (e.g., image)")
-    max_file_size_mb: Optional[int] = Field(
+    max_file_size_mb: int | None = Field(
         default=None,
         description="Maximum file size in MB (None = no limit)",
     )
@@ -125,11 +124,11 @@ class RateLimitPolicy(BaseModel):
         description="Ban duration for rate-limited IPs",
         ge=1,
     )
-    allowed_countries: List[str] = Field(
+    allowed_countries: list[str] = Field(
         default_factory=list,
         description="Whitelist of country codes (empty = allow all)",
     )
-    denied_countries: List[str] = Field(
+    denied_countries: list[str] = Field(
         default_factory=lambda: ["KP", "IR", "CU"],
         description="Blacklist of country codes",
     )
@@ -158,7 +157,7 @@ class SecurityPolicy(BaseModel):
         description="Enable Web Application Firewall",
     )
 
-    cors_origins: List[str] = Field(
+    cors_origins: list[str] = Field(
         default_factory=lambda: [
             "https://elevatediq.ai",
             "https://elevatediq.ai/ollama",
@@ -166,7 +165,7 @@ class SecurityPolicy(BaseModel):
         description="Allowed CORS origins",
     )
 
-    allowed_methods: List[str] = Field(
+    allowed_methods: list[str] = Field(
         default_factory=lambda: ["GET", "HEAD", "OPTIONS"],
         description="Allowed HTTP methods",
     )
@@ -226,13 +225,13 @@ class CDNConfig(BaseModel):
     """Complete CDN configuration."""
 
     # Endpoints
-    endpoints: List[CDNEndpoint] = Field(
+    endpoints: list[CDNEndpoint] = Field(
         description="CDN endpoints",
         min_items=1,
     )
 
     # Asset type configurations
-    asset_types: Dict[AssetType, AssetTypeConfig] = Field(
+    asset_types: dict[AssetType, AssetTypeConfig] = Field(
         default_factory=dict,
         description="Asset type configurations",
     )
@@ -302,7 +301,7 @@ class CDNConfig(BaseModel):
         clean_path = asset_path.lstrip("/")
         return f"{endpoint.url.rstrip('/')}/{self.bucket_prefix}/{clean_path}"
 
-    def get_cache_policy_for_extension(self, extension: str) -> Optional[CachePolicy]:
+    def get_cache_policy_for_extension(self, extension: str) -> CachePolicy | None:
         """Get cache policy for file extension.
 
         Args:
@@ -323,7 +322,7 @@ class CDNConfig(BaseModel):
                 return asset_config.cache_policy
         return None
 
-    def get_asset_type_for_extension(self, extension: str) -> Optional[AssetType]:
+    def get_asset_type_for_extension(self, extension: str) -> AssetType | None:
         """Get asset type for file extension.
 
         Args:
@@ -389,17 +388,13 @@ def get_default_cdn_config() -> CDNConfig:
                 asset_type=AssetType.STYLE,
                 file_extensions=[".css"],
                 mime_types=["text/css"],
-                cache_policy=CachePolicy(
-                    client_ttl_seconds=86400, cdn_ttl_seconds=604800
-                ),
+                cache_policy=CachePolicy(client_ttl_seconds=86400, cdn_ttl_seconds=604800),
             ),
             AssetType.SCRIPT: AssetTypeConfig(
                 asset_type=AssetType.SCRIPT,
                 file_extensions=[".js"],
                 mime_types=["application/javascript"],
-                cache_policy=CachePolicy(
-                    client_ttl_seconds=86400, cdn_ttl_seconds=604800
-                ),
+                cache_policy=CachePolicy(client_ttl_seconds=86400, cdn_ttl_seconds=604800),
             ),
             AssetType.FONT: AssetTypeConfig(
                 asset_type=AssetType.FONT,
@@ -412,7 +407,7 @@ def get_default_cdn_config() -> CDNConfig:
 
 
 # Global CDN configuration instance
-_cdn_config: Optional[CDNConfig] = None
+_cdn_config: CDNConfig | None = None
 
 
 def get_cdn_config() -> CDNConfig:

@@ -31,14 +31,14 @@ import asyncio
 import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
-from typing import Optional, Dict, List, Any
 from enum import Enum
+from typing import Any
 
 import structlog
 
 from ollama.services.chaos.config import (
-    ChaosExperiment,
     ChaosConfig,
+    ChaosExperiment,
     get_chaos_config,
 )
 
@@ -64,18 +64,18 @@ class ExperimentResult:
     experiment_name: str
     state: ExperimentState
     start_time: datetime
-    end_time: Optional[datetime] = None
-    duration_seconds: Optional[float] = None
+    end_time: datetime | None = None
+    duration_seconds: float | None = None
     error_rate: float = 0.0  # Percentage of failed requests
     error_count: int = 0
     success_count: int = 0
     timeout_count: int = 0
     cascading_failures: int = 0
     circuit_breaker_trips: int = 0
-    observed_failure_modes: List[str] = field(default_factory=list)
-    logs: List[Dict[str, Any]] = field(default_factory=list)
-    metrics: Dict[str, float] = field(default_factory=dict)
-    rollback_reason: Optional[str] = None
+    observed_failure_modes: list[str] = field(default_factory=list)
+    logs: list[dict[str, Any]] = field(default_factory=list)
+    metrics: dict[str, float] = field(default_factory=dict)
+    rollback_reason: str | None = None
 
     @property
     def total_requests(self) -> int:
@@ -89,7 +89,7 @@ class ExperimentResult:
             return 0.0
         return self.success_count / self.total_requests
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for logging."""
         return {
             "experiment_id": self.experiment_id,
@@ -111,15 +111,15 @@ class ExperimentResult:
 class ChaosManager:
     """Manages chaos experiment lifecycle."""
 
-    def __init__(self, config: Optional[ChaosConfig] = None) -> None:
+    def __init__(self, config: ChaosConfig | None = None) -> None:
         """Initialize chaos manager.
 
         Args:
             config: Chaos configuration (uses default if not provided)
         """
         self.config = config or get_chaos_config()
-        self.running_experiments: Dict[str, ExperimentResult] = {}
-        self.experiment_history: List[ExperimentResult] = []
+        self.running_experiments: dict[str, ExperimentResult] = {}
+        self.experiment_history: list[ExperimentResult] = []
         self.max_concurrent = self.config.max_concurrent_experiments
 
     def schedule_experiment(
@@ -144,13 +144,8 @@ class ChaosManager:
         if not self.config.enabled:
             raise ValueError("Chaos engineering is disabled")
 
-        if (
-            len(self.running_experiments) >= self.max_concurrent
-            and not run_in_background
-        ):
-            raise ValueError(
-                f"Max concurrent experiments ({self.max_concurrent}) reached"
-            )
+        if len(self.running_experiments) >= self.max_concurrent and not run_in_background:
+            raise ValueError(f"Max concurrent experiments ({self.max_concurrent}) reached")
 
         experiment_id = str(uuid.uuid4())
 
@@ -217,7 +212,9 @@ class ChaosManager:
                 if experiment.health_check.abort_on_unhealthy:
                     if result.error_rate > 0.5:
                         result.state = ExperimentState.ROLLED_BACK
-                        result.rollback_reason = f"Error rate exceeded threshold: {result.error_rate}"
+                        result.rollback_reason = (
+                            f"Error rate exceeded threshold: {result.error_rate}"
+                        )
                         log.warning(
                             "experiment_rolled_back",
                             experiment_id=result.experiment_id,
@@ -227,10 +224,7 @@ class ChaosManager:
 
                 # Check rollback threshold
                 if experiment.rollback_config.on_threshold_breach:
-                    if (
-                        result.error_rate
-                        > experiment.rollback_config.error_rate_threshold
-                    ):
+                    if result.error_rate > experiment.rollback_config.error_rate_threshold:
                         result.state = ExperimentState.ROLLED_BACK
                         result.rollback_reason = (
                             f"Error rate {result.error_rate} exceeded "
@@ -321,7 +315,7 @@ class ChaosManager:
         if random.random() < 0.05:
             result.cascading_failures += 1
 
-    def get_experiment_status(self, experiment_id: str) -> Optional[ExperimentResult]:
+    def get_experiment_status(self, experiment_id: str) -> ExperimentResult | None:
         """Get current status of experiment.
 
         Args:
@@ -349,9 +343,7 @@ class ChaosManager:
             return True
         return False
 
-    def rollback_experiment(
-        self, experiment_id: str, reason: str = "Manual rollback"
-    ) -> bool:
+    def rollback_experiment(self, experiment_id: str, reason: str = "Manual rollback") -> bool:
         """Manually rollback an experiment.
 
         Args:
@@ -379,8 +371,8 @@ class ChaosManager:
     def get_experiment_history(
         self,
         limit: int = 100,
-        experiment_name: Optional[str] = None,
-    ) -> List[ExperimentResult]:
+        experiment_name: str | None = None,
+    ) -> list[ExperimentResult]:
         """Get experiment history.
 
         Args:
@@ -395,11 +387,9 @@ class ChaosManager:
         if experiment_name:
             history = [e for e in history if e.experiment_name == experiment_name]
 
-        return sorted(
-            history, key=lambda x: x.start_time, reverse=True
-        )[:limit]
+        return sorted(history, key=lambda x: x.start_time, reverse=True)[:limit]
 
-    def get_running_experiments(self) -> List[ExperimentResult]:
+    def get_running_experiments(self) -> list[ExperimentResult]:
         """Get all running experiments.
 
         Returns:
@@ -407,7 +397,7 @@ class ChaosManager:
         """
         return list(self.running_experiments.values())
 
-    def get_metrics_summary(self) -> Dict[str, Any]:
+    def get_metrics_summary(self) -> dict[str, Any]:
         """Get summary metrics across all experiments.
 
         Returns:
@@ -432,8 +422,6 @@ class ChaosManager:
             "avg_error_rate": avg_error_rate,
             "cascading_failures": total_cascading,
             "circuit_breaker_trips": total_cb_trips,
-            "recovery_time_avg_seconds": sum(
-                e.duration_seconds or 0 for e in history
-            )
+            "recovery_time_avg_seconds": sum(e.duration_seconds or 0 for e in history)
             / len(history),
         }

@@ -29,22 +29,23 @@ python scripts/validate_landing_zone_compliance.py --strict
 ```
 
 Or use the VS Code task:
+
 - Press `Ctrl+Shift+B` → Select "Run All Checks"
 
 ---
 
 ## 🔑 The 8-Point Mandate
 
-| # | Mandate | How to Verify |
-|---|---------|---------------|
-| 1 | **Infrastructure Alignment** | Check GCP LB is sole entry point |
-| 2 | **Mandatory Labeling** | 24 labels in `pmo.yaml` ✅ |
-| 3 | **Naming Conventions** | Pattern: `{env}-{app}-{component}` |
-| 4 | **Zero Trust Auth** | Workload Identity enabled ✅ |
-| 5 | **No Root Chaos** | Root clean, all code in subdirs ✅ |
-| 6 | **GPG Signed Commits** | `git config --global commit.gpgsign true` ✅ |
-| 7 | **PMO Metadata** | `pmo.yaml` at root with 24 labels ✅ |
-| 8 | **Automated Compliance** | `validate_landing_zone_compliance.py` ✅ |
+| #   | Mandate                      | How to Verify                                |
+| --- | ---------------------------- | -------------------------------------------- |
+| 1   | **Infrastructure Alignment** | Check GCP LB is sole entry point             |
+| 2   | **Mandatory Labeling**       | 24 labels in `pmo.yaml` ✅                   |
+| 3   | **Naming Conventions**       | Pattern: `{env}-{app}-{component}`           |
+| 4   | **Zero Trust Auth**          | Workload Identity enabled ✅                 |
+| 5   | **No Root Chaos**            | Root clean, all code in subdirs ✅           |
+| 6   | **GPG Signed Commits**       | `git config --global commit.gpgsign true` ✅ |
+| 7   | **PMO Metadata**             | `pmo.yaml` at root with 24 labels ✅         |
+| 8   | **Automated Compliance**     | `validate_landing_zone_compliance.py` ✅     |
 
 ---
 
@@ -59,6 +60,7 @@ Level 5: inference.py, chat.py, cache.py, etc.
 ```
 
 **Max Files Per Level**:
+
 - Level 2: ≤5 modules + subdirs
 - Level 3: Only `__init__.py` (no implementation files)
 - Level 4: ≤20 files per container
@@ -83,14 +85,14 @@ Level 5: inference.py, chat.py, cache.py, etc.
 
 ## 📊 Performance Targets
 
-| Metric | Target | Current | Status |
-|--------|--------|---------|--------|
-| **API Response Time (p95)** | <500ms | 45ms | ✅ 95% faster |
-| **Cache Hit Latency** | <10ms | <5ms | ✅ Exceeds target |
-| **Model Startup Time** | <15s | 5s | ✅ 67% faster |
-| **Test Coverage** | ≥90% | 94% | ✅ Exceeds target |
-| **Build Time** | <5min | 2-3min | ✅ 10x faster |
-| **Uptime** | 99.9% | 99.95% | ✅ Exceeds SLA |
+| Metric                      | Target | Current | Status            |
+| --------------------------- | ------ | ------- | ----------------- |
+| **API Response Time (p95)** | <500ms | 45ms    | ✅ 95% faster     |
+| **Cache Hit Latency**       | <10ms  | <5ms    | ✅ Exceeds target |
+| **Model Startup Time**      | <15s   | 5s      | ✅ 67% faster     |
+| **Test Coverage**           | ≥90%   | 94%     | ✅ Exceeds target |
+| **Build Time**              | <5min  | 2-3min  | ✅ 10x faster     |
+| **Uptime**                  | 99.9%  | 99.95%  | ✅ Exceeds SLA    |
 
 ---
 
@@ -151,14 +153,14 @@ git push origin feature/my-feature
 
 ## 🎯 GCP Landing Zone Resources
 
-| Resource | Location | Status |
-|----------|----------|--------|
-| **Bootstrap KMS** | gcp-eiq keyring | ✅ Active |
-| **Terraform State** | gcp-eiq-tf-state bucket | ✅ Encrypted |
-| **Service Account** | github-actions-lz-onboard | ✅ Configured |
-| **Artifact Registry** | us-central1-docker.pkg.dev/gcp-eiq/ollama | ✅ Ready |
-| **Cloud Run** | us-central1 | ✅ Ready |
-| **Load Balancer** | https://elevatediq.ai/ollama | ✅ Active |
+| Resource              | Location                                  | Status        |
+| --------------------- | ----------------------------------------- | ------------- |
+| **Bootstrap KMS**     | gcp-eiq keyring                           | ✅ Active     |
+| **Terraform State**   | gcp-eiq-tf-state bucket                   | ✅ Encrypted  |
+| **Service Account**   | github-actions-lz-onboard                 | ✅ Configured |
+| **Artifact Registry** | us-central1-docker.pkg.dev/gcp-eiq/ollama | ✅ Ready      |
+| **Cloud Run**         | us-central1                               | ✅ Ready      |
+| **Load Balancer**     | https://elevatediq.ai/ollama              | ✅ Active     |
 
 ---
 
@@ -215,26 +217,31 @@ pytest tests/ --cov
 ## 🆘 Troubleshooting
 
 ### "Validation Failed: Missing Labels"
+
 - Check `pmo.yaml` has all 24 labels
 - Run: `python scripts/validate_landing_zone_compliance.py --strict`
 - Fix: Add missing labels to `pmo.yaml`
 
 ### "Type Check Fail: Missing Type Hints"
+
 - Run: `mypy ollama/ --strict`
 - Fix: Add type hints to function signatures
 - See: [ELITE_STANDARDS_IMPLEMENTATION.md](./ELITE_STANDARDS_IMPLEMENTATION.md#function-type-safety)
 
 ### "Linting Errors"
+
 - Run: `ruff check ollama/`
 - Auto-fix: `ruff check ollama/ --fix`
 - See: [ELITE_STANDARDS_IMPLEMENTATION.md](./ELITE_STANDARDS_IMPLEMENTATION.md#code-organization)
 
 ### "Test Coverage Low"
+
 - Check coverage: `pytest --cov=ollama --cov-report=html`
 - View report: `open htmlcov/index.html`
 - Add tests for uncovered lines
 
 ### "Security Scan Failure"
+
 - Run: `snyk code scan ollama/`
 - Check: `pip-audit`
 - Fix: Update dependencies or patch vulnerabilities
@@ -267,6 +274,6 @@ gcloud compute ssh ollama-api --zone us-central1
 
 ---
 
-**Last Updated**: January 18, 2026  
-**Status**: ✅ Production Ready  
+**Last Updated**: January 18, 2026
+**Status**: ✅ Production Ready
 **Support**: See [docs/CONTRIBUTING.md](./CONTRIBUTING.md)

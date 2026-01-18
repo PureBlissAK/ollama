@@ -5,12 +5,14 @@
 Ollama's chaos engineering framework enables systematic resilience testing through controlled fault injection. This document covers the complete chaos testing infrastructure, experiment catalog, deployment procedures, and operational runbooks.
 
 **Business Impact**:
+
 - **MTTR Improvement**: 60% reduction in mean-time-to-recovery through early failure detection
 - **Failure Mode Catalog**: 20+ distinct failure modes identified and tested
 - **Confidence**: 95%+ confidence in system resilience for 99.99% SLA targets
 - **Cost**: ~$2,000/month in testing infrastructure vs. $500K+ incident recovery costs
 
 **Architecture**:
+
 - Orchestrated experiment execution via Kubernetes CronJobs
 - Automated rollback on failure thresholds
 - Prometheus integration for real-time metrics
@@ -88,6 +90,7 @@ Ollama's chaos engineering framework enables systematic resilience testing throu
 #### ChaosManager (Orchestration)
 
 **Responsibilities**:
+
 - Experiment lifecycle management (schedule, execute, complete)
 - Concurrent execution with limits (default: 3 max concurrent)
 - Health monitoring and automatic rollback
@@ -95,6 +98,7 @@ Ollama's chaos engineering framework enables systematic resilience testing throu
 - Experiment history tracking
 
 **Interface**:
+
 ```python
 manager = ChaosManager()
 experiment_id = manager.schedule_experiment(
@@ -109,6 +113,7 @@ manager.rollback_experiment(experiment_id, reason="High error rate")
 #### ChaosExecutor (Injection)
 
 **Responsibilities**:
+
 - Network chaos injection (latency, jitter, packet loss)
 - Compute resource chaos (CPU throttling, memory limits)
 - Service failure injection (pod crashes, hangs)
@@ -116,6 +121,7 @@ manager.rollback_experiment(experiment_id, reason="High error rate")
 - Chaos cleanup
 
 **Implementation**:
+
 - Uses Docker/Kubernetes APIs
 - Traffic Control (tc) for network chaos
 - cgroups for resource limits
@@ -124,6 +130,7 @@ manager.rollback_experiment(experiment_id, reason="High error rate")
 #### ChaosMetrics (Observability)
 
 **Responsibilities**:
+
 - Record request success/failure
 - Track latency percentiles (p50, p95, p99)
 - Count circuit breaker trips
@@ -131,6 +138,7 @@ manager.rollback_experiment(experiment_id, reason="High error rate")
 - Export Prometheus metrics
 
 **Metrics**:
+
 ```
 chaos_experiments_total{status="completed"} 42
 chaos_experiment_duration_seconds{le="10"} 35
@@ -148,12 +156,13 @@ chaos_recovery_time_seconds{experiment_id="exp-123"} 45.2
 
 #### 1. Inference Latency Spike
 
-**Type**: `NETWORK_LATENCY`  
-**Severity**: MEDIUM  
-**Duration**: 5 minutes  
-**Target**: Inference service  
+**Type**: `NETWORK_LATENCY`
+**Severity**: MEDIUM
+**Duration**: 5 minutes
+**Target**: Inference service
 
 **Configuration**:
+
 ```python
 ChaosExperiment(
     name="inference_latency_spike",
@@ -169,11 +178,13 @@ ChaosExperiment(
 ```
 
 **Expected Impact**:
+
 - Request latency: 50-100ms → 200-300ms
 - Error rate: <1% (timeouts if timeout > 250ms)
 - Success rate: >95%
 
 **Rollback Conditions**:
+
 - Error rate > 50%
 - Circuit breaker trips
 - P99 latency > 10s
@@ -182,12 +193,13 @@ ChaosExperiment(
 
 #### 2. Network Packet Loss Simulation
 
-**Type**: `NETWORK_LOSS`  
-**Severity**: MEDIUM  
-**Duration**: 3 minutes  
-**Target**: Database connections  
+**Type**: `NETWORK_LOSS`
+**Severity**: MEDIUM
+**Duration**: 3 minutes
+**Target**: Database connections
 
 **Configuration**:
+
 ```python
 ChaosExperiment(
     name="network_loss_simulation",
@@ -202,6 +214,7 @@ ChaosExperiment(
 ```
 
 **Expected Impact**:
+
 - Request retry rate: 5-10%
 - Connection pool exhaustion: Possible
 - Recovery time: 10-20 seconds
@@ -212,12 +225,13 @@ ChaosExperiment(
 
 #### 3. Database Service Failure
 
-**Type**: `SERVICE_FAILURE`  
-**Severity**: HIGH  
-**Duration**: 2 minutes  
-**Target**: PostgreSQL pod  
+**Type**: `SERVICE_FAILURE`
+**Severity**: HIGH
+**Duration**: 2 minutes
+**Target**: PostgreSQL pod
 
 **Configuration**:
+
 ```python
 ChaosExperiment(
     name="database_failure_recovery",
@@ -229,6 +243,7 @@ ChaosExperiment(
 ```
 
 **Expected Impact**:
+
 - Write failures: 100%
 - Read failures: ~70%
 - Circuit breaker trips: Yes
@@ -238,12 +253,13 @@ ChaosExperiment(
 
 #### 4. Cache Service Failure
 
-**Type**: `SERVICE_FAILURE`  
-**Severity**: LOW  
-**Duration**: 1 minute  
-**Target**: Redis pod  
+**Type**: `SERVICE_FAILURE`
+**Severity**: LOW
+**Duration**: 1 minute
+**Target**: Redis pod
 
 **Configuration**:
+
 ```python
 ChaosExperiment(
     name="cache_failure_recovery",
@@ -255,6 +271,7 @@ ChaosExperiment(
 ```
 
 **Expected Impact**:
+
 - Cache hit rate: 100% → 0%
 - Database load: Increases 5-10x
 - Latency: 50-100ms → 200-500ms
@@ -266,12 +283,13 @@ ChaosExperiment(
 
 #### 5. CPU Exhaustion Test
 
-**Type**: `RESOURCE_CPU`  
-**Severity**: MEDIUM  
-**Duration**: 3 minutes  
-**Target**: Inference service  
+**Type**: `RESOURCE_CPU`
+**Severity**: MEDIUM
+**Duration**: 3 minutes
+**Target**: Inference service
 
 **Configuration**:
+
 ```python
 ChaosExperiment(
     name="cpu_exhaustion_test",
@@ -287,6 +305,7 @@ ChaosExperiment(
 ```
 
 **Expected Impact**:
+
 - Throughput: Reduced by 40-50%
 - Latency: Increased by 80-100%
 - Queue depth: Increases
@@ -296,12 +315,13 @@ ChaosExperiment(
 
 #### 6. Memory Pressure Test
 
-**Type**: `RESOURCE_MEMORY`  
-**Severity**: MEDIUM  
-**Duration**: 2 minutes  
-**Target**: API service  
+**Type**: `RESOURCE_MEMORY`
+**Severity**: MEDIUM
+**Duration**: 2 minutes
+**Target**: API service
 
 **Configuration**:
+
 ```python
 ChaosExperiment(
     name="memory_pressure_test",
@@ -318,6 +338,7 @@ ChaosExperiment(
 ```
 
 **Expected Impact**:
+
 - OOM kills: Possible
 - GC pause times: Increase
 - Latency: 10-50% degradation
@@ -329,12 +350,13 @@ ChaosExperiment(
 
 #### 7. Inference → Cache Cascading Failure
 
-**Type**: `CASCADING_FAILURE`  
-**Severity**: HIGH  
-**Duration**: 5 minutes  
-**Sequence**: Inference → Cache (5s delay) → API  
+**Type**: `CASCADING_FAILURE`
+**Severity**: HIGH
+**Duration**: 5 minutes
+**Sequence**: Inference → Cache (5s delay) → API
 
 **Expected Impact**:
+
 - Inference service fails (100% error)
 - Cache becomes bottleneck (hit rate 0%)
 - API degrades (queuing)
@@ -345,18 +367,21 @@ ChaosExperiment(
 ### Chaos Experiment Schedule
 
 **Canary Phase**:
+
 - Run during canary shift (5% traffic)
 - Low severity experiments (latency, packet loss)
 - Auto-rollback on error rate > 25%
 - Duration: 1-3 minutes
 
 **Nightly (Off-Peak)**:
+
 - Run 2am-4am daily
 - All experiment types
 - Dedicated test pods (not production traffic)
 - Duration: 5-10 minutes per experiment
 
 **On-Demand (Manual)**:
+
 - Run on-demand for specific scenarios
 - Engineer approval required
 - Full rollback capability
@@ -389,15 +414,15 @@ class ChaosExperiment:
     duration_seconds: int
     severity: SeverityLevel
     target_service: str
-    
+
     # Chaos configuration
     network_config: NetworkConfig = field(default_factory=NetworkConfig)
     compute_config: ComputeConfig = field(default_factory=ComputeConfig)
-    
+
     # Safety
     health_check: HealthCheck = field(default_factory=HealthCheck)
     rollback_config: RollbackConfig = field(default_factory=RollbackConfig)
-    
+
     # Monitoring
     monitoring_config: MonitoringConfig = field(default_factory=MonitoringConfig)
 ```
@@ -460,7 +485,7 @@ metadata:
     component: chaos-testing
     environment: production
 spec:
-  schedule: "0 2 * * *"  # 2am daily
+  schedule: "0 2 * * *" # 2am daily
   jobTemplate:
     spec:
       template:
@@ -470,31 +495,31 @@ spec:
         spec:
           serviceAccountName: chaos-executor
           containers:
-          - name: chaos-executor
-            image: ollama:latest
-            command:
-            - python
-            - -m
-            - ollama.services.chaos.orchestrator
-            args:
-            - --experiment
-            - "inference_latency_spike"
-            - --canary-mode
-            - "false"
-            - --monitor-interval
-            - "10"
-            env:
-            - name: CHAOS_ENABLED
-              value: "true"
-            - name: PROMETHEUS_ENDPOINT
-              value: "http://prometheus:9090"
-            resources:
-              requests:
-                cpu: 100m
-                memory: 256Mi
-              limits:
-                cpu: 500m
-                memory: 512Mi
+            - name: chaos-executor
+              image: ollama:latest
+              command:
+                - python
+                - -m
+                - ollama.services.chaos.orchestrator
+              args:
+                - --experiment
+                - "inference_latency_spike"
+                - --canary-mode
+                - "false"
+                - --monitor-interval
+                - "10"
+              env:
+                - name: CHAOS_ENABLED
+                  value: "true"
+                - name: PROMETHEUS_ENDPOINT
+                  value: "http://prometheus:9090"
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 256Mi
+                limits:
+                  cpu: 500m
+                  memory: 512Mi
           restartPolicy: OnFailure
 ```
 
@@ -509,16 +534,16 @@ exp_id = manager.schedule_experiment(exp, run_in_background=True)
 # Monitor in real-time
 while True:
     status = manager.get_experiment_status(exp_id)
-    
+
     if status.state == ExperimentState.COMPLETED:
         print(f"Error rate: {status.error_rate}%")
         print(f"Recovery time: {status.duration_seconds}s")
         break
-    
+
     if status.state == ExperimentState.ROLLED_BACK:
         print(f"Rolled back: {status.rollback_reason}")
         break
-    
+
     time.sleep(1)
 ```
 
@@ -554,6 +579,7 @@ chaos_recovery_time_seconds{experiment_id="exp-123"} 45.2
 ### Grafana Dashboard
 
 **Panels**:
+
 1. **Experiment Status**: Running, completed, rolled back counts
 2. **Error Rate Trend**: Error rate over time during experiments
 3. **Latency Percentiles**: P50, P95, P99 during chaos
@@ -568,11 +594,13 @@ chaos_recovery_time_seconds{experiment_id="exp-123"} 45.2
 ### Phase 1: Preparation (15 minutes)
 
 1. **Review Configuration**
+
    ```bash
    python -c "from ollama.services.chaos import get_chaos_config; cfg = get_chaos_config(); print(f'Experiments: {len(cfg.experiments)}')"
    ```
 
 2. **Verify Metrics**
+
    ```bash
    kubectl port-forward -n ollama svc/prometheus 9090:9090 &
    curl http://localhost:9090/api/v1/query?query=up
@@ -586,9 +614,10 @@ chaos_recovery_time_seconds{experiment_id="exp-123"} 45.2
 ### Phase 2: Enable Chaos (5 minutes)
 
 1. **Update Feature Flags**
+
    ```python
    from ollama.services.feature_flags import FeatureFlagManager
-   
+
    manager = FeatureFlagManager()
    manager.set_flag("chaos_testing_enabled", True)
    manager.set_flag("canary_chaos_injections", True)
@@ -603,13 +632,14 @@ chaos_recovery_time_seconds{experiment_id="exp-123"} 45.2
 ### Phase 3: Run First Experiment (10 minutes)
 
 1. **Start Low-Severity Experiment**
+
    ```python
    from ollama.services.chaos import ChaosManager, get_chaos_config
-   
+
    manager = ChaosManager()
    config = get_chaos_config()
    exp = next(e for e in config.experiments if e.name == "inference_latency_spike")
-   
+
    exp_id = manager.schedule_experiment(
        experiment=exp,
        run_in_background=True
@@ -617,10 +647,11 @@ chaos_recovery_time_seconds{experiment_id="exp-123"} 45.2
    ```
 
 2. **Monitor Execution**
+
    ```bash
    # Watch logs
    kubectl logs -f -n ollama -l job=chaos-testing
-   
+
    # Check metrics
    kubectl port-forward -n ollama svc/prometheus 9090:9090 &
    curl 'http://localhost:9090/api/v1/query?query=chaos_requests_total'
@@ -639,6 +670,7 @@ chaos_recovery_time_seconds{experiment_id="exp-123"} 45.2
 ### Phase 4: Validate Results (10 minutes)
 
 1. **Check Experiment Status**
+
    ```python
    status = manager.get_experiment_status(exp_id)
    print(f"State: {status.state}")
@@ -647,6 +679,7 @@ chaos_recovery_time_seconds{experiment_id="exp-123"} 45.2
    ```
 
 2. **Review Metrics Summary**
+
    ```python
    summary = manager.get_metrics_summary()
    print(f"Total experiments: {summary['total_experiments']}")
@@ -664,11 +697,13 @@ chaos_recovery_time_seconds{experiment_id="exp-123"} 45.2
 ### Phase 5: Schedule Regular Execution (5 minutes)
 
 1. **Deploy CronJob**
+
    ```bash
    kubectl apply -f k8s/chaos/cronjob.yaml
    ```
 
 2. **Enable Monitoring**
+
    ```bash
    kubectl apply -f k8s/chaos/service-monitor.yaml
    ```
@@ -711,6 +746,7 @@ chaos_recovery_time_seconds{experiment_id="exp-123"} 45.2
 **Symptom**: `ExperimentState.PENDING` indefinitely
 
 **Diagnosis**:
+
 ```bash
 # Check max concurrent limit
 python -c "from ollama.services.chaos import ChaosManager; m = ChaosManager(); print(f'Running: {len(m.running_experiments)}, Max: {m.max_concurrent}')"
@@ -720,6 +756,7 @@ curl http://api:8000/api/v1/flags/chaos_testing_enabled
 ```
 
 **Solution**:
+
 1. Wait for running experiments to complete
 2. Or manually stop: `manager.stop_experiment(exp_id)`
 3. Or disable/re-enable feature flag
@@ -729,6 +766,7 @@ curl http://api:8000/api/v1/flags/chaos_testing_enabled
 **Symptom**: Error rate > 50%, not auto-rolling back
 
 **Diagnosis**:
+
 ```bash
 # Check rollback configuration
 python -c "from ollama.services.chaos import get_chaos_config; cfg = get_chaos_config(); exp = cfg.experiments[0]; print(exp.rollback_config)"
@@ -738,6 +776,7 @@ grep CHAOS_ERROR_RATE /etc/ollama/.env
 ```
 
 **Solution**:
+
 1. Manually rollback: `manager.rollback_experiment(exp_id, "High error rate")`
 2. Reduce experiment severity
 3. Increase rollback threshold if expected
@@ -747,6 +786,7 @@ grep CHAOS_ERROR_RATE /etc/ollama/.env
 **Symptom**: Prometheus queries return no data
 
 **Diagnosis**:
+
 ```bash
 # Check metrics collector
 curl http://api:8000/metrics | grep chaos
@@ -756,6 +796,7 @@ kubectl get servicemonitor -n ollama
 ```
 
 **Solution**:
+
 1. Restart metrics exporter
 2. Verify Prometheus scrape config
 3. Check network connectivity
@@ -844,16 +885,19 @@ severity: MEDIUM
 ## Metrics Summary
 
 **Baseline Performance** (no chaos):
+
 - Error rate: 0.01%
 - P99 latency: 150ms
 - Circuit breaker trips: 0/hour
 
 **During Chaos Experiments** (expected):
+
 - Error rate: 5-50% (depends on severity)
 - P99 latency: 500ms-10s (depends on chaos type)
 - Circuit breaker trips: 1-5 per experiment
 
 **Recovery Target**:
+
 - Time to healthy: <60 seconds
 - Error rate recovery: <0.1% within 10s
 - All metrics: Baseline within 60s
@@ -867,7 +911,6 @@ severity: MEDIUM
 - **DEPLOYMENT.md**: Production deployment procedures
 - **MONITORING_AND_ALERTING.md**: Observability setup
 
-**Version**: 1.0.0  
-**Last Updated**: January 20, 2026  
+**Version**: 1.0.0
+**Last Updated**: January 20, 2026
 **Maintained By**: SRE Team
-

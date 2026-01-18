@@ -29,11 +29,11 @@ Example:
     ... )
 """
 
-from dataclasses import dataclass, field
-from datetime import datetime, timedelta
+from datetime import datetime
 from enum import Enum
-from typing import Optional, Dict, List, Any
-from pydantic import BaseModel, Field, validator, root_validator
+from typing import Any
+
+from pydantic import BaseModel, Field, root_validator, validator
 
 
 class ExperimentType(str, Enum):
@@ -94,13 +94,13 @@ class NetworkConfig(BaseModel):
         le=100.0,
     )
 
-    bandwidth_limit_mbps: Optional[int] = Field(
+    bandwidth_limit_mbps: int | None = Field(
         default=None,
         description="Bandwidth limit (Mbps)",
         ge=1,
     )
 
-    target_ports: List[int] = Field(
+    target_ports: list[int] = Field(
         default_factory=lambda: [5432, 6379, 8000],
         description="Target ports for chaos",
     )
@@ -116,26 +116,26 @@ class NetworkConfig(BaseModel):
 class ComputeConfig(BaseModel):
     """Compute resource chaos configuration."""
 
-    cpu_percent: Optional[float] = Field(
+    cpu_percent: float | None = Field(
         default=None,
         description="CPU throttle percentage (0-100)",
         ge=0,
         le=100,
     )
 
-    memory_mb: Optional[int] = Field(
+    memory_mb: int | None = Field(
         default=None,
         description="Memory limit (MB)",
         ge=128,
     )
 
-    io_limit_mbps: Optional[int] = Field(
+    io_limit_mbps: int | None = Field(
         default=None,
         description="I/O throughput limit (Mbps)",
         ge=1,
     )
 
-    target_containers: List[str] = Field(
+    target_containers: list[str] = Field(
         default_factory=lambda: ["api", "inference"],
         description="Target containers for chaos",
     )
@@ -210,7 +210,7 @@ class ChaosExperiment(BaseModel):
 
     name: str = Field(description="Experiment name")
 
-    description: Optional[str] = Field(
+    description: str | None = Field(
         default=None,
         description="Detailed description",
     )
@@ -231,12 +231,12 @@ class ChaosExperiment(BaseModel):
         le=3600,
     )
 
-    network_config: Optional[NetworkConfig] = Field(
+    network_config: NetworkConfig | None = Field(
         default=None,
         description="Network chaos config",
     )
 
-    compute_config: Optional[ComputeConfig] = Field(
+    compute_config: ComputeConfig | None = Field(
         default=None,
         description="Compute resource chaos config",
     )
@@ -251,14 +251,14 @@ class ChaosExperiment(BaseModel):
         description="Rollback config",
     )
 
-    expected_failure_modes: List[FailureMode] = Field(
+    expected_failure_modes: list[FailureMode] = Field(
         default_factory=list,
         description="Expected failure modes",
     )
 
     owner: str = Field(description="Experiment owner (team name)")
 
-    tags: Dict[str, str] = Field(
+    tags: dict[str, str] = Field(
         default_factory=dict,
         description="Metadata tags",
     )
@@ -266,7 +266,7 @@ class ChaosExperiment(BaseModel):
     created_at: datetime = Field(default_factory=datetime.now)
 
     @root_validator
-    def validate_experiment_config(cls, values: Dict[str, Any]) -> Dict[str, Any]:
+    def validate_experiment_config(cls, values: dict[str, Any]) -> dict[str, Any]:
         """Validate experiment has correct configuration for type."""
         exp_type = values.get("experiment_type")
 
@@ -287,7 +287,7 @@ class ChaosExperiment(BaseModel):
 class ChaosConfig(BaseModel):
     """Global chaos engineering configuration."""
 
-    experiments: Dict[str, ChaosExperiment] = Field(
+    experiments: dict[str, ChaosExperiment] = Field(
         default_factory=dict,
         description="Registered experiments",
     )
@@ -333,7 +333,7 @@ class ChaosConfig(BaseModel):
 
         self.experiments[experiment.name] = experiment
 
-    def remove_experiment(self, name: str) -> Optional[ChaosExperiment]:
+    def remove_experiment(self, name: str) -> ChaosExperiment | None:
         """Remove chaos experiment.
 
         Args:
@@ -344,7 +344,7 @@ class ChaosConfig(BaseModel):
         """
         return self.experiments.pop(name, None)
 
-    def get_experiment(self, name: str) -> Optional[ChaosExperiment]:
+    def get_experiment(self, name: str) -> ChaosExperiment | None:
         """Get experiment by name.
 
         Args:
@@ -357,9 +357,9 @@ class ChaosConfig(BaseModel):
 
     def list_experiments(
         self,
-        experiment_type: Optional[ExperimentType] = None,
-        target_service: Optional[str] = None,
-    ) -> List[ChaosExperiment]:
+        experiment_type: ExperimentType | None = None,
+        target_service: str | None = None,
+    ) -> list[ChaosExperiment]:
         """List experiments with optional filtering.
 
         Args:
@@ -372,9 +372,7 @@ class ChaosConfig(BaseModel):
         experiments = list(self.experiments.values())
 
         if experiment_type:
-            experiments = [
-                e for e in experiments if e.experiment_type == experiment_type
-            ]
+            experiments = [e for e in experiments if e.experiment_type == experiment_type]
 
         if target_service:
             experiments = [e for e in experiments if e.target_service == target_service]
@@ -524,7 +522,7 @@ def get_default_chaos_config() -> ChaosConfig:
 
 
 # Global chaos configuration instance
-_chaos_config: Optional[ChaosConfig] = None
+_chaos_config: ChaosConfig | None = None
 
 
 def get_chaos_config() -> ChaosConfig:

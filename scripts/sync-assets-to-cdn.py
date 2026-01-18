@@ -39,23 +39,18 @@ import argparse
 import asyncio
 import hashlib
 import json
+import re
 import logging
 import mimetypes
-import os
 import sys
-import time
-from concurrent.futures import ThreadPoolExecutor
-from dataclasses import dataclass, asdict, field
-from datetime import datetime, timedelta
+from dataclasses import dataclass, field
+from datetime import datetime
 from pathlib import Path
-from typing import Optional, Dict, List, Tuple, Any
-from urllib.parse import quote
+from typing import Any
 
 import structlog
 from google.cloud import storage
-from google.cloud.storage import Bucket, Blob
 from PIL import Image
-import aiofiles
 
 # Configure logging
 log = structlog.get_logger(__name__)
@@ -82,8 +77,8 @@ class SyncStatistics:
     errors: int = 0
     total_bytes: int = 0
     start_time: datetime = field(default_factory=datetime.now)
-    end_time: Optional[datetime] = None
-    files_processed: List[str] = field(default_factory=list)
+    end_time: datetime | None = None
+    files_processed: list[str] = field(default_factory=list)
 
     @property
     def duration_seconds(self) -> float:
@@ -98,7 +93,7 @@ class SyncStatistics:
             return 0
         return (self.total_bytes / (1024 * 1024)) / self.duration_seconds
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for logging."""
         return {
             "uploaded": self.uploaded,
@@ -118,14 +113,14 @@ class CDNConfig:
     """CDN configuration."""
 
     bucket_name: str
-    project_id: Optional[str] = None
+    project_id: str | None = None
     prefix: str = DEFAULT_BUCKET_PREFIX
     max_concurrent_uploads: int = MAX_CONCURRENT_UPLOADS
     chunk_size: int = UPLOAD_CHUNK_SIZE
     optimize_images: bool = True
     compress_files: bool = True
     enable_versioning: bool = True
-    cache_control: Dict[str, str] = field(
+    cache_control: dict[str, str] = field(
         default_factory=lambda: {
             ".html": "public, max-age=3600",
             ".css": "public, max-age=86400",
@@ -161,10 +156,10 @@ class CDNSyncer:
             raise ValueError(f"Cannot access bucket: {config.bucket_name}") from e
 
         # Load cache metadata
-        self.cache: Dict[str, str] = self._load_cache_metadata()
+        self.cache: dict[str, str] = self._load_cache_metadata()
         self.stats = SyncStatistics()
 
-    def _load_cache_metadata(self) -> Dict[str, str]:
+    def _load_cache_metadata(self) -> dict[str, str]:
         """Load local cache metadata.
 
         Returns:
@@ -191,6 +186,8 @@ class CDNSyncer:
 
     def _calculate_file_hash(self, file_path: Path) -> str:
         """Calculate SHA256 hash of file.
+            # Track the current source root for path safety checks during uploads
+            self._current_source_root: Path | None = None
 
         Args:
             file_path: Path to file
@@ -198,13 +195,24 @@ class CDNSyncer:
         Returns:
             Hex-encoded SHA256 hash
         """
+        # Path safety: ensure file is inside the current source root
+        if self._current_source_root is not None:
+            try:
+                resolved = Path(file_path).resolve()
+                _ = resolved.relative_to(self._current_source_root.resolve())
+            except Exception:
+                raise ValueError("Invalid file path outside source root") from None
+
+        # Reject symlinks to avoid path traversal
+        if Path(file_path).is_symlink():
+            raise ValueError("Invalid file path: symlinks are not allowed") from None
         sha256 = hashlib.sha256()
         with open(file_path, "rb") as f:
             for chunk in iter(lambda: f.read(8192), b""):
                 sha256.update(chunk)
         return sha256.hexdigest()
 
-    def _optimize_image(self, file_path: Path) -> Optional[Path]:
+    def _optimize_image(self, file_path: Path) -> Path | None:
         """Optimize image file.
 
         Converts to WebP format and optimizes dimensions.
@@ -216,6 +224,14 @@ class CDNSyncer:
             Path to optimized image or None if optimization failed
         """
         try:
+            # Path safety: ensure image is inside the current source root
+            if self._current_source_root is not None:
+                try:
+                    resolved = Path(file_path).resolve()
+                    _ = resolved.relative_to(self._current_source_root.resolve())
+                except Exception:
+                    raise ValueError("Invalid image path outside source root") from None
+
             img = Image.open(file_path)
 
             # Resize if too large
@@ -249,6 +265,14 @@ class CDNSyncer:
             file_path: Path to file
         """
         try:
+            # Path safety: ensure file is inside the current source root
+            if self._current_source_root is not None:
+                try:
+                    resolved = Path(file_path).resolve()
+                    _ = resolved.relative_to(self._current_source_root.resolve())
+                except Exception:
+                    raise ValueError("Invalid file path outside source root") from None
+
             with open(file_path, "rb") as f:
                 original_size = len(f.read())
 
@@ -269,9 +293,54 @@ class CDNSyncer:
         suffix = file_path.suffix.lower()
         return self.config.cache_control.get(suffix, "public, max-age=3600")
 
+    def _sanitize_prefix(self, prefix: str) -> str:
+        """Sanitize user-provided prefix to prevent path traversal.
+
+        - Disallow '..', backslashes, and drive letters
+        - Strip leading slashes
+        - Allow only [a-zA-Z0-9-_/]
+
+        Args:
+            prefix: raw prefix from CLI
+
+        Returns:
+            Safe prefix string
+        """
+        raw = (prefix or "").strip()
+        # Reject dangerous patterns
+        if ".." in raw or "\\" in raw or ":" in raw:
+            raise ValueError("Invalid prefix: path traversal or illegal characters detected")
+        # Normalize
+        raw = raw.lstrip("/")
+        # Whitelist characters
+        safe = re.sub(r"[^a-zA-Z0-9_\-/]", "-", raw)
+        return safe
+
+    def _validate_source_dir(self, source_dir: Path) -> Path:
+        """Validate and resolve source directory within repository root.
+
+        Ensures the directory is inside the repo root to prevent reading
+        arbitrary file system paths.
+
+        Args:
+            source_dir: path provided by CLI
+
+        Returns:
+            Resolved safe path
+        """
+        resolved = Path(source_dir).resolve()
+        repo_root = Path(__file__).resolve().parents[1]
+        try:
+            _ = resolved.relative_to(repo_root)
+        except ValueError as exc:
+            raise ValueError(f"Source directory must be inside repo root: {repo_root}") from exc
+        if not resolved.is_dir():
+            raise ValueError(f"Not a directory: {resolved}")
+        return resolved
+
     async def _upload_file(
         self, local_path: Path, remote_path: str, dry_run: bool = False
-    ) -> Tuple[bool, Optional[str]]:
+    ) -> tuple[bool, str | None]:
         """Upload file to GCS bucket.
 
         Args:
@@ -312,6 +381,14 @@ class CDNSyncer:
                     content_type = "image/webp"
                     remote_path = remote_path.replace(local_path.suffix.lower(), ".webp")
 
+            # Path safety: ensure upload path remains inside the source root
+            if self._current_source_root is not None:
+                try:
+                    resolved_upload = upload_path.resolve()
+                    _ = resolved_upload.relative_to(self._current_source_root.resolve())
+                except Exception:
+                    return False, "Invalid file path outside source root"
+
             # Upload to GCS
             blob = self.bucket.blob(remote_path)
             blob.cache_control = self._get_cache_control(local_path)
@@ -340,7 +417,7 @@ class CDNSyncer:
 
         except Exception as e:
             self.stats.errors += 1
-            error_msg = f"Upload failed: {str(e)}"
+            error_msg = f"Upload failed: {e!s}"
             log.error("file_upload_failed", path=remote_path, error=str(e))
             return False, error_msg
 
@@ -357,9 +434,8 @@ class CDNSyncer:
         Returns:
             Sync statistics
         """
-        source_dir = Path(source_dir)
-        if not source_dir.is_dir():
-            raise ValueError(f"Not a directory: {source_dir}")
+        source_dir = self._validate_source_dir(Path(source_dir))
+        prefix = self._sanitize_prefix(prefix)
 
         log.info(
             "sync_started",
@@ -369,21 +445,24 @@ class CDNSyncer:
         )
 
         # Collect files to upload
-        files_to_upload = [
-            (file_path, f"{prefix}/{file_path.relative_to(source_dir)}")
-            for file_path in source_dir.rglob("*")
-            if file_path.is_file()
-        ]
+        files_to_upload = []
+        for file_path in source_dir.rglob("*"):
+            # Skip non-files and symlinks to prevent path traversal via links
+            if (not file_path.is_file()) or file_path.is_symlink():
+                continue
+            rel = file_path.relative_to(source_dir).as_posix()
+            remote_path = f"{prefix}/{rel}" if prefix else rel
+            files_to_upload.append((file_path, remote_path))
 
         # Upload files concurrently
         semaphore = asyncio.Semaphore(self.config.max_concurrent_uploads)
 
-        async def upload_with_semaphore(args: Tuple[Path, str]) -> Tuple[bool, Optional[str]]:
+        async def upload_with_semaphore(args: tuple[Path, str]) -> tuple[bool, str | None]:
             local_path, remote_path = args
             async with semaphore:
                 return await self._upload_file(local_path, remote_path, dry_run)
 
-        results = await asyncio.gather(
+        await asyncio.gather(
             *[upload_with_semaphore(args) for args in files_to_upload],
             return_exceptions=False,
         )
@@ -398,7 +477,7 @@ class CDNSyncer:
 
         return self.stats
 
-    def invalidate_cache(self, paths: List[str], dry_run: bool = False) -> Dict[str, Any]:
+    def invalidate_cache(self, paths: list[str], dry_run: bool = False) -> dict[str, Any]:
         """Invalidate CDN cache for paths.
 
         Args:
@@ -433,7 +512,7 @@ class CDNSyncer:
         log.info("cache_invalidation_completed", results=results)
         return results
 
-    def generate_cost_report(self) -> Dict[str, Any]:
+    def generate_cost_report(self) -> dict[str, Any]:
         """Generate cost analysis report.
 
         Returns:
@@ -441,7 +520,7 @@ class CDNSyncer:
         """
         # Calculate storage costs
         total_bytes = sum(blob.size for blob in self.bucket.list_blobs())
-        storage_gb = total_bytes / (1024 ** 3)
+        storage_gb = total_bytes / (1024**3)
         storage_cost = storage_gb * 0.020  # $0.020 per GB/month
 
         # Estimate bandwidth costs (assuming 1M requests/month)
@@ -557,8 +636,23 @@ def main() -> int:
 
         syncer = CDNSyncer(config)
 
+        # Validate source directory early to prevent path traversal from CLI
+        safe_source: Path | None = None
+        if args.source:
+            try:
+                candidate = Path(args.source).resolve()
+                repo_root = Path(__file__).resolve().parents[1]
+                _ = candidate.relative_to(repo_root)
+                safe_source = candidate
+            except Exception:
+                log.error("invalid_source_directory", source=args.source)
+                print(json.dumps({"error": "invalid_source_directory", "source": args.source}))
+                return 1
+
         if args.sync:
-            stats = asyncio.run(syncer.sync_directory(args.source, prefix=args.prefix, dry_run=args.dry_run))
+            stats = asyncio.run(
+                syncer.sync_directory(safe_source or Path(args.source), prefix=args.prefix, dry_run=args.dry_run)
+            )
             print(json.dumps(stats.to_dict(), indent=2))
             return 0
 
@@ -574,7 +668,7 @@ def main() -> int:
 
     except Exception as e:
         log.error("sync_failed", error=str(e))
-        print(f"Error: {str(e)}", file=sys.stderr)
+        print(f"Error: {e!s}", file=sys.stderr)
         return 1
 
     return 0
