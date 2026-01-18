@@ -17,8 +17,8 @@ NC='\033[0m'
 # Configuration
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-ENVIRONMENT="${1:dev}"
-METRICS_FILE="/tmp/ollama-metrics-${ENVIRONMENT}.json"
+ENVIRONMENT="${1:-dev}"
+ACTION="${2:-health}"
 STATUS_FILE="/tmp/ollama-status-${ENVIRONMENT}.json"
 ALERT_LOG="${PROJECT_ROOT}/logs/alerts-${ENVIRONMENT}.log"
 HEALTH_HISTORY="${PROJECT_ROOT}/logs/health-history-${ENVIRONMENT}.log"

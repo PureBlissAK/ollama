@@ -16,17 +16,17 @@ NC='\033[0m' # No Color
 # Configuration
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-ENVIRONMENT="${1:dev}"
-ACTION="${2:deploy}"
-DRY_RUN="${3:false}"
+ENVIRONMENT="${1:-dev}"
+ACTION="${2:-deploy}"
+DRY_RUN="${3:-false}"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 LOG_DIR="${PROJECT_ROOT}/logs"
 BACKUP_DIR="${PROJECT_ROOT}/backups"
 
 # GCP Configuration
 GCP_PROJECT_ID="${GCP_PROJECT_ID:-}"
-GCP_REGION="${GCP_REGION:us-central1}"
-TF_STATE_BUCKET="${TF_STATE_BUCKET:${GCP_PROJECT_ID}-ollama-tf-state}"
+GCP_REGION="${GCP_REGION:-us-central1}"
+TF_STATE_BUCKET="${TF_STATE_BUCKET:-${GCP_PROJECT_ID}-ollama-tf-state}"
 
 # Ensure directories exist
 mkdir -p "$LOG_DIR" "$BACKUP_DIR"

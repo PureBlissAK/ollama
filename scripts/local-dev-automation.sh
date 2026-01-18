@@ -16,9 +16,9 @@ NC='\033[0m'
 # Configuration
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-ENVIRONMENT="${1:local}"
-ACTION="${2:start}"
-COMPOSE_FILE="${PROJECT_ROOT}/docker-compose.local.yml"
+ENVIRONMENT="${1:-local}"
+ACTION="${2:-start}"
+COMPOSE_FILE="${PROJECT_ROOT}/docker/docker-compose.local.yml"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 
 # Logging
