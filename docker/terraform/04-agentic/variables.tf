@@ -197,7 +197,7 @@ variable "resource_labels" {
 # =============================================================================
 # Label Descriptions (Reference)
 # =============================================================================
-# 
+#
 # Category 1: Organizational (4 labels)
 #   - environment: production|staging|development|sandbox
 #   - cost_center: Finance code (e.g., "AI-ENG-001")
