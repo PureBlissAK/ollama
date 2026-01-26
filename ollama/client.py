@@ -3,7 +3,10 @@
 import os
 from typing import Any, cast
 
-import httpx
+try:
+    import httpx  # type: ignore
+except Exception:  # pragma: no cover - allow package import without httpx installed
+    httpx = None
 
 
 class Client:
@@ -64,6 +67,11 @@ class Client:
 
         # Add user agent
         headers["User-Agent"] = "ollama-client/1.0.0"
+
+        if httpx is None:
+            raise RuntimeError(
+                "httpx is required for `Client` but is not installed. Install with `pip install httpx`."
+            )
 
         self.client = httpx.Client(
             base_url=self.base_url,
@@ -177,4 +185,8 @@ class Client:
 
     def __del__(self) -> None:
         """Cleanup client connection."""
-        self.client.close()
+        try:
+            if getattr(self, "client", None) is not None:
+                self.client.close()
+        except Exception:
+            pass

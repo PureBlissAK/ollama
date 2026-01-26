@@ -14,6 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Commit message template following conventional commits
 - Documentation index and organization structure
 - Pre-commit validation for security, formatting, and tests
+ - `ollama/pmo/predictive_analytics.py`: `PredictiveAnalytics` class with linear and moving-average baselines and optional ARIMA/Prophet hooks (Issue #24)
+ - `tests/unit/pmo/test_predictive_run.py`: unit tests that load the predictive module by path (4 tests passing)
+ - `tests/unit/pmo/test_predictive_optional.py`: optional integration tests for ARIMA/Prophet (skipped when dependencies missing)
+ - Completed Issue #24: Predictive Analytics scaffolding and optional integrations added; unit tests passing and optional integration tests available (skipped when deps absent)
 
 ### Changed
 - Reorganized documentation into docs/ folder with archive subdirectory

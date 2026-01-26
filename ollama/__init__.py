@@ -1,10 +1,27 @@
 #!/usr/bin/env python
-"""Ollama package initialization."""
+"""Ollama package initialization.
+
+Lightweight package metadata and lazy attribute access to avoid importing
+heavy dependencies (like `httpx`) at package import time. This allows test
+discovery and other tooling to import `ollama` without requiring runtime
+dependencies until the `Client` class is actually used.
+"""
 
 __version__ = "1.0.0"
 __author__ = "kushin77"
 __description__ = "Elite local AI development platform for LLM inference"
 
-from ollama.client import Client
+
+def __getattr__(name: str):
+	"""Lazy-import attributes from submodules on demand.
+
+	Supports: `Client`.
+	"""
+	if name == "Client":
+		from .client import Client  # local import
+
+		return Client
+	raise AttributeError(f"module {__name__} has no attribute {name}")
+
 
 __all__ = ["Client"]
