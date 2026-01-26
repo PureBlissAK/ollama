@@ -7,13 +7,11 @@ Responsible for:
 - Performance metrics and monitoring
 """
 
-from typing import Optional, Any
-from dataclasses import dataclass
-from enum import Enum
 import asyncio
-import logging
-import json
+from dataclasses import dataclass
 from datetime import datetime
+from enum import Enum
+from typing import Any, Optional
 
 import structlog
 
@@ -195,7 +193,7 @@ class AgentOrchestrator:
             )
             return result
 
-        except Exception as e:
+        except Exception:
             if attempt < self.max_retries:
                 # Exponential backoff: 1s, 2s, 4s, 8s
                 backoff_seconds = 2**attempt

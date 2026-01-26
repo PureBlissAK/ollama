@@ -3,11 +3,10 @@
 Defines the interface and common functionality for all Ollama agents.
 """
 
-from typing import Optional, Any
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from enum import Enum
-import logging
+from typing import Any
 
 import structlog
 

@@ -461,5 +461,7 @@
             "ollama/api/routes/inference.py → tests/unit/api/routes/test_inference.py",
             "ollama/services/inference/generator.py → tests/unit/services/inference/test_generator.py"
         ]
-    }
+    },
+    "snyk.advanced.organization": "e11775de-f062-4c42-977a-b04a4cb58628",
+    "snyk.advanced.autoSelectOrganization": false
 }

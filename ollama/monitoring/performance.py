@@ -4,7 +4,6 @@ Provides benchmarking decorators, SLO validation, and performance
 metrics collection for load testing and performance analysis.
 """
 
-import asyncio
 import time
 from dataclasses import dataclass
 from typing import Any, Callable, Optional, TypeVar
