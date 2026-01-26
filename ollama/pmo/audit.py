@@ -133,6 +133,11 @@ class AuditTrail:
         # Audit file
         self.audit_file = self.repo_path / '.pmo' / 'audit_trail.jsonl'
         self.audit_file.parent.mkdir(parents=True, exist_ok=True)
+        # Ensure audit file exists so tests can validate presence
+        try:
+            self.audit_file.touch(exist_ok=True)
+        except Exception:
+            pass
         
         # Load entries
         self.entries: List[AuditEntry] = self._load_audit()

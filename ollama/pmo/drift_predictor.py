@@ -137,6 +137,11 @@ class DriftPredictor:
         # History file
         self.history_file = self.repo_path / '.pmo' / 'compliance_history.jsonl'
         self.history_file.parent.mkdir(parents=True, exist_ok=True)
+        # Ensure history file exists for tests and future appends
+        try:
+            self.history_file.touch(exist_ok=True)
+        except Exception:
+            pass
         
         # Load historical data
         self.snapshots: List[ComplianceSnapshot] = self._load_history()

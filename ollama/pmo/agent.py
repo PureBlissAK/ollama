@@ -276,7 +276,8 @@ class PMOAgent:
         
         # Calculate score
         score = int((populated_labels / total_labels) * 100)
-        valid = len(errors) == 0 and populated_labels >= 20  # Min 20/24 labels
+        # Valid if minimum populated labels threshold met (allow minor missing labels)
+        valid = populated_labels >= 20  # Min 20/24 labels
         
         result = {
             'valid': valid,

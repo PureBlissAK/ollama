@@ -238,9 +238,13 @@ class RepositoryAnalyzer:
         # Get highest scoring stack
         if scores:
             best_stack = max(scores, key=scores.get)  # type: ignore
+            # If no evidence found, return unknown
+            if scores[best_stack] <= 0:
+                return 'unknown', 0.0
+
             confidence = min(scores[best_stack] / 2.0, 1.0)  # Normalize to 0-1
             return best_stack, confidence
-        
+
         return 'unknown', 0.0
     
     def _detect_environment(self) -> Tuple[str, float]:

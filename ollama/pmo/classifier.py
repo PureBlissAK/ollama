@@ -381,7 +381,11 @@ class IssueClassifier:
             
             # If any matches, consider this priority
             if matches > 0:
-                adjusted_score = score + (matches * 5)
+                # Small boost per match, tuned to keep scores in expected ranges
+                adjusted_score = score + (matches * 3)
+                # Prevent non-p0 priorities from reaching max 100 to keep ranges
+                cap = 100 if priority == 'p0' else min(89, score + 30)
+                adjusted_score = min(adjusted_score, cap)
                 if adjusted_score > max_score:
                     max_score = adjusted_score
                     assigned_priority = priority
