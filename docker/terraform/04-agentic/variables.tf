@@ -52,13 +52,11 @@ variable "component" {
 variable "agent_image_uri" {
   description = "Artifact Registry URI for agent service image"
   type        = string
-  example     = "us-central1-docker.pkg.dev/my-project/prod-ollama-agents/agent:latest"
 }
 
 variable "orchestrator_image_uri" {
   description = "Artifact Registry URI for orchestrator service image"
   type        = string
-  example     = "us-central1-docker.pkg.dev/my-project/prod-ollama-agents/orchestrator:latest"
 }
 
 variable "cpu_limit" {
@@ -106,7 +104,6 @@ variable "log_level" {
 variable "ollama_service_url" {
   description = "Internal Ollama service URL"
   type        = string
-  example     = "http://ollama:11434"
 }
 
 # =============================================================================
@@ -132,19 +129,16 @@ variable "bq_location" {
 variable "artifact_kms_key" {
   description = "Cloud KMS key for Artifact Registry encryption (full resource name)"
   type        = string
-  example     = "projects/my-project/locations/us/keyRings/prod-keys/cryptoKeys/artifact-key"
 }
 
 variable "pubsub_kms_key" {
   description = "Cloud KMS key for Pub/Sub encryption"
   type        = string
-  example     = "projects/my-project/locations/us/keyRings/prod-keys/cryptoKeys/pubsub-key"
 }
 
 variable "bq_kms_key" {
   description = "Cloud KMS key for BigQuery encryption"
   type        = string
-  example     = "projects/my-project/locations/us/keyRings/prod-keys/cryptoKeys/bq-key"
 }
 
 # =============================================================================
@@ -154,7 +148,7 @@ variable "bq_kms_key" {
 variable "slack_channel" {
   description = "Slack channel name for alerts (e.g., #prod-ollama-alerts)"
   type        = string
-  example     = "#prod-ollama-agents-alerts"
+  default     = ""
 }
 
 # =============================================================================
