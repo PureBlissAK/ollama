@@ -12,14 +12,14 @@
 
 Ollama is a sophisticated full-stack AI platform designed for engineers who demand production-grade reliability, security, and performance. Run state-of-the-art language models entirely on your local infrastructure with a beautiful web interface—all AI workloads run locally on Docker, with optional GCP Load Balancer for public access.
 
-**Architecture**: 
+**Architecture**:
 - **Backend**: Python/FastAPI + PostgreSQL + Redis + Ollama
 - **Frontend**: Next.js 14 + React 18 + TypeScript + Firebase OAuth
 - **Deployment**: Docker containers + GCP Load Balancer for `https://elevatediq.ai/ollama`
 
 **Target Audience**: Elite engineers, research teams, enterprises requiring air-gapped AI systems, and developers building custom AI applications.
 
-**Production Status** ✅: 
+**Production Status** ✅:
 - Backend: Verified with 50-user load test (7,162 requests, 100% success, 75ms P95 latency)
 - Frontend: Production-ready Next.js with OAuth, real-time chat, streaming responses
 - **Live Platform**: [https://elevatediq.ai/ollama](https://elevatediq.ai/ollama)
@@ -42,6 +42,41 @@ Ollama is a sophisticated full-stack AI platform designed for engineers who dema
 - 📱 **Responsive Design**: Mobile-first, works on all devices
 - ⚡ **Optimized Performance**: Code splitting, lazy loading, <200KB bundle
 - 🧪 **Type Safety**: Full TypeScript coverage with strict mode
+
+## Documentation
+
+**📚 Complete Documentation Portal**: [docs/INDEX.md](docs/INDEX.md)
+
+### Quick Links
+
+**Getting Started**:
+- 📖 [Development Setup Guide](docs/setup/DEVELOPMENT_SETUP.md) - Complete environment setup
+- 🚀 [Quick Start Guide](docs/getting-started/QUICK_START.md) - Get running in 10 minutes
+- 🏗️ [Architecture Overview](docs/ARCHITECTURE.md) - System design and components
+
+**Development**:
+- 🤝 [Contributing Guidelines](docs/CONTRIBUTING.md) - How to contribute
+- 📋 [Copilot Instructions](.github/copilot-instructions.md) - AI assistant guidelines
+- 🧪 [Testing Guide](docs/testing/TEST_COVERAGE_CONFIG.md) - Test strategy and coverage
+
+**Operations**:
+- 🚢 [Deployment Guide](docs/DEPLOYMENT.md) - Production deployment procedures
+- 📊 [Monitoring & Observability](docs/monitoring.md) - Metrics, logs, and alerts
+- 📖 [Operational Runbooks](docs/RUNBOOKS.md) - Incident response procedures
+
+**API Reference**:
+- 🔌 [API Documentation](docs/API.md) - Complete REST endpoint reference
+- 🔐 [Authentication Guide](docs/OAUTH_SETUP.md) - Firebase OAuth setup
+- 📡 [Public API Access](docs/PUBLIC_API.md) - Using the public endpoint
+
+**Compliance & Security**:
+- ✅ [Landing Zone Compliance](docs/LANDING_ZONE_COMPLIANCE_AUDIT_2026-01-19.md) - GCP compliance status
+- 🔒 [Security Guide](docs/security/SECURITY_UPDATES.md) - Security best practices
+- 🏛️ [Standards Reference](docs/ELITE_STANDARDS_REFERENCE.md) - Code quality standards
+
+### All Documentation
+
+Browse the complete [Documentation Index](docs/INDEX.md) for all guides organized by category.
 
 ## Development & Contributing
 
@@ -177,7 +212,7 @@ npm run dev
 # Open http://localhost:3000
 ```
 
-**Full Documentation**: 
+**Full Documentation**:
 - Backend: [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
 - Frontend: [frontend/README.md](frontend/README.md)
 

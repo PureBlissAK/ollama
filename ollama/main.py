@@ -28,10 +28,10 @@ from ollama.api.routes import (
 
 # Phase 8: Consolidated settings (replaces old config)
 from ollama.config.settings import get_settings
+from ollama.middleware.impl.rate_limit import RateLimitMiddleware
 
 # Phase 6: Rate limiting
 from ollama.middleware.rate_limiter import RateLimiter
-from ollama.middleware.impl.rate_limit import RateLimitMiddleware
 
 # Phase 7: Performance monitoring
 from ollama.monitoring import (

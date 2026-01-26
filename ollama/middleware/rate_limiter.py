@@ -4,10 +4,8 @@ Provides request-level and endpoint-level rate limiting with
 configurable limits, windows, and strategies.
 """
 
-import asyncio
 import time
 from collections import defaultdict
-from datetime import datetime, timedelta
 from functools import wraps
 from typing import Any, Callable, Optional
 
@@ -149,7 +147,7 @@ class RateLimiter:
             return (True, remaining, window)
         except RateLimitExceededError:
             raise
-        except Exception as e:
+        except Exception:
             # Fallback to local rate limiting on Redis error
             return await self._check_local(identifier, limit, window)
 
