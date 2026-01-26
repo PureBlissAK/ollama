@@ -69,3 +69,39 @@ fi
 
 # Check that description starts with capital letter (already validated by regex)
 echo "✅ Commit message format valid"
+# ============================================================
+# GPG SIGNING VERIFICATION (MANDATORY for main/develop)
+# ============================================================
+# Get current branch
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "unknown")
+
+# For main and develop branches, enforce GPG signing
+if [[ "$CURRENT_BRANCH" == "main" ]] || [[ "$CURRENT_BRANCH" == "develop" ]]; then
+    # Check if GPG is configured
+    GPG_SIGNING=$(git config --get commit.gpgsign 2>/dev/null || echo "false")
+    
+    if [[ "$GPG_SIGNING" != "true" ]]; then
+        echo ""
+        echo -e "\033[0;31m❌ ERROR: GPG signing required for branch '$CURRENT_BRANCH'\033[0m"
+        echo ""
+        echo "GPG signing is mandatory for commits to main/develop branches."
+        echo ""
+        echo "Setup GPG signing:"
+        echo "  1. Install GPG: brew install gpg (macOS) or apt-get install gnupg (Linux)"
+        echo "  2. Create or import GPG key: gpg --gen-key"
+        echo "  3. Get your key ID: gpg --list-keys"
+        echo "  4. Configure git:"
+        echo "     git config --global commit.gpgsign true"
+        echo "     git config --global user.signingkey YOUR_GPG_KEY_ID"
+        echo ""
+        echo "Then retry your commit:"
+        echo "  git commit -S -m \"type(scope): description\""
+        echo ""
+        exit 1
+    fi
+fi
+
+# ============================================================
+# SUCCESS
+# ============================================================
+echo "✅ All commit message validations passed"

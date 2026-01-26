@@ -1,0 +1,273 @@
+"""Hub & Spoke repository issue management agent.
+
+This agent helps manage and coordinate repository issues across
+the hub (kushin77/ollama) and spoke repositories (team-specific forks).
+"""
+
+from dataclasses import dataclass
+from enum import Enum
+from typing import Optional, List
+import asyncio
+
+from ollama.agents.agent import Agent, AgentCapability, AgentConfig
+
+
+class IssueType(str, Enum):
+    """Types of repository issues."""
+
+    BUG = "bug"
+    FEATURE = "feature"
+    DOCUMENTATION = "documentation"
+    REFACTOR = "refactor"
+    DEPENDENCY = "dependency"
+    INFRASTRUCTURE = "infrastructure"
+
+
+@dataclass
+class RepositoryIssue:
+    """Represents a repository issue."""
+
+    id: str
+    title: str
+    description: str
+    issue_type: IssueType
+    priority: int  # 1-5, higher is more urgent
+    assigned_to: Optional[str] = None
+    status: str = "open"
+    hub_issue_id: Optional[int] = None
+    spoke_repos: Optional[List[str]] = None
+
+
+class HubSpokeAgent(Agent):
+    """Agent for managing hub & spoke repository issues.
+
+    Responsibilities:
+    - Track issues across hub and spoke repositories
+    - Synchronize issue states
+    - Route issues to appropriate spoke repositories
+    - Escalate critical issues to hub
+    - Provide visibility into distributed work
+    """
+
+    def __init__(self, context):
+        """Initialize the hub-spoke agent."""
+        super().__init__(context)
+        self.name = "HubSpokeAgent"
+        self.capabilities = [
+            AgentCapability.GENERATE,  # Generate issue summaries
+            AgentCapability.RETRIEVE,  # Retrieve issue data
+        ]
+        self.issues: List[RepositoryIssue] = []
+
+    async def sync_hub_to_spokes(self, hub_issue_id: int) -> dict:
+        """Synchronize a hub issue to spoke repositories.
+
+        Args:
+            hub_issue_id: ID of the hub issue to sync
+
+        Returns:
+            dict: Sync results {repo: status}
+        """
+        self.audit_log.log_intent(
+            {
+                "action": "sync_hub_to_spokes",
+                "hub_issue_id": hub_issue_id,
+            }
+        )
+
+        try:
+            # Fetch hub issue (would use GitHub API in practice)
+            hub_issue = self._fetch_hub_issue(hub_issue_id)
+
+            if not hub_issue:
+                return {"error": "Hub issue not found"}
+
+            # Create corresponding issues in spoke repos
+            sync_results = {}
+            for spoke_repo in self._get_spoke_repos():
+                try:
+                    spoke_issue = await self._create_spoke_issue(
+                        spoke_repo, hub_issue
+                    )
+                    sync_results[spoke_repo] = {
+                        "status": "synced",
+                        "issue_id": spoke_issue["id"],
+                    }
+                except Exception as e:
+                    sync_results[spoke_repo] = {"status": "failed", "error": str(e)}
+
+            self.audit_log.log_result(
+                {"action": "sync_hub_to_spokes", "results": sync_results}
+            )
+
+            return sync_results
+
+        except Exception as e:
+            self.audit_log.log_result(
+                {
+                    "action": "sync_hub_to_spokes",
+                    "status": "failed",
+                    "error": str(e),
+                }
+            )
+            raise
+
+    async def aggregate_spoke_updates(self) -> dict:
+        """Aggregate updates from spoke repositories back to hub.
+
+        Returns:
+            dict: Aggregated updates
+        """
+        self.audit_log.log_intent({"action": "aggregate_spoke_updates"})
+
+        try:
+            aggregated = {}
+
+            for spoke_repo in self._get_spoke_repos():
+                updates = await self._fetch_spoke_updates(spoke_repo)
+                aggregated[spoke_repo] = updates
+
+            self.audit_log.log_result(
+                {"action": "aggregate_spoke_updates", "aggregated": aggregated}
+            )
+
+            return aggregated
+
+        except Exception as e:
+            self.audit_log.log_result(
+                {
+                    "action": "aggregate_spoke_updates",
+                    "status": "failed",
+                    "error": str(e),
+                }
+            )
+            raise
+
+    async def route_issue(self, issue: RepositoryIssue) -> str:
+        """Route an issue to appropriate repository.
+
+        Returns:
+            str: Target repository
+        """
+        self.audit_log.log_intent(
+            {"action": "route_issue", "issue_id": issue.id, "type": issue.issue_type}
+        )
+
+        target_repo = "kushin77/ollama"  # Default to hub
+
+        # Routing logic
+        if issue.issue_type == IssueType.BUG:
+            if issue.priority >= 4:
+                target_repo = "kushin77/ollama"  # Critical bugs go to hub
+            else:
+                target_repo = (
+                    self._get_team_spoke() or "kushin77/ollama"
+                )  # Team spoke
+        elif issue.issue_type == IssueType.FEATURE:
+            target_repo = self._get_team_spoke() or "kushin77/ollama"
+        elif issue.issue_type == IssueType.INFRASTRUCTURE:
+            target_repo = "kushin77/ollama"  # Always hub
+
+        self.audit_log.log_result(
+            {
+                "action": "route_issue",
+                "issue_id": issue.id,
+                "target": target_repo,
+            }
+        )
+
+        return target_repo
+
+    async def escalate_to_hub(self, spoke_issue_id: str) -> dict:
+        """Escalate a spoke issue to hub.
+
+        Args:
+            spoke_issue_id: ID of spoke issue to escalate
+
+        Returns:
+            dict: Escalation result
+        """
+        self.audit_log.log_intent(
+            {"action": "escalate_to_hub", "spoke_issue_id": spoke_issue_id}
+        )
+
+        try:
+            # Fetch spoke issue
+            spoke_issue = self._fetch_spoke_issue(spoke_issue_id)
+
+            # Create hub issue
+            hub_issue = await self._create_hub_issue_from_spoke(spoke_issue)
+
+            self.audit_log.log_result(
+                {
+                    "action": "escalate_to_hub",
+                    "spoke_issue": spoke_issue_id,
+                    "hub_issue": hub_issue["id"],
+                }
+            )
+
+            return hub_issue
+
+        except Exception as e:
+            self.audit_log.log_result(
+                {
+                    "action": "escalate_to_hub",
+                    "status": "failed",
+                    "error": str(e),
+                }
+            )
+            raise
+
+    # ============================================================
+    # Helper Methods
+    # ============================================================
+
+    def _fetch_hub_issue(self, issue_id: int) -> Optional[dict]:
+        """Fetch issue from hub repository."""
+        # Would use GitHub API in practice
+        return None
+
+    async def _create_spoke_issue(self, repo: str, issue: dict) -> dict:
+        """Create issue in spoke repository."""
+        await asyncio.sleep(0.1)  # Simulate API call
+        return {"id": f"{repo}-{issue['id']}", "status": "created"}
+
+    def _get_spoke_repos(self) -> List[str]:
+        """Get list of spoke repositories."""
+        return [
+            "team-a/ollama-fork",
+            "team-b/ollama-fork",
+            "team-c/ollama-fork",
+        ]
+
+    def _get_team_spoke(self) -> Optional[str]:
+        """Get current team's spoke repository."""
+        # Would determine from context in practice
+        return "team-a/ollama-fork"
+
+    async def _fetch_spoke_updates(self, repo: str) -> dict:
+        """Fetch updates from spoke repository."""
+        await asyncio.sleep(0.1)  # Simulate API call
+        return {"status": "synced", "issues": []}
+
+    def _fetch_spoke_issue(self, issue_id: str) -> Optional[dict]:
+        """Fetch issue from spoke repository."""
+        # Would use GitHub API in practice
+        return None
+
+    async def _create_hub_issue_from_spoke(self, spoke_issue: dict) -> dict:
+        """Create hub issue based on spoke issue."""
+        await asyncio.sleep(0.1)  # Simulate API call
+        return {"id": 999, "status": "created"}
+
+    def explain_reasoning(self) -> str:
+        """Explain the agent's reasoning for last action."""
+        return (
+            "Hub & Spoke Agent: Routes issues between central hub and team spokes, "
+            "maintains synchronization, and escalates critical items."
+        )
+
+    def rollback(self, action_id: str) -> bool:
+        """Rollback an action."""
+        # Implementation would depend on action type
+        return True

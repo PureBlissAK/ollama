@@ -17,6 +17,47 @@ NC='\033[0m' # No Color
 # Track failures
 FAILED=0
 
+# ============================================================
+# GITLEAKS SECRET DETECTION (MANDATORY - Blocks on detection)
+# ============================================================
+echo "🔐 Scanning for secrets with gitleaks..."
+
+# Check if gitleaks is installed
+if ! command -v gitleaks &> /dev/null; then
+    echo -e "${YELLOW}⚠️  WARNING: gitleaks not installed${NC}"
+    echo "Install with: brew install gitleaks (macOS) or apt-get install gitleaks (Linux)"
+    echo "Or download from: https://github.com/gitleaks/gitleaks/releases"
+else
+    # Run gitleaks on staged files
+    if gitleaks detect --source . --verbose --no-git 2>&1 | grep -q "found.*leaks"; then
+        echo -e "${RED}❌ CRITICAL: Secrets detected in staged files!${NC}"
+        echo ""
+        echo "Detected secrets:"
+        gitleaks detect --source . --verbose --no-git 2>&1 || true
+        echo ""
+        echo "COMMIT REJECTED - Never commit secrets!"
+        echo ""
+        echo "Common secrets to avoid:"
+        echo "  • API keys (sk_live_*, sk_test_*)"
+        echo "  • Service account JSON files"
+        echo "  • AWS credentials"
+        echo "  • Private tokens and passwords"
+        echo "  • GCP service account keys"
+        echo ""
+        echo "Remediation:"
+        echo "  1. Remove secrets from files"
+        echo "  2. Use environment variables or Secret Manager"
+        echo "  3. Run: git reset <file> to unstage"
+        echo "  4. Run: git add <corrected-files>"
+        echo ""
+        FAILED=$((FAILED + 1))
+    else
+        echo -e "${GREEN}✅ No secrets detected${NC}"
+    fi
+fi
+
+echo ""
+
 # Get the list of staged Python files
 PYTHON_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.py$' || true)
 

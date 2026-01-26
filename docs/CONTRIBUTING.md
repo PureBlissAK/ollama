@@ -64,7 +64,7 @@ Branch naming convention:
 # Stage changes
 git add .
 
-# Create atomic, signed commits
+# Create atomic, signed commits (MANDATORY)
 git commit -S -m "type(scope): description"
 
 # Examples:
@@ -73,7 +73,216 @@ git commit -S -m "type(scope): description"
 # test(models): add quantization validation tests
 ```
 
-### 3.1 Pre-commit Hooks (Automatic)
+### 3.1 Git Hooks Setup (MANDATORY - Security & Compliance)
+
+**Install Git Hooks:**
+
+```bash
+# First time setup
+bash .githooks/setup.sh
+
+# Verify installation
+ls -la .git/hooks/
+# Should show: pre-commit, commit-msg-validate, post-commit
+```
+
+**What Git Hooks Do:**
+
+1. **Pre-commit Hook** (runs before each commit):
+   - 🔐 Scans for secrets with **gitleaks** (API keys, tokens, credentials)
+   - 📁 Validates folder structure (5-level depth limit)
+   - 📋 Type checking with mypy --strict
+   - 🔍 Linting with ruff
+   - 💅 Code format check with black
+   - 🧪 Unit tests validation
+   - 🔐 Security audit with pip-audit
+
+2. **Commit Message Hook** (validates format):
+   - ✅ Format: `type(scope): description`
+   - ✅ Valid types: feat, fix, refactor, perf, test, docs, infra, security, chore
+   - ✅ First line max 50 characters
+   - ✅ Blank line between subject and body (if body exists)
+   - ✅ GPG signing required for main/develop branches
+
+### 3.2 GPG Setup (Required for main/develop branches)
+
+**Install GPG:**
+
+```bash
+# macOS
+brew install gpg
+
+# Linux (Ubuntu/Debian)
+sudo apt-get install gnupg
+
+# Linux (Fedora/RHEL)
+sudo dnf install gnupg
+```
+
+**Create or Import GPG Key:**
+
+```bash
+# Generate new key (interactive)
+gpg --gen-key
+
+# Or import existing key
+gpg --import /path/to/private-key.asc
+
+# List your keys
+gpg --list-keys
+# Copy your key ID (16 hex digits)
+```
+
+**Configure Git:**
+
+```bash
+# Global configuration (applies to all repos)
+git config --global commit.gpgsign true
+git config --global user.signingkey YOUR_GPG_KEY_ID
+
+# Or per-repository (if you prefer)
+git config --local commit.gpgsign true
+git config --local user.signingkey YOUR_GPG_KEY_ID
+
+# Verify configuration
+git config --list | grep gpg
+```
+
+**Test GPG Signing:**
+
+```bash
+# Create a test commit
+echo "test" > test.txt
+git add test.txt
+git commit -m "test: verify GPG signing"
+
+# Verify signature
+git log --show-signature -1
+
+# Should show: Good signature from "Your Name <email@domain.com>"
+```
+
+### 3.3 Secret Management Best Practices
+
+**NEVER commit:**
+- API keys (sk_live_*, sk_test_*)
+- Service account JSON files
+- AWS credentials
+- Private tokens and passwords
+- GCP service account keys
+- Database passwords
+- Private encryption keys
+
+**Instead use:**
+
+```bash
+# Environment variables (local development)
+export API_KEY="sk_live_xxx"
+echo "API_KEY=${API_KEY}" > .env.local
+# Add .env.local to .gitignore
+
+# GCP Secret Manager (production)
+gcloud secrets versions add my-api-key --data-file=-
+gcloud secrets versions access latest --secret=my-api-key
+
+# HashiCorp Vault (enterprise)
+vault kv put secret/ollama/api_key value="sk_live_xxx"
+```
+
+**If you accidentally commit a secret:**
+
+```bash
+# 1. Stop and don't push
+git reset --soft HEAD~1
+
+# 2. Remove secret from file
+# (Edit the file and remove sensitive data)
+
+# 3. Restage and commit
+git add .
+git commit -S -m "fix(security): remove accidentally committed secret"
+
+# 4. Force push (ONLY to feature branch)
+git push origin feature/branch-name --force
+
+# 5. Rotate the secret immediately!
+# The secret was exposed in git history
+```
+
+### 3.4 Pre-commit Hooks (Advanced Configuration)
+
+Pre-commit hooks run automatically before each commit:
+
+```bash
+# If you need to manually trigger checks
+bash .githooks/pre-commit
+
+# Run specific checks
+mypy ollama/ --strict
+ruff check ollama/ --fix
+black ollama/ tests/
+pytest tests/ -v --cov=ollama
+pip-audit
+gitleaks detect --source .
+```
+
+**Bypass hooks (NOT RECOMMENDED - for emergencies only):**
+
+```bash
+# Skip all pre-commit checks
+git commit --no-verify
+
+# IMPORTANT: Using --no-verify should be extremely rare
+# If you need to bypass security checks, discuss with the team first
+```
+
+### 3.5 Commit Message Examples
+
+**Good Commit Messages:**
+
+```bash
+# Feature with scope and reference
+git commit -S -m "feat(api): add streaming response support
+
+Implement Server-Sent Events (SSE) for streaming responses.
+Reduces perceived latency by 40% for long-form generations.
+
+Fixes #234
+Related to #200"
+
+# Bug fix with explanation
+git commit -S -m "fix(auth): resolve token expiration race condition
+
+Previously concurrent requests could both trigger token refresh,
+causing duplicate refresh tokens to be issued.
+
+Now using atomic compare-and-swap for token updates.
+
+Fixes #198"
+
+# Refactoring with scope
+git commit -S -m "refactor(services): split inference into dedicated modules
+
+Move inference logic from monolithic services/models.py into:
+- services/inference/generation.py
+- services/inference/embedding.py
+- services/inference/completion.py
+
+No functional changes. All tests passing."
+```
+
+**Bad Commit Messages (REJECTED by hooks):**
+
+```bash
+# ❌ No type: "Added new feature"
+# ❌ No scope: "feat: did some stuff"
+# ❌ Lowercase description: "feat(api): add streaming"
+# ❌ Missing blank line: "feat: add feature\n\nBody here"
+# ❌ Unsigned (on main/develop): "git commit -m ..." (no -S)
+# ❌ Too long: "feat(inference): implement flash attention with dynamic quantization..."
+```
+
+### 3.6 Pre-commit Hooks (Automatic)
 
 Pre-commit hooks run automatically before each commit:
 
@@ -86,7 +295,7 @@ pre-commit install
 # - Code formatting (Black)
 # - Linting (Ruff)
 # - Type checking (mypy)
-# - Security scanning (Bandit)
+# - Security scanning (Bandit, gitleaks)
 # - Import sorting (isort)
 # - Trailing whitespace removal
 # - File ending fixes
@@ -111,16 +320,20 @@ mypy ollama/ --strict
 # Tests
 pytest tests/ -v --cov=ollama --cov-report=term-missing
 
-# Security scan
-bandit -r ollama/ -ll
+# Security scan (gitleaks)
+gitleaks detect --source . --verbose --no-git
+
+# Dependency audit
 pip-audit
+bandit -r ollama/ -ll
 
 # Run all at once
 pytest tests/ -v --cov=ollama && \
   mypy ollama/ --strict && \
   ruff check ollama/ && \
   black ollama/ tests/ --check && \
-  pip-audit
+  pip-audit && \
+  gitleaks detect --source . --verbose --no-git
 ```
 
 ### 5. Push and Create Pull Request
@@ -142,7 +355,7 @@ Then create a PR on GitHub with:
 - ✅ Check type safety with mypy
 - ✅ Lint with Ruff
 - ✅ Scan dependencies for vulnerabilities
-- ✅ Run security checks (Bandit, CodeQL)
+- ✅ Run security checks (Bandit, CodeQL, gitleaks)
 - ✅ Verify code formatting
 
 All checks must pass before merging.
