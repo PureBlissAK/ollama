@@ -20,6 +20,22 @@ class RateLimitExceededError(OllamaError):
     """Raised when a client exceeds allowed rate limits."""
 
 
+
+# Inference timeout - provided for backward compatibility with tests
+class InferenceTimeoutError(OllamaError):
+    """Raised when an inference request times out."""
+
+    def __init__(self, elapsed_ms: float, timeout_ms: int) -> None:
+        self.elapsed_ms = elapsed_ms
+        self.timeout_ms = timeout_ms
+        super().__init__(
+            code="INFERENCE_TIMEOUT",
+            message=f"Inference timed out after {elapsed_ms:.1f}ms (limit: {timeout_ms}ms)",
+            status_code=504,
+            details={"elapsed_ms": elapsed_ms, "timeout_ms": timeout_ms},
+        )
+
+
 __all__ = [
     "APIKeyInvalidError",
     "AuthenticationError",
@@ -27,4 +43,5 @@ __all__ = [
     "OllamaError",
     "OllamaException",
     "RateLimitExceededError",
+    "InferenceTimeoutError",
 ]
