@@ -498,7 +498,7 @@ class GCPCostCollector:
         trend = [
             (s.timestamp, s.total_cost_usd)
             for s in self.hourly_snapshots
-            if s.timestamp > cutoff
+            if s.timestamp >= cutoff
         ]
         return sorted(trend, key=lambda x: x[0])
 
