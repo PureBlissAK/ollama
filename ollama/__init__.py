@@ -12,7 +12,7 @@ __author__ = "kushin77"
 __description__ = "Elite local AI development platform for LLM inference"
 
 
-def __getattr__(name: str):
+def __getattr__(name: str) -> Any:
     """Lazy-import attributes from submodules on demand.
 
     Supports: `Client`.

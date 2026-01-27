@@ -7,18 +7,21 @@ available.
 """
 from __future__ import annotations
 
-from typing import Any, Dict
+from typing import Any, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import requests
 
 try:
     import requests
 except Exception:
-    requests = None
+    requests = None  # type: ignore
 
 
 class PolicyEngine:
     """Abstract policy engine interface."""
 
-    def evaluate(self, identity: Dict[str, Any], resource: str, action: str) -> bool:
+    def evaluate(self, identity: dict[str, Any], resource: str, action: str) -> bool:
         raise NotImplementedError()
 
 
@@ -31,7 +34,7 @@ class SimplePolicyEngine(PolicyEngine):
     - otherwise: deny
     """
 
-    def evaluate(self, identity: Dict[str, Any], resource: str, action: str) -> bool:
+    def evaluate(self, identity: dict[str, Any], resource: str, action: str) -> bool:
         roles = identity.get("roles", [])
         if "admin" in roles:
             return True
@@ -53,7 +56,7 @@ class OPAAdapter(PolicyEngine):
         self.opa_url = opa_url.rstrip("/")
         self.policy_path = policy_path
 
-    def evaluate(self, identity: Dict[str, Any], resource: str, action: str) -> bool:
+    def evaluate(self, identity: dict[str, Any], resource: str, action: str) -> bool:
         url = f"{self.opa_url}/v1/data/{self.policy_path}"
         payload = {"input": {"identity": identity, "resource": resource, "action": action}}
         resp = requests.post(url, json=payload, timeout=2)

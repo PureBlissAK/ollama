@@ -46,7 +46,7 @@ class ExperimentMetrics:
     requests_succeeded: int = 0
     requests_failed: int = 0
     requests_timeout: int = 0
-    error_types: dict[str, int] = None
+    error_types: dict[str, int] | None = None
     circuit_breaker_trips: int = 0
     cascading_failures: int = 0
     latency_p50_ms: float = 0.0
@@ -54,7 +54,7 @@ class ExperimentMetrics:
     latency_p99_ms: float = 0.0
     latency_max_ms: float = 0.0
     recovery_time_seconds: float | None = None
-    observed_failure_modes: list[str] = None
+    observed_failure_modes: list[str] | None = None
 
     def __post_init__(self) -> None:
         """Initialize default values."""

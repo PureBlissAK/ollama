@@ -3,7 +3,7 @@
 Re-exports symbols from `ollama.services.cost.service`.
 """
 
-from ollama.services.cost.service import *  # noqa: F401,F403
+from ollama.services.cost.service import *  # noqa: F403
 
 __all__ = [
     "CostManagementService",

@@ -1,5 +1,3 @@
-import pytest
-
 from ollama.auth.zero_trust import ZeroTrustManager
 
 

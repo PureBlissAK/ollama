@@ -16,6 +16,10 @@ log = structlog.get_logger(__name__)
 class AgentCapability(str, Enum):
     """Capabilities that agents can declare."""
 
+    # Basic generation/retrieval capabilities used by PMO/agent implementations
+    GENERATE = "generate"
+    RETRIEVE = "retrieve"
+
     REASONING = "reasoning"
     PLANNING = "planning"
     TOOL_USE = "tool_use"
@@ -54,6 +58,7 @@ class Agent(ABC):
         """
         self.config = config
         self.logger = structlog.get_logger(f"agent.{config.agent_id}")
+        self.audit_log: Any = None
 
     @abstractmethod
     async def execute(self, input_prompt: str) -> dict[str, Any]:
@@ -69,7 +74,6 @@ class Agent(ABC):
                 - cost_usd: Estimated cost
                 - metadata: Additional execution metadata
         """
-        pass
 
     async def think(self, context: str) -> str:
         """Internal reasoning step (can be overridden).

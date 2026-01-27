@@ -6,8 +6,9 @@ configurable limits, windows, and strategies.
 
 import time
 from collections import defaultdict
+from collections.abc import Callable, Sequence
 from functools import wraps
-from typing import Any, Callable, Optional
+from typing import Any, cast
 
 import redis
 from fastapi import Request
@@ -26,7 +27,7 @@ class RateLimiter:
 
     def __init__(
         self,
-        redis_client: Optional[redis.Redis] = None,
+        redis_client: redis.Redis | None = None,
         default_limit: int = 100,
         default_window: int = 60,
     ) -> None:
@@ -57,8 +58,8 @@ class RateLimiter:
     async def check_limit(
         self,
         identifier: str,
-        limit: Optional[int] = None,
-        window: Optional[int] = None,
+        limit: int | None = None,
+        window: int | None = None,
     ) -> tuple[bool, int, int]:
         """Check if request is within rate limit.
 
@@ -122,7 +123,12 @@ class RateLimiter:
             end
             """
 
-            result = self.redis_client.eval(
+            rc = self.redis_client
+            if rc is None:
+                # defensive: fallback to local if Redis client not configured
+                return await self._check_local(identifier, limit, window)
+
+            raw = rc.eval(
                 script,
                 1,
                 key,
@@ -131,9 +137,11 @@ class RateLimiter:
                 current_time,
             )
 
-            allowed = bool(result[0])
-            remaining = result[1]
-            retry_after = result[2]
+            # Normalize result to a sequence of ints
+            result_seq = cast(Sequence[Any], raw)
+            allowed = bool(result_seq[0])
+            remaining = int(result_seq[1])
+            retry_after = int(result_seq[2])
 
             if not allowed:
                 raise RateLimitExceededError(
@@ -189,7 +197,7 @@ class RateLimiter:
 def rate_limit(
     limit: int = 100,
     window: int = 60,
-    key_func: Optional[Callable[[Request], str]] = None,
+    key_func: Callable[[Request], str] | None = None,
 ) -> Callable:
     """Decorator for rate limiting endpoints.
 

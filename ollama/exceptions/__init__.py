@@ -17,7 +17,23 @@ APIKeyInvalidError = AuthenticationError
 
 # Rate limiting error - not present in older impls, provide a simple class
 class RateLimitExceededError(OllamaError):
-    """Raised when a client exceeds allowed rate limits."""
+    """Raised when a client exceeds allowed rate limits.
+
+    Keeps structured metadata for callers to implement retry logic.
+    """
+
+    def __init__(
+        self,
+        limit: int,
+        window: int,
+        retry_after: int,
+        message: str | None = None,
+    ) -> None:
+        self.limit = limit
+        self.window = window
+        self.retry_after = retry_after
+        msg = message or f"Rate limit exceeded: {limit} req per {window}s"
+        super().__init__(msg)
 
 
 
@@ -39,9 +55,9 @@ class InferenceTimeoutError(OllamaError):
 __all__ = [
     "APIKeyInvalidError",
     "AuthenticationError",
+    "InferenceTimeoutError",
     "ModelNotFoundError",
     "OllamaError",
     "OllamaException",
     "RateLimitExceededError",
-    "InferenceTimeoutError",
 ]

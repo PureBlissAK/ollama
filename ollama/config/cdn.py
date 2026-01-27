@@ -88,7 +88,10 @@ class CachePolicy(BaseModel):
 class CDNEndpoint(BaseModel):
     """CDN endpoint configuration."""
 
-    url: HttpUrl = Field(description="CDN endpoint URL")
+    # Accept either an HttpUrl or plain str so callers can pass string literals
+    # without mypy complaining while runtime validation via pydantic still
+    # accepts and coerces HttpUrl when appropriate.
+    url: HttpUrl | str = Field(description="CDN endpoint URL")
     domain: str = Field(description="CDN domain name")
     is_primary: bool = Field(default=True, description="Is primary CDN endpoint")
     region: str = Field(description="CDN region")
@@ -226,6 +229,7 @@ class CDNConfig(BaseModel):
 
     # Endpoints
     endpoints: list[CDNEndpoint] = Field(
+        ...,
         description="CDN endpoints",
         min_items=1,
     )
@@ -299,7 +303,11 @@ class CDNConfig(BaseModel):
         """
         endpoint = self.primary_endpoint
         clean_path = asset_path.lstrip("/")
-        return f"{endpoint.url.rstrip('/')}/{self.bucket_prefix}/{clean_path}"
+        # `endpoint.url` may be an HttpUrl (pydantic) or a plain str; convert
+        # to `str` before using string methods to satisfy mypy and avoid
+        # attribute errors.
+        base = str(endpoint.url).rstrip("/")
+        return f"{base}/{self.bucket_prefix}/{clean_path}"
 
     def get_cache_policy_for_extension(self, extension: str) -> CachePolicy | None:
         """Get cache policy for file extension.

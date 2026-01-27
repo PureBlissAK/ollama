@@ -3,12 +3,12 @@
 Re-exports symbols from `ollama.services.cost.collector`.
 """
 
-from ollama.services.cost.collector import *  # noqa: F401,F403
+from ollama.services.cost.collector import *  # noqa: F403
 
 __all__ = [
-    "GCPCostCollector",
+    "CostCategory",
     "CostSample",
     "CostSnapshot",
-    "CostCategory",
+    "GCPCostCollector",
     "ResourceMetric",
 ]

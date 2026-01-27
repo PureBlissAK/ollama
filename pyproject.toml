@@ -52,6 +52,11 @@ dependencies = [
     "opentelemetry-instrumentation-httpx>=0.40b0",
     "opentelemetry-instrumentation-redis>=0.40b0",
     "opentelemetry-instrumentation-sqlalchemy>=0.40b0",
+    # PMO Agent Dependencies
+    "pmo-agent-remediation>=1.0.0",
+    "pmo-agent-drift-predictor>=1.0.0",
+    "pmo-agent-scheduler>=1.0.0",
+    "pmo-agent-audit>=1.0.0",
 ]
 
 [project.optional-dependencies]

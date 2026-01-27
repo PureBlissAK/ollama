@@ -1,12 +1,12 @@
 # Issue #43: Zero-Trust Security Model Implementation Guide
 
-**Issue**: [#43 - Zero-Trust Security Model](https://github.com/kushin77/ollama/issues/43)  
-**Status**: OPEN - Ready for Assignment  
-**Priority**: CRITICAL  
-**Estimated Hours**: 90h (12.8 days)  
-**Timeline**: Week 2-3 (Feb 10-21, 2026)  
-**Dependencies**: #42 (Federation), #45 (Deployments)  
-**Parallel Work**: #46, #48, #50  
+**Issue**: [#43 - Zero-Trust Security Model](https://github.com/kushin77/ollama/issues/43)
+**Status**: OPEN - Ready for Assignment
+**Priority**: CRITICAL
+**Estimated Hours**: 90h (12.8 days)
+**Timeline**: Week 2-3 (Feb 10-21, 2026)
+**Dependencies**: #42 (Federation), #45 (Deployments)
+**Parallel Work**: #46, #48, #50
 
 ## Overview
 
@@ -55,12 +55,14 @@ Implement a production-grade Zero-Trust security model with **Workload Identity*
 ### 1.1 OIDC Integration with Google Cloud Identity
 
 **Deliverables**:
+
 - Google OIDC token validation service
 - JWT parsing and claim verification
 - Token refresh mechanism
 - Session management
 
 **Code Structure**:
+
 ```python
 # ollama/security/oidc_provider.py (450 lines)
 from typing import Optional, Dict, Any
@@ -201,6 +203,7 @@ class OIDCProvider:
 ```
 
 **Testing**:
+
 ```python
 # tests/unit/security/test_oidc_provider.py
 import pytest
@@ -240,7 +243,7 @@ async def test_validate_valid_token():
 async def test_validate_expired_token():
     """Expired token raises error."""
     provider = OIDCProvider(client_id="test-app")
-    
+
     with patch('jwt.decode', side_effect=jwt.ExpiredSignatureError):
         with pytest.raises(jwt.ExpiredSignatureError):
             await provider.validate_token("expired.token.here")
@@ -249,12 +252,14 @@ async def test_validate_expired_token():
 ### 1.2 Workload Identity Setup (GCP)
 
 **Deliverables**:
+
 - GCP Workload Identity Pool creation
 - OIDC provider configuration
 - Service account mapping
 - Token retrieval mechanism
 
 **Terraform Configuration** (30 lines):
+
 ```hcl
 # terraform/security/workload_identity.tf
 
@@ -283,6 +288,7 @@ resource "google_service_account_iam_member" "workload_identity_user" {
 ### 1.3 JWT Token Management
 
 **Deliverables**:
+
 - Token generation for services
 - Token refresh (before expiration)
 - Revocation tracking
@@ -295,12 +301,14 @@ resource "google_service_account_iam_member" "workload_identity_user" {
 ### 2.1 Mutual TLS (mTLS) Implementation
 
 **Deliverables**:
+
 - Certificate generation/management
 - Istio AuthPolicy for mTLS enforcement
 - Client certificate validation
 - Certificate rotation automation
 
 **Istio AuthPolicy** (50 lines):
+
 ```yaml
 # k8s/security/istio_auth_policy.yaml
 apiVersion: security.istio.io/v1beta1
@@ -311,18 +319,19 @@ metadata:
 spec:
   # Enforce mTLS for all services
   rules:
-  - from:
-    - source:
-        principals: ["cluster.local/ns/ollama/sa/*"]
-    to:
-    - operation:
-        methods: ["*"]
-        ports: ["8000", "8001", "8002"]
-  # Deny all others
-  - {}  # Deny rule (empty)
+    - from:
+        - source:
+            principals: ["cluster.local/ns/ollama/sa/*"]
+      to:
+        - operation:
+            methods: ["*"]
+            ports: ["8000", "8001", "8002"]
+    # Deny all others
+    - {} # Deny rule (empty)
 ```
 
 **Code** (400 lines - `ollama/security/mtls_manager.py`):
+
 - Certificate generation with OpenSSL
 - mTLS client/server implementation
 - Automatic certificate rotation
@@ -330,12 +339,14 @@ spec:
 ### 2.2 Attribute-Based Access Control (ABAC)
 
 **Deliverables**:
+
 - Policy definition DSL
 - Attribute evaluation engine
 - Policy storage (database)
 - Policy enforcement middleware
 
 **Code Structure** (400 lines - `ollama/security/abac_engine.py`):
+
 ```python
 class ABACEngine:
     """Attribute-Based Access Control."""
@@ -349,13 +360,13 @@ class ABACEngine:
         """Evaluate if action is allowed."""
         # Load policies from database
         policies = await self.get_policies(resource['type'])
-        
+
         for policy in policies:
             if self._matches(subject, policy.subject_attrs) and \
                self._matches(resource, policy.resource_attrs) and \
                action in policy.actions:
                 return True
-        
+
         return False
 ```
 
@@ -364,12 +375,14 @@ class ABACEngine:
 ### 3.1 Role-Based Access Control (RBAC)
 
 **Deliverables**:
+
 - Role definitions (admin, operator, viewer, etc.)
 - Permission mapping
 - Role assignment
 - Role-based API endpoint protection
 
 **Roles Defined**:
+
 - `admin`: Full access
 - `operator`: Deploy, manage services
 - `viewer`: Read-only access
@@ -381,12 +394,14 @@ class ABACEngine:
 ### 3.2 Audit Logging & Monitoring
 
 **Deliverables**:
+
 - Detailed security event logging
 - Authentication/authorization audit trail
 - Permission denied events
 - Integration with monitoring system
 
 **Audit Events**:
+
 - Login/logout
 - Token validation (success/failure)
 - Permission denied
@@ -396,13 +411,29 @@ class ABACEngine:
 ## Acceptance Criteria
 
 ### Phase 1
+
 - [ ] OIDC token validation working with Google Cloud Identity
 - [ ] Workload Identity configured in GCP
+
+## Recent Agent Update (2026-01-27)
+
+- **Actioned**: Branch `feature/issue-43-zero-trust` contains initial Zero‑Trust scaffolding (`ollama/auth/zero_trust.py`, `ollama/auth/policy.py`) implementing JWT/OIDC helpers and a JWKS TTL cache with a fallback fetch path.
+- **Dependency scan**: Installed `pip-audit` in the dev environment and ran the project's `scripts/auto_remediate_dependencies.py` in dry-run. Local scan returned: "No vulnerabilities found or pip-audit unavailable." (Note: remote scans previously reported 33 vulnerabilities; those were external scans — we'll prioritize reconciling differences and remediating any confirmed critical/high issues in focused PRs.)
+- **Tests**: Focused unit tests for the auth components executed locally (auth-focused tests passed/skipped depending on optional packages). Full-suite CI is still gated on project coverage (90%); we will not merge until CI checks pass.
+- **Next steps (short)**:
+  - Harden JWKS handling: add rotation handling, key expiry metrics, retry/backoff, and unit tests with mocked JWKS endpoints.
+  - Integrate the OPA adapter in `ollama/auth/policy.py` and add integration tests for policy evaluation.
+  - Re-run dependency scans in CI, generate prioritized remediation plans under `remediation/`, and open focused PRs `remediation/deps/critical-updates` and `remediation/deps/minor-updates` for safe upgrades.
+  - Wire audit events (structured JSON) to the observability stack and persist audit entries under `.pmo/`.
+
+If you'd like, I will now: (A) harden JWKS + add tests, (B) run full `Run All Checks` locally and start remediation PR branches, or (C) open the prioritized remediation plan for review before making PRs. Which should I do next? (I can proceed with A and B by default.)
+
 - [ ] JWT tokens generated and validated
 - [ ] All tokens have 1-hour expiration + 5-min refresh buffer
 - [ ] Unit tests passing (25+ tests, 95%+ coverage)
 
 ### Phase 2
+
 - [ ] mTLS enforced for all inter-service communication
 - [ ] Istio AuthPolicy deployed and active
 - [ ] Certificate rotation working (automated)
@@ -410,6 +441,7 @@ class ABACEngine:
 - [ ] Integration tests passing (15+ tests)
 
 ### Phase 3
+
 - [ ] RBAC roles defined and assigned
 - [ ] API endpoints protected by role
 - [ ] ABAC policies working dynamically
@@ -432,12 +464,12 @@ class ABACEngine:
 
 ## Risks & Mitigations
 
-| Risk | Likelihood | Impact | Mitigation |
-|------|-----------|--------|-----------|
-| Token leakage in logs | Medium | High | Redact tokens, use structured logging |
-| Cert rotation downtime | Low | High | Rolling updates with health checks |
-| OIDC provider unavailability | Low | Medium | Local token caching, fallback |
-| ABAC policy errors | Medium | Medium | Policy validation, dry-run mode |
+| Risk                         | Likelihood | Impact | Mitigation                            |
+| ---------------------------- | ---------- | ------ | ------------------------------------- |
+| Token leakage in logs        | Medium     | High   | Redact tokens, use structured logging |
+| Cert rotation downtime       | Low        | High   | Rolling updates with health checks    |
+| OIDC provider unavailability | Low        | Medium | Local token caching, fallback         |
+| ABAC policy errors           | Medium     | Medium | Policy validation, dry-run mode       |
 
 ## Week 3 Deliverables
 
@@ -458,6 +490,7 @@ class ABACEngine:
 ---
 
 **Next Steps**:
+
 1. Assign to security engineer (recommend: 2 engineers, parallel work)
 2. Review OIDC + mTLS architecture
 3. Begin Week 2 work (Feb 10)
