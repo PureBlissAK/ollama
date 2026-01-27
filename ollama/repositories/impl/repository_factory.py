@@ -20,7 +20,7 @@ from .user_repository import UserRepository
 
 class RepositoryFactory:
     """Factory for creating repository instances.
-    
+
     Optionally wraps repositories in ResilientRepository for circuit breaker protection.
     """
 

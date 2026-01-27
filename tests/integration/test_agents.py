@@ -4,16 +4,16 @@ Tests agent initialization, method execution, audit logging,
 and agent interaction patterns.
 """
 
+from typing import Any
+
 import pytest
-from typing import Any, Dict
-from unittest.mock import Mock, patch, AsyncMock
 
 from ollama.agents.hub_spoke_agent import HubSpokeAgent, IssueType
-from ollama.agents.pmo_agent import PMOAgent, ComplianceStatus
+from ollama.agents.pmo_agent import ComplianceStatus, PMOAgent
 
 
 @pytest.fixture
-def mock_agent_context() -> Dict[str, Any]:
+def mock_agent_context() -> dict[str, Any]:
     """Create mock agent context."""
     return {
         "user_id": "test-user-001",
@@ -247,9 +247,7 @@ class TestAgentErrorHandling:
     """Tests for agent error handling."""
 
     @pytest.mark.asyncio
-    async def test_hub_spoke_handles_errors(
-        self, hub_spoke_agent: HubSpokeAgent
-    ) -> None:
+    async def test_hub_spoke_handles_errors(self, hub_spoke_agent: HubSpokeAgent) -> None:
         """Test HubSpokeAgent error handling."""
         # Test with invalid issue type
         from ollama.agents.hub_spoke_agent import RepositoryIssue
@@ -315,9 +313,7 @@ class TestAgentAuditLog:
 class TestAgentCapabilities:
     """Tests for agent capabilities."""
 
-    def test_hub_spoke_has_required_capabilities(
-        self, hub_spoke_agent: HubSpokeAgent
-    ) -> None:
+    def test_hub_spoke_has_required_capabilities(self, hub_spoke_agent: HubSpokeAgent) -> None:
         """Test HubSpokeAgent has required capabilities."""
         capabilities = {cap.value for cap in hub_spoke_agent.capabilities}
 

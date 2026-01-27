@@ -5,6 +5,7 @@
 ---
 
 ## Detection
+
 - **Alert**: Manual discovery or automated integrity check failure
 - **Symptom**: Data inconsistency, missing records, corrupted values in production
 - **Dashboard**: [Chronicle Audit Logs](https://chronicle.example.com)
@@ -63,9 +64,10 @@ psql $PROD_DB -c "SELECT * FROM [table] WHERE [corrupt_column] = [bad_value];"
 **CRITICAL: All decisions must be reviewed by CTO and documented**
 
 ### Option A: Restore from Backup (< 30 min)
+
 ```bash
 # IF: Corruption is recent and backup is clean
-# 
+#
 # Step 1: Identify clean backup
 gcloud sql backups list --instance=$DB_INSTANCE
 
@@ -82,6 +84,7 @@ psql [NEW_INSTANCE_CONNECTION] -c "SELECT COUNT(*) FROM [table];"
 ```
 
 ### Option B: Selective Fix (if restoration not needed)
+
 ```bash
 # IF: Only small amount of data corrupted
 #
@@ -101,6 +104,7 @@ psql [NEW_INSTANCE_CONNECTION] -c "SELECT COUNT(*) FROM [table];"
 ---
 
 ## Escalation
+
 - **If > 1% of data affected**: Immediately escalate to @founders
 - **If customer data affected**: Follow GDPR/HIPAA breach protocol
 - **If cause is internal bug**: Halt all deployments until fixed
@@ -109,6 +113,7 @@ psql [NEW_INSTANCE_CONNECTION] -c "SELECT COUNT(*) FROM [table];"
 ---
 
 ## Post-Incident
+
 1. Complete root cause analysis
 2. Forensic analysis of corrupted data
 3. Implement preventive measures (validation, auditing)

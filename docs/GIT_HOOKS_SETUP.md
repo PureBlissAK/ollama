@@ -1,9 +1,9 @@
 # Git Hooks Setup & Configuration
 
-**Status**: ✅ Implemented and Enforced  
-**Version**: 2.0.0  
-**Last Updated**: January 26, 2026  
-**Maintenance**: Critical security infrastructure  
+**Status**: ✅ Implemented and Enforced
+**Version**: 2.0.0
+**Last Updated**: January 26, 2026
+**Maintenance**: Critical security infrastructure
 
 ## Overview
 
@@ -58,15 +58,15 @@ git log --show-signature -1
 
 Runs **before** each commit with automatic checks:
 
-| Check | Tool | Purpose | Fail Action |
-|-------|------|---------|-------------|
-| **Secrets Detection** | gitleaks | Prevent API keys, tokens, credentials | ❌ BLOCK commit |
-| **Folder Structure** | Custom script | Enforce 5-level depth + naming | ❌ BLOCK commit |
-| **Type Safety** | mypy --strict | 100% type hint coverage | ❌ BLOCK commit |
-| **Code Linting** | ruff | Code quality standards | ❌ BLOCK commit |
-| **Code Formatting** | black | Auto-fix, then re-stage | ✅ Auto-fix |
-| **Security Audit** | pip-audit | Check dependencies | ⚠️ Warn only |
-| **Unit Tests** | pytest | Run unit test suite | ❌ BLOCK commit |
+| Check                 | Tool          | Purpose                               | Fail Action     |
+| --------------------- | ------------- | ------------------------------------- | --------------- |
+| **Secrets Detection** | gitleaks      | Prevent API keys, tokens, credentials | ❌ BLOCK commit |
+| **Folder Structure**  | Custom script | Enforce 5-level depth + naming        | ❌ BLOCK commit |
+| **Type Safety**       | mypy --strict | 100% type hint coverage               | ❌ BLOCK commit |
+| **Code Linting**      | ruff          | Code quality standards                | ❌ BLOCK commit |
+| **Code Formatting**   | black         | Auto-fix, then re-stage               | ✅ Auto-fix     |
+| **Security Audit**    | pip-audit     | Check dependencies                    | ⚠️ Warn only    |
+| **Unit Tests**        | pytest        | Run unit test suite                   | ❌ BLOCK commit |
 
 **Flow:**
 
@@ -90,18 +90,19 @@ Any fail → Commit rejected ❌
 
 Validates commit message **format and GPG signing**:
 
-| Check | Rule | Example |
-|-------|------|---------|
-| **Format** | `type(scope): description` | `feat(api): add streaming` |
-| **Type** | feat, fix, refactor, perf, test, docs, infra, security, chore | ✅ valid |
-| **Scope** | lowercase-with-hyphens, 15 chars max | `(cache)`, `(gcp-auth)` |
-| **Description** | Start with capital, max 50 chars | "Add caching layer" |
-| **Body** | Blank line between subject and body | Required if body exists |
-| **GPG Signing** | Required for main/develop branches | `git commit -S` |
+| Check           | Rule                                                          | Example                    |
+| --------------- | ------------------------------------------------------------- | -------------------------- |
+| **Format**      | `type(scope): description`                                    | `feat(api): add streaming` |
+| **Type**        | feat, fix, refactor, perf, test, docs, infra, security, chore | ✅ valid                   |
+| **Scope**       | lowercase-with-hyphens, 15 chars max                          | `(cache)`, `(gcp-auth)`    |
+| **Description** | Start with capital, max 50 chars                              | "Add caching layer"        |
+| **Body**        | Blank line between subject and body                           | Required if body exists    |
+| **GPG Signing** | Required for main/develop branches                            | `git commit -S`            |
 
 **Examples:**
 
 ✅ **Good:**
+
 ```bash
 git commit -S -m "feat(api): add streaming response support"
 git commit -S -m "fix(auth): resolve token expiration race condition"
@@ -109,6 +110,7 @@ git commit -S -m "refactor(services): split inference into modules"
 ```
 
 ❌ **Bad (Rejected):**
+
 ```bash
 git commit -m "Added new feature"              # ❌ No type
 git commit -m "feat: add stuff"                 # ❌ No scope
@@ -474,18 +476,23 @@ bash .githooks/setup.sh
 ### Common Questions
 
 **Q: Do I need to sign every commit?**
+
 - A: Yes, for main/develop branches. Feature branches encouraged but optional.
 
 **Q: Why do tests run in pre-commit?**
+
 - A: To prevent broken code from being committed. Tests should pass locally before pushing.
 
 **Q: Can I disable gitleaks?**
+
 - A: Not recommended, but yes: edit `.githooks/pre-commit` and comment out gitleaks section.
 
 **Q: What if gitleaks has false positives?**
+
 - A: Add to `.gitignore` or `.gitleaksignore` file. Report to security team.
 
 **Q: How do I generate a stronger passphrase?**
+
 - A: Use a 20+ character password with mixed case, numbers, and symbols.
 
 ### Escalation
@@ -499,6 +506,6 @@ For issues or questions:
 
 ---
 
-**Last Updated**: January 26, 2026  
-**Maintained By**: Security & Infrastructure Team  
+**Last Updated**: January 26, 2026
+**Maintained By**: Security & Infrastructure Team
 **Status**: ✅ Actively Maintained

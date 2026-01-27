@@ -86,9 +86,7 @@ class SLOValidator:
         count = len(durations)
 
         successful = sum(1 for m in self.metrics if m.success)
-        slo_compliant = sum(
-            1 for m in self.metrics if not m.exceeds_slo(self.slo_ms)
-        )
+        slo_compliant = sum(1 for m in self.metrics if not m.exceeds_slo(self.slo_ms))
 
         return {
             "endpoint": self.name,
@@ -158,10 +156,9 @@ def benchmark_async(
                     pass
 
                 # Log performance
-                level = "warning" if (
-                    slo_ms and duration_ms > slo_ms
-                ) else "debug"
+                level = "warning" if (slo_ms and duration_ms > slo_ms) else "debug"
                 import logging
+
                 logger = logging.getLogger(__name__)
                 logger.log(
                     getattr(logging, level.upper()),
@@ -209,10 +206,9 @@ def benchmark(
                 end = time.time()
                 duration_ms = (end - start) * 1000
 
-                level = "warning" if (
-                    slo_ms and duration_ms > slo_ms
-                ) else "debug"
+                level = "warning" if (slo_ms and duration_ms > slo_ms) else "debug"
                 import logging
+
                 logger = logging.getLogger(__name__)
                 logger.log(
                     getattr(logging, level.upper()),

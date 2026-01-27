@@ -5,6 +5,7 @@
 ---
 
 ## Detection
+
 - **Alert**: `postgresql_connections > 95`
 - **Symptom**: All database queries timeout, API returns 503 Service Unavailable
 - **Dashboard**: [Cloud SQL Monitoring](https://console.cloud.google.com/sql)
@@ -45,6 +46,7 @@ gcloud run services update-traffic ollama-api --to-revisions LATEST=100 --region
 ---
 
 ## Prevention
+
 - Implement connection pool limits in SQLAlchemy
 - Add alerting at 80% capacity
 - Regular query optimization reviews

@@ -1,7 +1,8 @@
-import pytest
 from datetime import datetime, timedelta
 
-from ollama.pmo.predictive_analytics import PredictiveAnalytics, ForecastResult
+import pytest
+
+from ollama.pmo.predictive_analytics import ForecastResult, PredictiveAnalytics
 
 
 def make_snapshots(n: int, start_score: float = 90.0, decline: float = 0.2):

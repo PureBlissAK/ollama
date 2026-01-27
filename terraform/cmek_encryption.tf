@@ -1,5 +1,5 @@
 # terraform/cmek_encryption.tf - Customer-Managed Encryption Keys
-# 
+#
 # This module configures CMEK encryption for all data services:
 # - Cloud Storage buckets
 # - Cloud SQL database

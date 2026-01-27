@@ -5,7 +5,7 @@ adapter that can call into `PredictiveAnalytics` when available.
 """
 
 from .monitor import MonitoringLoop
-from .webhooks import WebhookHandler
 from .predictive_adapter import get_forecast_if_available
+from .webhooks import WebhookHandler
 
 __all__ = ["MonitoringLoop", "WebhookHandler", "get_forecast_if_available"]

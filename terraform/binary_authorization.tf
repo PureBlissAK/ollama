@@ -294,11 +294,11 @@ resource "google_artifact_registry_cleanup_policies" "ollama_docker_cleanup" {
   project        = var.project_id
   location       = google_artifact_registry_repository.ollama_docker.location
   repository     = google_artifact_registry_repository.ollama_docker.name
-  
+
   cleanup_policies {
     id     = "delete-old-images"
     action = "DELETE"
-    
+
     most_recent_versions {
       keep_count = 10  # Keep 10 most recent versions
     }
@@ -307,7 +307,7 @@ resource "google_artifact_registry_cleanup_policies" "ollama_docker_cleanup" {
   cleanup_policies {
     id     = "delete-untagged-images"
     action = "DELETE"
-    
+
     condition {
       tag_state             = "UNTAGGED"
       older_than            = "7776000s"  # 90 days

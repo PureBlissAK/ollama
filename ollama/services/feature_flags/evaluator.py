@@ -127,12 +127,9 @@ class FeatureFlagEvaluator:
             return False
 
         # Check inclusion
-        user_included = (
-            not targeting.include_users or user_id in targeting.include_users
-        )
+        user_included = not targeting.include_users or user_id in targeting.include_users
         segment_included = (
-            not targeting.include_segments
-            or user_segment in targeting.include_segments
+            not targeting.include_segments or user_segment in targeting.include_segments
         )
 
         return user_included and segment_included

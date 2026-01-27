@@ -8,32 +8,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
 - GitHub Copilot instructions for consistent AI-assisted development
 - VSCode workspace configuration with linting, formatting, and debugging
 - Git commit hooks for code quality validation
 - Commit message template following conventional commits
 - Documentation index and organization structure
 - Pre-commit validation for security, formatting, and tests
- - `ollama/pmo/predictive_analytics.py`: `PredictiveAnalytics` class with linear and moving-average baselines and optional ARIMA/Prophet hooks (Issue #24)
- - `tests/unit/pmo/test_predictive_run.py`: unit tests that load the predictive module by path (4 tests passing)
- - `tests/unit/pmo/test_predictive_optional.py`: optional integration tests for ARIMA/Prophet (skipped when dependencies missing)
- - Completed Issue #24: Predictive Analytics scaffolding and optional integrations added; unit tests passing and optional integration tests available (skipped when deps absent)
+- `ollama/pmo/predictive_analytics.py`: `PredictiveAnalytics` class with linear and moving-average baselines and optional ARIMA/Prophet hooks (Issue #24)
+- `tests/unit/pmo/test_predictive_run.py`: unit tests that load the predictive module by path (4 tests passing)
+- `tests/unit/pmo/test_predictive_optional.py`: optional integration tests for ARIMA/Prophet (skipped when dependencies missing)
+- Completed Issue #24: Predictive Analytics scaffolding and optional integrations added; unit tests passing and optional integration tests available (skipped when deps absent)
 
 ### Changed
+
 - Reorganized documentation into docs/ folder with archive subdirectory
 - Updated .gitignore to preserve .vscode for team consistency
 - Cleaned up generated cache files and test artifacts
 
 ### Fixed
+
 - Documentation organization and accessibility
 
 ### Security
+
 - Added pre-commit hook to detect hardcoded secrets
 - Enforced commit signing configuration
 
 ## [2.0.0] - 2026-01-12
 
 ### Added
+
 - Public endpoint deployment via GCP Load Balancer
 - Comprehensive monitoring with Prometheus and Grafana
 - Kubernetes deployment manifests with Kustomize
@@ -43,11 +48,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Comprehensive test coverage (90%+)
 
 ### Changed
+
 - Migrated to FastAPI async-first architecture
 - Improved security with API key authentication and rate limiting
 - Enhanced performance with caching and connection pooling
 
 ### Security
+
 - TLS 1.3+ for public endpoints
 - CORS with explicit allow lists
 - Rate limiting at application and load balancer layers
@@ -56,6 +63,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2025-12-01
 
 ### Added
+
 - Initial release of Ollama Elite AI Platform
 - Local LLM inference with Ollama
 - FastAPI REST API

@@ -22,7 +22,7 @@ def get_ollama_dashboard_json() -> str:
                     "title": "Request Rate (Requests/sec)",
                     "targets": [
                         {
-                            "expr": 'rate(ollama_api_requests_total[5m])',
+                            "expr": "rate(ollama_api_requests_total[5m])",
                         }
                     ],
                     "type": "graph",
@@ -31,7 +31,7 @@ def get_ollama_dashboard_json() -> str:
                     "title": "Request Latency P95 (ms)",
                     "targets": [
                         {
-                            "expr": 'histogram_quantile(0.95, rate(ollama_inference_latency_seconds_bucket[5m])) * 1000',
+                            "expr": "histogram_quantile(0.95, rate(ollama_inference_latency_seconds_bucket[5m])) * 1000",
                         }
                     ],
                     "type": "graph",
@@ -40,7 +40,7 @@ def get_ollama_dashboard_json() -> str:
                     "title": "Request Latency P99 (ms)",
                     "targets": [
                         {
-                            "expr": 'histogram_quantile(0.99, rate(ollama_inference_latency_seconds_bucket[5m])) * 1000',
+                            "expr": "histogram_quantile(0.99, rate(ollama_inference_latency_seconds_bucket[5m])) * 1000",
                         }
                     ],
                     "type": "graph",
@@ -58,7 +58,7 @@ def get_ollama_dashboard_json() -> str:
                     "title": "Cache Hit Rate",
                     "targets": [
                         {
-                            "expr": 'rate(ollama_cache_hits_total[5m]) / rate(ollama_cache_requests_total[5m])',
+                            "expr": "rate(ollama_cache_hits_total[5m]) / rate(ollama_cache_requests_total[5m])",
                         }
                     ],
                     "type": "graph",
@@ -67,7 +67,7 @@ def get_ollama_dashboard_json() -> str:
                     "title": "Model Load Time (seconds)",
                     "targets": [
                         {
-                            "expr": 'ollama_model_load_duration_seconds',
+                            "expr": "ollama_model_load_duration_seconds",
                         }
                     ],
                     "type": "graph",
@@ -76,7 +76,7 @@ def get_ollama_dashboard_json() -> str:
                     "title": "Inference Tokens/second",
                     "targets": [
                         {
-                            "expr": 'rate(ollama_inference_tokens_total[5m])',
+                            "expr": "rate(ollama_inference_tokens_total[5m])",
                         }
                     ],
                     "type": "graph",
@@ -85,7 +85,7 @@ def get_ollama_dashboard_json() -> str:
                     "title": "Active Connections",
                     "targets": [
                         {
-                            "expr": 'ollama_active_connections',
+                            "expr": "ollama_active_connections",
                         }
                     ],
                     "type": "stat",

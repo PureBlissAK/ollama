@@ -12,7 +12,7 @@ Files:
 
 Usage example:
 
->>> from ollama.pmo.dashboards import MetricsExporter
->>> e = MetricsExporter()
->>> e.set_metric('pmo_compliance_score', 92.5)
->>> print(e.export_text())
+> > > from ollama.pmo.dashboards import MetricsExporter
+> > > e = MetricsExporter()
+> > > e.set_metric('pmo_compliance_score', 92.5)
+> > > print(e.export_text())

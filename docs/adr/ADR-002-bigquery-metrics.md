@@ -1,21 +1,24 @@
 # ADR-002: BigQuery for Metrics Aggregation
 
-**Status**: Accepted  
-**Date**: 2026-01-26  
-**Author**: @data-team  
+**Status**: Accepted
+**Date**: 2026-01-26
+**Author**: @data-team
 
 ---
 
 ## Context
 
 ### Problem
+
 We need to aggregate and analyze metrics from agent inference service (100+ req/s). Requirements:
+
 - Store 7 years of metrics for compliance
 - Query 1B+ rows efficiently
 - Weekly aggregation reports
 - Cost-effective at scale (1 year = 10B+ rows)
 
 ### Constraints
+
 - Must be on GCP (landing zone)
 - Weekly aggregation must complete in < 10 minutes
 - Cost must scale sublinearly with data volume
@@ -27,6 +30,7 @@ We need to aggregate and analyze metrics from agent inference service (100+ req/
 **Chosen**: Google BigQuery (data warehouse)
 
 BigQuery is the optimal choice because:
+
 1. **Query Performance**: SQL queries on 1B+ rows complete in < 10 seconds
 2. **Cost Efficiency**: $6.25/TB of data scanned (only pay for data scanned)
 3. **7-Year Retention**: Can store 10B+ rows for fraction of cost of traditional DB
@@ -38,12 +42,14 @@ BigQuery is the optimal choice because:
 ## Consequences
 
 ### Positive
+
 1. **Exceptional Query Performance**: 1B rows queried in < 10 seconds
 2. **Cost Efficiency**: $0.006/GB for storage vs. $50-100/GB for traditional databases
 3. **Built-in ML**: Can add predictions/forecasting later without new infrastructure
 4. **Compliance-Ready**: Native support for 7-year retention, audit logging
 
 ### Negative
+
 1. **Not Real-Time**: Slight 5-10 minute ingestion delay (acceptable for weekly reports)
 2. **Immutable Data**: Can't update/delete historical data (not a problem for metrics)
 3. **Query Costs**: If team runs many exploratory queries, costs can spike
@@ -54,12 +60,15 @@ BigQuery is the optimal choice because:
 ## Alternatives Considered
 
 ### Alternative A: PostgreSQL with Time-Series Extension (TimescaleDB)
+
 **Pros**:
+
 - Team familiar with PostgreSQL
 - Can update/delete data if needed
 - Lower operational complexity
 
 **Cons**:
+
 - 10B rows = $50k+/month in storage
 - Query performance degrades as data grows
 - Requires manual partitioning management
@@ -69,11 +78,14 @@ BigQuery is the optimal choice because:
 ---
 
 ### Alternative B: Google Cloud SQL for Time-Series
+
 **Pros**:
+
 - Fully managed like BigQuery
 - Native PostgreSQL support
 
 **Cons**:
+
 - Not optimized for analytics (optimized for transactional workloads)
 - Cost scales linearly with data volume
 - Query performance poor on large datasets
@@ -85,6 +97,7 @@ BigQuery is the optimal choice because:
 ## Implementation
 
 ### Steps
+
 1. **Create BigQuery Dataset**: `ollama_metrics`
 2. **Define Schema**: Tables for `agent_metrics`, `performance`, `business`, `security`
 3. **Setup Data Pipeline**: Cloud Logging → Cloud Dataflow → BigQuery
@@ -92,6 +105,7 @@ BigQuery is the optimal choice because:
 5. **Setup Grafana**: Connect BigQuery as Grafana data source
 
 ### Success Criteria
+
 - ✅ 30-day baseline metrics collected
 - ✅ Weekly aggregation completes in < 10 minutes
 - ✅ Cost tracking dashboard showing $$ vs. baseline
@@ -102,11 +116,13 @@ BigQuery is the optimal choice because:
 ## Cost Analysis
 
 ### Cost Model
+
 - Ingestion: $6/TB = $0.006/GB
 - Storage: $0.02/GB/month (long-term storage)
 - Queries: $6.25/TB scanned
 
 ### Projected Monthly Cost
+
 - Current traffic: 100 req/s
 - Metrics: ~1KB per request
 - Daily ingestion: 8.6 GB
@@ -116,6 +132,7 @@ BigQuery is the optimal choice because:
 - **Total**: ~$6.80/month (negligible)
 
 ### At Scale (1000 req/s)
+
 - Monthly ingestion: 2.6 TB
 - Monthly cost: ~$20
 - **Still negligible**
@@ -125,21 +142,24 @@ BigQuery is the optimal choice because:
 ## Monitoring
 
 ### Key Metrics
+
 - Query completion time (should be < 10 min for weekly job)
 - Data ingestion latency (should be < 10 min)
 - Cost per GB (should be < $1/GB total cost)
 
 ### Review Schedule
+
 - Monthly cost review
 - Quarterly query optimization review
 
 ---
 
 ## Related Decisions
+
 - ADR-001: Cloud Run for orchestration
 - Issue #13: Weekly Metrics Dashboard
 
 ---
 
-**Created**: 2026-01-26  
+**Created**: 2026-01-26
 **Status**: Production (Active since 2025-12-20)

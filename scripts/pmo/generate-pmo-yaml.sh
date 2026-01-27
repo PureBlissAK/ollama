@@ -16,7 +16,7 @@ BLUE='\033[0;34m'
 NC='\033[0m'
 
 echo "📝 PMO YAML Generator"
-echo "Repository: $(basename ${REPO_ROOT})"
+echo "Repository: $(basename "${REPO_ROOT}")"
 echo "---"
 
 # Check if pmo.yaml already exists
@@ -82,7 +82,7 @@ echo -e "${BLUE}Generating pmo.yaml...${NC}"
 cat > "${PMO_YAML}" << EOF
 # PMO Metadata
 # Auto-generated: $(date +%Y-%m-%d)
-# Repository: $(basename ${REPO_ROOT})
+# Repository: $(basename "${REPO_ROOT}")
 
 # Organizational (4 required)
 environment: "development"  # production|staging|development|sandbox
@@ -98,7 +98,7 @@ teardown_date: "none"  # YYYY-MM-DD or none
 retention_days: "3650"  # 365|3650|7300 (1yr|10yr|20yr)
 
 # Business (4 required)
-product: "$(basename ${REPO_ROOT})"  # Product name
+product: "$(basename "${REPO_ROOT}")"  # Product name
 component: "api-server"  # api|database|frontend|auth|monitoring
 tier: "high"  # critical|high|medium|low
 compliance: "none"  # sox|hipaa|pci|gdpr|none
@@ -111,7 +111,7 @@ monitoring_enabled: "true"  # true|false
 
 # Financial (4 required)
 budget_owner: "$(detect_created_by)"
-project_code: "$(echo $(basename ${REPO_ROOT}) | tr '[:lower:]' '[:upper:]')-$(date +%Y)-001"
+project_code: "$(echo $(basename "${REPO_ROOT}") | tr '[:lower:]' '[:upper:]')-$(date +%Y)-001"
 monthly_budget_usd: "500"  # Estimated monthly cost (USD)
 chargeback_unit: "engineering"  # Team or cost center for chargeback
 

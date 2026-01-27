@@ -1,9 +1,9 @@
 # Postmortem Template
 
-**Incident ID**: [YYYY-MM-DD]-[incident-type]  
-**Severity**: SEV1 | SEV2 | SEV3  
-**Report Date**: [YYYY-MM-DD]  
-**Duration**: [Start Time] - [End Time] ([minutes/hours])  
+**Incident ID**: [YYYY-MM-DD]-[incident-type]
+**Severity**: SEV1 | SEV2 | SEV3
+**Report Date**: [YYYY-MM-DD]
+**Duration**: [Start Time] - [End Time] ([minutes/hours])
 
 ---
 
@@ -11,7 +11,8 @@
 
 **What Happened**: [2-3 sentence description of the incident]
 
-**Impact**: 
+**Impact**:
+
 - Users Affected: [number] ([percentage] of user base)
 - Data Loss: Yes/No ([describe if yes])
 - Systems Down: [list of affected systems]
@@ -27,16 +28,16 @@
 
 **15-Minute Granularity**:
 
-| Time | Event | Owner | Notes |
-|------|-------|-------|-------|
-| HH:MM | Incident starts (trigger: [metric]) | N/A | Hallucination rate spike detected in production |
-| HH:MM | Alert fires | On-call | Prometheus alert: hallucination_rate > 0.02 |
-| HH:MM | Initial response | @engineer-on-call | Checked dashboards, confirmed hallucination in agent responses |
-| HH:MM | War room opened | @team-lead | Created #incident-hallucination Slack channel |
-| HH:MM | Root cause identified | @ml-engineer | Agent model had prompt injection vulnerability |
-| HH:MM | Mitigation started | @engineer | Deployed previous model version as hotfix |
-| HH:MM | Mitigation verified | @qa | Tested rollback, confirmed hallucination rate returned to <0.5% |
-| HH:MM | Incident declared resolved | @engineering-lead | All metrics normal, customers notified |
+| Time  | Event                               | Owner             | Notes                                                           |
+| ----- | ----------------------------------- | ----------------- | --------------------------------------------------------------- |
+| HH:MM | Incident starts (trigger: [metric]) | N/A               | Hallucination rate spike detected in production                 |
+| HH:MM | Alert fires                         | On-call           | Prometheus alert: hallucination_rate > 0.02                     |
+| HH:MM | Initial response                    | @engineer-on-call | Checked dashboards, confirmed hallucination in agent responses  |
+| HH:MM | War room opened                     | @team-lead        | Created #incident-hallucination Slack channel                   |
+| HH:MM | Root cause identified               | @ml-engineer      | Agent model had prompt injection vulnerability                  |
+| HH:MM | Mitigation started                  | @engineer         | Deployed previous model version as hotfix                       |
+| HH:MM | Mitigation verified                 | @qa               | Tested rollback, confirmed hallucination rate returned to <0.5% |
+| HH:MM | Incident declared resolved          | @engineering-lead | All metrics normal, customers notified                          |
 
 ---
 
@@ -44,15 +45,17 @@
 
 ### What We Think Happened
 
-**Layer 1: Immediate Cause**  
+**Layer 1: Immediate Cause**
 [Technical description of what broke]
 
-**Layer 2: Contributing Factors**  
+**Layer 2: Contributing Factors**
+
 - Factor 1: [description] — could have been caught if [process]
 - Factor 2: [description] — would have been prevented by [monitoring]
 - Factor 3: [description] — required [procedure that didn't exist]
 
-**Layer 3: Systemic Issues**  
+**Layer 3: Systemic Issues**
+
 - We didn't test for [scenario]
 - We didn't monitor [metric]
 - We didn't document [procedure]
@@ -61,6 +64,7 @@
 ### Why It Happened
 
 [5-Whys Analysis]:
+
 1. **Why did the incident occur?** → Because [technical cause]
 2. **Why did that technical cause exist?** → Because [process failure]
 3. **Why did that process failure exist?** → Because [missing procedure]
@@ -72,6 +76,7 @@
 ## Impact Assessment
 
 ### Customer Impact
+
 - **Users Affected**: [number]
 - **Duration**: [minutes/hours]
 - **Service Degradation**: Complete outage | Partial degradation | Performance impact
@@ -79,11 +84,13 @@
 - **SLA Breach**: Yes/No — if yes, list affected SLAs
 
 ### Business Impact
+
 - **Revenue Impact**: $[amount] direct loss, $[amount] projected churn
 - **Reputation Impact**: [number] customer complaints, [number] Twitter mentions
 - **Security Impact**: Was any customer data exposed? Any new vulnerabilities discovered?
 
 ### Internal Impact
+
 - **On-Call Engineer**: [number] hours response time
 - **Engineering Team**: [number] engineers engaged, [time] spent on mitigation
 - **Leadership**: Escalation to CTO/CEO required? Yes/No
@@ -93,6 +100,7 @@
 ## Lessons Learned
 
 ### What We Did Well
+
 1. **Fast Detection** → Alert fired 3 minutes after incident start
    - Why: Prometheus monitoring on hallucination rate was working
    - Continue: Keep this monitoring active and improve sensitivity
@@ -106,6 +114,7 @@
    - Continue: Maintain staging environment for rollbacks
 
 ### What We'll Do Better
+
 1. **Better Testing** → Agent responses weren't tested for prompt injection
    - Action: Add adversarial prompt testing to pre-deployment validation
    - Owner: @ml-engineer
@@ -129,6 +138,7 @@
 ## Action Items
 
 ### Immediate (Due [DATE])
+
 - [ ] **Fix hallucination detection in model** → Assigned to @ml-engineer
   - Details: Add input validation to detect and reject prompt injection attempts
   - Acceptance: No hallucination detected in 1000-sample adversarial test set
@@ -138,6 +148,7 @@
   - Acceptance: New on-call engineer can execute rollback in <5 minutes
 
 ### Short-Term (Due [DATE + 2 WEEKS])
+
 - [ ] **Add adversarial testing to CI/CD** → Assigned to @qa-engineer
   - Details: Create test suite with 100+ adversarial prompts
   - Acceptance: CI/CD blocks deployment if any test fails
@@ -147,6 +158,7 @@
   - Acceptance: Alert fires within 5 minutes of hallucination spike
 
 ### Long-Term (Due [DATE + 6 WEEKS])
+
 - [ ] **Create agent robustness framework** → Assigned to @ml-team
   - Details: Design comprehensive agent testing suite for injection attacks, hallucination, etc.
   - Acceptance: Framework covers 50+ adversarial scenarios
@@ -160,12 +172,13 @@
 ## Monitoring & Prevention
 
 ### What We'll Monitor Going Forward
-| Metric | Threshold | Alert | Owner |
-|--------|-----------|-------|-------|
-| Hallucination Rate | >1% (lowered from 2%) | Page on-call in 5 min | @data-engineer |
-| Action Accuracy | <90% (new metric) | Page team lead | @qa-engineer |
-| Model Response Latency | >10s p95 (new metric) | Log event, don't alert yet | @ml-engineer |
-| Failed Prompt Validations | >5/hour (new metric) | Log event, don't alert yet | @ml-engineer |
+
+| Metric                    | Threshold             | Alert                      | Owner          |
+| ------------------------- | --------------------- | -------------------------- | -------------- |
+| Hallucination Rate        | >1% (lowered from 2%) | Page on-call in 5 min      | @data-engineer |
+| Action Accuracy           | <90% (new metric)     | Page team lead             | @qa-engineer   |
+| Model Response Latency    | >10s p95 (new metric) | Log event, don't alert yet | @ml-engineer   |
+| Failed Prompt Validations | >5/hour (new metric)  | Log event, don't alert yet | @ml-engineer   |
 
 ### How We'll Prevent This in the Future
 
@@ -199,11 +212,11 @@
 
 ## Sign-Off
 
-| Role | Name | Date | Signature |
-|------|------|------|-----------|
+| Role             | Name    | Date   | Signature  |
+| ---------------- | ------- | ------ | ---------- |
 | On-Call Engineer | @[name] | [DATE] | [Approved] |
 | Engineering Lead | @[name] | [DATE] | [Approved] |
-| CTO | @[name] | [DATE] | [Approved] |
+| CTO              | @[name] | [DATE] | [Approved] |
 
 **Meeting Notes**: [Link to war room notes or recording if recorded]
 
@@ -213,13 +226,13 @@
 
 ## Action Item Tracking
 
-| Item # | Action | Owner | Due Date | Status | Notes |
-|--------|--------|-------|----------|--------|-------|
-| 1 | Add hallucination detection model fix | @ml-engineer | [DATE] | 🔵 TODO | Blocked by [if blocked] |
-| 2 | Create hallucination runbook | @eng-lead | [DATE] | 🔵 TODO | |
-| 3 | Add adversarial tests to CI/CD | @qa-engineer | [DATE] | 🔵 TODO | |
-| 4 | Lower monitoring threshold to 1% | @data-engineer | [DATE] | 🔵 TODO | |
-| 5 | [Additional actions from discussion] | [@owner] | [DATE] | 🔵 TODO | |
+| Item # | Action                                | Owner          | Due Date | Status  | Notes                   |
+| ------ | ------------------------------------- | -------------- | -------- | ------- | ----------------------- |
+| 1      | Add hallucination detection model fix | @ml-engineer   | [DATE]   | 🔵 TODO | Blocked by [if blocked] |
+| 2      | Create hallucination runbook          | @eng-lead      | [DATE]   | 🔵 TODO |                         |
+| 3      | Add adversarial tests to CI/CD        | @qa-engineer   | [DATE]   | 🔵 TODO |                         |
+| 4      | Lower monitoring threshold to 1%      | @data-engineer | [DATE]   | 🔵 TODO |                         |
+| 5      | [Additional actions from discussion]  | [@owner]       | [DATE]   | 🔵 TODO |                         |
 
 ---
 
@@ -241,7 +254,7 @@
 
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: [YYYY-MM-DD]  
-**Review Schedule**: Reviewed at [date] team meeting  
+**Document Version**: 1.0
+**Last Updated**: [YYYY-MM-DD]
+**Review Schedule**: Reviewed at [date] team meeting
 **Next Incident Review**: [DATE when similar incident is expected to be fully prevented]

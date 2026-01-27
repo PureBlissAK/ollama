@@ -42,9 +42,9 @@ validate_label() {
     local category=$1
     local label=$2
     local required=${3:-true}
-    
+
     local value=$(grep "^${label}:" "${PMO_YAML}" | cut -d: -f2- | xargs || echo "")
-    
+
     if [ -z "${value}" ]; then
         if [ "${required}" = "true" ]; then
             echo -e "  ${RED}❌ ${label}: MISSING (required)${NC}"
@@ -55,7 +55,7 @@ validate_label() {
         fi
         return 1
     fi
-    
+
     echo -e "  ${GREEN}✓${NC} ${label}: ${value}"
     return 0
 }

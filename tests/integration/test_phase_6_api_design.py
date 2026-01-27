@@ -246,6 +246,7 @@ class TestErrorLogging:
     ) -> None:
         """Exceptions are properly logged."""
         import logging
+
         caplog.set_level(logging.ERROR)
 
         response = client.post(

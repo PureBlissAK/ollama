@@ -1,6 +1,7 @@
 """Cost analysis helpers and suggestion generator."""
+
 from dataclasses import dataclass
-from typing import List, Dict
+from typing import List
 
 from .discovery import ResourceSnapshot
 
@@ -31,5 +32,12 @@ class CostAnalyzer:
         for r in self.top_expensive(top_k=top_k):
             # naive heuristic: propose 50% reduction for rightsizing/spot
             savings = round(r.monthly_cost * 0.5, 2)
-            suggestions.append(CostSavingSuggestion(resource_id=r.id, current_monthly=r.monthly_cost, estimated_savings=savings, reason="rightsizing/spot-instances"))
+            suggestions.append(
+                CostSavingSuggestion(
+                    resource_id=r.id,
+                    current_monthly=r.monthly_cost,
+                    estimated_savings=savings,
+                    reason="rightsizing/spot-instances",
+                )
+            )
         return suggestions

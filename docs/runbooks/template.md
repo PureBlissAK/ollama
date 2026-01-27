@@ -1,25 +1,26 @@
 # Runbook Template: [Incident Type]
 
-**Version**: 1.0  
-**Last Updated**: [YYYY-MM-DD]  
-**Maintained By**: [Team Name]  
-**Review Frequency**: Quarterly  
+**Version**: 1.0
+**Last Updated**: [YYYY-MM-DD]
+**Maintained By**: [Team Name]
+**Review Frequency**: Quarterly
 
 ---
 
 ## Overview
 
-**Incident Type**: [Name]  
-**Severity Classification**: [SEV1/SEV2/SEV3]  
-**Estimated Time to Resolution**: [X minutes/hours]  
-**Last Occurrence**: [Date or "Never"]  
-**Frequency**: [Rare/Occasional/Frequent]  
+**Incident Type**: [Name]
+**Severity Classification**: [SEV1/SEV2/SEV3]
+**Estimated Time to Resolution**: [X minutes/hours]
+**Last Occurrence**: [Date or "Never"]
+**Frequency**: [Rare/Occasional/Frequent]
 
 ---
 
 ## Detection
 
 ### Alert Triggers
+
 - **Primary Alert**: [Alert name] fires when [metric] > [threshold]
   - Example: `ollama_agent_hallucination_rate > 0.02`
   - Response time: Alert should fire within [X minutes]
@@ -34,12 +35,14 @@
   - Look for: [specific pattern]
 
 ### Confirmation Steps
+
 1. Log into [system]
 2. Navigate to [dashboard]
 3. Check [metric] - should be [normal value]
 4. If [abnormal indicator], proceed to Diagnosis
 
 ### Example Alert Configuration
+
 ```
 alert: [AlertName]
   expr: [prometheus query]
@@ -59,11 +62,13 @@ alert: [AlertName]
 **Goal**: Get visibility, declare incident, assemble team
 
 ### Step 1: Page On-Call Engineer ✅ AUTOMATIC
+
 - **Trigger**: [Alert system] automatically pages via PagerDuty
 - **Expected**: On-call engineer responds within 5 minutes
 - **If not**: Escalate to secondary on-call
 
 ### Step 2: Create War Room 🔵 MANUAL (On-Call)
+
 ```bash
 # Create Slack channel for incident
 /slash create-channel #incident-[type]-[timestamp]
@@ -78,7 +83,9 @@ ETA: [Estimated time to next update in 10 min]
 ```
 
 ### Step 3: Assess Scope 📊 MANUAL (On-Call)
+
 Run these checks immediately:
+
 ```bash
 # Check 1: Is this a real incident or false alarm?
 curl https://elevatediq.ai/ollama/api/v1/health
@@ -95,12 +102,15 @@ gcloud logging read 'severity=ERROR' --limit=100 | grep timestamp
 ```
 
 ### Step 4: Escalation Decision 🚨 MANUAL (On-Call)
+
 - **If SEV1**: Immediately notify @engineering-lead, @cto, @on-call-backup
 - **If SEV2**: Notify @engineering-lead, keep as standby
 - **If SEV3**: Handle solo, document decision
 
 ### Step 5: Status Communication ✉️ MANUAL (On-Call)
+
 Post in incident channel:
+
 ```
 ⚠️ INCIDENT IN PROGRESS
 Severity: SEV[#]
@@ -117,6 +127,7 @@ Next Update: [Time + 10 min]
 ### Diagnosis Checklist
 
 #### Check 1: Verify the Alert ✅
+
 ```bash
 # Confirm the metric that fired
 # Example for hallucination detection:
@@ -129,6 +140,7 @@ gcloud monitoring time-series list \
 ```
 
 #### Check 2: Check System Health 📊
+
 ```bash
 # Check 1: API Health
 curl -H "Authorization: Bearer $API_KEY" \
@@ -155,6 +167,7 @@ curl http://ollama:11434/api/tags
 ```
 
 #### Check 3: Check Recent Changes 🔍
+
 ```bash
 # What changed in the last 30 minutes?
 git log --oneline --since="30 minutes ago"
@@ -167,6 +180,7 @@ ollama list  # This shows current model versions
 ```
 
 #### Check 4: Analyze Logs 📋
+
 ```bash
 # Pull relevant logs
 gcloud logging read '[filter]' --limit=50 --format=json
@@ -191,37 +205,43 @@ gcloud logging read 'resource.type="cloud_run_revision"' \
 ```
 
 #### Check 5: Review Dashboards 📈
+
 Navigate to each dashboard:
+
 - **Main Metrics Dashboard**: [URL]
   - Look for: Any red/orange lights?
   - Compare to: Baseline from yesterday
-  
+
 - **Distributed Tracing (Jaeger)**: [URL]
   - Search: Traces from incident start time
   - Look for: Spike in error rate or latency
-  
+
 - **Logs Dashboard (Cloud Logging)**: [URL]
   - Search: ERROR level logs from incident time
   - Look for: Patterns in errors
-  
+
 - **GCP Status Dashboard**: [URL]
   - Check: Any GCP service outages affecting us?
 
 ### Likely Diagnoses (Decision Tree)
 
 **Is the API returning 5xx errors?**
+
 - YES → Go to Remediation, Section A (API Crash)
 - NO → Go to next question
 
 **Is the database connected?**
+
 - YES → Go to next question
 - NO → Go to Remediation, Section B (Database Down)
 
 **Are model inference requests timing out?**
+
 - YES → Go to Remediation, Section C (Inference Timeout)
 - NO → Go to next question
 
 **Are agent responses hallucinating?**
+
 - YES → Go to Remediation, Section D (Hallucination Detected)
 - NO → Go to Remediation, Section E (Unknown - Escalate)
 
@@ -233,7 +253,8 @@ Navigate to each dashboard:
 
 ### Section A: API Crash Recovery
 
-**Symptoms**: 
+**Symptoms**:
+
 - GET/POST requests returning 500 errors
 - Cloud Run service showing errors in logs
 - Error message: `[specific error]`
@@ -264,6 +285,7 @@ curl https://elevatediq.ai/ollama/api/v1/health
 ### Section B: Database Connection Pool Exhausted
 
 **Symptoms**:
+
 - All database queries timing out
 - Error: `FATAL: remaining connection slots reserved for non-replication superuser connections`
 - API errors after database queries
@@ -297,6 +319,7 @@ psql $PROD_DATABASE_URL -c "SELECT count(*) FROM pg_stat_activity;"
 ### Section C: Model Inference Timeout
 
 **Symptoms**:
+
 - POST /api/v1/generate hangs for >30 seconds
 - Model service is running but slow
 - GPU memory usage high
@@ -330,6 +353,7 @@ curl -X POST http://ollama:11434/api/generate \
 ### Section D: Hallucination Detected in Production
 
 **Symptoms**:
+
 - Agent responses factually incorrect
 - Hallucination rate > 2% (threshold)
 - Alert: `ollama_agent_hallucination_rate > 0.02`
@@ -371,6 +395,7 @@ gcloud run services update-traffic ollama-api --to-revisions [PREVIOUS_REVISION]
 **If none of the above diagnoses match**:
 
 1. **Gather context**:
+
    ```bash
    # Collect all diagnostic data
    gcloud logging read '[error-filter]' --limit=100 > incident-logs.json
@@ -379,6 +404,7 @@ gcloud run services update-traffic ollama-api --to-revisions [PREVIOUS_REVISION]
    ```
 
 2. **Page CTO**:
+
    ```
    @cto: Need escalation on incident [type]
    Logs: [shared above]
@@ -394,6 +420,7 @@ gcloud run services update-traffic ollama-api --to-revisions [PREVIOUS_REVISION]
 ### Section F: Rollback Procedure (When All Else Fails)
 
 **Use only if**:
+
 - Issue is blocking all traffic
 - Root cause unknown
 - Quicker to rollback than fix
@@ -434,18 +461,21 @@ curl https://elevatediq.ai/ollama/api/v1/health
 ## Escalation Criteria
 
 **Escalate to Engineering Lead if**:
+
 - Incident not resolved within 15 minutes
 - Customer-facing data loss detected
 - Multiple systems affected simultaneously
 - Unclear root cause after 10 minutes diagnosis
 
 **Escalate to CTO if**:
+
 - Incident not resolved within 30 minutes
 - Revenue impact or customer churn risk
 - Security vulnerability involved
 - Need for architectural decision
 
 **Escalate to Founders if**:
+
 - Incident not resolved within 60 minutes
 - Major customer at risk
 - Public reputation damage
@@ -456,23 +486,26 @@ curl https://elevatediq.ai/ollama/api/v1/health
 ## Post-Incident
 
 ### Immediate (Same Day)
+
 - [ ] Create postmortem issue: GitHub issue #[auto-number]
   - Title: `[POSTMORTEM] YYYY-MM-DD - [Incident Type]`
   - Link to this runbook
   - Link to war room notes/transcript
-  
+
 - [ ] Post summary in #incident-postmortems
   - Duration: [X minutes/hours]
   - Root cause: [Brief summary]
   - Prevention: [Brief summary]
 
 ### Within 24 Hours
+
 - [ ] Complete postmortem document using `/incidents/POSTMORTEM_TEMPLATE.md`
 - [ ] Assign action items with owners and due dates
 - [ ] Update this runbook if new learnings
 - [ ] Schedule postmortem meeting for team review (optional for SEV3, mandatory for SEV1/SEV2)
 
 ### Within 1 Week
+
 - [ ] Complete all immediate action items
 - [ ] Document new procedures or updates to existing runbooks
 - [ ] Update monitoring/alerts if needed
@@ -491,13 +524,13 @@ curl https://elevatediq.ai/ollama/api/v1/health
 
 ## Change Log
 
-| Version | Date | Changes | Author |
-|---------|------|---------|--------|
-| 1.0 | YYYY-MM-DD | Initial template | @[name] |
-| [Next] | [Date] | [Changes] | @[name] |
+| Version | Date       | Changes          | Author  |
+| ------- | ---------- | ---------------- | ------- |
+| 1.0     | YYYY-MM-DD | Initial template | @[name] |
+| [Next]  | [Date]     | [Changes]        | @[name] |
 
 ---
 
-**Last Reviewed**: [Date]  
-**Next Review Due**: [Date + 3 months]  
+**Last Reviewed**: [Date]
+**Next Review Due**: [Date + 3 months]
 **Reviewer**: @[engineering-lead]

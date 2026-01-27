@@ -1,5 +1,4 @@
 """Dependency graph utilities for orchestrator."""
-from typing import Dict, List, Set
 
 
 class DependencyGraph:
@@ -10,7 +9,7 @@ class DependencyGraph:
     """
 
     def __init__(self) -> None:
-        self._edges: Dict[object, Set[object]] = {}
+        self._edges: dict[object, set[object]] = {}
 
     def add_node(self, node: object) -> None:
         self._edges.setdefault(node, set())
@@ -20,10 +19,12 @@ class DependencyGraph:
         self.add_node(depends_on)
         self._edges[node].add(depends_on)
 
-    def nodes(self) -> List[object]:
+    def nodes(self) -> list[object]:
         return list(self._edges.keys())
 
-    def _visit(self, node: object, temp: Set[object], perm: Set[object], result: List[object]) -> None:
+    def _visit(
+        self, node: object, temp: set[object], perm: set[object], result: list[object]
+    ) -> None:
         if node in perm:
             return
         if node in temp:
@@ -35,14 +36,14 @@ class DependencyGraph:
         perm.add(node)
         result.append(node)
 
-    def topological_sort(self) -> List[object]:
+    def topological_sort(self) -> list[object]:
         """Return nodes in an order that satisfies dependencies (dep before node).
 
         Raises ValueError on cycles.
         """
-        temp: Set[object] = set()
-        perm: Set[object] = set()
-        result: List[object] = []
+        temp: set[object] = set()
+        perm: set[object] = set()
+        result: list[object] = []
         for n in list(self._edges.keys()):
             if n not in perm:
                 self._visit(n, temp, perm, result)

@@ -334,9 +334,7 @@ class ResilientOllamaClient:
     async def pull_model(self, name: str) -> dict[str, Any]:
         """Pull model with circuit breaker protection."""
         try:
-            return cast(
-                dict[str, Any], await self.breaker.call_async(self.client.pull_model, name)
-            )
+            return cast(dict[str, Any], await self.breaker.call_async(self.client.pull_model, name))
         except Exception as e:
             log.error("resilient_ollama_pull_model_failed", model=name, error=str(e))
             raise

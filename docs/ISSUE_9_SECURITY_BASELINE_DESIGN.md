@@ -1,9 +1,9 @@
 # Issue #9: GCP Security Baseline - Comprehensive Design & Implementation Plan
 
-**Issue**: #9  
-**Priority**: CRITICAL  
-**Status**: IN PROGRESS  
-**Estimated Effort**: 110 hours  
+**Issue**: #9
+**Priority**: CRITICAL
+**Status**: IN PROGRESS
+**Estimated Effort**: 110 hours
 **Date Started**: January 26, 2026
 
 ---
@@ -14,12 +14,12 @@ Comprehensive security baseline implementation for Ollama platform on GCP, addre
 
 ### Goals
 
-| Goal | Outcome | Impact |
-|------|---------|--------|
-| **VPC Security** | Private GKE, isolated networks, strict ingress/egress | Eliminates 95%+ of lateral movement risk |
-| **Encryption** | CMEK for all data, TLS 1.3+ for all traffic | Achieves SOC 2 / FedRAMP compliance requirement |
-| **Supply Chain** | Binary Authorization + attestation, container scanning | Prevents 99%+ of container-based attacks |
-| **Monitoring** | Real-time threat detection, automated response | <5 minute incident detection & response |
+| Goal             | Outcome                                                | Impact                                          |
+| ---------------- | ------------------------------------------------------ | ----------------------------------------------- |
+| **VPC Security** | Private GKE, isolated networks, strict ingress/egress  | Eliminates 95%+ of lateral movement risk        |
+| **Encryption**   | CMEK for all data, TLS 1.3+ for all traffic            | Achieves SOC 2 / FedRAMP compliance requirement |
+| **Supply Chain** | Binary Authorization + attestation, container scanning | Prevents 99%+ of container-based attacks        |
+| **Monitoring**   | Real-time threat detection, automated response         | <5 minute incident detection & response         |
 
 ---
 
@@ -82,9 +82,11 @@ Comprehensive security baseline implementation for Ollama platform on GCP, addre
 ### Phase 1: VPC Security Layer (40 hours)
 
 #### 1.1 Private GKE Cluster Architecture
+
 **Objective**: Create isolated, private Kubernetes clusters with zero public exposure
 
 **Deliverables**:
+
 - Terraform module: `gke_cluster_private.tf` (150+ lines)
 - VPC network with private subnets
 - Private GKE clusters (staging + production)
@@ -92,24 +94,25 @@ Comprehensive security baseline implementation for Ollama platform on GCP, addre
 - Custom firewall rules (least privilege)
 
 **Configuration**:
+
 ```hcl
 # Key settings for private GKE
 resource "google_container_cluster" "private_gke" {
   network_policy {
     enabled = true
   }
-  
+
   ip_allocation_policy {
     cluster_secondary_range_name  = "pods"
     services_secondary_range_name = "services"
   }
-  
+
   private_cluster_config {
     enable_private_nodes    = true
     enable_private_endpoint = false  # Allow kubectl via IAP
     master_ipv4_cidr_block  = "172.16.0.0/28"
   }
-  
+
   resource_labels = {
     environment = "production"
     security    = "baseline"
@@ -118,6 +121,7 @@ resource "google_container_cluster" "private_gke" {
 ```
 
 **VPC Structure**:
+
 ```
 VPC: ollama-prod-vpc
 ├── Subnet: ollama-prod-gke-nodes (10.0.1.0/24)
@@ -129,15 +133,18 @@ VPC: ollama-prod-vpc
 ```
 
 #### 1.2 VPC Service Controls
+
 **Objective**: Create security perimeter around data at rest
 
 **Deliverables**:
+
 - Service perimeter configuration (Terraform)
 - Access policy with conditional rules
 - Data exfiltration prevention rules
 - Audit logging (all access logged)
 
 **Service Perimeter Scope**:
+
 ```
 Services Protected:
   • Cloud Storage (GCS)
@@ -154,14 +161,17 @@ Restricted Access:
 ```
 
 #### 1.3 Firewall Rules (Least Privilege)
+
 **Objective**: Enforce strict ingress/egress controls
 
 **Deliverables**:
+
 - Terraform module: `firewall_rules.tf` (100+ lines)
 - Documented firewall matrix
 - Automated rule testing
 
 **Firewall Rules Matrix**:
+
 ```
 INGRESS Rules:
   GCP LB → GKE nodes (port 8000)           ✅ Allow
@@ -182,9 +192,11 @@ EGRESS Rules:
 ### Phase 2: Encryption Layer (35 hours)
 
 #### 2.1 Cloud KMS Setup
+
 **Objective**: Centralized key management with CMEK
 
 **Deliverables**:
+
 - Terraform module: `cloud_kms.tf` (120+ lines)
 - Key rings (dev, staging, prod)
 - Key rotation policy
@@ -192,6 +204,7 @@ EGRESS Rules:
 - Key audit logging
 
 **KMS Configuration**:
+
 ```
 KMS Key Ring: ollama-prod-keys
 ├── Key: ollama-storage-cmek (Cloud Storage encryption)
@@ -205,9 +218,11 @@ Audit Logging: All key operations logged
 ```
 
 #### 2.2 CMEK Encryption for All Data
+
 **Objective**: Encrypt all data at rest with customer-managed keys
 
 **Deliverables**:
+
 - Cloud Storage buckets with CMEK
 - Cloud SQL instance with CMEK
 - Firestore database with CMEK
@@ -217,10 +232,11 @@ Audit Logging: All key operations logged
 **Implementation Details**:
 
 **Cloud Storage CMEK**:
+
 ```hcl
 resource "google_storage_bucket" "ollama_data" {
   name = "ollama-prod-data"
-  
+
   encryption {
     default_kms_key_name = google_kms_crypto_key.storage.id
   }
@@ -228,6 +244,7 @@ resource "google_storage_bucket" "ollama_data" {
 ```
 
 **Cloud SQL CMEK**:
+
 ```hcl
 resource "google_sql_database_instance" "ollama_postgres" {
   disk_encryption_key_name = google_kms_crypto_key.database.id
@@ -235,6 +252,7 @@ resource "google_sql_database_instance" "ollama_postgres" {
 ```
 
 **Backup Encryption**:
+
 ```hcl
 resource "google_compute_backup_plan" "ollama_backups" {
   backup_config {
@@ -245,9 +263,11 @@ resource "google_compute_backup_plan" "ollama_backups" {
 ```
 
 #### 2.3 TLS 1.3+ Enforcement
+
 **Objective**: Encrypt all in-transit traffic
 
 **Deliverables**:
+
 - TLS policy enforcement (Cloud Load Balancer)
 - Certificate management (Cloud Certificate Manager)
 - Automated certificate renewal
@@ -255,13 +275,14 @@ resource "google_compute_backup_plan" "ollama_backups" {
 - TLS version testing & monitoring
 
 **TLS Configuration**:
+
 ```hcl
 resource "google_compute_ssl_policy" "ollama_tls" {
   name = "ollama-prod-ssl-policy"
-  
+
   min_tls_version = "TLS_1_3"
   profile         = "RESTRICTED"  # Most secure profile
-  
+
   custom_features = [
     "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
     "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
@@ -275,9 +296,11 @@ resource "google_compute_ssl_policy" "ollama_tls" {
 ### Phase 3: Supply Chain Security (25 hours)
 
 #### 3.1 Binary Authorization
+
 **Objective**: Enforce only signed, approved container images run in production
 
 **Deliverables**:
+
 - Binary Authorization policy (Terraform)
 - Attestation configuration
 - Key pair management
@@ -285,6 +308,7 @@ resource "google_compute_ssl_policy" "ollama_tls" {
 - Admission controller setup
 
 **Binary Authorization Flow**:
+
 ```
 Container Build (Cloud Build)
     ↓
@@ -304,11 +328,12 @@ Allow or Reject Pod Creation
 ```
 
 **Implementation**:
+
 ```hcl
 resource "google_container_analysis_authority" "ollama" {
   project = var.project_id
   name    = "projects/${var.project_id}/attestors/ollama-attestor"
-  
+
   user_owned_grave_image_note {
     note_reference = google_container_analysis_note.ollama.name
   }
@@ -316,9 +341,11 @@ resource "google_container_analysis_authority" "ollama" {
 ```
 
 #### 3.2 Container Image Scanning
+
 **Objective**: Scan all images for vulnerabilities before deployment
 
 **Deliverables**:
+
 - Container Analysis setup
 - Vulnerability scanning policy
 - Automated image scanning (Cloud Build)
@@ -326,6 +353,7 @@ resource "google_container_analysis_authority" "ollama" {
 - Remediation guidance
 
 **Vulnerability Scanning**:
+
 ```
 Image Scan Process:
   1. Image pushed to Container Registry
@@ -341,9 +369,11 @@ Image Scan Process:
 ```
 
 #### 3.3 Signed Builds (Cloud Build)
+
 **Objective**: Verify build integrity throughout pipeline
 
 **Deliverables**:
+
 - Updated Cloud Build configuration
 - Build signing setup
 - Attestation generation
@@ -354,9 +384,11 @@ Image Scan Process:
 ### Phase 4: Monitoring & Response (25 hours)
 
 #### 4.1 Cloud Logging & Audit Trail
+
 **Objective**: Centralized logging with 7-year retention
 
 **Deliverables**:
+
 - Log sink configuration (Terraform)
 - Custom log routing
 - Log retention policies
@@ -364,6 +396,7 @@ Image Scan Process:
 - Audit log querying (for compliance)
 
 **Logging Architecture**:
+
 ```
 All Events
     ↓
@@ -381,15 +414,18 @@ Retention Policies:
 ```
 
 #### 4.2 Security Dashboards
+
 **Objective**: Real-time visibility into security posture
 
 **Deliverables**:
+
 - Cloud Monitoring dashboards (Terraform)
 - Security metrics and KPIs
 - Alerting policies
 - Incident tracking dashboard
 
 **Dashboard Components**:
+
 ```
 Dashboard: Security Posture
 ├── VPC Security Metrics
@@ -411,18 +447,22 @@ Dashboard: Security Posture
 ```
 
 #### 4.3 Security Command Center Integration
+
 **Objective**: Unified threat detection and remediation
 
 **Deliverables**:
+
 - SCC custom findings
 - Threat detection rules
 - Automated remediation workflows
 - Incident response runbooks
 
 #### 4.4 Incident Response Automation
+
 **Objective**: <5 minute automated response to threats
 
 **Deliverables**:
+
 - Cloud Workflows for automated response
 - Incident classification
 - Escalation procedures
@@ -433,6 +473,7 @@ Dashboard: Security Posture
 ## Implementation Phases & Timeline
 
 ### Week 1: VPC Security (40 hours)
+
 ```
 Days 1-2: VPC Architecture & Design
   • Create private GKE cluster design
@@ -451,6 +492,7 @@ Day 5: Testing & Validation
 ```
 
 ### Week 2: Encryption (35 hours)
+
 ```
 Days 1-2: Cloud KMS Setup
   • Key ring creation
@@ -470,6 +512,7 @@ Day 5: TLS Enforcement
 ```
 
 ### Week 3: Supply Chain Security (25 hours)
+
 ```
 Days 1-2: Binary Authorization
   • Attestor setup
@@ -488,6 +531,7 @@ Day 5: Build Signing
 ```
 
 ### Week 4: Monitoring (25 hours)
+
 ```
 Days 1-2: Logging & Audit
   • Cloud Logging sinks
@@ -548,6 +592,7 @@ Day 5: Incident Response
 ## Success Criteria
 
 ### Functional Requirements ✅
+
 - [ ] Private GKE clusters with zero public IP exposure
 - [ ] All data encrypted with CMEK (Cloud Storage, SQL, Firestore)
 - [ ] TLS 1.3+ enforced on all public endpoints
@@ -558,6 +603,7 @@ Day 5: Incident Response
 - [ ] <5 minute incident detection & response
 
 ### Security Requirements ✅
+
 - [ ] VPC Service Controls perimeter established
 - [ ] Firewall rules follow least-privilege principle
 - [ ] Key rotation enabled (90-day policy)
@@ -566,6 +612,7 @@ Day 5: Incident Response
 - [ ] MFA enforced for production access
 
 ### Compliance Requirements ✅
+
 - [ ] SOC 2 Type II controls implemented
 - [ ] FedRAMP controls mapped and verified
 - [ ] PCI DSS controls for data protection
@@ -574,6 +621,7 @@ Day 5: Incident Response
 - [ ] Access control documentation
 
 ### Documentation Requirements ✅
+
 - [ ] Architecture diagrams (3+ diagrams)
 - [ ] Implementation guides (1500+ lines)
 - [ ] Operations runbooks
@@ -586,17 +634,19 @@ Day 5: Incident Response
 ## Risk Mitigation
 
 ### Technical Risks
-| Risk | Likelihood | Impact | Mitigation |
-|------|-----------|--------|-----------|
-| Key loss | Low | Critical | Backup keys in Secret Manager, redundancy |
-| TLS config errors | Medium | High | Automated testing, SSL Labs testing |
-| Firewall rule conflicts | Medium | High | Change management process, staged rollout |
+
+| Risk                    | Likelihood | Impact   | Mitigation                                |
+| ----------------------- | ---------- | -------- | ----------------------------------------- |
+| Key loss                | Low        | Critical | Backup keys in Secret Manager, redundancy |
+| TLS config errors       | Medium     | High     | Automated testing, SSL Labs testing       |
+| Firewall rule conflicts | Medium     | High     | Change management process, staged rollout |
 
 ### Operational Risks
-| Risk | Likelihood | Impact | Mitigation |
-|------|-----------|--------|-----------|
-| Extended incident response time | Medium | High | Automation + runbooks, team training |
-| Monitoring alert fatigue | Medium | High | Tuned thresholds, escalation rules |
+
+| Risk                            | Likelihood | Impact | Mitigation                           |
+| ------------------------------- | ---------- | ------ | ------------------------------------ |
+| Extended incident response time | Medium     | High   | Automation + runbooks, team training |
+| Monitoring alert fatigue        | Medium     | High   | Tuned thresholds, escalation rules   |
 
 ---
 
@@ -609,7 +659,7 @@ Day 5: Incident Response
 
 ---
 
-**Status**: Ready for implementation  
-**Owner**: Security & Infrastructure Team  
-**Approval**: Pending  
+**Status**: Ready for implementation
+**Owner**: Security & Infrastructure Team
+**Approval**: Pending
 **Start Date**: January 27, 2026 (pending approval)

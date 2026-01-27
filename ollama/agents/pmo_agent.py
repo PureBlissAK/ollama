@@ -5,12 +5,12 @@ from the Landing Zone framework into a proper PMO agent for continuous
 governance and compliance tracking.
 """
 
+import asyncio
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Optional, List, Dict, Any
-import asyncio
+from typing import Any
 
-from ollama.agents.agent import Agent, AgentCapability, AgentConfig
+from ollama.agents.agent import Agent, AgentCapability
 
 
 class ComplianceStatus(str, Enum):
@@ -39,8 +39,8 @@ class ComplianceCheckResult:
     check_name: str
     status: ComplianceStatus
     details: str
-    resources_affected: List[str] = field(default_factory=list)
-    remediation: Optional[str] = None
+    resources_affected: list[str] = field(default_factory=list)
+    remediation: str | None = None
 
 
 class PMOAgent(Agent):
@@ -63,11 +63,9 @@ class PMOAgent(Agent):
             AgentCapability.GENERATE,  # Generate compliance reports
             AgentCapability.RETRIEVE,  # Retrieve compliance data
         ]
-        self.compliance_checks: List[ComplianceCheckResult] = []
+        self.compliance_checks: list[ComplianceCheckResult] = []
 
-    async def validate_landing_zone_compliance(
-        self, resource_id: str
-    ) -> ComplianceCheckResult:
+    async def validate_landing_zone_compliance(self, resource_id: str) -> ComplianceCheckResult:
         """Validate a resource against Landing Zone 8-point mandate.
 
         Checks:
@@ -148,7 +146,7 @@ class PMOAgent(Agent):
             )
             raise
 
-    async def enforce_label_schema(self, resource_id: str) -> Dict[str, Any]:
+    async def enforce_label_schema(self, resource_id: str) -> dict[str, Any]:
         """Enforce 24-label schema on a resource.
 
         Mandatory labels:
@@ -165,9 +163,7 @@ class PMOAgent(Agent):
         Returns:
             dict: Enforcement result
         """
-        self.audit_log.log_intent(
-            {"action": "enforce_label_schema", "resource_id": resource_id}
-        )
+        self.audit_log.log_intent({"action": "enforce_label_schema", "resource_id": resource_id})
 
         try:
             mandatory_labels = {
@@ -234,7 +230,7 @@ class PMOAgent(Agent):
             )
             raise
 
-    async def monitor_compliance_drift(self) -> Dict[str, Any]:
+    async def monitor_compliance_drift(self) -> dict[str, Any]:
         """Monitor all resources for compliance drift.
 
         Returns:
@@ -255,9 +251,7 @@ class PMOAgent(Agent):
             self.audit_log.log_result(
                 {
                     "action": "monitor_compliance_drift",
-                    "drifts_detected": len(
-                        drift_results["drifts_detected"]
-                    ),
+                    "drifts_detected": len(drift_results["drifts_detected"]),
                 }
             )
 
@@ -297,35 +291,35 @@ Landing Zone 8-Point Mandate Status
 
 ✅ Mandate 1: Resource Labeling (24-label schema)
    Status: COMPLIANT
-   Details: All production resources have mandatory labels
-   
+    Details: All production resources have mandatory labels
+
 ✅ Mandate 2: Zero Trust Authentication
    Status: COMPLIANT
-   Details: Workload Identity enabled on all GKE pods
-   
+    Details: Workload Identity enabled on all GKE pods
+
 ✅ Mandate 3: CMEK Encryption
    Status: COMPLIANT
-   Details: All data at rest encrypted with customer-managed keys
-   
+    Details: All data at rest encrypted with customer-managed keys
+
 ✅ Mandate 4: Least-Privilege IAM
    Status: COMPLIANT
-   Details: Service accounts have minimal required permissions
-   
+    Details: Service accounts have minimal required permissions
+
 ✅ Mandate 5: Audit Logging
    Status: COMPLIANT
-   Details: Cloud Audit Logs enabled, 7-year retention
-   
+    Details: Cloud Audit Logs enabled, 7-year retention
+
 ✅ Mandate 6: Naming Conventions
    Status: COMPLIANT
-   Details: All resources follow {env}-{app}-{component} pattern
-   
+    Details: All resources follow {env}-{app}-{component} pattern
+
 ✅ Mandate 7: No Loose Files
    Status: COMPLIANT
-   Details: Filesystem strictly enforced, 5-level depth limit
-   
+    Details: Filesystem strictly enforced, 5-level depth limit
+
 ✅ Mandate 8: GPG-Signed Commits
    Status: COMPLIANT
-   Details: 100% of commits to main branch are GPG-signed
+    Details: 100% of commits to main branch are GPG-signed
 
 ────────────────────────────────────────────────────────────
 Key Metrics
@@ -403,9 +397,7 @@ Recommendations
             resources_affected=[resource_id],
         )
 
-    async def _check_least_privilege_iam(
-        self, resource_id: str
-    ) -> ComplianceCheckResult:
+    async def _check_least_privilege_iam(self, resource_id: str) -> ComplianceCheckResult:
         """Check least-privilege IAM."""
         await asyncio.sleep(0.1)
         return ComplianceCheckResult(
@@ -425,7 +417,9 @@ Recommendations
             resources_affected=[resource_id],
         )
 
-    def _aggregate_compliance_status(self, results: List[ComplianceCheckResult]) -> ComplianceStatus:
+    def _aggregate_compliance_status(
+        self, results: list[ComplianceCheckResult]
+    ) -> ComplianceStatus:
         """Aggregate compliance check results."""
         if all(r.status == ComplianceStatus.COMPLIANT for r in results):
             return ComplianceStatus.COMPLIANT

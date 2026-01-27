@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # cleanup-root-directory.sh - Clean up root directory files (PMO Mandate)
-# 
+#
 # Migrated from: gcp-landing-zone/scripts/pmo/cleanup-root-directory.sh
 # Purpose: Enforce "No Root Chaos" mandate by organizing loose files
 #
@@ -158,7 +158,7 @@ is_allowed_at_root() {
 get_target_directory() {
     local file="$1"
     local extension="${file##*.}"
-    
+
     # Check filename patterns first (more specific)
     for pattern in "${!FILENAME_MAP[@]}"; do
         if [[ "$file" == $pattern ]]; then
@@ -166,13 +166,13 @@ get_target_directory() {
             return 0
         fi
     done
-    
+
     # Check extension mapping
     if [ -n "${EXTENSION_MAP[.$extension]+isset}" ]; then
         echo "${EXTENSION_MAP[.$extension]}"
         return 0
     fi
-    
+
     # Default: move to docs/ if uncertain
     echo "docs/"
     return 0
@@ -182,19 +182,19 @@ get_target_directory() {
 move_file() {
     local file="$1"
     local target_dir="$2"
-    
+
     # Ensure target directory exists
     if [ "$DRY_RUN" = false ]; then
         mkdir -p "$target_dir"
     fi
-    
+
     # Check if target file already exists
     if [ -f "${target_dir}${file}" ]; then
         echo -e "  ${YELLOW}⚠️  Skip: ${file} (already exists in ${target_dir})${NC}"
         ((FILES_SKIPPED++))
         return 1
     fi
-    
+
     # Move file
     if [ "$DRY_RUN" = true ]; then
         echo -e "  ${BLUE}🔵 Would move: ${file} → ${target_dir}${NC}"
@@ -220,21 +220,21 @@ for file in *; do
     if [ -d "$file" ]; then
         continue
     fi
-    
+
     # Skip hidden files (already handled by .gitignore)
     if [[ "$file" == .* ]]; then
         continue
     fi
-    
+
     # Check if file is allowed at root
     if is_allowed_at_root "$file"; then
         echo -e "  ${GREEN}✅ Keep: ${file} (allowed at root)${NC}"
         continue
     fi
-    
+
     # Determine target directory
     target_dir=$(get_target_directory "$file")
-    
+
     # Move file
     move_file "$file" "$target_dir"
 done

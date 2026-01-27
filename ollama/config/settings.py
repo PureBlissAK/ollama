@@ -89,11 +89,7 @@ class RedisSettings(BaseSettings):
         Returns:
             Redis connection URL
         """
-        password_part = (
-            f":{self.password.get_secret_value()}@"
-            if self.password
-            else ""
-        )
+        password_part = f":{self.password.get_secret_value()}@" if self.password else ""
         protocol = "rediss" if self.ssl else "redis"
         return f"{protocol}://{password_part}{self.host}:{self.port}/{self.db}"
 
@@ -147,9 +143,7 @@ class OllamaSettings(BaseSettings):
     timeout: int = Field(default=300, ge=30, le=3600)
     model_timeout: int = Field(default=60, ge=10, le=600)
     default_model: str = Field(default="llama3.2")
-    models: list[str] = Field(
-        default=["llama3.2", "mistral", "neural-chat"]
-    )
+    models: list[str] = Field(default=["llama3.2", "mistral", "neural-chat"])
 
     @field_validator("base_url")
     @classmethod
@@ -282,9 +276,7 @@ class Settings(BaseSettings):
         alias="vector_db",
     )
     gcp: GCPSettings = Field(default_factory=GCPSettings)
-    monitoring: MonitoringSettings = Field(
-        default_factory=MonitoringSettings
-    )
+    monitoring: MonitoringSettings = Field(default_factory=MonitoringSettings)
 
     model_config = SettingsConfigDict(
         env_file=".env",
@@ -331,8 +323,7 @@ class Settings(BaseSettings):
             for secret_name, field_path in secrets_to_load:
                 try:
                     name = (
-                        f"projects/{self.gcp.project_id}/"
-                        f"secrets/{secret_name}/versions/latest"
+                        f"projects/{self.gcp.project_id}/" f"secrets/{secret_name}/versions/latest"
                     )
                     response = client.access_secret_version(request={"name": name})
                     secret_value = response.payload.data.decode("UTF-8")
@@ -345,14 +336,11 @@ class Settings(BaseSettings):
                     setattr(obj, parts[-1], SecretStr(secret_value))
 
                 except Exception as e:
-                    logger.warning(
-                        f"Failed to load {secret_name} from Secret Manager: {e}"
-                    )
+                    logger.warning(f"Failed to load {secret_name} from Secret Manager: {e}")
 
         except ImportError:
             logger.warning(
-                "google-cloud-secret-manager not installed. "
-                "Skipping Secret Manager integration."
+                "google-cloud-secret-manager not installed. " "Skipping Secret Manager integration."
             )
 
     def is_production(self) -> bool:

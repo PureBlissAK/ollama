@@ -30,6 +30,7 @@ from typing import Any, Optional
 try:
     from google.cloud import logging as cloud_logging
     from google.cloud.logging_v2.handlers import CloudLoggingHandler
+
     CLOUD_LOGGING_AVAILABLE = True
 except ImportError:
     CLOUD_LOGGING_AVAILABLE = False
@@ -64,6 +65,7 @@ SEVERITY_LEVELS = {
 # Cloud Logging Client
 # ============================================================================
 
+
 class CloudAuditLogger:
     """Google Cloud Logging client for 7-year audit compliance.
 
@@ -75,7 +77,7 @@ class CloudAuditLogger:
         self,
         project_id: Optional[str] = None,
         log_name: str = AUDIT_LOG_NAME,
-        fallback_to_stdout: bool = True
+        fallback_to_stdout: bool = True,
     ) -> None:
         """Initialize Cloud Logging client.
 
@@ -99,7 +101,7 @@ class CloudAuditLogger:
             self._local_logger.warning(
                 "cloud_logging_unavailable",
                 message="google-cloud-logging not installed, using local logging",
-                fallback_enabled=self.fallback_to_stdout
+                fallback_enabled=self.fallback_to_stdout,
             )
             return
 
@@ -110,20 +112,15 @@ class CloudAuditLogger:
                 "cloud_logging_initialized",
                 project_id=self.project_id,
                 log_name=self.log_name,
-                retention_days=AUDIT_RETENTION_DAYS
+                retention_days=AUDIT_RETENTION_DAYS,
             )
         except Exception as e:
             self._local_logger.error(
-                "cloud_logging_init_failed",
-                error=str(e),
-                fallback_enabled=self.fallback_to_stdout
+                "cloud_logging_init_failed", error=str(e), fallback_enabled=self.fallback_to_stdout
             )
 
     def _format_log_entry(
-        self,
-        event: str,
-        severity: str,
-        metadata: dict[str, Any]
+        self, event: str, severity: str, metadata: dict[str, Any]
     ) -> dict[str, Any]:
         """Format log entry with required audit metadata.
 
@@ -142,15 +139,10 @@ class CloudAuditLogger:
             "service": "ollama-api",
             "environment": settings.ENVIRONMENT,
             "version": settings.VERSION,
-            **metadata
+            **metadata,
         }
 
-    def log_structured(
-        self,
-        event: str,
-        severity: str = "INFO",
-        **metadata: Any
-    ) -> None:
+    def log_structured(self, event: str, severity: str = "INFO", **metadata: Any) -> None:
         """Log structured event to Cloud Logging.
 
         Args:
@@ -163,16 +155,9 @@ class CloudAuditLogger:
         # Log to Cloud Logging if available
         if self._logger:
             try:
-                self._logger.log_struct(
-                    log_entry,
-                    severity=SEVERITY_LEVELS.get(severity, "INFO")
-                )
+                self._logger.log_struct(log_entry, severity=SEVERITY_LEVELS.get(severity, "INFO"))
             except Exception as e:
-                self._local_logger.error(
-                    "cloud_logging_write_failed",
-                    error=str(e),
-                    event=event
-                )
+                self._local_logger.error("cloud_logging_write_failed", error=str(e), event=event)
 
         # Fallback to local logging
         if self.fallback_to_stdout:
@@ -188,7 +173,7 @@ class CloudAuditLogger:
         ip_address: Optional[str] = None,
         user_agent: Optional[str] = None,
         request_id: Optional[str] = None,
-        **extra: Any
+        **extra: Any,
     ) -> None:
         """Log API request for audit trail.
 
@@ -216,7 +201,7 @@ class CloudAuditLogger:
             ip_address=ip_address,
             user_agent=user_agent,
             request_id=request_id,
-            **extra
+            **extra,
         )
 
     def log_user_action(
@@ -225,7 +210,7 @@ class CloudAuditLogger:
         action: str,
         resource: Optional[str] = None,
         success: bool = True,
-        **extra: Any
+        **extra: Any,
     ) -> None:
         """Log user action for audit trail.
 
@@ -245,7 +230,7 @@ class CloudAuditLogger:
             action=action,
             resource=resource,
             success=success,
-            **extra
+            **extra,
         )
 
     def log_security_event(
@@ -255,7 +240,7 @@ class CloudAuditLogger:
         user_id: Optional[str] = None,
         ip_address: Optional[str] = None,
         description: Optional[str] = None,
-        **extra: Any
+        **extra: Any,
     ) -> None:
         """Log security event for audit trail.
 
@@ -274,7 +259,7 @@ class CloudAuditLogger:
             user_id=user_id,
             ip_address=ip_address,
             description=description,
-            **extra
+            **extra,
         )
 
     def log_model_inference(
@@ -285,7 +270,7 @@ class CloudAuditLogger:
         response_length: int,
         latency_ms: float,
         tokens_used: Optional[int] = None,
-        **extra: Any
+        **extra: Any,
     ) -> None:
         """Log model inference for audit trail.
 
@@ -307,7 +292,7 @@ class CloudAuditLogger:
             response_length=response_length,
             latency_ms=latency_ms,
             tokens_used=tokens_used,
-            **extra
+            **extra,
         )
 
 
@@ -334,6 +319,7 @@ def get_audit_logger() -> CloudAuditLogger:
 # Decorator for Automatic Request Logging
 # ============================================================================
 
+
 def log_api_call(func):
     """Decorator to automatically log API calls.
 
@@ -343,6 +329,7 @@ def log_api_call(func):
             # Endpoint logic
             return {"status": "ok"}
     """
+
     @wraps(func)
     async def wrapper(*args, **kwargs):
         start_time = time.time()
@@ -365,7 +352,7 @@ def log_api_call(func):
                 method=request.method if request else "unknown",
                 status_code=200,
                 latency_ms=latency_ms,
-                request_id=request_id
+                request_id=request_id,
             )
 
             return response
@@ -380,7 +367,7 @@ def log_api_call(func):
                 status_code=500,
                 latency_ms=latency_ms,
                 request_id=request_id,
-                error=str(e)
+                error=str(e),
             )
             raise
 

@@ -1,8 +1,8 @@
 # Issue #9 Phase 1: Firewall Rules Implementation
 
-**Status**: IN PROGRESS  
-**Component**: VPC Security Layer - Firewall Rules  
-**Principle**: Zero Trust / Least Privilege  
+**Status**: IN PROGRESS
+**Component**: VPC Security Layer - Firewall Rules
+**Principle**: Zero Trust / Least Privilege
 
 ---
 
@@ -10,7 +10,7 @@
 
 ```hcl
 # Firewall Rules for Ollama Production Environment
-# 
+#
 # Principle: ZERO TRUST / LEAST PRIVILEGE
 # - Explicit ALLOW rules for necessary traffic
 # - Explicit DENY for all other traffic
@@ -43,15 +43,15 @@ resource "google_compute_firewall" "deny_all_ingress" {
   network     = var.network_name
   direction   = "INGRESS"
   priority    = 65534  # Lowest priority (evaluated last)
-  
+
   deny {
     protocol = "all"
   }
-  
+
   source_ranges = ["0.0.0.0/0"]
-  
+
   description = "Implicit deny for all ingress (zero-trust baseline)"
-  
+
   log_config {
     metadata = "INCLUDE_ALL_METADATA"
   }
@@ -64,15 +64,15 @@ resource "google_compute_firewall" "deny_all_egress" {
   network     = var.network_name
   direction   = "EGRESS"
   priority    = 65534
-  
+
   deny {
     protocol = "all"
   }
-  
+
   destination_ranges = ["0.0.0.0/0"]
-  
+
   description = "Implicit deny for all egress (zero-trust baseline)"
-  
+
   log_config {
     metadata = "INCLUDE_ALL_METADATA"
   }
@@ -467,9 +467,9 @@ output "firewall_rules_created" {
 }
 ```
 
-**Lines**: 300+  
-**Rules**: 15+ (zero-trust architecture)  
-**Logging**: 100% of rules logged for audit  
+**Lines**: 300+
+**Rules**: 15+ (zero-trust architecture)
+**Logging**: 100% of rules logged for audit
 
 ---
 
@@ -537,6 +537,6 @@ gcloud logging read \
 
 ---
 
-**Status**: Implementation Phase 1 - VPC Security Layer  
-**Next**: Cloud KMS & CMEK Encryption (Phase 2)  
+**Status**: Implementation Phase 1 - VPC Security Layer
+**Next**: Cloud KMS & CMEK Encryption (Phase 2)
 **Estimated Completion**: 8-12 hours

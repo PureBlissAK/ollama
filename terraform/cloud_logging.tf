@@ -15,14 +15,14 @@ terraform {
 locals {
   logging_bucket_name = "ollama-security-logs-${var.environment}"
   log_retention_days  = 2555  # 7 years
-  
+
   # Security event log filters
   security_events = [
     "resource.type=\"k8s_cluster\"",
     "resource.type=\"gke_cluster\"",
     "severity=\"CRITICAL\" OR severity=\"ERROR\" OR severity=\"WARNING\""
   ]
-  
+
   # Audit trail events
   audit_events = [
     "protoPayload.methodName=~\".*\"",

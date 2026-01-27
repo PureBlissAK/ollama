@@ -96,7 +96,7 @@ measure_latency() {
 
     local avg_latency=$(( total_time / count ))
 
-    if [ $avg_latency -lt $max_latency_ms ]; then
+    if [ $avg_latency -lt "$max_latency_ms" ]; then
         echo -e "${GREEN}✅${NC} ($avg_latency ms avg, target: < $max_latency_ms ms)"
         return 0
     else

@@ -113,9 +113,7 @@ class AgentOrchestrator:
                 timeout=self.timeout_seconds,
             )
 
-            duration_ms = int(
-                (datetime.utcnow() - start_time).total_seconds() * 1000
-            )
+            duration_ms = int((datetime.utcnow() - start_time).total_seconds() * 1000)
             result.duration_ms = duration_ms
             result.timestamp = datetime.utcnow().isoformat()
 
@@ -139,9 +137,7 @@ class AgentOrchestrator:
                 agent_id=agent_id,
                 status=TaskStatus.TIMEOUT,
                 error=f"Task timed out after {self.timeout_seconds}s",
-                duration_ms=int(
-                    (datetime.utcnow() - start_time).total_seconds() * 1000
-                ),
+                duration_ms=int((datetime.utcnow() - start_time).total_seconds() * 1000),
                 timestamp=datetime.utcnow().isoformat(),
             )
 
@@ -157,9 +153,7 @@ class AgentOrchestrator:
                 agent_id=agent_id,
                 status=TaskStatus.FAILED,
                 error=str(e),
-                duration_ms=int(
-                    (datetime.utcnow() - start_time).total_seconds() * 1000
-                ),
+                duration_ms=int((datetime.utcnow() - start_time).total_seconds() * 1000),
                 timestamp=datetime.utcnow().isoformat(),
             )
 

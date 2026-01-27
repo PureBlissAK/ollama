@@ -127,13 +127,13 @@ async def get_training_engine() -> Any | None:
 
 async def _startup_firebase(settings: Any) -> None:
     """Initialize Firebase OAuth if enabled."""
-    firebase_enabled = getattr(settings, 'firebase_enabled', False)
+    firebase_enabled = getattr(settings, "firebase_enabled", False)
     if firebase_enabled:
         logger.info("🔐 Initializing Firebase OAuth...")
         try:
             from ollama.auth import init_firebase
 
-            firebase_creds = getattr(settings, 'firebase_credentials_path', None)
+            firebase_creds = getattr(settings, "firebase_credentials_path", None)
             init_firebase(firebase_creds)
             logger.info("✅ Firebase OAuth initialized")
         except Exception as e:
@@ -148,7 +148,11 @@ async def _startup_database(settings: Any) -> None:
     logger.info("📦 Initializing database connection...")
     try:
         # Phase 8: Use consolidated settings with auto-generated URL
-        db_url = settings.database.url if hasattr(settings, 'database') else getattr(settings, 'database_url', None)
+        db_url = (
+            settings.database.url
+            if hasattr(settings, "database")
+            else getattr(settings, "database_url", None)
+        )
         db_manager = init_database(db_url, echo=False)
         await db_manager.initialize()
         logger.info("✅ Database connected")
@@ -165,8 +169,12 @@ async def _startup_cache(settings: Any) -> None:
         from ollama.services.cache.resilient_cache import ResilientCacheManager
 
         # Phase 8: Use consolidated settings with auto-generated URL
-        redis_url = settings.redis.url if hasattr(settings, 'redis') else getattr(settings, 'redis_url', None)
-        redis_db = settings.redis.db if hasattr(settings, 'redis') else 0
+        redis_url = (
+            settings.redis.url
+            if hasattr(settings, "redis")
+            else getattr(settings, "redis_url", None)
+        )
+        redis_db = settings.redis.db if hasattr(settings, "redis") else 0
         cache_manager = init_cache(redis_url, db=redis_db)
         await cache_manager.initialize()
 
@@ -188,11 +196,11 @@ async def _startup_vector_db(settings: Any) -> None:
         from ollama.services.models.resilient_vector import ResilientVectorManager
 
         # Phase 8: Use consolidated settings with auto-generated URL
-        if hasattr(settings, 'vector_db'):
+        if hasattr(settings, "vector_db"):
             vector_url = settings.vector_db.url
         else:
-            qdrant_host = getattr(settings, 'qdrant_host', 'qdrant')
-            qdrant_port = getattr(settings, 'qdrant_port', 6333)
+            qdrant_host = getattr(settings, "qdrant_host", "qdrant")
+            qdrant_port = getattr(settings, "qdrant_port", 6333)
             vector_url = f"http://{qdrant_host}:{qdrant_port}"
 
         vector_manager = init_vector_db(vector_url)
@@ -212,7 +220,7 @@ async def _startup_ollama(settings: Any) -> None:
     """Initialize Ollama inference client."""
     logger.info("🤖 Connecting to Ollama inference engine...")
     # Phase 8: Use consolidated settings
-    if hasattr(settings, 'ollama'):
+    if hasattr(settings, "ollama"):
         ollama_base_url = settings.ollama.base_url
         ollama_timeout = settings.ollama.timeout
     else:
@@ -292,16 +300,16 @@ async def lifespan(_: FastAPI) -> AsyncGenerator[None, None]:
     settings = get_settings()
     logger.info("🚀 Starting Ollama API Server")
     # Phase 8: Environment detection
-    env = settings.environment.value if hasattr(settings, 'environment') else 'production'
+    env = settings.environment.value if hasattr(settings, "environment") else "production"
     logger.info(f"Environment: {env}")
     # Phase 8: API settings
-    if hasattr(settings, 'api'):
+    if hasattr(settings, "api"):
         logger.info(f"Host: {settings.api.host}:{settings.api.port}")
     else:
-        host = getattr(settings, 'host', '0.0.0.0')
-        port = getattr(settings, 'port', 8000)
+        host = getattr(settings, "host", "0.0.0.0")
+        port = getattr(settings, "port", 8000)
         logger.info(f"Host: {host}:{port}")
-    public_url = getattr(settings, 'public_url', 'http://localhost:8000')
+    public_url = getattr(settings, "public_url", "http://localhost:8000")
     logger.info(f"Public URL: {public_url}")
 
     # Startup tasks
@@ -380,7 +388,7 @@ def create_app() -> FastAPI:
 
     # Phase 6: Initialize rate limiter with Redis backend
     try:
-        redis_url = settings.redis.url if hasattr(settings, 'redis') else settings.redis_url
+        redis_url = settings.redis.url if hasattr(settings, "redis") else settings.redis_url
         app.state.rate_limiter = RateLimiter(redis_url=redis_url)
         logger.info("✅ Phase 6: Rate limiter initialized (Redis backend)")
     except Exception as e:
@@ -390,18 +398,18 @@ def create_app() -> FastAPI:
 
     # CORS Middleware
     # Phase 8: Use consolidated API settings
-    if hasattr(settings, 'api'):
+    if hasattr(settings, "api"):
         cors_origins = settings.api.cors_origins
     else:
-        cors_origins = getattr(settings, 'cors_origins', ['*'])
+        cors_origins = getattr(settings, "cors_origins", ["*"])
 
     app.add_middleware(
         CORSMiddleware,
         allow_origins=cors_origins,
-        allow_credentials=getattr(settings, 'cors_allow_credentials', True),
+        allow_credentials=getattr(settings, "cors_allow_credentials", True),
         allow_methods=["*"],
         allow_headers=["*"],
-        expose_headers=getattr(settings, 'cors_expose_headers', []),
+        expose_headers=getattr(settings, "cors_expose_headers", []),
     )
 
     # Metrics collection middleware (early in stack for accurate timing)
@@ -413,9 +421,9 @@ def create_app() -> FastAPI:
 
     # Rate limiting middleware (add before other middleware)
     # Phase 8: Use consolidated API settings
-    if hasattr(settings, 'api'):
+    if hasattr(settings, "api"):
         rate_limit_per_minute = settings.api.rate_limit_requests
-        rate_limit_burst = getattr(settings.api, 'rate_limit_burst', 100)
+        rate_limit_burst = getattr(settings.api, "rate_limit_burst", 100)
     else:
         rate_limit_per_minute = getattr(settings, "rate_limit_per_minute", 60)
         rate_limit_burst = getattr(settings, "rate_limit_burst", 100)
@@ -431,7 +439,7 @@ def create_app() -> FastAPI:
     app.add_middleware(GZipMiddleware, minimum_size=1000)
 
     # Trusted hosts (when behind reverse proxy)
-    trusted_hosts = getattr(settings, 'trusted_hosts', None)
+    trusted_hosts = getattr(settings, "trusted_hosts", None)
     if trusted_hosts:
         app.add_middleware(TrustedHostMiddleware, allowed_hosts=trusted_hosts)
 
@@ -492,21 +500,21 @@ def main() -> None:
     settings = get_settings()
 
     # Phase 8: Use consolidated API and monitoring settings
-    if hasattr(settings, 'api'):
+    if hasattr(settings, "api"):
         host = settings.api.host
         port = settings.api.port
         workers = settings.api.workers
         reload = settings.api.reload
     else:
-        host = getattr(settings, 'host', '0.0.0.0')
-        port = getattr(settings, 'port', 8000)
-        workers = getattr(settings, 'workers', 4)
+        host = getattr(settings, "host", "0.0.0.0")
+        port = getattr(settings, "port", 8000)
+        workers = getattr(settings, "workers", 4)
         reload = False
 
-    if hasattr(settings, 'monitoring'):
+    if hasattr(settings, "monitoring"):
         log_level = settings.monitoring.log_level.lower()
     else:
-        log_level = getattr(settings, 'log_level', 'info').lower()
+        log_level = getattr(settings, "log_level", "info").lower()
 
     uvicorn.run(
         "ollama.main:app",

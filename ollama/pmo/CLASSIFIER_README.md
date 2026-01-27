@@ -1,8 +1,8 @@
 # Issue Classifier - AI-Powered GitHub Issue Triage
 
-**Version**: 1.2.0 (Issue #22)  
-**Status**: ✅ Complete  
-**Author**: PMO Agent Development Team  
+**Version**: 1.2.0 (Issue #22)
+**Status**: ✅ Complete
+**Author**: PMO Agent Development Team
 **Created**: 2026-01-26
 
 ## Overview
@@ -11,13 +11,13 @@ The **IssueClassifier** is an AI-powered system for automatically triaging GitHu
 
 ### Key Features
 
-✅ **6 Issue Types**: bug, feature, documentation, question, security, performance  
-✅ **4 Priority Levels**: p0 (critical), p1 (high), p2 (medium), p3 (low)  
-✅ **5 Team Categories**: backend, frontend, devops, security, data  
-✅ **Urgency Scoring**: 0-100 scale based on priority, age, and activity  
-✅ **Duplicate Detection**: Jaccard similarity-based duplicate finding  
-✅ **Batch Processing**: Efficiently classify multiple issues  
-✅ **CLI Integration**: `ollama-pmo triage` command for instant classification  
+✅ **6 Issue Types**: bug, feature, documentation, question, security, performance
+✅ **4 Priority Levels**: p0 (critical), p1 (high), p2 (medium), p3 (low)
+✅ **5 Team Categories**: backend, frontend, devops, security, data
+✅ **Urgency Scoring**: 0-100 scale based on priority, age, and activity
+✅ **Duplicate Detection**: Jaccard similarity-based duplicate finding
+✅ **Batch Processing**: Efficiently classify multiple issues
+✅ **CLI Integration**: `ollama-pmo triage` command for instant classification
 ✅ **Confidence Scoring**: 0.0-1.0 confidence for all classifications
 
 ### Performance Characteristics
@@ -108,6 +108,7 @@ Uses **weighted pattern matching**:
    - Security keywords weighted 2.0x (higher priority)
 
 3. **Scoring Formula**:
+
    ```
    score = (title_matches × 2.0 × type_weight) + (body_matches × 0.5 × type_weight)
    confidence = min(score / 5.0, 1.0)
@@ -148,6 +149,7 @@ Uses **keyword matching with confidence**:
    - **data**: analytics, metrics, data, statistics, reporting, dashboard, ETL
 
 2. **Scoring**:
+
    ```
    confidence = min(keyword_matches / 3.0, 1.0)
    ```
@@ -197,10 +199,12 @@ IssueClassifier(
 ```
 
 **Parameters**:
+
 - `repo` (str): GitHub repository in `owner/repo` format
 - `github_token` (str, optional): GitHub personal access token (or use `GITHUB_TOKEN` env var)
 
 **Raises**:
+
 - `ValueError`: If repo format is invalid (must be `owner/repo`)
 
 #### Methods
@@ -210,9 +214,11 @@ IssueClassifier(
 Classify a single issue.
 
 **Parameters**:
+
 - `issue_number` (int): GitHub issue number
 
 **Returns** (dict):
+
 ```python
 {
     'issue_number': 123,
@@ -239,6 +245,7 @@ Classify a single issue.
 ```
 
 **Example**:
+
 ```python
 result = classifier.classify_issue(123)
 if result['priority'] == 'p0':
@@ -250,11 +257,13 @@ if result['priority'] == 'p0':
 Classify multiple issues efficiently.
 
 **Parameters**:
+
 - `issue_numbers` (List[int]): List of issue numbers
 
 **Returns**: List of classification results (same format as `classify_issue`)
 
 **Example**:
+
 ```python
 results = classifier.classify_batch([123, 124, 125])
 p0_issues = [r for r in results if r['priority'] == 'p0']
@@ -266,10 +275,12 @@ print(f"Found {len(p0_issues)} critical issues")
 Find potential duplicate issues.
 
 **Parameters**:
+
 - `issue_number` (int): Issue to find duplicates for
 - `threshold` (float): Minimum similarity (0.0-1.0), default 0.7
 
 **Returns** (List[dict]):
+
 ```python
 [
     {
@@ -285,6 +296,7 @@ Find potential duplicate issues.
 ```
 
 **Example**:
+
 ```python
 duplicates = classifier.find_duplicates(123, threshold=0.8)
 if duplicates:
@@ -402,6 +414,7 @@ pytest tests/unit/pmo/test_classifier.py --cov=ollama.pmo.classifier --cov-repor
 ```
 
 **Test Coverage**: 25 unit tests covering:
+
 - Initialization and validation
 - Type classification (all 6 types)
 - Priority scoring (all 4 levels)
@@ -426,6 +439,7 @@ pytest tests/integration/pmo/test_classifier_integration.py -v -k "not Integrati
 ```
 
 **Integration Coverage**: 10 tests covering:
+
 - Real GitHub API classification
 - Batch processing with live data
 - Duplicate detection with real issues
@@ -444,9 +458,11 @@ ollama-pmo triage [ISSUE_NUMBERS]... [OPTIONS]
 ```
 
 **Arguments**:
+
 - `ISSUE_NUMBERS`: One or more issue numbers to classify
 
 **Options**:
+
 - `--repo TEXT`: GitHub repository (owner/repo), **required**
 - `--github-token TEXT`: GitHub token (or use `GITHUB_TOKEN` env var)
 - `--batch, -b`: Process all open issues (future)
@@ -570,6 +586,7 @@ pip install PyGithub>=2.1.1
 **2. `ValueError: Invalid repo format`**
 
 Ensure repo is in `owner/repo` format:
+
 ```python
 classifier = IssueClassifier(repo="kushin77/ollama")  # ✅ Correct
 classifier = IssueClassifier(repo="ollama")           # ❌ Wrong
@@ -578,11 +595,13 @@ classifier = IssueClassifier(repo="ollama")           # ❌ Wrong
 **3. Authentication errors**
 
 Set `GITHUB_TOKEN` environment variable:
+
 ```bash
 export GITHUB_TOKEN="ghp_xxxxx"
 ```
 
 Or pass directly:
+
 ```python
 classifier = IssueClassifier(repo="owner/repo", github_token="ghp_xxxxx")
 ```
@@ -633,6 +652,7 @@ MIT License - See LICENSE file for details.
 ## Support
 
 For issues or questions:
+
 - **GitHub Issues**: https://github.com/kushin77/ollama/issues
 - **Epic #18**: https://github.com/kushin77/ollama/issues/18
 - **Issue #22**: https://github.com/kushin77/ollama/issues/22

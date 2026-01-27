@@ -1,9 +1,10 @@
 """Monitoring loop for compliance drift detection."""
+
 from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Callable, Dict, Any, List
+from typing import Callable, Dict, List
 
 
 @dataclass
@@ -21,7 +22,9 @@ class MonitoringLoop:
     it can be scheduled or run in an async worker.
     """
 
-    def __init__(self, check_fn: Callable[[], Dict[str, float]], handler: Callable[[DriftEvent], None]):
+    def __init__(
+        self, check_fn: Callable[[], Dict[str, float]], handler: Callable[[DriftEvent], None]
+    ):
         """Initialize with a `check_fn` that returns latest metrics and a `handler`.
 
         Args:

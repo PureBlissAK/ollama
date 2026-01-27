@@ -1,15 +1,17 @@
 # ADR-001: Cloud Run for Agent Orchestration
 
-**Status**: Accepted  
-**Date**: 2026-01-26  
-**Author**: @[architecture-team]  
+**Status**: Accepted
+**Date**: 2026-01-26
+**Author**: @[architecture-team]
 
 ---
 
 ## Context
 
 ### Problem
+
 We need to deploy and scale agent inference services in production. Requirements:
+
 - Support 100+ concurrent requests per second
 - Auto-scale based on demand (0-1000 req/s spikes)
 - Deploy new agent versions in < 5 minutes
@@ -17,12 +19,14 @@ We need to deploy and scale agent inference services in production. Requirements
 - Cost-effective (pay only for usage)
 
 ### Constraints
+
 - Must run on Google Cloud Platform (GCP)
 - Must support Python 3.11+ with dependencies (PyTorch, Ollama)
 - Must be deployed within 2 weeks
 - Must cost < $10k/month at current traffic levels
 
 ### Scope
+
 - Agent inference execution (what we chose for)
 - CI/CD integration
 - Monitoring and logging
@@ -35,6 +39,7 @@ We need to deploy and scale agent inference services in production. Requirements
 **Chosen**: Google Cloud Run (fully managed serverless)
 
 We selected Cloud Run over alternatives because it:
+
 1. **Zero ops burden**: Automatic scaling, patching, infrastructure management
 2. **Cost efficient**: Pay ~$0.00001667 per CPU-second, $0.0000025 per GB-second
 3. **Fast deployments**: 30-60 second cold start is acceptable for inference
@@ -46,6 +51,7 @@ We selected Cloud Run over alternatives because it:
 ## Consequences
 
 ### Positive
+
 1. **Reduced Operational Burden**: No Kubernetes clusters to manage, no patching VMs
    - Saves 10+ hours/month on ops tasks
    - Frees team to focus on features
@@ -63,6 +69,7 @@ We selected Cloud Run over alternatives because it:
    - Faster feedback loops
 
 ### Negative
+
 1. **Cold Starts**: New instances take 30-60 seconds to start
    - Impact: First request to new instance slower
    - Mitigation: Keep minimum 2 instances warm
@@ -80,6 +87,7 @@ We selected Cloud Run over alternatives because it:
    - Mitigation: Implemented model caching in Cloud Storage
 
 ### Risks
+
 1. **GCP Region Outage**: If us-central1 goes down, service unavailable
    - Mitigation: Implement failover to us-east1 region (future phase)
    - SLA: GCP guarantees 99.95% availability
@@ -97,12 +105,15 @@ We selected Cloud Run over alternatives because it:
 ## Alternatives Considered
 
 ### Alternative A: Google Kubernetes Engine (GKE)
+
 **Pros**:
+
 - Full control over infrastructure
 - Can optimize resource utilization
 - Portability (can migrate to other cloud providers)
 
 **Cons**:
+
 - Requires full ops team (cluster management, patching, scaling)
 - Higher baseline cost (even with 0 traffic)
 - Slower deployment (5-10 minutes typical)
@@ -113,11 +124,14 @@ We selected Cloud Run over alternatives because it:
 ---
 
 ### Alternative B: AWS Lambda
+
 **Pros**:
+
 - Similar serverless model
 - Competitive pricing
 
 **Cons**:
+
 - We're committed to GCP (landing zone framework)
 - Different tooling/monitoring
 - Training team on new platform = 2+ weeks lost productivity
@@ -127,12 +141,15 @@ We selected Cloud Run over alternatives because it:
 ---
 
 ### Alternative C: Traditional VM Deployment
+
 **Pros**:
+
 - Full control
 - Predictable costs
 - No cold starts
 
 **Cons**:
+
 - Requires ops team (24/7 on-call for patching, scaling)
 - High baseline cost ($5k+/month just for baseline instances)
 - Difficult to auto-scale (needs managed instance groups)
@@ -145,6 +162,7 @@ We selected Cloud Run over alternatives because it:
 ## Implementation
 
 ### Steps
+
 1. **Phase 1 (Complete)**: Deploy inference service to Cloud Run
    - Owner: @ml-team
    - Deliverable: ollama-inference service running
@@ -158,6 +176,7 @@ We selected Cloud Run over alternatives because it:
    - Timeline: Q2 2026
 
 ### Success Criteria
+
 - ✅ Inference service deployed to production
 - ✅ Handles 100+ concurrent requests without scaling delays
 - ✅ Cold start time < 60 seconds
@@ -169,12 +188,14 @@ We selected Cloud Run over alternatives because it:
 ## Monitoring & Maintenance
 
 ### Metrics to Track
+
 - **Cold Start Duration**: Should be 30-60 seconds
 - **P95 Latency**: Should be < 5 seconds (including model inference)
 - **Cost Per Request**: Track to catch unexpected increases
 - **Error Rate**: Should be < 1%
 
 ### Review Schedule
+
 - Quarterly cost review
 - Monthly performance review
 - Annual architectural assessment (should we graduate to GKE?)
@@ -182,12 +203,14 @@ We selected Cloud Run over alternatives because it:
 ---
 
 ## Related Decisions
+
 - ADR-002: BigQuery for metrics aggregation
 - Issue #11: CI/CD Pipeline implementation
 
 ---
 
 ## References
+
 - [Cloud Run Pricing](https://cloud.google.com/run/pricing)
 - [Cloud Run Limits](https://cloud.google.com/run/quotas)
 - [PyTorch on Cloud Run](https://cloud.google.com/run/docs/quickstarts/build-and-deploy)
@@ -196,11 +219,11 @@ We selected Cloud Run over alternatives because it:
 
 ## Sign-Off
 
-| Role | Name | Date | Status |
-|------|------|------|--------|
+| Role   | Name          | Date       | Status      |
+| ------ | ------------- | ---------- | ----------- |
 | Author | @architecture | 2026-01-26 | ✅ Accepted |
-| CTO | @cto | 2026-01-26 | ✅ Approved |
-| VP Eng | @vp-eng | 2026-01-26 | ✅ Approved |
+| CTO    | @cto          | 2026-01-26 | ✅ Approved |
+| VP Eng | @vp-eng       | 2026-01-26 | ✅ Approved |
 
-**Created**: 2026-01-26  
+**Created**: 2026-01-26
 **Status**: Production (Active since 2025-12-15)

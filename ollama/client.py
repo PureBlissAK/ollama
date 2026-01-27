@@ -3,8 +3,9 @@
 import os
 from typing import Any, cast
 
+httpx: Any = None
 try:
-    import httpx  # type: ignore
+    import httpx
 except Exception:  # pragma: no cover - allow package import without httpx installed
     httpx = None
 

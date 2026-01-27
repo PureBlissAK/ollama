@@ -226,9 +226,7 @@ class RateLimitExceededError(OllamaException):
         retry_after: Seconds to wait before retrying
     """
 
-    def __init__(
-        self, limit: int, window: int, retry_after: int
-    ) -> None:
+    def __init__(self, limit: int, window: int, retry_after: int) -> None:
         """Initialize rate limit exceeded error.
 
         Args:

@@ -35,7 +35,7 @@ if [ -f "pmo.yaml" ]; then
             echo -e "${RED}❌ pmo.yaml has syntax errors${NC}"
             exit 1
         fi
-        
+
         # Check mandatory labels (min 20/24)
         LABELS_COUNT=$(yq eval '[.organizational, .lifecycle, .business, .technical, .financial, .git] | flatten | length' pmo.yaml)
         if [ "$LABELS_COUNT" -lt 20 ]; then
@@ -43,7 +43,7 @@ if [ -f "pmo.yaml" ]; then
             echo -e "${YELLOW}Run: ./scripts/pmo/validate-pmo-metadata.sh${NC}"
             exit 1
         fi
-        
+
         echo -e "${GREEN}✅ pmo.yaml valid ($LABELS_COUNT/24 labels)${NC}"
     fi
 fi

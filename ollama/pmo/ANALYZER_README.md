@@ -5,6 +5,7 @@
 The RepositoryAnalyzer is an intelligent system that automatically analyzes repository structure, code, and configuration files to generate accurate pmo.yaml metadata without manual input.
 
 **Time Savings**: **95-99%** reduction in onboarding time:
+
 - Manual onboarding: **2-3 hours** (questionnaire + validation)
 - AI onboarding: **<5 minutes** (automated analysis + validation)
 
@@ -50,6 +51,7 @@ pip install -r requirements-pmo.txt
 ```
 
 Required dependencies:
+
 - `pyyaml>=6.0.1`
 - `tomli>=2.0.1` (for Python <3.11)
 
@@ -140,6 +142,7 @@ ollama-pmo onboard --ai-powered --interactive
 **How Confidence is Calculated**:
 
 Each metadata category is scored 0.0-1.0:
+
 - **0.9-1.0**: High confidence (explicit indicators)
 - **0.7-0.9**: Good confidence (strong heuristics)
 - **0.5-0.7**: Medium confidence (multiple weak indicators)
@@ -152,11 +155,13 @@ Each metadata category is scored 0.0-1.0:
 ### Detection Methods
 
 #### Stack Detection
+
 - **Config Files**: requirements.txt, package.json, pom.xml, go.mod, Cargo.toml, Gemfile
 - **File Extensions**: Scans top 100 files for .py, .js, .java, .go, .rs, .rb
 - **Weighting**: Config files + percentage of matching files
 
 #### Environment Detection
+
 1. **Git Branch** (confidence: 0.8):
    - main/master → production
    - staging → staging
@@ -167,17 +172,20 @@ Each metadata category is scored 0.0-1.0:
 3. **Default** (confidence: 0.5): development
 
 #### Team Detection
+
 1. **CODEOWNERS** (confidence: 0.9): `@org/team-name`
 2. **package.json** (confidence: 0.7): `author` field
 3. **pyproject.toml** (confidence: 0.7): `authors` field
 4. **Default** (confidence: 0.5): "engineering"
 
 #### Application Name
+
 1. **package.json** (confidence: 0.9): `name` field
 2. **pyproject.toml** (confidence: 0.9): `project.name` or `tool.poetry.name`
 3. **Directory name** (confidence: 0.6): Last path component
 
 #### Component Detection
+
 - **Directory analysis**:
   - `api/` → api (confidence: 0.7)
   - `frontend/` → frontend (confidence: 0.7)
@@ -186,6 +194,7 @@ Each metadata category is scored 0.0-1.0:
 - **Default**: core (confidence: 0.5)
 
 #### Priority Detection
+
 - **Project name keywords**:
   - "critical", "production", "core" → p0 (confidence: 0.6)
   - "important", "high" → p1 (confidence: 0.6)
@@ -195,12 +204,14 @@ Each metadata category is scored 0.0-1.0:
 - **Default**: p1 (confidence: 0.4)
 
 #### Lifecycle Status
+
 - **README markers**:
   - "deprecated", "archived" → sunset (confidence: 0.8)
   - "maintenance mode" → maintenance (confidence: 0.7)
 - **Default**: active (confidence: 0.6)
 
 #### Git Repository
+
 - **Git command**: `git config --get remote.origin.url`
 - **Parsing**: SSH (git@github.com:owner/repo.git) or HTTPS (https://github.com/owner/repo.git)
 - **Extraction**: `github.com/owner/repo`
@@ -209,19 +220,22 @@ Each metadata category is scored 0.0-1.0:
 ### Performance
 
 **Benchmarks** (on ollama repository):
+
 - Analysis time: **<5 seconds** (includes filesystem scan)
 - File scan limit: **100 files** (prevents slowdown on large repos)
 - pmo.yaml generation: **<1 second**
 
 **Optimization**:
+
 - Scans only top 100 files for extension detection
-- Skips common ignore directories (.git, node_modules, __pycache__, venv)
+- Skips common ignore directories (.git, node_modules, **pycache**, venv)
 - Uses subprocess timeouts (5s) for git commands
 - Caches nothing (stateless, safe for CI/CD)
 
 ### Error Handling
 
 **Graceful Degradation**:
+
 - **Git command fails**: Uses fallback URL
 - **Invalid JSON**: Skips file, uses next source
 - **Missing files**: Uses defaults
@@ -248,17 +262,20 @@ print(f"Generated pmo.yaml with {result['score']}% compliance")
 ### Testing
 
 #### Unit Tests (30 tests)
+
 ```bash
 pytest tests/unit/pmo/test_analyzer.py -v
 ```
 
 Covers:
+
 - All detection methods
 - Confidence scoring
 - Error handling
 - Fallback logic
 
 #### Integration Tests (8 tests)
+
 ```bash
 # Enable integration tests
 export PMO_RUN_INTEGRATION_TESTS=1
@@ -267,6 +284,7 @@ pytest tests/integration/pmo/test_analyzer_integration.py -v
 ```
 
 Covers:
+
 - Real repository analysis
 - Performance benchmarks
 - Complete pmo.yaml generation
@@ -275,6 +293,7 @@ Covers:
 ### Examples
 
 #### Example 1: Python Project
+
 ```python
 analyzer = RepositoryAnalyzer("/home/user/python-api")
 result = analyzer.analyze()
@@ -286,6 +305,7 @@ result = analyzer.analyze()
 ```
 
 #### Example 2: Node.js Frontend
+
 ```python
 analyzer = RepositoryAnalyzer("/home/user/react-app")
 result = analyzer.analyze()
@@ -297,6 +317,7 @@ result = analyzer.analyze()
 ```
 
 #### Example 3: Low Confidence (Needs Review)
+
 ```python
 analyzer = RepositoryAnalyzer("/home/user/empty-repo", confidence_threshold=0.7)
 result = analyzer.analyze()
@@ -325,6 +346,7 @@ result = analyzer.analyze()
 ### Changelog
 
 **v1.1.0** (Issue #21 - Automated Onboarding):
+
 - Initial release of RepositoryAnalyzer
 - 8 detection methods with confidence scoring
 - CLI integration with `--ai-powered` flag

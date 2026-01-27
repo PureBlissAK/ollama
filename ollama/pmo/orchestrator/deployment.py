@@ -1,6 +1,7 @@
 """Deployment plan representation for orchestrator."""
+
 from dataclasses import dataclass
-from typing import List, Dict, Any
+from typing import Any, Dict, List
 
 
 @dataclass
@@ -20,10 +21,7 @@ class DeploymentPlan:
         self.steps.append(DeploymentStep(target=target, action=action, params=params))
 
     def serialize(self) -> List[Dict[str, Any]]:
-        return [
-            {"target": s.target, "action": s.action, "params": s.params}
-            for s in self.steps
-        ]
+        return [{"target": s.target, "action": s.action, "params": s.params} for s in self.steps]
 
     def apply(self) -> None:
         """Apply the deployment plan.
@@ -31,6 +29,6 @@ class DeploymentPlan:
         This is a stub for orchestration tests. Real implementation will
         perform actions against external systems.
         """
-        for step in self.steps:
+        for _step in self.steps:
             # no-op in tests; real runner would execute action
             pass

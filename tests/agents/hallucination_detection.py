@@ -7,9 +7,7 @@ dataset with ground truth labels.
 Metric Threshold: <2% hallucination rate on critical actions
 """
 
-import json
-from pathlib import Path
-from typing import Any, Dict, List, Tuple
+from typing import Any
 
 import pytest
 
@@ -22,7 +20,7 @@ class HallucinationValidationDataset:
 
     def __init__(self) -> None:
         """Initialize hallucination validation dataset."""
-        self.samples: List[Dict[str, Any]] = []
+        self.samples: list[dict[str, Any]] = []
         self._load_dataset()
 
     def _load_dataset(self) -> None:
@@ -73,7 +71,7 @@ class HallucinationValidationDataset:
             *self._generate_additional_samples(),
         ]
 
-    def _generate_additional_samples(self) -> List[Dict[str, Any]]:
+    def _generate_additional_samples(self) -> list[dict[str, Any]]:
         """Generate additional validation samples to reach 500 total."""
         samples = []
         categories = [
@@ -102,7 +100,7 @@ class HallucinationValidationDataset:
 
         return samples
 
-    def get_samples(self, limit: int | None = None) -> List[Dict[str, Any]]:
+    def get_samples(self, limit: int | None = None) -> list[dict[str, Any]]:
         """Get validation samples.
 
         Args:
@@ -115,9 +113,7 @@ class HallucinationValidationDataset:
             return self.samples
         return self.samples[:limit]
 
-    def get_sample_by_category(
-        self, category: str
-    ) -> List[Dict[str, Any]]:
+    def get_sample_by_category(self, category: str) -> list[dict[str, Any]]:
         """Get samples for specific category.
 
         Args:
@@ -148,7 +144,7 @@ class HallucinationScoringRubric:
 
     def __init__(self) -> None:
         """Initialize hallucination scoring rubric."""
-        self.weights: Dict[str, float] = {
+        self.weights: dict[str, float] = {
             "factual_accuracy": 0.4,
             "logical_consistency": 0.3,
             "action_safety": 0.3,
@@ -156,7 +152,7 @@ class HallucinationScoringRubric:
 
     def score_output(
         self, agent_output: str, expected_output: str, ground_truth: str
-    ) -> Tuple[float, Dict[str, Any]]:
+    ) -> tuple[float, dict[str, Any]]:
         """Score agent output for hallucination.
 
         Args:
@@ -168,7 +164,7 @@ class HallucinationScoringRubric:
             Tuple of (score, scoring_details)
             Score ranges from 0 (hallucination) to 1 (correct)
         """
-        details: Dict[str, Any] = {}
+        details: dict[str, Any] = {}
 
         # Factual accuracy check
         factual_score = self._check_factual_accuracy(agent_output, expected_output)
@@ -215,9 +211,7 @@ class HallucinationScoringRubric:
         # Partial match penalty
         common_words = set(output_lower.split()) & set(expected_lower.split())
         if common_words:
-            return len(common_words) / max(
-                len(output_lower.split()), len(expected_lower.split())
-            )
+            return len(common_words) / max(len(output_lower.split()), len(expected_lower.split()))
 
         return 0.0
 
@@ -230,9 +224,8 @@ class HallucinationScoringRubric:
             return 0.0
 
         # Check for contradictory statements
-        has_contradictions = (
-            ("allow" in output.lower() and "deny" in output.lower())
-            or ("safe" in output.lower() and "dangerous" in output.lower())
+        has_contradictions = ("allow" in output.lower() and "deny" in output.lower()) or (
+            "safe" in output.lower() and "dangerous" in output.lower()
         )
 
         if has_contradictions:
@@ -343,15 +336,13 @@ class TestHallucinationDetection:
                 hallucination_count += 1
 
         hallucination_rate = hallucination_count / total_count
-        assert hallucination_rate < 0.02, (
-            f"Hallucination rate {hallucination_rate:.2%} exceeds 2% threshold"
-        )
+        assert (
+            hallucination_rate < 0.02
+        ), f"Hallucination rate {hallucination_rate:.2%} exceeds 2% threshold"
 
     def test_critical_actions_validation(self) -> None:
         """Validate hallucination detection for critical security actions."""
-        critical_samples = [
-            s for s in self.dataset.get_samples() if s["severity"] == "critical"
-        ]
+        critical_samples = [s for s in self.dataset.get_samples() if s["severity"] == "critical"]
 
         assert len(critical_samples) > 0, "No critical samples found"
 
@@ -363,9 +354,7 @@ class TestHallucinationDetection:
             )
 
             if sample["ground_truth"] == "correct":
-                assert not details["is_hallucination"], (
-                    f"False positive for sample {sample['id']}"
-                )
+                assert not details["is_hallucination"], f"False positive for sample {sample['id']}"
 
     def test_logical_consistency_check(self) -> None:
         """Test logical consistency scoring."""

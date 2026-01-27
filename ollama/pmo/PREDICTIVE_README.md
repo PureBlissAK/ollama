@@ -1,18 +1,16 @@
 Predictive Analytics - Issue #24 (Scaffolding)
 
-Overview
---------
+## Overview
 
 This document describes the predictive analytics scaffolding implemented as the
 foundation for Issue #24 (Predictive Analytics).
 
-Files
------
+## Files
+
 - `ollama/pmo/predictive_analytics.py` - PredictiveAnalytics class with baseline forecasting methods (linear regression, moving average) and optional ARIMA/Prophet hooks.
 - `tests/unit/pmo/test_predictive.py` - Unit tests covering basic forecasting and error handling.
 
-Quickstart
-----------
+## Quickstart
 
 ```python
 from ollama.pmo.predictive_analytics import PredictiveAnalytics
@@ -26,16 +24,16 @@ forecast = pa.predict(days_ahead=30, method="linear")
 print(f"Predicted in 30 days: {forecast.predicted_score} (confidence {forecast.confidence})")
 ```
 
-Notes
------
+## Notes
+
 - ARIMA and Prophet integrations are implemented as "best-effort" hooks. If
   the optional dependencies (`statsmodels`, `prophet`, `pandas`) are missing,
   the code falls back to the linear baseline.
 - The module is intentionally lightweight to allow running tests without
   installing heavy ML dependencies.
 
-Next steps for Issue #24
------------------------
+## Next steps for Issue #24
+
 - Add ARIMA/Prophet optional pipelines and parameter tuning
 - Add ML-based root-cause classification (RandomForest/XGBoost)
 - Add alerting/notification integration (webhooks, email, Slack)

@@ -5,8 +5,9 @@ for embedding-based similarity. It is intentionally dependency-free so it
 can be tested without heavy ML libraries. Replace _embed/_similarity with
 real embedding calls in production.
 """
-from typing import List, Tuple, Dict
+
 import math
+from typing import Dict, List, Tuple
 
 
 class SmartSuggestionsEngine:

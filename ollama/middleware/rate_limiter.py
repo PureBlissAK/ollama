@@ -80,9 +80,7 @@ class RateLimiter:
             return await self._check_redis(identifier, limit, window)
         return await self._check_local(identifier, limit, window)
 
-    async def _check_redis(
-        self, identifier: str, limit: int, window: int
-    ) -> tuple[bool, int, int]:
+    async def _check_redis(self, identifier: str, limit: int, window: int) -> tuple[bool, int, int]:
         """Check rate limit using Redis backend.
 
         Args:
@@ -151,9 +149,7 @@ class RateLimiter:
             # Fallback to local rate limiting on Redis error
             return await self._check_local(identifier, limit, window)
 
-    async def _check_local(
-        self, identifier: str, limit: int, window: int
-    ) -> tuple[bool, int, int]:
+    async def _check_local(self, identifier: str, limit: int, window: int) -> tuple[bool, int, int]:
         """Check rate limit using in-memory storage.
 
         Args:
@@ -213,9 +209,7 @@ def rate_limit(
 
     def decorator(func: Callable) -> Callable:
         @wraps(func)
-        async def wrapper(
-            request: Request, *args: Any, **kwargs: Any
-        ) -> Any:
+        async def wrapper(request: Request, *args: Any, **kwargs: Any) -> Any:
             # Default key function uses client IP
             identifier = (
                 key_func(request)

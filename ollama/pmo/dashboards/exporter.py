@@ -5,14 +5,13 @@ an interface for registering metrics and returning a Prometheus-compatible
 text exposition. It is intentionally minimal and dependency-free so it can
 be used in unit tests and as a starting point for production exporters.
 """
-from typing import Dict
 
 
 class MetricsExporter:
     """Simple in-memory metrics registry and exporter."""
 
     def __init__(self) -> None:
-        self._metrics: Dict[str, float] = {}
+        self._metrics: dict[str, float] = {}
 
     def set_metric(self, name: str, value: float) -> None:
         self._metrics[name] = float(value)

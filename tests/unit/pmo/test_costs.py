@@ -1,11 +1,11 @@
-from ollama.pmo.costs.discovery import discover_resources
 from ollama.pmo.costs.analysis import CostAnalyzer
+from ollama.pmo.costs.discovery import discover_resources
 
 
 def test_discovery_returns_snapshots():
     snaps = discover_resources()
     assert len(snaps) >= 1
-    assert all(hasattr(s, 'monthly_cost') for s in snaps)
+    assert all(hasattr(s, "monthly_cost") for s in snaps)
 
 
 def test_cost_analyzer_suggestions():

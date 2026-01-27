@@ -7,15 +7,17 @@ ARIMA/Prophet (optional, if installed).
 
 This file is intentionally dependency-light to allow running out-of-the-box.
 """
+
 from __future__ import annotations
 
-from dataclasses import dataclass
-from datetime import datetime, timedelta
-from typing import List, Optional, Dict, Any
 import math
+from dataclasses import dataclass
+from datetime import datetime
+from typing import Any, Dict, List, Optional
 
+_np: Any = None
 try:
-    import numpy as _np  # type: ignore
+    import numpy as _np
 except Exception:
     _np = None
 
@@ -86,7 +88,7 @@ class PredictiveAnalytics:
         n = len(times)
         mean_t = sum(times) / n
         mean_s = sum(scores) / n
-        num = sum((t - mean_t) * (s - mean_s) for t, s in zip(times, scores))
+        num = sum((t - mean_t) * (s - mean_s) for t, s in zip(times, scores, strict=True))
         den = sum((t - mean_t) ** 2 for t in times)
         if den == 0:
             slope = 0.0
@@ -99,7 +101,13 @@ class PredictiveAnalytics:
         vol = _std(scores)
         confidence = _compute_confidence(n, vol)
         details = {"slope_per_day": slope, "volatility": vol, "samples": n}
-        return ForecastResult(current_score=scores[-1], predicted_score=predicted, confidence=confidence, method="linear", details=details)
+        return ForecastResult(
+            current_score=scores[-1],
+            predicted_score=predicted,
+            confidence=confidence,
+            method="linear",
+            details=details,
+        )
 
     def _predict_ma(self, days_ahead: int, window: Optional[int] = None) -> ForecastResult:
         scores = [s for _, s in self.snapshots]
@@ -111,12 +119,18 @@ class PredictiveAnalytics:
         predicted = ma  # naive constant forecast
         confidence = _compute_confidence(n, _std(scores)) * 0.75
         details = {"window": window, "ma": ma, "samples": n}
-        return ForecastResult(current_score=scores[-1], predicted_score=predicted, confidence=confidence, method="ma", details=details)
+        return ForecastResult(
+            current_score=scores[-1],
+            predicted_score=predicted,
+            confidence=confidence,
+            method="ma",
+            details=details,
+        )
 
     def _predict_arima(self, days_ahead: int) -> ForecastResult:
         # Placeholder: attempt to use statsmodels if available
         try:
-            from statsmodels.tsa.arima.model import ARIMA  # type: ignore
+            from statsmodels.tsa.arima.model import ARIMA
         except Exception:
             # fallback to linear
             return self._predict_linear(days_ahead)
@@ -130,13 +144,18 @@ class PredictiveAnalytics:
         predicted = max(0.0, min(100.0, predicted))
         confidence = 0.85
         details = {"model": f"ARIMA{order}", "samples": len(scores)}
-        return ForecastResult(current_score=scores[-1], predicted_score=predicted, confidence=confidence, method="arima", details=details)
+        return ForecastResult(
+            current_score=scores[-1],
+            predicted_score=predicted,
+            confidence=confidence,
+            method="arima",
+            details=details,
+        )
 
     def _predict_prophet(self, days_ahead: int) -> ForecastResult:
         # Placeholder: attempt to use prophet (fbprophet or prophet) if available
         try:
-            from prophet import Prophet  # type: ignore
-            import pandas as pd  # type: ignore
+            from prophet import Prophet
         except Exception:
             return self._predict_linear(days_ahead)
         df = _to_prophet_df(self.snapshots)
@@ -148,10 +167,17 @@ class PredictiveAnalytics:
         predicted = max(0.0, min(100.0, predicted))
         confidence = 0.88
         details = {"model": "Prophet"}
-        return ForecastResult(current_score=self.snapshots[-1][1], predicted_score=predicted, confidence=confidence, method="prophet", details=details)
+        return ForecastResult(
+            current_score=self.snapshots[-1][1],
+            predicted_score=predicted,
+            confidence=confidence,
+            method="prophet",
+            details=details,
+        )
 
 
 # Helper functions
+
 
 def _std(values: List[float]) -> float:
     n = len(values)
@@ -170,33 +196,35 @@ def _compute_confidence(n: int, volatility: float) -> float:
     return round(conf, 3)
 
 
-def _to_prophet_df(snapshots: List[tuple[datetime, float]]):
+def _to_prophet_df(snapshots: List[tuple[datetime, float]]) -> Any:
     # convert to pandas DataFrame for Prophet
     import pandas as pd
 
-    df = pd.DataFrame([(ts, s) for ts, s in snapshots], columns=["ds", "y"])  # type: ignore
+    df = pd.DataFrame([(ts, s) for ts, s in snapshots], columns=["ds", "y"])
     return df
 
 
-def _tune_arima_order(values: List[float], max_p: int = 2, max_d: int = 1, max_q: int = 2):
+def _tune_arima_order(
+    values: List[float], max_p: int = 2, max_d: int = 1, max_q: int = 2
+) -> tuple[int, int, int]:
     """Simple grid search to pick ARIMA(p,d,q) with lowest AIC for short series.
 
     Returns an order tuple. If tuning fails, returns default (1,1,0).
     """
     try:
-        from statsmodels.tsa.arima.model import ARIMA  # type: ignore
+        from statsmodels.tsa.arima.model import ARIMA
     except Exception:
         return (1, 1, 0)
 
     best_order = (1, 1, 0)
-    best_aic = float('inf')
+    best_aic = float("inf")
     for p in range(0, max_p + 1):
         for d in range(0, max_d + 1):
             for q in range(0, max_q + 1):
                 try:
                     model = ARIMA(values, order=(p, d, q))
-                    res = model.fit(method='statespace', disp=0)
-                    aic = float(getattr(res, 'aic', float('inf')))
+                    res = model.fit(method="statespace", disp=0)
+                    aic = float(getattr(res, "aic", float("inf")))
                     if aic < best_aic:
                         best_aic = aic
                         best_order = (p, d, q)

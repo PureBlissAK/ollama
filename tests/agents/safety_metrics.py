@@ -6,7 +6,7 @@ Used to identify when agents need retraining or tuning.
 Metric Threshold: <10% override rate for medium severity, <30% for critical
 """
 
-from typing import Any, Dict, List
+from typing import Any
 
 import pytest
 
@@ -16,8 +16,8 @@ class SafetyMetricsTracker:
 
     def __init__(self) -> None:
         """Initialize safety metrics tracker."""
-        self.events: List[Dict[str, Any]] = []
-        self.thresholds: Dict[str, Dict[str, float]] = {
+        self.events: list[dict[str, Any]] = []
+        self.thresholds: dict[str, dict[str, float]] = {
             "medium_severity": {"max_override_rate": 0.10},
             "critical_severity": {"max_override_rate": 0.30},
         }
@@ -75,13 +75,13 @@ class SafetyMetricsTracker:
         overridden = sum(1 for e in events if e["was_overridden"])
         return overridden / len(events)
 
-    def get_override_statistics(self) -> Dict[str, Any]:
+    def get_override_statistics(self) -> dict[str, Any]:
         """Get comprehensive override statistics.
 
         Returns:
             Dictionary with override rates by severity and action type
         """
-        stats: Dict[str, Any] = {
+        stats: dict[str, Any] = {
             "total_actions": len(self.events),
             "total_overridden": sum(1 for e in self.events if e["was_overridden"]),
             "by_severity": {},
@@ -110,13 +110,13 @@ class SafetyMetricsTracker:
 
         return stats
 
-    def check_threshold_compliance(self) -> Dict[str, Any]:
+    def check_threshold_compliance(self) -> dict[str, Any]:
         """Check if override rates meet defined thresholds.
 
         Returns:
             Compliance check results with any violations
         """
-        results: Dict[str, Any] = {"compliant": True, "violations": []}
+        results: dict[str, Any] = {"compliant": True, "violations": []}
 
         stats = self.get_override_statistics()
 
@@ -152,7 +152,7 @@ class SafetyMetricsTracker:
 
         return results
 
-    def get_override_reasons(self, severity: str | None = None) -> Dict[str, int]:
+    def get_override_reasons(self, severity: str | None = None) -> dict[str, int]:
         """Get breakdown of override reasons.
 
         Args:
@@ -169,7 +169,7 @@ class SafetyMetricsTracker:
         # Count reasons for overridden actions
         overridden_events = [e for e in events if e["was_overridden"]]
 
-        reasons: Dict[str, int] = {}
+        reasons: dict[str, int] = {}
         for event in overridden_events:
             reason = event["reason"] or "unknown"
             reasons[reason] = reasons.get(reason, 0) + 1

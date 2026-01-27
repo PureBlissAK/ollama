@@ -7,6 +7,6 @@ production-quality suggestions.
 
 Usage:
 
->>> from ollama.pmo.suggestions import SmartSuggestionsEngine
->>> engine = SmartSuggestionsEngine()
->>> engine.suggest("optimize cost", ["reduce cost", "increase throughput"]) 
+> > > from ollama.pmo.suggestions import SmartSuggestionsEngine
+> > > engine = SmartSuggestionsEngine()
+> > > engine.suggest("optimize cost", ["reduce cost", "increase throughput"])

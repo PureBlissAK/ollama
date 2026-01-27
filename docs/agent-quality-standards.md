@@ -1,7 +1,7 @@
 # Agent Quality Standards & Benchmarking
 
-**Version**: 1.0  
-**Status**: MANDATORY for all agent deployments  
+**Version**: 1.0
+**Status**: MANDATORY for all agent deployments
 **Last Updated**: 2026-01-26
 
 ---
@@ -14,15 +14,17 @@ This document defines the quality standards and benchmarking framework for all a
 
 ### 1. Hallucination Rate
 
-**Metric**: Percentage of agent outputs that are factually incorrect or contradictory  
-**Threshold**: <2% on critical actions  
-**Measurement**: 500-sample validation dataset with ground truth labels  
+**Metric**: Percentage of agent outputs that are factually incorrect or contradictory
+**Threshold**: <2% on critical actions
+**Measurement**: 500-sample validation dataset with ground truth labels
 
 **Definition**:
+
 - **Hallucination**: Agent produces output that contradicts facts, provides wrong remediation, or invents non-existent APIs/commands
 - **Critical Actions**: IAM policy changes, security remediation, data access decisions
 
 **Testing**:
+
 - Run `pytest tests/agents/hallucination_detection.py -v`
 - Minimum 500 test cases covering all critical agent domains
 - Each test case has ground truth label verified by human expert
@@ -32,16 +34,18 @@ This document defines the quality standards and benchmarking framework for all a
 
 ### 2. Action Accuracy
 
-**Metric**: Percentage of suggested remediation actions that are correct and safe  
-**Threshold**: >95% accuracy  
-**Measurement**: Red-team simulation suite with 10+ adversarial scenarios  
+**Metric**: Percentage of suggested remediation actions that are correct and safe
+**Threshold**: >95% accuracy
+**Measurement**: Red-team simulation suite with 10+ adversarial scenarios
 
 **Definition**:
+
 - **Correct**: Action directly addresses the stated problem
 - **Safe**: Action doesn't violate security constraints or cause unintended harm
 - **Reversible**: Action can be rolled back if needed
 
 **Testing**:
+
 - Run `pytest tests/agents/action_accuracy.py -v`
 - Minimum 10 adversarial scenarios covering:
   - Prompt injection attempts
@@ -56,15 +60,17 @@ This document defines the quality standards and benchmarking framework for all a
 
 ### 3. Response Time (Latency)
 
-**Metric**: P95 response time for agent completion  
-**Threshold**: <30s for triage, <5min for complex investigations  
-**Measurement**: Latency tracking (P50, P95, P99) with historical trending  
+**Metric**: P95 response time for agent completion
+**Threshold**: <30s for triage, <5min for complex investigations
+**Measurement**: Latency tracking (P50, P95, P99) with historical trending
 
 **Definition**:
+
 - **Triage**: Initial rapid assessment of issue (e.g., severity determination)
 - **Complex**: Full investigation and remediation (e.g., root cause analysis)
 
 **Testing**:
+
 - Run `pytest tests/agents/performance_benchmarks.py -v`
 - Measure P95 latency across ≥50 representative tasks
 - Track week-over-week trends for regression detection
@@ -74,16 +80,18 @@ This document defines the quality standards and benchmarking framework for all a
 
 ### 4. Human Override Rate
 
-**Metric**: Percentage of agent actions that require human intervention  
-**Threshold**: <10% for medium severity, <30% for critical severity  
-**Measurement**: Post-deployment telemetry tracking all agent actions  
+**Metric**: Percentage of agent actions that require human intervention
+**Threshold**: <10% for medium severity, <30% for critical severity
+**Measurement**: Post-deployment telemetry tracking all agent actions
 
 **Definition**:
+
 - **Override**: Human engineer rejects/modifies agent's suggested action
 - **Medium Severity**: Issues affecting limited systems or with medium impact
 - **Critical Severity**: Issues affecting prod systems or with high security/business impact
 
 **Testing**:
+
 - Run `pytest tests/agents/safety_metrics.py -v`
 - Track override rate by severity and action type
 - Monitor override reasons to identify systematic failures
@@ -107,11 +115,13 @@ tests/agents/
 ### Test Execution
 
 **Run all agent quality tests**:
+
 ```bash
 pytest tests/agents/ -v --cov=tests/agents --cov-report=term-missing
 ```
 
 **Run specific metric tests**:
+
 ```bash
 pytest tests/agents/hallucination_detection.py -v  # Hallucination rate
 pytest tests/agents/action_accuracy.py -v          # Action accuracy
@@ -120,6 +130,7 @@ pytest tests/agents/safety_metrics.py -v           # Override rate
 ```
 
 **Run with detailed output**:
+
 ```bash
 pytest tests/agents/ -vv --tb=short --durations=10
 ```
@@ -141,23 +152,23 @@ agent-quality-tests:
     - name: Run Hallucination Tests
       run: pytest tests/agents/hallucination_detection.py -v --tb=short
       env:
-        FAIL_ON_THRESHOLD: "2"  # Fail if >2% hallucination
-    
+        FAIL_ON_THRESHOLD: "2" # Fail if >2% hallucination
+
     - name: Run Action Accuracy Tests
       run: pytest tests/agents/action_accuracy.py -v --tb=short
       env:
-        FAIL_ON_THRESHOLD: "95"  # Fail if <95% accuracy
-    
+        FAIL_ON_THRESHOLD: "95" # Fail if <95% accuracy
+
     - name: Run Performance Benchmarks
       run: pytest tests/agents/performance_benchmarks.py -v --tb=short
       env:
-        FAIL_ON_LATENCY_MS: "300000"  # Fail if P95 >5min
-    
+        FAIL_ON_LATENCY_MS: "300000" # Fail if P95 >5min
+
     - name: Run Safety Metrics
       run: pytest tests/agents/safety_metrics.py -v --tb=short
       env:
-        FAIL_ON_OVERRIDE_RATE: "30"  # Fail if >30%
-    
+        FAIL_ON_OVERRIDE_RATE: "30" # Fail if >30%
+
     - name: Publish Results
       if: always()
       run: |
@@ -169,6 +180,7 @@ agent-quality-tests:
 ### Blocking Criteria
 
 **PR will be rejected if**:
+
 - Hallucination detection tests fail
 - Action accuracy tests fail
 - Performance benchmarks exceed thresholds
@@ -182,6 +194,7 @@ agent-quality-tests:
 ### Weekly Metrics Review
 
 Run every Friday 3 PM:
+
 ```bash
 # Generate metrics report
 jupyter notebook metrics/weekly_review.ipynb
@@ -194,14 +207,15 @@ python scripts/publish_metrics.py --week=$(date +%V) --year=$(date +%Y)
 
 Automatic escalation triggers:
 
-| Signal | Threshold | Action |
-|--------|-----------|--------|
-| Hallucination ≥2% | 2 weeks | Archive agent |
-| Accuracy <95% | 2 weeks | Retrain or archive |
-| P95 latency >5min | 1 incident | Investigate bottleneck |
-| Override rate >30% critical | 2 weeks | Retrain or archive |
+| Signal                      | Threshold  | Action                 |
+| --------------------------- | ---------- | ---------------------- |
+| Hallucination ≥2%           | 2 weeks    | Archive agent          |
+| Accuracy <95%               | 2 weeks    | Retrain or archive     |
+| P95 latency >5min           | 1 incident | Investigate bottleneck |
+| Override rate >30% critical | 2 weeks    | Retrain or archive     |
 
 **Escalation**:
+
 1. Alert sent to #agents-quality Slack
 2. Assigned to agent owner
 3. If unresolved in 48 hours → escalate to CTO
@@ -215,20 +229,22 @@ Automatic escalation triggers:
 
 **Location**: `tests/agents/hallucination_detection.py:HallucinationValidationDataset`
 
-**Size**: 500 test cases  
+**Size**: 500 test cases
 **Format**: JSON with fields:
+
 ```json
 {
   "id": "hal_001",
   "category": "iam-policy-detection",
   "prompt": "Analyze this IAM policy...",
   "expected_output": "CRITICAL: Overly permissive...",
-  "ground_truth": "correct",  // or "hallucination"
+  "ground_truth": "correct", // or "hallucination"
   "severity": "critical"
 }
 ```
 
 **Categories Covered**:
+
 - IAM policy detection
 - Secret exposure detection
 - Remediation logic verification
@@ -244,8 +260,9 @@ Automatic escalation triggers:
 
 **Location**: `tests/agents/action_accuracy.py:RedTeamSimulationSuite`
 
-**Count**: 12+ adversarial scenarios  
+**Count**: 12+ adversarial scenarios
 **Types**:
+
 - Prompt injection attacks
 - Logic inconsistencies
 - Dangerous remediation attempts
@@ -303,14 +320,16 @@ accuracy_score = (
 
 ### High Hallucination Rate
 
-**Symptoms**: Tests fail with hallucination rate >2%  
+**Symptoms**: Tests fail with hallucination rate >2%
 **Root Causes**:
+
 1. Training data is outdated or incorrect
 2. Prompt engineering is insufficient
 3. Model context window is too small
 4. Temperature setting too high
 
 **Solutions**:
+
 1. Review and update training data
 2. Refine system prompt and few-shot examples
 3. Increase context window size
@@ -319,14 +338,16 @@ accuracy_score = (
 
 ### Low Action Accuracy
 
-**Symptoms**: Tests show <95% accuracy  
+**Symptoms**: Tests show <95% accuracy
 **Root Causes**:
+
 1. Agent doesn't understand domain constraints
 2. Adversarial scenarios not covered in training
 3. Agent prioritizes speed over accuracy
 4. Insufficient fallback mechanisms
 
 **Solutions**:
+
 1. Add domain-specific training
 2. Include adversarial scenarios in fine-tuning
 3. Add confidence scoring before suggesting actions
@@ -335,14 +356,16 @@ accuracy_score = (
 
 ### High Latency
 
-**Symptoms**: P95 latency exceeds thresholds  
+**Symptoms**: P95 latency exceeds thresholds
 **Root Causes**:
+
 1. LLM response generation is slow
 2. Underlying system calls are slow
 3. Agent uses too many reasoning steps
 4. Context retrieval is bottleneck
 
 **Solutions**:
+
 1. Optimize LLM model size or use smaller model
 2. Cache common responses
 3. Reduce number of reasoning steps
@@ -352,14 +375,16 @@ accuracy_score = (
 
 ### High Override Rate
 
-**Symptoms**: Engineers overriding agent actions >threshold  
+**Symptoms**: Engineers overriding agent actions >threshold
 **Root Causes**:
+
 1. Agent doesn't understand context/constraints
 2. Remediation suggestions are incomplete
 3. Agent misses important error conditions
 4. User doesn't trust agent recommendations
 
 **Solutions**:
+
 1. Add more context to system prompt
 2. Require agent to explain reasoning
 3. Add validation for common error cases
@@ -373,6 +398,7 @@ accuracy_score = (
 ### Prompt Engineering
 
 ✅ **DO**:
+
 - Version control all system prompts in `prompts/` directory
 - Include step-by-step reasoning in prompts
 - Provide concrete examples of correct outputs
@@ -380,6 +406,7 @@ accuracy_score = (
 - Require agent to explain reasoning
 
 ❌ **DON'T**:
+
 - Hard-code multiple prompts in agent code
 - Use generic prompts without domain context
 - Skip examples in few-shot learning
@@ -389,6 +416,7 @@ accuracy_score = (
 ### Training & Testing
 
 ✅ **DO**:
+
 - Use ground truth labels from domain experts
 - Include edge cases and error conditions
 - Test against adversarial scenarios
@@ -396,6 +424,7 @@ accuracy_score = (
 - Review failed cases and iterate
 
 ❌ **DON'T**:
+
 - Use synthetic/auto-generated test data
 - Test only happy paths
 - Skip adversarial testing
@@ -405,6 +434,7 @@ accuracy_score = (
 ### Monitoring & Alerting
 
 ✅ **DO**:
+
 - Track metrics continuously in production
 - Alert on threshold violations immediately
 - Review override reasons weekly
@@ -412,6 +442,7 @@ accuracy_score = (
 - Use metrics to drive improvements
 
 ❌ **DON'T**:
+
 - Only check metrics before releases
 - Ignore trending data
 - Allow quality degradation without action
@@ -437,6 +468,6 @@ accuracy_score = (
 
 ---
 
-**Maintained By**: Agent Quality Team  
-**Last Reviewed**: 2026-01-26  
+**Maintained By**: Agent Quality Team
+**Last Reviewed**: 2026-01-26
 **Next Review**: 2026-02-26 (Monthly)

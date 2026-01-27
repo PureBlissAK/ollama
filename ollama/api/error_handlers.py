@@ -161,11 +161,13 @@ def register_exception_handlers(app: FastAPI) -> None:
         errors = []
         for error in exc.errors():
             field = ".".join(str(loc) for loc in error["loc"][1:])
-            errors.append({
-                "field": field,
-                "type": error["type"],
-                "message": error["msg"],
-            })
+            errors.append(
+                {
+                    "field": field,
+                    "type": error["type"],
+                    "message": error["msg"],
+                }
+            )
 
         response = StructuredResponse(
             success=False,
@@ -200,6 +202,7 @@ def register_exception_handlers(app: FastAPI) -> None:
 
         # Log unexpected exception
         import logging
+
         logger = logging.getLogger(__name__)
         logger.exception(
             f"Unhandled exception in request {request_id}",

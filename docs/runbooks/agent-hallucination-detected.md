@@ -1,19 +1,20 @@
 # Runbook: Agent Hallucination Detected in Production
 
-**Version**: 1.0  
-**Severity**: SEV2  
-**Last Occurrence**: Never  
-**Time to Resolution**: 15 minutes  
+**Version**: 1.0
+**Severity**: SEV2
+**Last Occurrence**: Never
+**Time to Resolution**: 15 minutes
 
 ---
 
 ## Detection
 
-**Alert**: `ollama_agent_hallucination_rate > 0.02`  
-**Dashboard**: [Metrics Dashboard - Hallucination Rate](https://grafana.example.com)  
-**False Positive Rate**: <5%  
+**Alert**: `ollama_agent_hallucination_rate > 0.02`
+**Dashboard**: [Metrics Dashboard - Hallucination Rate](https://grafana.example.com)
+**False Positive Rate**: <5%
 
 ### Confirmation
+
 1. Check Grafana: Agent hallucination rate spike
 2. Sample recent outputs: Are responses factually incorrect?
 3. Check timeline: When did spike start?
@@ -49,6 +50,7 @@ gcloud run services describe ollama-api --region=us-central1
 ## Remediation
 
 ### Option A: Rollback Model (< 5 min)
+
 ```bash
 # Get previous revision
 gcloud run revisions list ollama-api --region=us-central1 --limit=3
@@ -63,6 +65,7 @@ watch gcloud monitoring time-series list \
 ```
 
 ### Option B: Disable Problem Agent (< 2 min)
+
 ```bash
 # If only one agent is hallucinating:
 gcloud firestore update documents/agents/[agent_id] \
@@ -73,6 +76,7 @@ gcloud firestore update documents/agents/[agent_id] \
 ```
 
 ### Option C: Update Agent Parameters (< 10 min)
+
 ```bash
 # Reduce temperature (less randomness)
 gcloud firestore update documents/agents/[agent_id] \
@@ -107,5 +111,5 @@ gcloud firestore update documents/agents/[agent_id] \
 
 ---
 
-**Created**: 2026-01-26  
+**Created**: 2026-01-26
 **Last Updated**: 2026-01-26

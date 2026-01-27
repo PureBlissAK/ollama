@@ -8,7 +8,7 @@ Metric Threshold: <30s for triage, <5min for complex investigations (P95)
 
 import statistics
 import time
-from typing import Any, Dict, List
+from typing import Any
 
 import pytest
 
@@ -18,8 +18,8 @@ class LatencyBenchmark:
 
     def __init__(self) -> None:
         """Initialize latency benchmark tracker."""
-        self.measurements: List[Dict[str, Any]] = []
-        self.baselines: Dict[str, float] = {
+        self.measurements: list[dict[str, Any]] = []
+        self.baselines: dict[str, float] = {
             "triage": 30.0,  # 30 seconds
             "complex": 300.0,  # 5 minutes
         }
@@ -72,7 +72,7 @@ class LatencyBenchmark:
         index = int((percentile / 100.0) * len(latencies))
         return latencies[min(index, len(latencies) - 1)]
 
-    def get_statistics(self, task_type: str | None = None) -> Dict[str, float]:
+    def get_statistics(self, task_type: str | None = None) -> dict[str, float]:
         """Get latency statistics.
 
         Args:
@@ -97,14 +97,12 @@ class LatencyBenchmark:
             "max_ms": max(latencies),
             "mean_ms": statistics.mean(latencies),
             "median_ms": statistics.median(latencies),
-            "stdev_ms": (
-                statistics.stdev(latencies) if len(latencies) > 1 else 0.0
-            ),
+            "stdev_ms": (statistics.stdev(latencies) if len(latencies) > 1 else 0.0),
             "p95_ms": self.get_percentile(95, task_type),
             "p99_ms": self.get_percentile(99, task_type),
         }
 
-    def check_threshold(self, task_type: str) -> Dict[str, Any]:
+    def check_threshold(self, task_type: str) -> dict[str, Any]:
         """Check if measurements meet performance thresholds.
 
         Args:
@@ -169,7 +167,7 @@ class HistoricalTrendAnalysis:
 
     def __init__(self) -> None:
         """Initialize trend analysis."""
-        self.weekly_data: List[Dict[str, Any]] = []
+        self.weekly_data: list[dict[str, Any]] = []
 
     def add_weekly_snapshot(
         self,
@@ -195,9 +193,7 @@ class HistoricalTrendAnalysis:
             }
         )
 
-    def get_trend(
-        self, task_type: str, metric: str = "p95_latency_ms"
-    ) -> List[Dict[str, Any]]:
+    def get_trend(self, task_type: str, metric: str = "p95_latency_ms") -> list[dict[str, Any]]:
         """Get trend data for a metric across weeks.
 
         Args:
@@ -229,9 +225,7 @@ class HistoricalTrendAnalysis:
 
         return result
 
-    def detect_regression(
-        self, task_type: str, threshold_pct: float = 10.0
-    ) -> Dict[str, Any]:
+    def detect_regression(self, task_type: str, threshold_pct: float = 10.0) -> dict[str, Any]:
         """Detect performance regressions (>threshold% degradation).
 
         Args:
@@ -394,9 +388,7 @@ class TestPerformanceBenchmarks:
             week_number=2, task_type="perf_test", p95_latency_ms=25000, accuracy_rate=0.95
         )
 
-        regression = self.trend_analysis.detect_regression(
-            "perf_test", threshold_pct=10.0
-        )
+        regression = self.trend_analysis.detect_regression("perf_test", threshold_pct=10.0)
         assert "pct_degradation" in regression
         assert regression["pct_degradation"] > 0
 
@@ -409,9 +401,7 @@ class TestPerformanceBenchmarks:
             week_number=2, task_type="stable", p95_latency_ms=20100, accuracy_rate=0.95
         )
 
-        regression = self.trend_analysis.detect_regression(
-            "stable", threshold_pct=10.0
-        )
+        regression = self.trend_analysis.detect_regression("stable", threshold_pct=10.0)
         assert regression["has_regression"] is False
 
     def test_kill_signal_latency_violation(self) -> None:

@@ -6,11 +6,10 @@ for weekly review and compliance tracking.
 Implements Elite Execution Protocol Section: "Velocity & Quality Metrics"
 """
 
+import json
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
-from typing import Any, Dict, List, Optional
-
-import json
+from typing import Any
 
 
 @dataclass
@@ -21,9 +20,9 @@ class AgentMetric:
     metric_name: str
     value: float
     timestamp: datetime
-    tags: Dict[str, str] = field(default_factory=dict)
+    tags: dict[str, str] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert metric to dictionary."""
         return {
             "agent_id": self.agent_id,
@@ -41,7 +40,7 @@ class AgentMetrics:
     agent_id: str
     agent_name: str
     agent_type: str
-    
+
     # Quality metrics
     hallucination_rate: float = 0.0
     action_accuracy: float = 0.0
@@ -49,19 +48,19 @@ class AgentMetrics:
     p95_latency_ms: float = 0.0
     p99_latency_ms: float = 0.0
     human_override_rate: float = 0.0
-    
+
     # Execution metrics
     total_actions: int = 0
     successful_actions: int = 0
     failed_actions: int = 0
-    
+
     # Compliance metrics
     violations: int = 0
     audit_log_entries: int = 0
-    
+
     # Timestamp
     measurement_date: datetime = field(default_factory=datetime.now)
-    
+
     def meets_quality_bar(self) -> bool:
         """Check if agent meets minimum quality standards."""
         return (
@@ -70,8 +69,8 @@ class AgentMetrics:
             and self.p95_latency_ms < 300000  # <5min
             and self.human_override_rate < 0.30  # <30%
         )
-    
-    def get_report(self) -> Dict[str, Any]:
+
+    def get_report(self) -> dict[str, Any]:
         """Get agent metrics report."""
         return {
             "agent_id": self.agent_id,
@@ -105,15 +104,15 @@ class MetricsCollector:
 
     def __init__(self) -> None:
         """Initialize metrics collector."""
-        self.metrics: List[AgentMetric] = []
-        self.agent_metrics: Dict[str, AgentMetrics] = {}
+        self.metrics: list[AgentMetric] = []
+        self.agent_metrics: dict[str, AgentMetrics] = {}
 
     def record_metric(
         self,
         agent_id: str,
         metric_name: str,
         value: float,
-        tags: Optional[Dict[str, str]] = None,
+        tags: dict[str, str] | None = None,
     ) -> None:
         """Record a single metric data point.
 
@@ -161,7 +160,7 @@ class MetricsCollector:
             return agent_metrics_data
 
         # Aggregate by metric name
-        metric_groups: Dict[str, List[float]] = {}
+        metric_groups: dict[str, list[float]] = {}
         for metric in agent_metrics_list:
             if metric.metric_name not in metric_groups:
                 metric_groups[metric.metric_name] = []
@@ -169,14 +168,14 @@ class MetricsCollector:
 
         # Set aggregated values
         if "hallucination_rate" in metric_groups:
-            agent_metrics_data.hallucination_rate = sum(
+            agent_metrics_data.hallucination_rate = sum(metric_groups["hallucination_rate"]) / len(
                 metric_groups["hallucination_rate"]
-            ) / len(metric_groups["hallucination_rate"])
+            )
 
         if "action_accuracy" in metric_groups:
-            agent_metrics_data.action_accuracy = sum(
+            agent_metrics_data.action_accuracy = sum(metric_groups["action_accuracy"]) / len(
                 metric_groups["action_accuracy"]
-            ) / len(metric_groups["action_accuracy"])
+            )
 
         if "latency_ms" in metric_groups:
             latencies = metric_groups["latency_ms"]
@@ -184,8 +183,12 @@ class MetricsCollector:
             sorted_latencies = sorted(latencies)
             p95_idx = int(len(sorted_latencies) * 0.95)
             p99_idx = int(len(sorted_latencies) * 0.99)
-            agent_metrics_data.p95_latency_ms = sorted_latencies[min(p95_idx, len(sorted_latencies) - 1)]
-            agent_metrics_data.p99_latency_ms = sorted_latencies[min(p99_idx, len(sorted_latencies) - 1)]
+            agent_metrics_data.p95_latency_ms = sorted_latencies[
+                min(p95_idx, len(sorted_latencies) - 1)
+            ]
+            agent_metrics_data.p99_latency_ms = sorted_latencies[
+                min(p99_idx, len(sorted_latencies) - 1)
+            ]
 
         if "human_override_rate" in metric_groups:
             agent_metrics_data.human_override_rate = sum(
@@ -193,38 +196,30 @@ class MetricsCollector:
             ) / len(metric_groups["human_override_rate"])
 
         if "total_actions" in metric_groups:
-            agent_metrics_data.total_actions = int(
-                metric_groups["total_actions"][0]
-            )
+            agent_metrics_data.total_actions = int(metric_groups["total_actions"][0])
 
         if "successful_actions" in metric_groups:
-            agent_metrics_data.successful_actions = int(
-                metric_groups["successful_actions"][0]
-            )
+            agent_metrics_data.successful_actions = int(metric_groups["successful_actions"][0])
 
         if "failed_actions" in metric_groups:
-            agent_metrics_data.failed_actions = int(
-                metric_groups["failed_actions"][0]
-            )
+            agent_metrics_data.failed_actions = int(metric_groups["failed_actions"][0])
 
         if "violations" in metric_groups:
             agent_metrics_data.violations = int(metric_groups["violations"][0])
 
         if "audit_log_entries" in metric_groups:
-            agent_metrics_data.audit_log_entries = int(
-                metric_groups["audit_log_entries"][0]
-            )
+            agent_metrics_data.audit_log_entries = int(metric_groups["audit_log_entries"][0])
 
         self.agent_metrics[agent_id] = agent_metrics_data
         return agent_metrics_data
 
-    def get_weekly_report(self) -> Dict[str, Any]:
+    def get_weekly_report(self) -> dict[str, Any]:
         """Generate weekly metrics report.
 
         Returns:
             Weekly report with all metrics and compliance status
         """
-        report: Dict[str, Any] = {
+        report: dict[str, Any] = {
             "report_date": datetime.now().isoformat(),
             "week_of": (datetime.now() - timedelta(days=datetime.now().weekday())).isoformat(),
             "agents": [],
@@ -242,11 +237,13 @@ class MetricsCollector:
             if metrics.meets_quality_bar():
                 report["summary"]["agents_meeting_quality_bar"] += 1
             else:
-                report["summary"]["agents_needing_attention"].append({
-                    "agent_id": agent_id,
-                    "agent_name": metrics.agent_name,
-                    "reason": self._get_failure_reason(metrics),
-                })
+                report["summary"]["agents_needing_attention"].append(
+                    {
+                        "agent_id": agent_id,
+                        "agent_name": metrics.agent_name,
+                        "reason": self._get_failure_reason(metrics),
+                    }
+                )
 
         return report
 
@@ -278,13 +275,13 @@ class MetricsCollector:
         with open(filename, "w") as f:
             json.dump(report, f, indent=2)
 
-    def kill_signal_check(self) -> Dict[str, Any]:
+    def kill_signal_check(self) -> dict[str, Any]:
         """Check for kill signals requiring escalation.
 
         Returns:
             Dictionary with any detected kill signals
         """
-        kill_signals: Dict[str, Any] = {
+        kill_signals: dict[str, Any] = {
             "has_signals": False,
             "signals": [],
         }
@@ -292,42 +289,50 @@ class MetricsCollector:
         for agent_id, metrics in self.agent_metrics.items():
             if metrics.hallucination_rate >= 0.02:
                 kill_signals["has_signals"] = True
-                kill_signals["signals"].append({
-                    "type": "high_hallucination",
-                    "agent_id": agent_id,
-                    "agent_name": metrics.agent_name,
-                    "value": metrics.hallucination_rate,
-                    "action": "Archive agent and redesign after 2 weeks",
-                })
+                kill_signals["signals"].append(
+                    {
+                        "type": "high_hallucination",
+                        "agent_id": agent_id,
+                        "agent_name": metrics.agent_name,
+                        "value": metrics.hallucination_rate,
+                        "action": "Archive agent and redesign after 2 weeks",
+                    }
+                )
 
             if metrics.action_accuracy <= 0.95:
                 kill_signals["has_signals"] = True
-                kill_signals["signals"].append({
-                    "type": "low_accuracy",
-                    "agent_id": agent_id,
-                    "agent_name": metrics.agent_name,
-                    "value": metrics.action_accuracy,
-                    "action": "Retrain or archive after 2 weeks",
-                })
+                kill_signals["signals"].append(
+                    {
+                        "type": "low_accuracy",
+                        "agent_id": agent_id,
+                        "agent_name": metrics.agent_name,
+                        "value": metrics.action_accuracy,
+                        "action": "Retrain or archive after 2 weeks",
+                    }
+                )
 
             if metrics.p95_latency_ms > 300000:
                 kill_signals["has_signals"] = True
-                kill_signals["signals"].append({
-                    "type": "high_latency",
-                    "agent_id": agent_id,
-                    "agent_name": metrics.agent_name,
-                    "value": metrics.p95_latency_ms,
-                    "action": "Investigate bottleneck immediately",
-                })
+                kill_signals["signals"].append(
+                    {
+                        "type": "high_latency",
+                        "agent_id": agent_id,
+                        "agent_name": metrics.agent_name,
+                        "value": metrics.p95_latency_ms,
+                        "action": "Investigate bottleneck immediately",
+                    }
+                )
 
             if metrics.human_override_rate > 0.30:
                 kill_signals["has_signals"] = True
-                kill_signals["signals"].append({
-                    "type": "high_override_rate",
-                    "agent_id": agent_id,
-                    "agent_name": metrics.agent_name,
-                    "value": metrics.human_override_rate,
-                    "action": "Retrain or archive agent",
-                })
+                kill_signals["signals"].append(
+                    {
+                        "type": "high_override_rate",
+                        "agent_id": agent_id,
+                        "agent_name": metrics.agent_name,
+                        "value": metrics.human_override_rate,
+                        "action": "Retrain or archive agent",
+                    }
+                )
 
         return kill_signals

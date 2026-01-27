@@ -6,13 +6,13 @@
       {
         "type": "stat",
         "title": "Compliance Score",
-        "fieldConfig": {"defaults": {}},
-        "targets": [{"refId": "A", "expr": "pmo_compliance_score"}]
+        "fieldConfig": { "defaults": {} },
+        "targets": [{ "refId": "A", "expr": "pmo_compliance_score" }]
       },
       {
         "type": "graph",
         "title": "Inference Requests",
-        "targets": [{"refId": "A", "expr": "pmo_inference_requests_total"}]
+        "targets": [{ "refId": "A", "expr": "pmo_inference_requests_total" }]
       }
     ],
     "schemaVersion": 27,

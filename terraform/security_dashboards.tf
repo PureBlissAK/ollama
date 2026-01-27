@@ -13,7 +13,7 @@ terraform {
 
 locals {
   dashboard_prefix = "ollama-security-${var.environment}"
-  
+
   # Dashboard configuration
   dashboard_layout = {
     columns = 12
@@ -39,7 +39,7 @@ resource "google_monitoring_dashboard" "security_overview" {
             }
           }
         },
-        
+
         # Binary Authorization Status
         {
           xPos   = 0
@@ -269,7 +269,7 @@ resource "google_monitoring_dashboard" "vulnerability_dashboard" {
             title = "Container Vulnerability Tracking"
           }
         },
-        
+
         # Critical Vulnerabilities
         {
           xPos   = 0
@@ -295,7 +295,7 @@ resource "google_monitoring_dashboard" "vulnerability_dashboard" {
             }
           }
         },
-        
+
         # High Vulnerabilities
         {
           xPos   = 3
@@ -322,7 +322,7 @@ resource "google_monitoring_dashboard" "vulnerability_dashboard" {
             }
           }
         },
-        
+
         # Medium Vulnerabilities
         {
           xPos   = 6
@@ -344,7 +344,7 @@ resource "google_monitoring_dashboard" "vulnerability_dashboard" {
             }
           }
         },
-        
+
         # Low Vulnerabilities
         {
           xPos   = 9
@@ -366,7 +366,7 @@ resource "google_monitoring_dashboard" "vulnerability_dashboard" {
             }
           }
         },
-        
+
         # Vulnerability Trend
         {
           xPos   = 0
@@ -429,7 +429,7 @@ resource "google_monitoring_alert_policy" "binary_auth_violations" {
       duration        = "60s"
       comparison      = "COMPARISON_GT"
       threshold_value = 0
-      
+
       aggregations = [{
         alignment_period  = "60s"
         per_series_aligner = "ALIGN_RATE"
@@ -464,7 +464,7 @@ resource "google_monitoring_alert_policy" "critical_vulnerabilities" {
       duration        = "60s"
       comparison      = "COMPARISON_GT"
       threshold_value = 0
-      
+
       aggregations = [{
         alignment_period   = "60s"
         per_series_aligner = "ALIGN_MAX"
@@ -497,7 +497,7 @@ resource "google_monitoring_alert_policy" "high_vulnerabilities" {
       duration        = "60s"
       comparison      = "COMPARISON_GT"
       threshold_value = 0
-      
+
       aggregations = [{
         alignment_period   = "60s"
         per_series_aligner = "ALIGN_MAX"
@@ -526,7 +526,7 @@ resource "google_monitoring_alert_policy" "failed_auth_attempts" {
       duration        = "60s"
       comparison      = "COMPARISON_GT"
       threshold_value = 10
-      
+
       aggregations = [{
         alignment_period   = "60s"
         per_series_aligner = "ALIGN_RATE"
@@ -555,7 +555,7 @@ resource "google_monitoring_alert_policy" "iam_changes_alert" {
       duration        = "60s"
       comparison      = "COMPARISON_GT"
       threshold_value = 0
-      
+
       aggregations = [{
         alignment_period   = "60s"
         per_series_aligner = "ALIGN_COUNT"

@@ -5,6 +5,7 @@
 ---
 
 ## Detection
+
 - **Alert**: `ollama_api_latency_p95_ms > [baseline * 1.2]`
 - **Symptom**: API responses taking 2-3x longer than normal
 - **Dashboard**: [Performance Dashboard](https://grafana.example.com/d/performance)
@@ -53,6 +54,7 @@ gcloud run services describe ollama-api --region=us-central1 | grep cpu
 ## Remediation
 
 ### Option A: Optimize Slow Query (5-10 min)
+
 ```bash
 # If slow query identified (mean_time > 100ms):
 # 1. Add index to frequently searched column
@@ -64,6 +66,7 @@ psql $PROD_DB -c "REINDEX INDEX [index_name];"
 ```
 
 ### Option B: Scale Resources (5 min)
+
 ```bash
 # Increase Cloud Run memory/CPU
 gcloud run services update ollama-api \
@@ -76,6 +79,7 @@ gcloud run services update ollama-api \
 ```
 
 ### Option C: Enable Caching (10 min)
+
 ```bash
 # Enable Redis caching for frequent queries
 gcloud firestore update documents/config/cache \
@@ -88,6 +92,7 @@ gcloud firestore update documents/config/cache \
 ---
 
 ## Escalation
+
 - If latency still >1.5x baseline after 15 min: Page @engineering-lead
 - If >3x baseline: Consider rollback to previous revision
 

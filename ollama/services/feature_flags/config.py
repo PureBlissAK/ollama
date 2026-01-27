@@ -153,10 +153,7 @@ class FeatureFlag:
             raise ValueError("percentage_rollout required for PERCENTAGE strategy")
         if self.strategy == RolloutStrategy.GRADUAL and not self.gradual_rollout:
             raise ValueError("gradual_rollout required for GRADUAL strategy")
-        if (
-            self.strategy == RolloutStrategy.USER_TARGETING
-            and not self.user_targeting
-        ):
+        if self.strategy == RolloutStrategy.USER_TARGETING and not self.user_targeting:
             raise ValueError("user_targeting required for USER_TARGETING strategy")
         if self.strategy == RolloutStrategy.SCHEDULED and not self.scheduled_rollout:
             raise ValueError("scheduled_rollout required for SCHEDULED strategy")

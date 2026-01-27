@@ -2,16 +2,16 @@
 
 Simple, dependency-free reporting utilities used by CI and local jobs.
 """
+
 from dataclasses import dataclass
 from datetime import date
-from typing import Dict, List
 
 
 @dataclass
 class WeeklyReport:
     start_date: date
     end_date: date
-    metrics: Dict[str, float]
+    metrics: dict[str, float]
     summary: str
 
 
@@ -24,7 +24,9 @@ class AutomatedReportingEngine:
     exporters, or richer aggregation logic in follow-ups.
     """
 
-    def generate_weekly_report(self, start: date, end: date, metrics: Dict[str, float]) -> WeeklyReport:
+    def generate_weekly_report(
+        self, start: date, end: date, metrics: dict[str, float]
+    ) -> WeeklyReport:
         """Create a WeeklyReport summarizing provided metrics.
 
         Args:
@@ -38,7 +40,7 @@ class AutomatedReportingEngine:
         if not metrics:
             summary = "No metrics reported for this period."
         else:
-            lines: List[str] = []
+            lines: list[str] = []
             # Top 3 metrics by absolute value
             top = sorted(metrics.items(), key=lambda kv: abs(kv[1]), reverse=True)[:3]
             for name, val in top:

@@ -42,9 +42,7 @@ async def health_check() -> HealthResponse:
     }
 
     # Get circuit breaker states for baseline observability
-    resilience = {
-        "circuit_breakers": get_circuit_breaker_manager().get_state()
-    }
+    resilience = {"circuit_breakers": get_circuit_breaker_manager().get_state()}
 
     return HealthResponse(
         status="healthy",

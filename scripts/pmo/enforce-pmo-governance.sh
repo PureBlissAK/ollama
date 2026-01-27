@@ -37,9 +37,9 @@ check_pmo_yaml_exists() {
 # Check 2: pmo.yaml has all mandatory labels
 check_mandatory_labels() {
     echo -n "Checking mandatory labels... "
-    
+
     local label_count=0
-    
+
     # Count non-empty labels
     for key in environment cost_center team managed_by \
                created_by created_date lifecycle_state teardown_date retention_days \
@@ -51,14 +51,14 @@ check_mandatory_labels() {
             ((label_count++))
         fi
     done
-    
+
     if [ ${label_count} -lt ${MIN_LABELS} ]; then
         echo -e "${RED}FAIL${NC}"
         echo "  ❌ Only ${label_count}/${REQUIRED_LABELS} labels populated"
         echo "  💡 Run: scripts/pmo/validate-pmo-metadata.sh"
         return 1
     fi
-    
+
     echo -e "${GREEN}PASS${NC} (${label_count}/${REQUIRED_LABELS})"
     return 0
 }
@@ -66,51 +66,51 @@ check_mandatory_labels() {
 # Check 3: GitHub labels configured
 check_github_labels() {
     echo -n "Checking GitHub labels... "
-    
+
     # Check if running in GitHub Actions
     if [ -n "${GITHUB_REPOSITORY:-}" ]; then
         # Count required labels via GitHub API
         local label_count=$(gh label list --json name | jq '. | length')
-        
+
         if [ ${label_count} -lt 20 ]; then
             echo -e "${YELLOW}WARN${NC}"
             echo "  ⚠️ Only ${label_count} labels configured"
             echo "  💡 Run: scripts/pmo/setup-labels.sh"
             return 0
         fi
-        
+
         echo -e "${GREEN}PASS${NC} (${label_count} labels)"
     else
         echo -e "${YELLOW}SKIP${NC} (not in GitHub environment)"
     fi
-    
+
     return 0
 }
 
 # Check 4: Required workflows exist
 check_workflows() {
     echo -n "Checking PMO workflows... "
-    
+
     local workflow_dir="${REPO_ROOT}/.github/workflows"
     local required_workflows=(
         "pmo-validation.yml"
         "compliance-check.yml"
     )
-    
+
     local missing=0
     for workflow in "${required_workflows[@]}"; do
         if [ ! -f "${workflow_dir}/${workflow}" ]; then
             ((missing++))
         fi
     done
-    
+
     if [ ${missing} -gt 0 ]; then
         echo -e "${YELLOW}WARN${NC}"
         echo "  ⚠️ ${missing} required workflows missing"
         echo "  💡 Copy from templates/pmo/workflows/"
         return 0
     fi
-    
+
     echo -e "${GREEN}PASS${NC}"
     return 0
 }
@@ -118,14 +118,14 @@ check_workflows() {
 # Check 5: GPG signing enabled
 check_gpg_signing() {
     echo -n "Checking GPG commit signing... "
-    
+
     if ! git config --get commit.gpgsign | grep -q "true"; then
         echo -e "${YELLOW}WARN${NC}"
         echo "  ⚠️ GPG signing not enabled"
         echo "  💡 Run: git config commit.gpgsign true"
         return 0
     fi
-    
+
     echo -e "${GREEN}PASS${NC}"
     return 0
 }
@@ -133,14 +133,14 @@ check_gpg_signing() {
 # Check 6: Pre-commit hooks installed
 check_pre_commit_hooks() {
     echo -n "Checking pre-commit hooks... "
-    
+
     if [ ! -f "${REPO_ROOT}/.git/hooks/pre-commit" ]; then
         echo -e "${YELLOW}WARN${NC}"
         echo "  ⚠️ Pre-commit hooks not installed"
         echo "  💡 Run: cp templates/pmo/hooks/pre-commit .git/hooks/"
         return 0
     fi
-    
+
     echo -e "${GREEN}PASS${NC}"
     return 0
 }
@@ -148,16 +148,16 @@ check_pre_commit_hooks() {
 # Main enforcement function
 enforce_governance() {
     local failed=0
-    
+
     check_pmo_yaml_exists || ((failed++))
     check_mandatory_labels || ((failed++))
     check_github_labels || ((failed++))
     check_workflows || ((failed++))
     check_gpg_signing || ((failed++))
     check_pre_commit_hooks || ((failed++))
-    
+
     echo "---"
-    
+
     if [ ${failed} -gt 0 ]; then
         echo -e "${RED}❌ Governance check failed: ${failed} critical issues${NC}"
         echo ""

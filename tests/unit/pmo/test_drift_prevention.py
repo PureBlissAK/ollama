@@ -1,8 +1,8 @@
 from datetime import datetime
 
 from ollama.pmo.drift_prevention.monitor import MonitoringLoop
-from ollama.pmo.drift_prevention.webhooks import WebhookHandler
 from ollama.pmo.drift_prevention.predictive_adapter import get_forecast_if_available
+from ollama.pmo.drift_prevention.webhooks import WebhookHandler
 
 
 def test_monitor_detects_non_positive_and_sends_alert():

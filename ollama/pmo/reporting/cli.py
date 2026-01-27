@@ -2,13 +2,14 @@
 
 Provides a small programmatic entrypoint used by scheduled jobs or tests.
 """
+
 from datetime import date, timedelta
-from typing import Dict
+from typing import Any
 
 from .engine import AutomatedReportingEngine
 
 
-def run_weekly_summary(metrics: Dict[str, float]) -> dict:
+def run_weekly_summary(metrics: dict[str, float]) -> dict[str, Any]:
     """Run a weekly summary for the previous 7 days.
 
     Returns a serializable dict representing the WeeklyReport.

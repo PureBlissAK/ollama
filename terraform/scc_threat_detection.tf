@@ -189,7 +189,7 @@ resource "google_monitoring_alert_policy" "attestor_failures" {
       duration        = "60s"
       comparison      = "COMPARISON_GT"
       threshold_value = 0
-      
+
       aggregations = [{
         alignment_period   = "60s"
         per_series_aligner = "ALIGN_COUNT"
@@ -218,7 +218,7 @@ resource "google_monitoring_alert_policy" "privilege_escalation" {
       duration        = "60s"
       comparison      = "COMPARISON_GT"
       threshold_value = 0
-      
+
       aggregations = [{
         alignment_period   = "60s"
         per_series_aligner = "ALIGN_COUNT"
@@ -251,7 +251,7 @@ resource "google_monitoring_alert_policy" "anomalous_network_activity" {
       duration        = "300s"
       comparison      = "COMPARISON_GT"
       threshold_value = var.network_anomaly_threshold  # Bytes per 5 minutes
-      
+
       aggregations = [{
         alignment_period    = "300s"
         per_series_aligner  = "ALIGN_RATE"
@@ -281,7 +281,7 @@ resource "google_monitoring_alert_policy" "failed_deployments" {
       duration        = "300s"
       comparison      = "COMPARISON_GT"
       threshold_value = 5
-      
+
       aggregations = [{
         alignment_period   = "60s"
         per_series_aligner = "ALIGN_COUNT"
@@ -311,7 +311,7 @@ resource "google_monitoring_alert_policy" "configuration_drift" {
       duration        = "60s"
       comparison      = "COMPARISON_GT"
       threshold_value = 10
-      
+
       aggregations = [{
         alignment_period   = "60s"
         per_series_aligner = "ALIGN_COUNT"

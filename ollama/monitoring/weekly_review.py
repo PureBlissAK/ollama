@@ -8,13 +8,12 @@ Usage:
   - In Jupyter: from ollama.monitoring.weekly_review import generate_weekly_report
 """
 
-from datetime import datetime, timedelta
-from typing import Any, Dict, List
+from typing import Any
 
-from ollama.monitoring.metrics import MetricsCollector, AgentMetrics
+from ollama.monitoring.metrics import AgentMetrics, MetricsCollector
 
 
-def generate_weekly_report(collector: MetricsCollector) -> Dict[str, Any]:
+def generate_weekly_report(collector: MetricsCollector) -> dict[str, Any]:
     """Generate comprehensive weekly metrics report.
 
     Args:
@@ -34,9 +33,9 @@ def generate_weekly_report(collector: MetricsCollector) -> Dict[str, Any]:
     return report
 
 
-def _analyze_metrics(collector: MetricsCollector) -> Dict[str, Any]:
+def _analyze_metrics(collector: MetricsCollector) -> dict[str, Any]:
     """Perform analytical review of metrics."""
-    analysis: Dict[str, Any] = {
+    analysis: dict[str, Any] = {
         "quality_trend": {},
         "performance_trend": {},
         "alerts": [],
@@ -60,18 +59,22 @@ def _analyze_metrics(collector: MetricsCollector) -> Dict[str, Any]:
 
         # Generate alerts
         if metrics.hallucination_rate > 0.01:
-            analysis["alerts"].append({
-                "severity": "warning",
-                "agent_id": agent_id,
-                "message": f"Hallucination rate {metrics.hallucination_rate:.2%} approaching threshold",
-            })
+            analysis["alerts"].append(
+                {
+                    "severity": "warning",
+                    "agent_id": agent_id,
+                    "message": f"Hallucination rate {metrics.hallucination_rate:.2%} approaching threshold",
+                }
+            )
 
         if metrics.p95_latency_ms > 250000:
-            analysis["alerts"].append({
-                "severity": "warning",
-                "agent_id": agent_id,
-                "message": f"P95 latency {metrics.p95_latency_ms:.0f}ms approaching 5min threshold",
-            })
+            analysis["alerts"].append(
+                {
+                    "severity": "warning",
+                    "agent_id": agent_id,
+                    "message": f"P95 latency {metrics.p95_latency_ms:.0f}ms approaching 5min threshold",
+                }
+            )
 
     return analysis
 
@@ -80,9 +83,9 @@ def _calculate_quality_score(metrics: AgentMetrics) -> float:
     """Calculate overall quality score (0-100)."""
     weights = {
         "hallucination": 0.3,  # Lower hallucination = higher score
-        "accuracy": 0.3,       # Higher accuracy = higher score
-        "latency": 0.2,        # Lower latency = higher score
-        "override": 0.2,       # Lower override rate = higher score
+        "accuracy": 0.3,  # Higher accuracy = higher score
+        "latency": 0.2,  # Lower latency = higher score
+        "override": 0.2,  # Lower override rate = higher score
     }
 
     # Normalize metrics to 0-100 scale
@@ -102,55 +105,63 @@ def _calculate_quality_score(metrics: AgentMetrics) -> float:
     return round(quality_score, 2)
 
 
-def _generate_recommendations(collector: MetricsCollector) -> List[Dict[str, Any]]:
+def _generate_recommendations(collector: MetricsCollector) -> list[dict[str, Any]]:
     """Generate actionable recommendations based on metrics."""
-    recommendations: List[Dict[str, Any]] = []
+    recommendations: list[dict[str, Any]] = []
 
     for agent_id, metrics in collector.agent_metrics.items():
         if metrics.hallucination_rate > 0.015:
-            recommendations.append({
-                "agent_id": agent_id,
-                "agent_name": metrics.agent_name,
-                "type": "training",
-                "priority": "high",
-                "action": "Refine system prompt and increase example coverage",
-                "expected_impact": "Reduce hallucination rate by 50%",
-            })
+            recommendations.append(
+                {
+                    "agent_id": agent_id,
+                    "agent_name": metrics.agent_name,
+                    "type": "training",
+                    "priority": "high",
+                    "action": "Refine system prompt and increase example coverage",
+                    "expected_impact": "Reduce hallucination rate by 50%",
+                }
+            )
 
         if metrics.action_accuracy < 0.96:
-            recommendations.append({
-                "agent_id": agent_id,
-                "agent_name": metrics.agent_name,
-                "type": "training",
-                "priority": "high",
-                "action": "Add domain-specific training and adversarial scenarios",
-                "expected_impact": "Improve accuracy to >97%",
-            })
+            recommendations.append(
+                {
+                    "agent_id": agent_id,
+                    "agent_name": metrics.agent_name,
+                    "type": "training",
+                    "priority": "high",
+                    "action": "Add domain-specific training and adversarial scenarios",
+                    "expected_impact": "Improve accuracy to >97%",
+                }
+            )
 
         if metrics.p95_latency_ms > 250000:
-            recommendations.append({
-                "agent_id": agent_id,
-                "agent_name": metrics.agent_name,
-                "type": "optimization",
-                "priority": "high",
-                "action": "Reduce reasoning steps or parallelize operations",
-                "expected_impact": "Reduce P95 latency by 30-40%",
-            })
+            recommendations.append(
+                {
+                    "agent_id": agent_id,
+                    "agent_name": metrics.agent_name,
+                    "type": "optimization",
+                    "priority": "high",
+                    "action": "Reduce reasoning steps or parallelize operations",
+                    "expected_impact": "Reduce P95 latency by 30-40%",
+                }
+            )
 
         if metrics.human_override_rate > 0.25:
-            recommendations.append({
-                "agent_id": agent_id,
-                "agent_name": metrics.agent_name,
-                "type": "investigation",
-                "priority": "high",
-                "action": "Review override reasons and identify patterns",
-                "expected_impact": "Identify and fix root cause issues",
-            })
+            recommendations.append(
+                {
+                    "agent_id": agent_id,
+                    "agent_name": metrics.agent_name,
+                    "type": "investigation",
+                    "priority": "high",
+                    "action": "Review override reasons and identify patterns",
+                    "expected_impact": "Identify and fix root cause issues",
+                }
+            )
 
     return recommendations
 
 
-def print_weekly_report(report: Dict[str, Any]) -> None:
+def print_weekly_report(report: dict[str, Any]) -> None:
     """Print formatted weekly report to console.
 
     Args:
@@ -174,10 +185,10 @@ def print_weekly_report(report: Dict[str, Any]) -> None:
     for agent in report["agents"]:
         print(f"\nAgent: {agent['agent_name']} ({agent['agent_id']})")
         print(f"  Type: {agent['agent_type']}")
-        print(f"  Quality Metrics:")
+        print("  Quality Metrics:")
         for key, value in agent["quality_metrics"].items():
             print(f"    {key}: {value}")
-        print(f"  Execution Metrics:")
+        print("  Execution Metrics:")
         for key, value in agent["execution_metrics"].items():
             print(f"    {key}: {value}")
         print(f"  Meets Quality Bar: {agent['meets_quality_bar']}")

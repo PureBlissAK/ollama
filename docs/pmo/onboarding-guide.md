@@ -1,7 +1,7 @@
 # 🚀 PMO Onboarding Guide
 
-**For**: New repositories in the kushin77 GitHub organization  
-**Purpose**: Achieve 100% PMO compliance in <5 minutes  
+**For**: New repositories in the kushin77 GitHub organization
+**Purpose**: Achieve 100% PMO compliance in <5 minutes
 **Outcome**: Elite 0.01% governance standards with zero manual work
 
 ---
@@ -39,6 +39,7 @@ cd YOUR_REPOSITORY
 ```
 
 **Expected Output:**
+
 ```
 ✅ pmo.yaml generated with 24 labels
 ✅ GitHub labels configured (35+ labels)
@@ -53,21 +54,25 @@ cd YOUR_REPOSITORY
 ## Prerequisites
 
 **Required Tools:**
+
 - Git 2.30+ (with GPG signing configured)
 - GitHub CLI (`gh`) 2.0+
 - Python 3.11+
 - `yq` (YAML processor)
 
 **Required Access:**
+
 - Admin access to target repository
 - GitHub Personal Access Token with `repo` and `workflow` scopes
 
 **Required Information:**
+
 - Team name (e.g., `platform-engineering`)
 - Cost center code (e.g., `CC-12345`)
 - Project name (auto-detected or manual)
 
 **Verify Prerequisites:**
+
 ```bash
 # Check Git
 git --version  # Should be >= 2.30
@@ -94,6 +99,7 @@ yq --version  # Should be installed
 The `pmo.yaml` file is the cornerstone of PMO governance. It contains 24 mandatory labels across 6 categories.
 
 **Automated Generation (Recommended):**
+
 ```bash
 cd YOUR_REPOSITORY
 
@@ -105,6 +111,7 @@ cat pmo.yaml
 ```
 
 **Manual Creation (If needed):**
+
 ```bash
 # Copy template
 cp /tmp/ollama-pmo/templates/pmo/pmo.yaml.template pmo.yaml
@@ -114,6 +121,7 @@ vi pmo.yaml
 ```
 
 **What Gets Detected:**
+
 - ✅ Git repository URL (from `.git/config`)
 - ✅ Current branch (from `git branch --show-current`)
 - ✅ Created by (from `git log --reverse`)
@@ -122,6 +130,7 @@ vi pmo.yaml
 - ✅ Version (from package files)
 
 **Example Generated pmo.yaml:**
+
 ```yaml
 # pmo.yaml - PMO Metadata (Auto-generated)
 organizational:
@@ -166,12 +175,14 @@ git:
 GitHub labels enable automated triage, classification, and reporting.
 
 **Run Label Setup:**
+
 ```bash
 # Configure 35+ standardized labels
 /tmp/ollama-pmo/scripts/pmo/setup-labels.sh kushin77/your-repo-name
 ```
 
 **Labels Created:**
+
 - **Type** (7): `type-feature`, `type-bug`, `type-docs`, `type-refactor`, `type-test`, `type-perf`, `type-infra`
 - **Priority** (4): `priority-p0`, `priority-p1`, `priority-p2`, `priority-p3`
 - **Component** (7): `component-api`, `component-auth`, `component-database`, `component-docker`, `component-frontend`, `component-backend`, `component-tests`
@@ -185,6 +196,7 @@ GitHub labels enable automated triage, classification, and reporting.
 GitHub Actions workflows automate validation, compliance checks, and reporting.
 
 **Copy Workflows:**
+
 ```bash
 # Create workflows directory
 mkdir -p .github/workflows
@@ -200,6 +212,7 @@ ls -la .github/workflows/
 ```
 
 **Workflows Installed:**
+
 - **pmo-validation.yml** - Validates pmo.yaml on every PR
 - **compliance-check.yml** - Daily compliance monitoring (9am PT)
 - **monthly-cost-report.yml** - Monthly cost attribution reports
@@ -210,6 +223,7 @@ ls -la .github/workflows/
 Git hooks enforce governance at commit time (GPG signing, validation).
 
 **Install Pre-Commit Hook:**
+
 ```bash
 # Create hooks directory
 mkdir -p .git/hooks
@@ -223,6 +237,7 @@ ls -la .git/hooks/pre-commit
 ```
 
 **Pre-Commit Hook Checks:**
+
 - ✅ GPG commit signing enabled
 - ✅ pmo.yaml exists and valid
 - ✅ Mandatory labels populated (min 20/24)
@@ -230,6 +245,7 @@ ls -la .git/hooks/pre-commit
 - ✅ All tests passing (if applicable)
 
 **Install Commit-Msg Hook:**
+
 ```bash
 # Copy commit-msg hook
 cp /tmp/ollama-pmo/templates/pmo/hooks/commit-msg .git/hooks/
@@ -237,6 +253,7 @@ chmod +x .git/hooks/commit-msg
 ```
 
 **Commit-Msg Hook Checks:**
+
 - ✅ Commit message format: `type(scope): description`
 - ✅ GPG signature present
 
@@ -245,11 +262,13 @@ chmod +x .git/hooks/commit-msg
 Run the enforcement script to verify all PMO standards are met.
 
 **Run Enforcement:**
+
 ```bash
 /tmp/ollama-pmo/scripts/pmo/enforce-pmo-governance.sh
 ```
 
 **Expected Output:**
+
 ```
 🔍 PMO Governance Enforcement
 
@@ -264,6 +283,7 @@ Checking pre-commit hooks... ✅ PASS (hooks installed)
 ```
 
 **If Failures Occur:**
+
 ```
 ❌ FAIL: pmo.yaml missing
 → Run: /tmp/ollama-pmo/scripts/pmo/generate-pmo-yaml.sh
@@ -320,7 +340,9 @@ git commit -S -m "test: validate hooks" # Should trigger hook validation
 ### Common Issues
 
 #### Issue: "pmo.yaml not found"
+
 **Solution:**
+
 ```bash
 # Generate pmo.yaml
 cd YOUR_REPOSITORY
@@ -328,7 +350,9 @@ cd YOUR_REPOSITORY
 ```
 
 #### Issue: "GitHub labels not configured"
+
 **Solution:**
+
 ```bash
 # Install labels (requires admin access)
 gh auth login
@@ -336,7 +360,9 @@ gh auth login
 ```
 
 #### Issue: "GPG signing not enabled"
+
 **Solution:**
+
 ```bash
 # Enable GPG signing globally
 git config --global commit.gpgsign true
@@ -348,7 +374,9 @@ git config commit.gpgsign true
 ```
 
 #### Issue: "Pre-commit hook not executing"
+
 **Solution:**
+
 ```bash
 # Ensure hook is executable
 chmod +x .git/hooks/pre-commit
@@ -358,7 +386,9 @@ chmod +x .git/hooks/pre-commit
 ```
 
 #### Issue: "Workflows not triggering"
+
 **Solution:**
+
 ```bash
 # Ensure workflows are in correct location
 ls -la .github/workflows/
@@ -372,7 +402,9 @@ git push origin main
 ```
 
 #### Issue: "Validation failing on mandatory labels"
+
 **Solution:**
+
 ```bash
 # Check which labels are missing
 /tmp/ollama-pmo/scripts/pmo/validate-pmo-metadata.sh
@@ -485,16 +517,17 @@ After onboarding, you should achieve:
 
 ## Support
 
-**Questions?** Open an issue in the Ollama repository:  
+**Questions?** Open an issue in the Ollama repository:
 https://github.com/kushin77/ollama/issues
 
-**Documentation:**  
+**Documentation:**
+
 - [PMO Enforcement Mandate](./PMO_ENFORCEMENT_MANDATE.md)
 - [pmo.yaml Schema](./pmo-yaml-schema.md)
 - [Compliance Checklist](./compliance-checklist.md)
 
 ---
 
-**Last Updated**: January 26, 2026  
-**Maintained By**: Platform Engineering Team  
+**Last Updated**: January 26, 2026
+**Maintained By**: Platform Engineering Team
 **Version**: 2.0.0

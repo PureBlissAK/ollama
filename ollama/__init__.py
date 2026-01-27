@@ -13,15 +13,15 @@ __description__ = "Elite local AI development platform for LLM inference"
 
 
 def __getattr__(name: str):
-	"""Lazy-import attributes from submodules on demand.
+    """Lazy-import attributes from submodules on demand.
 
-	Supports: `Client`.
-	"""
-	if name == "Client":
-		from .client import Client  # local import
+    Supports: `Client`.
+    """
+    if name == "Client":
+        from .client import Client  # local import
 
-		return Client
-	raise AttributeError(f"module {__name__} has no attribute {name}")
+        return Client
+    raise AttributeError(f"module {__name__} has no attribute {name}")
 
 
 __all__ = ["Client"]

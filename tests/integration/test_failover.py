@@ -71,9 +71,7 @@ async def test_health_endpoint_cors_headers(lb_endpoint: str, health_path: str) 
 
 
 @pytest.mark.asyncio
-async def test_health_endpoint_concurrent_requests(
-    lb_endpoint: str, health_path: str
-) -> None:
+async def test_health_endpoint_concurrent_requests(lb_endpoint: str, health_path: str) -> None:
     """Verify health endpoint handles concurrent requests without errors."""
     async with httpx.AsyncClient(timeout=10.0) as client:
 

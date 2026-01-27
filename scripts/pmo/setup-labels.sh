@@ -34,7 +34,7 @@ create_label() {
     local name=$1
     local color=$2
     local description=$3
-    
+
     if gh label list --repo "${REPO}" --json name | jq -e ".[] | select(.name == \"${name}\")" > /dev/null 2>&1; then
         echo -e "  ${YELLOW}↻${NC} ${name} (already exists)"
     else

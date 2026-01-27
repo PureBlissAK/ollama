@@ -5,6 +5,7 @@
 ---
 
 ## Detection
+
 - **Alert**: GCP quota exceeded on [resource_type]
 - **Symptom**: Deployments fail, new inference requests rejected with 429 errors
 - **Dashboard**: [GCP Quotas Console](https://console.cloud.google.com/iam-admin/quotas)
@@ -46,6 +47,7 @@ gcloud compute accelerator-types list
 ## Remediation
 
 ### Option A: Request Quota Increase
+
 ```bash
 # Go to GCP Console → Quotas → Select quota → Edit → Request increase
 # Or via gcloud:
@@ -58,6 +60,7 @@ gcloud compute project-info \
 ```
 
 ### Option B: Reduce Load (Temporary)
+
 ```bash
 # Reduce concurrent requests to stay under current quota
 # 1. Enable Cloud Armor rate limiting
@@ -70,6 +73,7 @@ gcloud compute project-info \
 ---
 
 ## Escalation
+
 - If quota increase not approved within 4 hours: Escalate to @cto
 - May require architectural changes (reduce batch size, distribute across regions)
 

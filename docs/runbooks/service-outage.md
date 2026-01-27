@@ -5,6 +5,7 @@
 ---
 
 ## Detection
+
 - **Alert**: All monitoring fails, API completely down
 - **Symptom**: 100% requests returning errors or timing out
 - **Dashboard**: [Status Page](https://status.elevatediq.ai)
@@ -62,6 +63,7 @@ gcloud compute backend-services describe ollama-lb-backend
 ## Remediation
 
 ### If GCP Region Down
+
 ```bash
 # Cannot be fixed locally, wait for GCP recovery
 # Estimated time: 5-30 minutes
@@ -70,6 +72,7 @@ gcloud compute backend-services describe ollama-lb-backend
 ```
 
 ### If Cloud Run Service Down
+
 ```bash
 # Step 1: Check service logs
 gcloud run services describe ollama-api --region=us-central1
@@ -91,6 +94,7 @@ curl https://elevatediq.ai/ollama/api/v1/health
 ```
 
 ### If Database Down
+
 ```bash
 # Step 1: Check Cloud SQL status
 gcloud sql instances describe ollama-prod-db
@@ -115,6 +119,7 @@ gcloud firestore update documents/config/database \
 ```
 
 ### If Load Balancer Down
+
 ```bash
 # This is GCP infrastructure, requires GCP support
 # Temporary workaround: Point DNS directly to Cloud Run service
@@ -140,11 +145,13 @@ curl https://ollama.example.com/api/v1/health
 ## Communication
 
 Post updates every 5 minutes to:
+
 1. **Status Page**: https://status.elevatediq.ai (for customers)
 2. **Slack**: #incident-outage channel (for team)
 3. **Email**: Incident distribution list (if >30 min outage)
 
 Example update:
+
 ```
 [TIME] UPDATE
 Status: Still investigating root cause
@@ -157,6 +164,7 @@ Next update: [TIME + 5 min]
 ---
 
 ## Escalation
+
 - **After 10 min**: Notify @founders
 - **After 30 min**: Contact GCP support if infrastructure issue
 - **After 60 min**: Prepare public communication / incident announcement

@@ -358,6 +358,7 @@ class TestBenchmarkDecorator:
             return "success"
 
         import asyncio
+
         result = asyncio.run(test_func())
         assert result == "success"
 

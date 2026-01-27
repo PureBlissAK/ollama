@@ -130,7 +130,7 @@ case $option in
 
         echo "🔄 Rolling back to revision $revision..."
 
-        kubectl rollout undo deployment/$DEPLOYMENT -n $NAMESPACE --to-revision=$revision
+        kubectl rollout undo deployment/$DEPLOYMENT -n $NAMESPACE --to-revision="$revision"
 
         echo "⏳ Waiting for rollback to complete (timeout: 5 minutes)..."
         kubectl rollout status deployment/$DEPLOYMENT -n $NAMESPACE --timeout=5m

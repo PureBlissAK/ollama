@@ -4,12 +4,11 @@ This agent helps manage and coordinate repository issues across
 the hub (kushin77/ollama) and spoke repositories (team-specific forks).
 """
 
+import asyncio
 from dataclasses import dataclass
 from enum import Enum
-from typing import Optional, List
-import asyncio
 
-from ollama.agents.agent import Agent, AgentCapability, AgentConfig
+from ollama.agents.agent import Agent, AgentCapability
 
 
 class IssueType(str, Enum):
@@ -32,10 +31,10 @@ class RepositoryIssue:
     description: str
     issue_type: IssueType
     priority: int  # 1-5, higher is more urgent
-    assigned_to: Optional[str] = None
+    assigned_to: str | None = None
     status: str = "open"
-    hub_issue_id: Optional[int] = None
-    spoke_repos: Optional[List[str]] = None
+    hub_issue_id: int | None = None
+    spoke_repos: list[str] | None = None
 
 
 class HubSpokeAgent(Agent):
@@ -57,7 +56,7 @@ class HubSpokeAgent(Agent):
             AgentCapability.GENERATE,  # Generate issue summaries
             AgentCapability.RETRIEVE,  # Retrieve issue data
         ]
-        self.issues: List[RepositoryIssue] = []
+        self.issues: list[RepositoryIssue] = []
 
     async def sync_hub_to_spokes(self, hub_issue_id: int) -> dict:
         """Synchronize a hub issue to spoke repositories.
@@ -86,9 +85,7 @@ class HubSpokeAgent(Agent):
             sync_results = {}
             for spoke_repo in self._get_spoke_repos():
                 try:
-                    spoke_issue = await self._create_spoke_issue(
-                        spoke_repo, hub_issue
-                    )
+                    spoke_issue = await self._create_spoke_issue(spoke_repo, hub_issue)
                     sync_results[spoke_repo] = {
                         "status": "synced",
                         "issue_id": spoke_issue["id"],
@@ -96,9 +93,7 @@ class HubSpokeAgent(Agent):
                 except Exception as e:
                     sync_results[spoke_repo] = {"status": "failed", "error": str(e)}
 
-            self.audit_log.log_result(
-                {"action": "sync_hub_to_spokes", "results": sync_results}
-            )
+            self.audit_log.log_result({"action": "sync_hub_to_spokes", "results": sync_results})
 
             return sync_results
 
@@ -160,9 +155,7 @@ class HubSpokeAgent(Agent):
             if issue.priority >= 4:
                 target_repo = "kushin77/ollama"  # Critical bugs go to hub
             else:
-                target_repo = (
-                    self._get_team_spoke() or "kushin77/ollama"
-                )  # Team spoke
+                target_repo = self._get_team_spoke() or "kushin77/ollama"  # Team spoke
         elif issue.issue_type == IssueType.FEATURE:
             target_repo = self._get_team_spoke() or "kushin77/ollama"
         elif issue.issue_type == IssueType.INFRASTRUCTURE:
@@ -187,9 +180,7 @@ class HubSpokeAgent(Agent):
         Returns:
             dict: Escalation result
         """
-        self.audit_log.log_intent(
-            {"action": "escalate_to_hub", "spoke_issue_id": spoke_issue_id}
-        )
+        self.audit_log.log_intent({"action": "escalate_to_hub", "spoke_issue_id": spoke_issue_id})
 
         try:
             # Fetch spoke issue
@@ -222,7 +213,7 @@ class HubSpokeAgent(Agent):
     # Helper Methods
     # ============================================================
 
-    def _fetch_hub_issue(self, issue_id: int) -> Optional[dict]:
+    def _fetch_hub_issue(self, issue_id: int) -> dict | None:
         """Fetch issue from hub repository."""
         # Would use GitHub API in practice
         return None
@@ -232,7 +223,7 @@ class HubSpokeAgent(Agent):
         await asyncio.sleep(0.1)  # Simulate API call
         return {"id": f"{repo}-{issue['id']}", "status": "created"}
 
-    def _get_spoke_repos(self) -> List[str]:
+    def _get_spoke_repos(self) -> list[str]:
         """Get list of spoke repositories."""
         return [
             "team-a/ollama-fork",
@@ -240,7 +231,7 @@ class HubSpokeAgent(Agent):
             "team-c/ollama-fork",
         ]
 
-    def _get_team_spoke(self) -> Optional[str]:
+    def _get_team_spoke(self) -> str | None:
         """Get current team's spoke repository."""
         # Would determine from context in practice
         return "team-a/ollama-fork"
@@ -250,7 +241,7 @@ class HubSpokeAgent(Agent):
         await asyncio.sleep(0.1)  # Simulate API call
         return {"status": "synced", "issues": []}
 
-    def _fetch_spoke_issue(self, issue_id: str) -> Optional[dict]:
+    def _fetch_spoke_issue(self, issue_id: str) -> dict | None:
         """Fetch issue from spoke repository."""
         # Would use GitHub API in practice
         return None

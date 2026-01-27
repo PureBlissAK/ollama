@@ -1,7 +1,8 @@
-import pytest
-from pathlib import Path
 import importlib.util
 import sys
+from pathlib import Path
+
+import pytest
 
 # Load predictive module under package name so optional integrations work
 module_path = Path(__file__).resolve().parents[3] / "ollama" / "pmo" / "predictive_analytics.py"
@@ -25,7 +26,11 @@ PredictiveAnalytics = module.PredictiveAnalytics
 def test_arima_falls_back_or_runs():
     pa = PredictiveAnalytics()
     now = __import__("datetime").datetime.utcnow()
-    snaps = [(now, 90.0), (now.replace(day=now.day - 1), 89.5), (now.replace(day=now.day - 2), 89.0)]
+    snaps = [
+        (now, 90.0),
+        (now.replace(day=now.day - 1), 89.5),
+        (now.replace(day=now.day - 2), 89.0),
+    ]
     pa.record_snapshots(list(reversed(snaps)))
     # If statsmodels is present this should run ARIMA path; otherwise fallback to linear
     res = pa.predict(days_ahead=5, method="arima")
@@ -39,7 +44,12 @@ def test_arima_falls_back_or_runs():
 def test_prophet_falls_back_or_runs():
     pa = PredictiveAnalytics()
     now = __import__("datetime").datetime.utcnow()
-    snaps = [(now, 85.0), (now.replace(day=now.day - 1), 84.5), (now.replace(day=now.day - 2), 84.0), (now.replace(day=now.day - 3), 83.5)]
+    snaps = [
+        (now, 85.0),
+        (now.replace(day=now.day - 1), 84.5),
+        (now.replace(day=now.day - 2), 84.0),
+        (now.replace(day=now.day - 3), 83.5),
+    ]
     pa.record_snapshots(list(reversed(snaps)))
     res = pa.predict(days_ahead=3, method="prophet")
     assert hasattr(res, "predicted_score")

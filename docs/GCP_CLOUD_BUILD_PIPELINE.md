@@ -1,9 +1,9 @@
 # GCP Cloud Build CI/CD Pipeline
 
-**Status**: ✅ Implemented  
-**Version**: 1.0.0  
-**Last Updated**: January 26, 2026  
-**Platform**: Google Cloud Build  
+**Status**: ✅ Implemented
+**Version**: 1.0.0
+**Last Updated**: January 26, 2026
+**Platform**: Google Cloud Build
 
 ## Overview
 
@@ -45,6 +45,7 @@ This stage prevents vulnerable code and exposed secrets from being deployed.
 **Failure Action**: Pipeline stops, build rejected, logs stored
 
 **Success Criteria**:
+
 - ✅ No HIGH/CRITICAL container vulnerabilities
 - ✅ No secrets detected in code
 - ✅ No HIGH severity Python security issues
@@ -76,6 +77,7 @@ This stage builds the application container and signs it for deployment.
    - Attestor: Cloud Build service account
 
 **Success Criteria**:
+
 - ✅ Image successfully built
 - ✅ Image pushed to registry
 - ✅ Image cryptographically signed
@@ -100,6 +102,7 @@ This stage deploys the new build to a staging environment for testing.
    - Enable easy rollback
 
 **Success Criteria**:
+
 - ✅ Pod healthy (passing liveness probe)
 - ✅ Pod ready (passing readiness probe)
 - ✅ Deployment labels correct
@@ -140,6 +143,7 @@ This stage validates the staging deployment with automated tests.
 **Test Failure Action**: Pipeline stops, staging deployment retained for debugging
 
 **Success Criteria**:
+
 - ✅ All endpoints responsive
 - ✅ Models loaded and functional
 - ✅ Generation works end-to-end
@@ -154,32 +158,38 @@ This stage gradually rolls out the new version to production with monitoring.
 #### Canary Strategy: 10% → 50% → 100% over 30 minutes
 
 **Phase 1: 10% Traffic (10 minutes)**
+
 - 10% of production traffic goes to new version
 - 90% still on previous stable version
 - Monitors error rate continuously
 
 **Phase 2: 50% Traffic (10 minutes)**
+
 - 50% of production traffic on new version
 - 50% on previous version
 - Continues error rate monitoring
 
 **Phase 3: 100% Traffic (10 minutes)**
+
 - All traffic on new version
 - Previous version removed
 - Final performance validation
 
 **Automatic Rollback Triggers**:
+
 - ❌ Error rate > 1% → Instant rollback
 - ❌ P95 latency > 500ms → Instant rollback
 - ❌ Agent hallucination detected → Manual review
 
 **Monitoring During Deployment**:
+
 - Real-time error rate tracking
 - Latency monitoring (P50, P95, P99)
 - Custom metrics (agent accuracy, tokens/sec)
 - Alert on any anomalies
 
 **Success Criteria**:
+
 - ✅ Phase 1: Error rate < 1%, Latency OK
 - ✅ Phase 2: Error rate < 1%, Latency OK
 - ✅ Phase 3: Error rate < 0.1%, Latency < 300ms P95
@@ -223,10 +233,10 @@ _NAMESPACE_PRODUCTION: "production"
 ### Build Settings
 
 ```yaml
-timeout: "1800s"                    # 30 minutes
-machineType: "N1_HIGHCPU_8"        # 8 CPU, 30GB RAM
+timeout: "1800s" # 30 minutes
+machineType: "N1_HIGHCPU_8" # 8 CPU, 30GB RAM
 logsBucket: "gs://${PROJECT_ID}-build-logs"
-logging: "CLOUD_LOGGING_ONLY"       # Only Cloud Logging (not Cloud Storage)
+logging: "CLOUD_LOGGING_ONLY" # Only Cloud Logging (not Cloud Storage)
 ```
 
 ### Images
@@ -276,6 +286,7 @@ gcloud deploy run release \
 ### Rollback Procedures
 
 **Automatic Rollback** (triggered automatically):
+
 - Error rate > 1%
 - Latency > 500ms
 - Critical security issue
@@ -309,11 +320,13 @@ kubectl rollout status deployment/ollama-api -n production
 ### Dashboards
 
 **Cloud Monitoring Dashboard**: `ollama-deployment`
+
 - Real-time metrics
 - Historical comparisons
 - Alert status
 
 **Cloud Logging**: `ollama-deployments` log group
+
 - Build logs (all stages)
 - Deployment timeline
 - Rollback history
@@ -324,7 +337,7 @@ kubectl rollout status deployment/ollama-api -n production
 - ❌ Security scan failure → #security Slack
 - ❌ Staging tests fail → #engineering Slack
 - ❌ Production error rate > 1% → Page on-call engineer
-- ⚠️  Production latency > 500ms → Alert #deployments
+- ⚠️ Production latency > 500ms → Alert #deployments
 
 ## Troubleshooting
 
@@ -413,12 +426,14 @@ git push origin main
 ### Prerequisites
 
 1. **GCP Project**
+
    ```bash
    gcloud config set project ${PROJECT_ID}
    gcloud auth login
    ```
 
 2. **GKE Clusters**
+
    ```bash
    # Staging cluster
    gcloud container clusters create staging-gke \
@@ -432,6 +447,7 @@ git push origin main
    ```
 
 3. **Artifact Registry**
+
    ```bash
    # Create repository
    gcloud artifacts repositories create ollama \
@@ -440,6 +456,7 @@ git push origin main
    ```
 
 4. **Cloud Build Service Account**
+
    ```bash
    # Grant permissions
    gcloud projects add-iam-policy-binding ${PROJECT_ID} \
@@ -501,14 +518,14 @@ gcloud builds log $(gcloud builds list --limit=1 --format='value(id)') -s
 
 ### Build Duration
 
-| Stage | Duration | Metrics |
-|-------|----------|---------|
-| Security Scanning | 5 min | 4 security scans |
-| Build & Sign | 10 min | Docker build, push, sign |
-| Deploy to Staging | 5 min | GKE deployment |
-| Smoke Tests | 10 min | 5+ test scenarios |
-| Canary Deploy | 30 min | 3 phases + monitoring |
-| **Total** | **60 min** | Fully auditable, reversible |
+| Stage             | Duration   | Metrics                     |
+| ----------------- | ---------- | --------------------------- |
+| Security Scanning | 5 min      | 4 security scans            |
+| Build & Sign      | 10 min     | Docker build, push, sign    |
+| Deploy to Staging | 5 min      | GKE deployment              |
+| Smoke Tests       | 10 min     | 5+ test scenarios           |
+| Canary Deploy     | 30 min     | 3 phases + monitoring       |
+| **Total**         | **60 min** | Fully auditable, reversible |
 
 ### Pipeline Reliability
 
@@ -550,6 +567,6 @@ gcloud builds log $(gcloud builds list --limit=1 --format='value(id)') -s
 
 ---
 
-**Last Updated**: January 26, 2026  
-**Maintained By**: Infrastructure & DevOps Team  
+**Last Updated**: January 26, 2026
+**Maintained By**: Infrastructure & DevOps Team
 **Status**: ✅ Production Ready
