@@ -7,10 +7,22 @@ for workload identity, policy enforcement, and audit logging.
 """
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Dict, Any, Callable
 import base64
 import json
+from dataclasses import dataclass
+from typing import Dict, Any, Callable, Optional
+import base64
+import json
+
+# Optional runtime dependency for OIDC verification
+try:
+    import jwt  # PyJWT
+    from jwt import PyJWKClient
+except Exception:  # pragma: no cover - optional dependency
+    jwt = None
+    PyJWKClient = None
+from dataclasses import dataclass
+from typing import Any, Callable, Dict
 
 
 @dataclass
@@ -76,6 +88,48 @@ class ZeroTrustManager:
         payload_b64 += padding
         decoded = base64.urlsafe_b64decode(payload_b64.encode())
         return json.loads(decoded)
+
+    def verify_oidc_token(
+        self,
+        token: str,
+        *,
+        key: Optional[str] = None,
+        jwks_url: Optional[str] = None,
+        audience: Optional[str] = None,
+        issuer: Optional[str] = None,
+        leeway: int = 60,
+    ) -> Dict[str, Any]:
+        """Verify an OIDC token and return validated claims.
+
+        Supports either a direct `key` (symmetric or public key material) or a
+        `jwks_url` (fetch signing keys). This method requires `PyJWT` to be
+        installed; if it's unavailable a RuntimeError is raised.
+        """
+        if jwt is None:
+            raise RuntimeError("PyJWT is required for OIDC verification. Install pyjwt")
+
+        if jwks_url:
+            if PyJWKClient is None:
+                raise RuntimeError("PyJWKClient is required for JWKS support. Upgrade PyJWT")
+            jwk_client = PyJWKClient(jwks_url)
+            signing_key = jwk_client.get_signing_key_from_jwt(token).key
+            key_to_use = signing_key
+        elif key:
+            key_to_use = key
+        else:
+            raise ValueError("Either 'key' or 'jwks_url' must be provided for verification")
+
+        options = {"verify_aud": bool(audience)}
+        claims = jwt.decode(
+            token,
+            key_to_use,
+            algorithms=["RS256", "HS256"],
+            audience=audience,
+            issuer=issuer,
+            leeway=leeway,
+            options=options,
+        )
+        return claims
 
     def enforce_policy(self, identity: Dict[str, Any], resource: str, action: str) -> bool:
         """Enforce a simple RBAC-style policy for the given identity.
