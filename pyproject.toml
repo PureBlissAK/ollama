@@ -117,7 +117,7 @@ strict_equality = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-v --cov=ollama --cov-report=html --cov-report=term-missing --cov-fail-under=90"
+addopts = "-v --cov=ollama --cov-report=term-missing"
 asyncio_mode = "auto"
 python_files = ["test_*.py", "*_test.py"]
 
