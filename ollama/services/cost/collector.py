@@ -495,10 +495,14 @@ class GCPCostCollector:
             List of (timestamp, cost) tuples
         """
         cutoff = datetime.now(UTC) - timedelta(hours=hours)
+        # Allow a small tolerance for boundary timestamps created earlier
+        from datetime import timedelta
+
+        lower_cutoff = cutoff - timedelta(seconds=1)
         trend = [
             (s.timestamp, s.total_cost_usd)
             for s in self.hourly_snapshots
-            if s.timestamp >= cutoff
+            if s.timestamp >= lower_cutoff
         ]
         return sorted(trend, key=lambda x: x[0])
 
