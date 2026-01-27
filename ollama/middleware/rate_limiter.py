@@ -26,7 +26,7 @@ class RateLimiter:
 
     def __init__(
         self,
-        redis_client: Optional[redis.Redis[bytes]] = None,
+        redis_client: Optional[redis.Redis] = None,
         default_limit: int = 100,
         default_window: int = 60,
     ) -> None:
