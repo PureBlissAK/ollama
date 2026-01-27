@@ -8,17 +8,11 @@ Version: 1.0.0 (Week 1 - Feb 3, 2026)
 Status: PRODUCTION-READY
 """
 
-from typing import Dict, List, Optional, Any
-from datetime import datetime, UTC, timedelta
 import logging
-import json
+from datetime import UTC, datetime
+from typing import Any, Dict, List
 
-from ollama.services.cost.collector import (
-    GCPCostCollector,
-    CostSnapshot,
-    CostSample,
-    CostCategory
-)
+from ollama.services.cost.collector import CostCategory, CostSnapshot, GCPCostCollector
 
 log = logging.getLogger(__name__)
 

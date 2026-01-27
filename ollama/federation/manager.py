@@ -16,13 +16,11 @@ Features:
 - State replication & consistency
 """
 
-from typing import Dict, List, Optional, Tuple
+import logging
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
-import uuid
-import asyncio
 from enum import Enum
-import logging
+from typing import Dict, List, Optional, Tuple
 
 # Configure logging
 log = logging.getLogger(__name__)
@@ -54,17 +52,17 @@ class HubCapacity:
     cpu_utilization_percent: int
     memory_utilization_percent: int
     network_utilization_percent: int
-    
+
     @property
     def available_capacity(self) -> int:
         """Calculate available request capacity."""
         return self.max_concurrent_requests - self.current_requests
-    
+
     @property
     def available_memory_gb(self) -> int:
         """Calculate available memory."""
         return self.max_memory_gb - self.current_memory_gb
-    
+
     @property
     def utilization_ratio(self) -> float:
         """Average utilization ratio (0.0-1.0)."""
@@ -91,20 +89,20 @@ class Hub:
     supported_models: List[str]
     labels: Dict[str, str] = field(default_factory=dict)
     last_heartbeat: Optional[datetime] = None
-    
+
     def is_healthy(self) -> bool:
         """Check if hub is healthy and responsive."""
         return self.status in [HubStatus.HEALTHY, HubStatus.DEGRADED]
-    
+
     def can_serve_model(self, model: str) -> bool:
         """Check if hub supports serving this model."""
         return model in self.supported_models
-    
+
     def estimated_latency_to_region(self, region: str) -> int:
         """Estimate latency to target region (milliseconds)."""
         # Simplified latency estimation based on region
         same_region = self.region == region
-        
+
         latency_map = {
             True: 5,    # Same region: 5ms
             False: 50   # Different region: 50ms
@@ -121,18 +119,18 @@ class TopologySnapshot:
     version: int
     timestamp: datetime
     routing_policies: Dict[str, 'RoutingPolicy'] = field(default_factory=dict)
-    
+
     def get_hub(self, hub_id: str) -> Optional[Hub]:
         """Get hub by ID."""
         for hub in self.hubs:
             if hub.hub_id == hub_id:
                 return hub
         return None
-    
+
     def get_healthy_hubs(self) -> List[Hub]:
         """Get all healthy hubs."""
         return [h for h in self.hubs if h.is_healthy()]
-    
+
     def get_hubs_by_region(self, region: str) -> List[Hub]:
         """Get hubs in specific region."""
         return [h for h in self.hubs if h.region == region]
@@ -159,7 +157,7 @@ class FederationManager:
     - Health checking & failure detection
     - State replication across hubs
     """
-    
+
     def __init__(self, primary_hub_id: str, region: str = "us-central1"):
         """
         Initialize federation manager.
@@ -177,7 +175,7 @@ class FederationManager:
         self.routing_policies: Dict[str, RoutingPolicy] = {}
         self._setup_default_policies()
         log.info(f"FederationManager initialized for {primary_hub_id} in {region}")
-    
+
     def _setup_default_policies(self) -> None:
         """Set up default routing policies."""
         # Default: latency-aware routing
@@ -188,7 +186,7 @@ class FederationManager:
             preferred_regions=[],
             fallback_regions=[]
         )
-    
+
     def register_hub(self, hub: Hub) -> None:
         """
         Register a hub with the federation.
@@ -201,17 +199,17 @@ class FederationManager:
         """
         if hub.hub_id in self.hubs:
             raise ValueError(f"Hub {hub.hub_id} already registered")
-        
+
         hub.last_heartbeat = datetime.utcnow()
         self.hubs[hub.hub_id] = hub
         self.topology_version += 1
         self.last_topology_update = datetime.utcnow()
-        
+
         log.info(
             f"Hub registered: {hub.hub_id} in {hub.region} "
             f"({hub.capacity.available_capacity} capacity)"
         )
-    
+
     def unregister_hub(self, hub_id: str) -> None:
         """
         Unregister a hub from federation (graceful shutdown).
@@ -222,14 +220,14 @@ class FederationManager:
         if hub_id not in self.hubs:
             log.warning(f"Cannot unregister unknown hub: {hub_id}")
             return
-        
+
         del self.hubs[hub_id]
         self.topology_version += 1
         self.last_topology_update = datetime.utcnow()
-        
+
         log.info(f"Hub unregistered: {hub_id}")
-    
-    def update_hub_heartbeat(self, hub_id: str, capacity: HubCapacity, 
+
+    def update_hub_heartbeat(self, hub_id: str, capacity: HubCapacity,
                              status: HubStatus) -> None:
         """
         Update hub heartbeat and health status.
@@ -242,15 +240,15 @@ class FederationManager:
         if hub_id not in self.hubs:
             log.warning(f"Heartbeat from unknown hub: {hub_id}")
             return
-        
+
         hub = self.hubs[hub_id]
         hub.last_heartbeat = datetime.utcnow()
         hub.capacity = capacity
         hub.status = status
-        
+
         log.debug(f"Heartbeat: {hub_id} - {status.value} "
                   f"({hub.capacity.current_requests}/{hub.capacity.max_concurrent_requests})")
-    
+
     def check_hub_health(self, hub_id: str) -> Tuple[bool, str]:
         """
         Check if hub is healthy and responsive.
@@ -263,23 +261,23 @@ class FederationManager:
         """
         if hub_id not in self.hubs:
             return False, "Hub not registered"
-        
+
         hub = self.hubs[hub_id]
-        
+
         # Check heartbeat timeout
         if hub.last_heartbeat is None:
             return False, "No heartbeat received"
-        
+
         time_since_heartbeat = datetime.utcnow() - hub.last_heartbeat
         if time_since_heartbeat > self.heartbeat_timeout:
             return False, f"Heartbeat timeout ({time_since_heartbeat.total_seconds():.0f}s)"
-        
+
         # Check hub status
         if not hub.is_healthy():
             return False, f"Hub status: {hub.status.value}"
-        
+
         return True, "Healthy"
-    
+
     def remove_unhealthy_hubs(self) -> List[str]:
         """
         Check all hubs and remove ones that are unhealthy.
@@ -289,23 +287,23 @@ class FederationManager:
         """
         removed = []
         hubs_to_remove = []
-        
+
         for hub_id in self.hubs:
             is_healthy, _ = self.check_hub_health(hub_id)
             if not is_healthy:
                 hubs_to_remove.append(hub_id)
-        
+
         for hub_id in hubs_to_remove:
             del self.hubs[hub_id]
             removed.append(hub_id)
             log.warning(f"Removed unhealthy hub: {hub_id}")
-        
+
         if removed:
             self.topology_version += 1
             self.last_topology_update = datetime.utcnow()
-        
+
         return removed
-    
+
     def get_topology(self) -> TopologySnapshot:
         """
         Get current federation topology.
@@ -321,9 +319,9 @@ class FederationManager:
             timestamp=datetime.utcnow(),
             routing_policies=self.routing_policies
         )
-    
+
     def route_request(self, model: str, client_region: Optional[str] = None,
-                      estimated_tokens: int = 0, 
+                      estimated_tokens: int = 0,
                       required_features: Optional[List[str]] = None) -> Optional[Hub]:
         """
         Route inference request to best hub.
@@ -345,23 +343,23 @@ class FederationManager:
             h for h in self.get_topology().get_healthy_hubs()
             if h.can_serve_model(model)
         ]
-        
+
         if not candidates:
             log.warning(f"No hubs available for model: {model}")
             return None
-        
+
         # Prefer hubs in client region
         if client_region:
             same_region = [h for h in candidates if h.region == client_region]
             if same_region:
                 candidates = same_region
-        
+
         # Sort by utilization (least loaded first)
         candidates.sort(key=lambda h: h.capacity.utilization_ratio)
-        
+
         # Return hub with best capacity
         return candidates[0]
-    
+
     def get_routing_stats(self) -> Dict[str, any]:
         """
         Get statistics about federation state.
@@ -372,7 +370,7 @@ class FederationManager:
         healthy_hubs = [h for h in self.hubs.values() if h.is_healthy()]
         total_capacity = sum(h.capacity.max_concurrent_requests for h in healthy_hubs)
         total_usage = sum(h.capacity.current_requests for h in healthy_hubs)
-        
+
         return {
             "total_hubs": len(self.hubs),
             "healthy_hubs": len(healthy_hubs),
@@ -385,7 +383,7 @@ class FederationManager:
             ),
             "hubs_by_region": self._count_hubs_by_region()
         }
-    
+
     def _count_hubs_by_region(self) -> Dict[str, int]:
         """Count hubs by region."""
         counts = {}

@@ -16,9 +16,9 @@ from .manager import (
     Hub,
     HubCapacity,
     HubStatus,
-    TopologySnapshot,
     RoutingPolicy,
     RoutingStrategy,
+    TopologySnapshot,
 )
 
 __all__ = [

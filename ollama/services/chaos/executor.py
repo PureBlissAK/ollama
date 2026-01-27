@@ -142,7 +142,7 @@ class ChaosExecutor:
                 target_pod=target_pod,
                 error=str(e),
             )
-            raise RuntimeError(f"Network chaos injection failed: {e}")
+            raise RuntimeError(f"Network chaos injection failed: {e}") from e
 
     async def inject_compute_chaos(
         self,
@@ -232,7 +232,7 @@ class ChaosExecutor:
                 target_pod=target_pod,
                 error=str(e),
             )
-            raise RuntimeError(f"Compute chaos injection failed: {e}")
+            raise RuntimeError(f"Compute chaos injection failed: {e}") from e
 
     async def inject_service_failure(
         self,
@@ -301,7 +301,7 @@ class ChaosExecutor:
                 target_pod=target_pod,
                 error=str(e),
             )
-            raise RuntimeError(f"Service failure injection failed: {e}")
+            raise RuntimeError(f"Service failure injection failed: {e}") from e
 
     async def inject_cascading_failure(
         self,
@@ -364,7 +364,7 @@ class ChaosExecutor:
                 primary_pod=primary_pod,
                 error=str(e),
             )
-            raise RuntimeError(f"Cascading failure injection failed: {e}")
+            raise RuntimeError(f"Cascading failure injection failed: {e}") from e
 
     async def cleanup_chaos(self, target_pod: str) -> bool:
         """Clean up chaos injection from target pod.
@@ -471,8 +471,8 @@ class ChaosExecutor:
 
             return result.stdout
 
-        except subprocess.TimeoutExpired:
-            raise RuntimeError("Command execution timed out")
+        except subprocess.TimeoutExpired as e:
+            raise RuntimeError("Command execution timed out") from e
         except Exception as e:
             log.error("command_execution_failed", command=command, error=str(e))
-            raise RuntimeError(f"Command execution failed: {e}")
+            raise RuntimeError(f"Command execution failed: {e}") from e

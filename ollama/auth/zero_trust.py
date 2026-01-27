@@ -11,6 +11,7 @@ import base64
 import json
 from dataclasses import dataclass
 from typing import Dict, Any, Callable, Optional
+from ollama.auth.policy import SimplePolicyEngine
 import base64
 import json
 
@@ -47,6 +48,10 @@ class ZeroTrustManager:
 
     def __init__(self, config: ZeroTrustConfig | None = None) -> None:
         self.config = config or ZeroTrustConfig()
+        # Default policy hook uses the in-process simple engine for sane defaults
+        self.policy_hook: Optional[Callable[[Dict[str, Any], str, str], bool]] = (
+            SimplePolicyEngine().evaluate
+        )
 
     def validate_identity(self, token: str) -> Dict[str, Any]:
         """Validate an identity token and return identity claims.
