@@ -8,7 +8,9 @@ for workload identity, policy enforcement, and audit logging.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Dict, Any
+from typing import Dict, Any, Callable
+import base64
+import json
 
 
 @dataclass
@@ -44,13 +46,49 @@ class ZeroTrustManager:
         # Minimal placeholder implementation
         if not token:
             raise ValueError("empty token")
-        return {"sub": "service:example", "roles": ["service"]}
+
+        # Try to decode JWT payload without verification to extract claims.
+        try:
+            claims = self._decode_jwt_payload(token)
+        except Exception:
+            # Fall back to test stub claims for non-JWT tokens
+            return {"sub": "service:example", "roles": ["service"]}
+
+        # Basic validation checks (issuer/audience/exp should be checked in prod)
+        if not isinstance(claims, dict) or "sub" not in claims:
+            raise ValueError("invalid token claims")
+
+        return claims
+
+    @staticmethod
+    def _decode_jwt_payload(token: str) -> Dict[str, Any]:
+        """Decode a JWT payload without verifying signature.
+
+        This helper is intentionally lightweight for local testing. Production
+        code MUST validate signatures using a trusted library and JWKS.
+        """
+        parts = token.split(".")
+        if len(parts) < 2:
+            raise ValueError("not a JWT")
+        payload_b64 = parts[1]
+        # Add padding if necessary
+        padding = '=' * (-len(payload_b64) % 4)
+        payload_b64 += padding
+        decoded = base64.urlsafe_b64decode(payload_b64.encode())
+        return json.loads(decoded)
 
     def enforce_policy(self, identity: Dict[str, Any], resource: str, action: str) -> bool:
         """Enforce a simple RBAC-style policy for the given identity.
 
         Returns True if the action is allowed, False otherwise.
         """
+        # Allow injection of a policy hook for production integration.
+        policy_hook: Callable[[Dict[str, Any], str, str], bool] | None = getattr(
+            self, "policy_hook", None
+        )
+        if policy_hook:
+            return bool(policy_hook(identity, resource, action))
+
         roles = identity.get("roles", [])
         # Default allow for 'admin' role
         if "admin" in roles:
