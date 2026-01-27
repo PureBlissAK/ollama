@@ -103,8 +103,8 @@ class CostSnapshot:
     cost_by_project: Dict[str, float]
     cost_by_region: Dict[str, float]
     anomalies_detected: List[Dict[str, Any]]
-    data_freshness_minutes: int     # How old the data is
-    collection_duration_seconds: float
+    data_freshness_minutes: int = 0     # How old the data is
+    collection_duration_seconds: float = 0.0
 
     def get_top_services(self, limit: int = 5) -> List[Tuple[str, float]]:
         """Get top N services by cost."""
@@ -245,11 +245,8 @@ class GCPCostCollector:
             return snapshot
 
         except Exception as e:
-            log.error(
-                "cost_collection_failed",
-                error=str(e),
-                project_id=self.project_id
-            )
+            # Use positional logging to avoid passing unexpected kwargs to stdlib logger
+            log.error("cost_collection_failed: %s", str(e))
             raise
 
     async def _query_billing_api(self) -> List[CostSample]:
