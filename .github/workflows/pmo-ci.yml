@@ -2,9 +2,9 @@ name: PMO CI
 
 on:
   push:
-    branches: [ main, feature/** ]
+    branches: [main, feature/**]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   test-and-lint:
@@ -39,8 +39,14 @@ jobs:
       - name: Type check (mypy)
         run: mypy ollama/ --strict
 
-      - name: Run tests
-        run: pytest tests/ -q
+      - name: Run tests (with coverage)
+        run: pytest --cov=ollama --cov-report=xml:coverage.xml tests/ -q
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: coverage.xml
 
       - name: Security scan (pip-audit)
         run: pip-audit --fail-on high || true
