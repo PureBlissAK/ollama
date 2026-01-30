@@ -34,14 +34,26 @@ jobs:
         run: |
           detect-secrets scan --all-files || true
 
-      - name: Run lint + type checks
+      - name: Install test dependencies
         run: |
-          pip install ruff mypy
-          # Exclude legacy grouped packages from strict checks while onboarding
-          ruff check ollama/ --extend-exclude ollama/_legacy || true
-          mypy ollama/ --strict --exclude "ollama/_legacy" || true
+          pip install ruff mypy pytest pytest-cov pip-audit
 
-      - name: Quick tests
-        run: |
-          pip install pytest
-          pytest tests/ -q || true
+      - name: Run type checking (mypy)
+        run: mypy ollama/ --strict --exclude "ollama/_legacy"
+
+      - name: Run linting (ruff)
+        run: ruff check ollama/ --extend-exclude ollama/_legacy
+
+      - name: Run tests with coverage
+        run: pytest tests/ -v --cov=ollama --cov-report=term-missing --cov-report=xml --cov-fail-under=80
+
+      - name: Run security audit (pip-audit)
+        run: pip-audit
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
