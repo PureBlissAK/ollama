@@ -154,7 +154,7 @@ class MetricsCollector:
         )
 
         # Filter metrics for this agent
-        agent_metrics_list = [m for m in self.metrics if m["agent_id"] == agent_id]
+        agent_metrics_list = [m for m in self.metrics if m.agent_id == agent_id]
 
         if not agent_metrics_list:
             return agent_metrics_data

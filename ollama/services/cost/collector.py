@@ -17,14 +17,15 @@ Features:
 - Cost attribution by cost-center
 """
 
-import logging
 from dataclasses import asdict, dataclass, field
 from datetime import UTC, datetime, timedelta
 from enum import Enum
 from typing import Any
 
+import structlog
+
 # Configure logging
-log = logging.getLogger(__name__)
+log = structlog.get_logger(__name__)
 
 
 class CostCategory(Enum):
@@ -502,7 +503,7 @@ class GCPCostCollector:
         ]
         return sorted(trend, key=lambda x: x[0])
 
-    def get_monthly_total(self, month: str = None) -> float:
+    def get_monthly_total(self, month: str | None = None) -> float:
         """
         Get total cost for a month (YYYY-MM).
 

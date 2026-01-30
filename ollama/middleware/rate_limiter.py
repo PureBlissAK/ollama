@@ -8,12 +8,14 @@ import time
 from collections import defaultdict
 from collections.abc import Callable, Sequence
 from functools import wraps
-from typing import Any, cast
+from typing import TYPE_CHECKING, Any, cast
 
-import redis
 from fastapi import Request
 
 from ollama.exceptions import RateLimitExceededError
+
+if TYPE_CHECKING:
+    pass
 
 
 class RateLimiter:
@@ -27,7 +29,8 @@ class RateLimiter:
 
     def __init__(
         self,
-        redis_client: redis.Redis | None = None,
+        redis_client: Any = None,
+        redis_url: str | None = None,
         default_limit: int = 100,
         default_window: int = 60,
     ) -> None:
@@ -35,14 +38,23 @@ class RateLimiter:
 
         Args:
             redis_client: Redis connection (None for in-memory)
+            redis_url: Optional Redis URL to connect to if client not provided
             default_limit: Default request limit per window
             default_window: Default time window in seconds
         """
-        self.redis_client = redis_client
         self.default_limit = default_limit
         self.default_window = default_window
         # In-memory fallback for local rate limiting
         self._local_buckets: dict[str, list[float]] = defaultdict(list)
+
+        if redis_client:
+            self.redis_client = redis_client
+        elif redis_url:
+            import redis
+
+            self.redis_client = redis.from_url(redis_url)  # type: ignore[no-untyped-call]
+        else:
+            self.redis_client = None
 
     def _get_key(self, identifier: str) -> str:
         """Generate Redis key for identifier.
@@ -198,7 +210,7 @@ def rate_limit(
     limit: int = 100,
     window: int = 60,
     key_func: Callable[[Request], str] | None = None,
-) -> Callable:
+) -> Callable[..., Any]:
     """Decorator for rate limiting endpoints.
 
     Args:
@@ -215,7 +227,7 @@ def rate_limit(
             return {"status": "ok"}
     """
 
-    def decorator(func: Callable) -> Callable:
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         @wraps(func)
         async def wrapper(request: Request, *args: Any, **kwargs: Any) -> Any:
             # Default key function uses client IP

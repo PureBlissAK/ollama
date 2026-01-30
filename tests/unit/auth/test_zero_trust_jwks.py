@@ -1,4 +1,4 @@
-from ollama.auth.zero_trust_impl import ZeroTrustManager
+from ollama.auth.zero_trust import ZeroTrustManager
 
 
 class DummyResp:
@@ -23,7 +23,7 @@ def test_fetch_jwks_cache_and_hits(monkeypatch):
         calls["count"] += 1
         return DummyResp(200, sample)
 
-    monkeypatch.setattr("ollama.auth.zero_trust_impl.requests.get", fake_get)
+    monkeypatch.setattr("ollama.auth.zero_trust.requests_mod.get", fake_get)
 
     # First fetch should miss cache and fetch
     jwks = manager._fetch_jwks(jwks_url, ttl=10)
@@ -50,7 +50,7 @@ def test_fetch_jwks_retries_then_success(monkeypatch):
             return DummyResp(500, {})
         return DummyResp(200, sample)
 
-    monkeypatch.setattr("ollama.auth.zero_trust_impl.requests.get", flaky_get)
+    monkeypatch.setattr("ollama.auth.zero_trust.requests_mod.get", flaky_get)
 
     jwks = manager._fetch_jwks(jwks_url, ttl=10)
     assert jwks == sample
@@ -69,7 +69,7 @@ def test_refresh_forces_fetch(monkeypatch):
     def get_first(url, timeout=5):
         return DummyResp(200, sample1)
 
-    monkeypatch.setattr("ollama.auth.zero_trust_impl.requests.get", get_first)
+    monkeypatch.setattr("ollama.auth.zero_trust.requests_mod.get", get_first)
     jwks1 = manager._fetch_jwks(jwks_url, ttl=100)
     assert jwks1 == sample1
 
@@ -77,7 +77,7 @@ def test_refresh_forces_fetch(monkeypatch):
     def get_second(url, timeout=5):
         return DummyResp(200, sample2)
 
-    monkeypatch.setattr("ollama.auth.zero_trust_impl.requests.get", get_second)
+    monkeypatch.setattr("ollama.auth.zero_trust.requests_mod.get", get_second)
 
     # Normal fetch should return cached sample1
     jwks_cached = manager._fetch_jwks(jwks_url, ttl=100)

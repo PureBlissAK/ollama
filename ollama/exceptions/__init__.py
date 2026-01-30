@@ -4,6 +4,8 @@ This module exposes the canonical exception types and provides a small set
 of backward-compatible aliases expected by older code and tests.
 """
 
+from typing import Any
+
 from .impl.base import AuthenticationError, OllamaError
 from .impl.model import ModelNotFoundError
 
@@ -13,6 +15,18 @@ OllamaException = OllamaError
 
 # Authentication-related aliases
 APIKeyInvalidError = AuthenticationError
+
+
+class ValidationError(OllamaError):
+    """Raised when request validation fails."""
+
+    def __init__(self, message: str, details: dict[str, Any] | None = None) -> None:
+        super().__init__(message)
+        self.details = details or {}
+
+
+class InferenceError(OllamaError):
+    """Raised when model inference fails."""
 
 
 # Rate limiting error - not present in older impls, provide a simple class
@@ -34,7 +48,6 @@ class RateLimitExceededError(OllamaError):
         self.retry_after = retry_after
         msg = message or f"Rate limit exceeded: {limit} req per {window}s"
         super().__init__(msg)
-
 
 
 # Inference timeout - provided for backward compatibility with tests

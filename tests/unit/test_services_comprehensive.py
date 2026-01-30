@@ -5,14 +5,14 @@ Tests for inference, caching, and model management services.
 Covers happy paths, error cases, and edge conditions.
 """
 
-import pytest
-from unittest.mock import Mock, patch, AsyncMock, MagicMock
 import asyncio
-from typing import List, Dict, Any
+from unittest.mock import AsyncMock, MagicMock, patch
 
-from ollama.services.inference.ollama_client_main import OllamaClient
+import pytest
+
 from ollama.services.cache.cache import CacheManager
-from ollama.services.models.model import ModelManager
+from ollama.services.inference.ollama_client_main import OllamaClient
+from ollama.services.models.ollama_model_manager import OllamaModelManager
 
 
 class TestOllamaClient:
@@ -91,7 +91,7 @@ class TestOllamaClient:
     async def test_generate_timeout(self, client, mock_http_client):
         """Generate handles timeout gracefully."""
         import asyncio
-        mock_http_client.post.side_effect = asyncio.TimeoutError()
+        mock_http_client.post.side_effect = TimeoutError()
 
         with pytest.raises(asyncio.TimeoutError):
             await client.generate(
@@ -254,7 +254,7 @@ class TestCacheManager:
         cache.set("key1", {"data": "value1"})
         cache.set("key2", {"data": "value2"})
         cache.set("key3", {"data": "value3"})
-        
+
         # key1 should be evicted (LRU)
         assert cache.get("key1") is None
         assert cache.get("key2") is not None
@@ -264,14 +264,14 @@ class TestCacheManager:
         """Cache updates access time on get."""
         cache.set("key1", {"data": "value1"})
         cache.set("key2", {"data": "value2"})
-        
+
         # Access key1 to update its access time
         cache.get("key1")
-        
+
         # Set max size to trigger eviction
         cache.max_size = 2
         cache.set("key3", {"data": "value3"})
-        
+
         # key2 should be evicted (not accessed recently)
         assert cache.get("key1") is not None
         assert cache.get("key2") is None
@@ -283,7 +283,7 @@ class TestCacheManager:
         cache.get("key1")  # Hit
         cache.get("key1")  # Hit
         cache.get("missing")  # Miss
-        
+
         stats = cache.get_stats()
         assert stats["hits"] == 2
         assert stats["misses"] == 1
@@ -298,21 +298,21 @@ class TestCacheManager:
         assert result is None  # Could be miss or cached None
 
 
-class TestModelManager:
-    """Test suite for ModelManager model service."""
+class TestOllamaModelManager:
+    """Test suite for OllamaModelManager model service."""
 
     @pytest.fixture
     def model_manager(self):
         """Create model manager."""
-        return ModelManager()
+        return OllamaModelManager(AsyncMock())
 
     def test_load_model_success(self, model_manager):
         """Load model succeeds."""
         # Mock the loading
-        with patch.object(model_manager, 'load') as mock_load:
-            mock_load.return_value = True
-            result = model_manager.load("llama3.2")
-            assert result is True
+        with patch.object(model_manager, "get_model") as mock_get:
+            mock_get.return_value = MagicMock()
+            result = asyncio.run(model_manager.get_model("llama3.2"))
+            assert result is not None
 
     def test_unload_model(self, model_manager):
         """Unload model removes from memory."""
@@ -371,10 +371,10 @@ class TestInferenceErrorHandling:
     async def test_model_not_found_error(self):
         """Generate raises error for non-existent model."""
         client = OllamaClient(base_url="http://ollama:11434")
-        
+
         with patch.object(client, 'session') as mock_session:
             mock_session.post.side_effect = ValueError("Model not found")
-            
+
             with pytest.raises(ValueError):
                 await client.generate(
                     prompt="Test",
@@ -385,11 +385,11 @@ class TestInferenceErrorHandling:
     async def test_inference_server_down(self):
         """Generate handles server down gracefully."""
         client = OllamaClient(base_url="http://ollama:11434")
-        
+
         with patch.object(client, 'session') as mock_session:
             import aiohttp
             mock_session.post.side_effect = aiohttp.ClientConnectionError()
-            
+
             with pytest.raises(Exception):
                 await client.generate(
                     prompt="Test",
@@ -400,10 +400,10 @@ class TestInferenceErrorHandling:
     async def test_invalid_response_format(self):
         """Generate handles malformed responses."""
         client = OllamaClient(base_url="http://ollama:11434")
-        
+
         with patch.object(client, 'session') as mock_session:
             mock_session.post.return_value.json.return_value = {}  # Invalid: missing 'response'
-            
+
             with pytest.raises(KeyError):
                 await client.generate(
                     prompt="Test",
@@ -419,17 +419,17 @@ class TestCacheIntegration:
         cache = CacheManager(backend="memory")
         prompt = "What is 2+2?"
         model = "llama3.2"
-        
+
         # Cache key
         key = f"{model}:{prompt}"
-        
+
         # First time: not cached
         result1 = cache.get(key)
         assert result1 is None
-        
+
         # Cache the result
         cache.set(key, {"result": "4"})
-        
+
         # Second time: cached
         result2 = cache.get(key)
         assert result2 is not None
@@ -439,13 +439,13 @@ class TestCacheIntegration:
         """Different models have separate cache entries."""
         cache = CacheManager(backend="memory")
         prompt = "Test prompt"
-        
+
         cache.set(f"llama3.2:{prompt}", {"result": "llama response"})
         cache.set(f"mixtral-8x7b:{prompt}", {"result": "mixtral response"})
-        
+
         result1 = cache.get(f"llama3.2:{prompt}")
         result2 = cache.get(f"mixtral-8x7b:{prompt}")
-        
+
         assert result1["result"] == "llama response"
         assert result2["result"] == "mixtral response"
 

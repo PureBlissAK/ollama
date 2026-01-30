@@ -4,10 +4,12 @@ Distributes tracing context across microservices
 """
 
 import logging
+import os
 from typing import Any
 
 from opentelemetry import trace
-from opentelemetry.exporter.jaeger.thrift import JaegerExporter
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
+from opentelemetry.sdk.resources import Resource
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.sdk.trace.sampling import ParentBased, TraceIdRatioBased
@@ -65,35 +67,45 @@ class JaegerConfig:
 
     def initialize_tracer(self) -> TracerProvider:
         """
-        Initialize Jaeger tracer provider
+        Initialize OTLP tracer provider (migrated from Jaeger)
 
         Returns:
             Configured TracerProvider
         """
         try:
-            # Create Jaeger exporter
-            jaeger_exporter = JaegerExporter(
-                agent_host_name=self.jaeger_host,
-                agent_port=self.jaeger_udp_port,
+            # Create OTLP exporter pointing to the collector
+            # Default OTLP endpoint is usually http://otel-collector:4317
+            endpoint = os.getenv("OTEL_EXPORTER_OTLP_ENDPOINT", f"http://{self.jaeger_host}:4317")
+
+            exporter = OTLPSpanExporter(
+                endpoint=endpoint,
+                insecure=True,
+            )
+
+            # Create resource
+            resource = Resource.create(
+                {
+                    "service.name": self.service_name,
+                }
             )
 
             # Create tracer provider with sampler
-            sampler = ParentBased(root=TraceIdRatioBased(self.trace_sample_rate))
-            trace_provider = TracerProvider(sampler=sampler)
+            sampler = ParentBased(root=TraceIdRatioBased(self.sample_rate))
+            trace_provider = TracerProvider(resource=resource, sampler=sampler)
 
-            # Add Jaeger exporter
-            trace_provider.add_span_processor(BatchSpanProcessor(jaeger_exporter))
+            # Add OTLP exporter
+            trace_provider.add_span_processor(BatchSpanProcessor(exporter))
 
             # Set global tracer provider
             trace.set_tracer_provider(trace_provider)
 
             self._tracer_provider = trace_provider
-            logger.info(f"✅ Jaeger tracer initialized: {self.jaeger_host}:{self.jaeger_port}")
+            logger.info(f"✅ Tracer initialized (OTLP -> {endpoint})")
 
             return trace_provider
 
         except Exception as e:
-            logger.error(f"❌ Failed to initialize Jaeger tracer: {e}")
+            logger.error(f"❌ Failed to initialize tracer: {e}")
             raise
 
     def instrument_fastapi(self, app: Any) -> None:

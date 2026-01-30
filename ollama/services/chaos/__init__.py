@@ -38,9 +38,10 @@ from ollama.services.chaos.config import (
     ExperimentType,
     FailureMode,
     NetworkConfig,
+    SeverityLevel,
 )
 from ollama.services.chaos.executor import ChaosExecutor
-from ollama.services.chaos.manager import ChaosManager
+from ollama.services.chaos.manager import ChaosManager, ExperimentState
 from ollama.services.chaos.metrics import ChaosMetrics
 
 __all__ = [
@@ -50,7 +51,9 @@ __all__ = [
     "ChaosManager",
     "ChaosMetrics",
     "ComputeConfig",
+    "ExperimentState",
     "ExperimentType",
     "FailureMode",
     "NetworkConfig",
+    "SeverityLevel",
 ]

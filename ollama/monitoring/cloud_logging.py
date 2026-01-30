@@ -23,9 +23,10 @@ Example:
 """
 
 import time
-from datetime import datetime, timezone
+from collections.abc import Callable
+from datetime import UTC, datetime
 from functools import wraps
-from typing import Any, Optional
+from typing import Any
 
 try:
     from google.cloud import logging as cloud_logging
@@ -38,7 +39,7 @@ except ImportError:
 
 import structlog
 
-from ollama.config import settings
+from ollama.config import get_settings
 
 # ============================================================================
 # Configuration
@@ -75,7 +76,7 @@ class CloudAuditLogger:
 
     def __init__(
         self,
-        project_id: Optional[str] = None,
+        project_id: str | None = None,
         log_name: str = AUDIT_LOG_NAME,
         fallback_to_stdout: bool = True,
     ) -> None:
@@ -86,7 +87,7 @@ class CloudAuditLogger:
             log_name: Name of the log in Cloud Logging.
             fallback_to_stdout: If True, logs to stdout if Cloud Logging unavailable.
         """
-        self.project_id = project_id or settings.GCP_PROJECT_ID
+        self.project_id = project_id or get_settings().gcp.project_id
         self.log_name = log_name
         self.fallback_to_stdout = fallback_to_stdout
         self._client = None
@@ -106,8 +107,9 @@ class CloudAuditLogger:
             return
 
         try:
-            self._client = cloud_logging.Client(project=self.project_id)
-            self._logger = self._client.logger(self.log_name)
+            client = cloud_logging.Client(project=self.project_id)
+            self._client = client
+            self._logger = client.logger(self.log_name)
             self._local_logger.info(
                 "cloud_logging_initialized",
                 project_id=self.project_id,
@@ -132,13 +134,14 @@ class CloudAuditLogger:
         Returns:
             Formatted log entry with audit metadata
         """
+        settings = get_settings()
         return {
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
             "event": event,
             "severity": severity,
             "service": "ollama-api",
-            "environment": settings.ENVIRONMENT,
-            "version": settings.VERSION,
+            "environment": settings.environment,
+            "version": settings.version,
             **metadata,
         }
 
@@ -165,14 +168,14 @@ class CloudAuditLogger:
 
     def log_api_request(
         self,
-        user_id: Optional[str],
+        user_id: str | None,
         endpoint: str,
         method: str,
         status_code: int,
-        latency_ms: Optional[float] = None,
-        ip_address: Optional[str] = None,
-        user_agent: Optional[str] = None,
-        request_id: Optional[str] = None,
+        latency_ms: float | None = None,
+        ip_address: str | None = None,
+        user_agent: str | None = None,
+        request_id: str | None = None,
         **extra: Any,
     ) -> None:
         """Log API request for audit trail.
@@ -208,7 +211,7 @@ class CloudAuditLogger:
         self,
         user_id: str,
         action: str,
-        resource: Optional[str] = None,
+        resource: str | None = None,
         success: bool = True,
         **extra: Any,
     ) -> None:
@@ -237,9 +240,9 @@ class CloudAuditLogger:
         self,
         event_type: str,
         severity: str,
-        user_id: Optional[str] = None,
-        ip_address: Optional[str] = None,
-        description: Optional[str] = None,
+        user_id: str | None = None,
+        ip_address: str | None = None,
+        description: str | None = None,
         **extra: Any,
     ) -> None:
         """Log security event for audit trail.
@@ -269,7 +272,7 @@ class CloudAuditLogger:
         prompt_length: int,
         response_length: int,
         latency_ms: float,
-        tokens_used: Optional[int] = None,
+        tokens_used: int | None = None,
         **extra: Any,
     ) -> None:
         """Log model inference for audit trail.
@@ -300,7 +303,7 @@ class CloudAuditLogger:
 # Global Logger Instance
 # ============================================================================
 
-_audit_logger: Optional[CloudAuditLogger] = None
+_audit_logger: CloudAuditLogger | None = None
 
 
 def get_audit_logger() -> CloudAuditLogger:
@@ -320,7 +323,7 @@ def get_audit_logger() -> CloudAuditLogger:
 # ============================================================================
 
 
-def log_api_call(func):
+def log_api_call(func: Callable[..., Any]) -> Callable[..., Any]:
     """Decorator to automatically log API calls.
 
     Example:
@@ -331,7 +334,7 @@ def log_api_call(func):
     """
 
     @wraps(func)
-    async def wrapper(*args, **kwargs):
+    async def wrapper(*args: Any, **kwargs: Any) -> Any:
         start_time = time.time()
         logger = get_audit_logger()
 

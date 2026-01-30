@@ -5,8 +5,9 @@ metrics collection for load testing and performance analysis.
 """
 
 import time
+from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Any, Callable, Optional, TypeVar
+from typing import Any, TypeVar
 
 T = TypeVar("T")
 
@@ -27,7 +28,7 @@ class PerformanceMetrics:
     start_time: float
     end_time: float
     success: bool
-    error: Optional[str] = None
+    error: str | None = None
 
     def exceeds_slo(self, slo_ms: float) -> bool:
         """Check if request exceeds SLO threshold.
@@ -113,12 +114,13 @@ class SLOValidator:
         if not self.metrics:
             return True
         stats = self.get_statistics()
-        return stats.get("slo_compliance", 0) >= 95
+        slo_compliance = stats.get("slo_compliance", 0)
+        return bool(isinstance(slo_compliance, (int, float)) and slo_compliance >= 95)
 
 
 def benchmark_async(
-    slo_ms: Optional[float] = None,
-) -> Callable:
+    slo_ms: float | None = None,
+) -> Callable[..., Any]:
     """Decorator for benchmarking async functions.
 
     Args:
@@ -133,7 +135,7 @@ def benchmark_async(
             return {"status": "ok"}
     """
 
-    def decorator(func: Callable) -> Callable:
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         async def wrapper(*args: Any, **kwargs: Any) -> Any:
             start = time.time()
             success = True
@@ -178,8 +180,8 @@ def benchmark_async(
 
 
 def benchmark(
-    slo_ms: Optional[float] = None,
-) -> Callable:
+    slo_ms: float | None = None,
+) -> Callable[..., Any]:
     """Decorator for benchmarking sync functions.
 
     Args:
@@ -189,7 +191,7 @@ def benchmark(
         Decorated function
     """
 
-    def decorator(func: Callable) -> Callable:
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             start = time.time()
             success = True

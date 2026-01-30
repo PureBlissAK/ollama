@@ -1,4 +1,4 @@
-from ollama.auth.zero_trust_impl import ZeroTrustConfig, ZeroTrustManager
+from ollama.auth.zero_trust import ZeroTrustConfig, ZeroTrustManager
 
 
 class _FakeResp:

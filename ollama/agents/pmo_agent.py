@@ -55,9 +55,9 @@ class PMOAgent(Agent):
     - Recommend remediation actions
     """
 
-    def __init__(self, context):
+    def __init__(self, config: Any) -> None:
         """Initialize the PMO agent."""
-        super().__init__(context)
+        super().__init__(config)
         self.name = "PMOAgent"
         self.capabilities = [
             AgentCapability.GENERATE,  # Generate compliance reports
@@ -240,7 +240,7 @@ class PMOAgent(Agent):
 
         try:
             # Would scan all GCP resources in practice
-            drift_results = {
+            drift_results: dict[str, Any] = {
                 "timestamp": "2026-01-26T14:00:00Z",
                 "resources_scanned": 0,
                 "compliant": 0,

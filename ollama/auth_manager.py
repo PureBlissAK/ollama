@@ -8,47 +8,69 @@ single-class-per-file standards.
 """
 
 import logging
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING, Any
 from uuid import UUID
 
-try:
+if TYPE_CHECKING:
     from fastapi import Depends, HTTPException, Security, status
     from fastapi.security import APIKeyHeader, HTTPAuthorizationCredentials, HTTPBearer
-except Exception:  # pragma: no cover - test environments without FastAPI
-    # Lightweight fallbacks so unit tests can import modules without FastAPI installed.
-    def Depends(x=None):
-        return None
+else:
+    try:
+        from fastapi import Depends, HTTPException, Security, status
+        from fastapi.security import APIKeyHeader, HTTPAuthorizationCredentials, HTTPBearer
+    except Exception:  # pragma: no cover
+        # Fallbacks for environments without FastAPI
+        def Depends(dependency: Callable[..., Any] | None = None, *, use_cache: bool = True) -> Any:
+            return None
 
-    class HTTPException(Exception):
-        def __init__(self, status_code=None, detail=None, headers=None):
-            super().__init__(detail)
+        class HTTPException(Exception):
+            def __init__(
+                self,
+                status_code: int,
+                detail: Any = None,
+                headers: dict[str, Any] | None = None,
+            ) -> None:
+                super().__init__(detail)
+                self.status_code = status_code
+                self.detail = detail
+                self.headers = headers
 
-    def Security(x=None):
-        return None
+        def Security(
+            dependency: Callable[..., Any] | None = None,
+            *,
+            scopes: Sequence[str] | None = None,
+            use_cache: bool = True,
+        ) -> Any:
+            return None
 
-    class status:  # type: ignore
-        HTTP_401_UNAUTHORIZED = 401
-        HTTP_403_FORBIDDEN = 403
+        class status:
+            HTTP_401_UNAUTHORIZED = 401
+            HTTP_403_FORBIDDEN = 403
 
-    class APIKeyHeader:  # type: ignore
-        def __init__(self, *args, **kwargs):
-            pass
+        class APIKeyHeader:
+            def __init__(self, name: str, *, auto_error: bool = True) -> None:
+                pass
 
-    class HTTPAuthorizationCredentials:  # type: ignore
-        def __init__(self, scheme=None, credentials=None):
-            self.scheme = scheme
-            self.credentials = credentials
+        class HTTPAuthorizationCredentials:
+            def __init__(self, scheme: str, credentials: str) -> None:
+                self.scheme = scheme
+                self.credentials = credentials
 
-    class HTTPBearer:  # type: ignore
-        def __init__(self, *args, **kwargs):
-            pass
+        class HTTPBearer:
+            def __init__(self, *, auto_error: bool = True) -> None:
+                pass
 
 
-try:
+if TYPE_CHECKING:
     from sqlalchemy.ext.asyncio import AsyncSession
-except Exception:  # pragma: no cover - lightweight test env
+else:
+    try:
+        from sqlalchemy.ext.asyncio import AsyncSession
+    except Exception:  # pragma: no cover
 
-    class AsyncSession:  # type: ignore
-        pass
+        class AsyncSession:
+            pass
 
 
 from ollama.auth import AuthManager

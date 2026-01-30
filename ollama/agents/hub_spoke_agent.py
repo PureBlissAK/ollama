@@ -7,6 +7,7 @@ the hub (kushin77/ollama) and spoke repositories (team-specific forks).
 import asyncio
 from dataclasses import dataclass
 from enum import Enum
+from typing import Any
 
 from ollama.agents.agent import Agent, AgentCapability
 
@@ -48,9 +49,9 @@ class HubSpokeAgent(Agent):
     - Provide visibility into distributed work
     """
 
-    def __init__(self, context):
+    def __init__(self, config: Any) -> None:
         """Initialize the hub-spoke agent."""
-        super().__init__(context)
+        super().__init__(config)
         self.name = "HubSpokeAgent"
         self.capabilities = [
             AgentCapability.GENERATE,  # Generate issue summaries
@@ -58,14 +59,14 @@ class HubSpokeAgent(Agent):
         ]
         self.issues: list[RepositoryIssue] = []
 
-    async def sync_hub_to_spokes(self, hub_issue_id: int) -> dict:
+    async def sync_hub_to_spokes(self, hub_issue_id: int) -> dict[str, Any]:
         """Synchronize a hub issue to spoke repositories.
 
         Args:
             hub_issue_id: ID of the hub issue to sync
 
         Returns:
-            dict: Sync results {repo: status}
+            dict[str, Any]: Sync results {repo: status}
         """
         self.audit_log.log_intent(
             {
@@ -107,11 +108,11 @@ class HubSpokeAgent(Agent):
             )
             raise
 
-    async def aggregate_spoke_updates(self) -> dict:
+    async def aggregate_spoke_updates(self) -> dict[str, Any]:
         """Aggregate updates from spoke repositories back to hub.
 
         Returns:
-            dict: Aggregated updates
+            dict[str, Any]: Aggregated updates
         """
         self.audit_log.log_intent({"action": "aggregate_spoke_updates"})
 
@@ -171,20 +172,22 @@ class HubSpokeAgent(Agent):
 
         return target_repo
 
-    async def escalate_to_hub(self, spoke_issue_id: str) -> dict:
+    async def escalate_to_hub(self, spoke_issue_id: str) -> dict[str, Any]:
         """Escalate a spoke issue to hub.
 
         Args:
             spoke_issue_id: ID of spoke issue to escalate
 
         Returns:
-            dict: Escalation result
+            dict[str, Any]: Escalation result
         """
         self.audit_log.log_intent({"action": "escalate_to_hub", "spoke_issue_id": spoke_issue_id})
 
         try:
             # Fetch spoke issue
             spoke_issue = self._fetch_spoke_issue(spoke_issue_id)
+            if spoke_issue is None:
+                raise ValueError(f"Spoke issue {spoke_issue_id} not found")
 
             # Create hub issue
             hub_issue = await self._create_hub_issue_from_spoke(spoke_issue)
@@ -213,12 +216,12 @@ class HubSpokeAgent(Agent):
     # Helper Methods
     # ============================================================
 
-    def _fetch_hub_issue(self, issue_id: int) -> dict | None:
+    def _fetch_hub_issue(self, issue_id: int) -> dict[str, Any] | None:
         """Fetch issue from hub repository."""
         # Would use GitHub API in practice
         return None
 
-    async def _create_spoke_issue(self, repo: str, issue: dict) -> dict:
+    async def _create_spoke_issue(self, repo: str, issue: dict[str, Any]) -> dict[str, Any]:
         """Create issue in spoke repository."""
         await asyncio.sleep(0.1)  # Simulate API call
         return {"id": f"{repo}-{issue['id']}", "status": "created"}
@@ -236,17 +239,17 @@ class HubSpokeAgent(Agent):
         # Would determine from context in practice
         return "team-a/ollama-fork"
 
-    async def _fetch_spoke_updates(self, repo: str) -> dict:
+    async def _fetch_spoke_updates(self, repo: str) -> dict[str, Any]:
         """Fetch updates from spoke repository."""
         await asyncio.sleep(0.1)  # Simulate API call
         return {"status": "synced", "issues": []}
 
-    def _fetch_spoke_issue(self, issue_id: str) -> dict | None:
+    def _fetch_spoke_issue(self, issue_id: str) -> dict[str, Any] | None:
         """Fetch issue from spoke repository."""
         # Would use GitHub API in practice
         return None
 
-    async def _create_hub_issue_from_spoke(self, spoke_issue: dict) -> dict:
+    async def _create_hub_issue_from_spoke(self, spoke_issue: dict[str, Any]) -> dict[str, Any]:
         """Create hub issue based on spoke issue."""
         await asyncio.sleep(0.1)  # Simulate API call
         return {"id": 999, "status": "created"}

@@ -29,13 +29,13 @@ class CacheManager:
         """
         self.redis_url = redis_url
         self.db = db
-        self.client: aioredis.Redis[Any] | None = None
+        self.client: aioredis.Redis | None = None
 
     async def initialize(self) -> None:
         """Initialize Redis connection"""
         try:
             # from_url is a sync call in redis-py 4.0+
-            self.client = aioredis.from_url(self.redis_url, db=self.db)
+            self.client = aioredis.from_url(self.redis_url, db=self.db)  # type: ignore[no-untyped-call]
             if self.client is not None:
                 await cast(Any, self.client.ping())
             logger.info(f"Cache manager initialized: {self.redis_url}")

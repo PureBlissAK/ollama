@@ -20,7 +20,7 @@ import logging
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from enum import Enum
-from typing import Dict, List, Optional, Tuple
+from typing import Any
 
 # Configure logging
 log = logging.getLogger(__name__)
@@ -48,7 +48,7 @@ class HubCapacity:
     current_requests: int
     max_memory_gb: int
     current_memory_gb: int
-    available_models: List[str]
+    available_models: list[str]
     cpu_utilization_percent: int
     memory_utilization_percent: int
     network_utilization_percent: int
@@ -86,9 +86,9 @@ class Hub:
     capacity: HubCapacity
     status: HubStatus
     version: str
-    supported_models: List[str]
-    labels: Dict[str, str] = field(default_factory=dict)
-    last_heartbeat: Optional[datetime] = None
+    supported_models: list[str]
+    labels: dict[str, str] = field(default_factory=dict)
+    last_heartbeat: datetime | None = None
 
     def is_healthy(self) -> bool:
         """Check if hub is healthy and responsive."""
@@ -113,25 +113,25 @@ class Hub:
 @dataclass
 class TopologySnapshot:
     """Current state of federation topology."""
-    hubs: List[Hub]
+    hubs: list[Hub]
     primary_hub_id: str
-    secondary_hub_id: Optional[str]
+    secondary_hub_id: str | None
     version: int
     timestamp: datetime
-    routing_policies: Dict[str, 'RoutingPolicy'] = field(default_factory=dict)
+    routing_policies: dict[str, "RoutingPolicy"] = field(default_factory=dict)
 
-    def get_hub(self, hub_id: str) -> Optional[Hub]:
+    def get_hub(self, hub_id: str) -> Hub | None:
         """Get hub by ID."""
         for hub in self.hubs:
             if hub.hub_id == hub_id:
                 return hub
         return None
 
-    def get_healthy_hubs(self) -> List[Hub]:
+    def get_healthy_hubs(self) -> list[Hub]:
         """Get all healthy hubs."""
         return [h for h in self.hubs if h.is_healthy()]
 
-    def get_hubs_by_region(self, region: str) -> List[Hub]:
+    def get_hubs_by_region(self, region: str) -> list[Hub]:
         """Get hubs in specific region."""
         return [h for h in self.hubs if h.region == region]
 
@@ -141,15 +141,15 @@ class RoutingPolicy:
     """Policy for routing requests to hubs."""
     policy_id: str
     strategy: RoutingStrategy
-    hub_weights: Dict[str, int]
-    preferred_regions: List[str]
-    fallback_regions: List[str]
+    hub_weights: dict[str, int]
+    preferred_regions: list[str]
+    fallback_regions: list[str]
 
 
 class FederationManager:
     """
     Manages federation of ollama hubs across regions.
-    
+
     Responsibilities:
     - Hub registration & auto-discovery
     - Topology management (tracking all hubs)
@@ -161,18 +161,18 @@ class FederationManager:
     def __init__(self, primary_hub_id: str, region: str = "us-central1"):
         """
         Initialize federation manager.
-        
+
         Args:
             primary_hub_id: Hub ID of primary control plane
             region: Region where this control plane is located
         """
         self.primary_hub_id = primary_hub_id
         self.region = region
-        self.hubs: Dict[str, Hub] = {}
+        self.hubs: dict[str, Hub] = {}
         self.topology_version: int = 1
         self.last_topology_update = datetime.utcnow()
         self.heartbeat_timeout = timedelta(seconds=15)  # 3x heartbeat interval
-        self.routing_policies: Dict[str, RoutingPolicy] = {}
+        self.routing_policies: dict[str, RoutingPolicy] = {}
         self._setup_default_policies()
         log.info(f"FederationManager initialized for {primary_hub_id} in {region}")
 
@@ -190,10 +190,10 @@ class FederationManager:
     def register_hub(self, hub: Hub) -> None:
         """
         Register a hub with the federation.
-        
+
         Args:
             hub: Hub to register
-            
+
         Raises:
             ValueError: If hub_id already registered
         """
@@ -213,7 +213,7 @@ class FederationManager:
     def unregister_hub(self, hub_id: str) -> None:
         """
         Unregister a hub from federation (graceful shutdown).
-        
+
         Args:
             hub_id: Hub to unregister
         """
@@ -231,7 +231,7 @@ class FederationManager:
                              status: HubStatus) -> None:
         """
         Update hub heartbeat and health status.
-        
+
         Args:
             hub_id: Hub identifier
             capacity: Current hub capacity metrics
@@ -249,13 +249,13 @@ class FederationManager:
         log.debug(f"Heartbeat: {hub_id} - {status.value} "
                   f"({hub.capacity.current_requests}/{hub.capacity.max_concurrent_requests})")
 
-    def check_hub_health(self, hub_id: str) -> Tuple[bool, str]:
+    def check_hub_health(self, hub_id: str) -> tuple[bool, str]:
         """
         Check if hub is healthy and responsive.
-        
+
         Args:
             hub_id: Hub to check
-            
+
         Returns:
             Tuple of (is_healthy, status_message)
         """
@@ -278,10 +278,10 @@ class FederationManager:
 
         return True, "Healthy"
 
-    def remove_unhealthy_hubs(self) -> List[str]:
+    def remove_unhealthy_hubs(self) -> list[str]:
         """
         Check all hubs and remove ones that are unhealthy.
-        
+
         Returns:
             List of removed hub IDs
         """
@@ -307,7 +307,7 @@ class FederationManager:
     def get_topology(self) -> TopologySnapshot:
         """
         Get current federation topology.
-        
+
         Returns:
             TopologySnapshot with all registered hubs
         """
@@ -320,21 +320,25 @@ class FederationManager:
             routing_policies=self.routing_policies
         )
 
-    def route_request(self, model: str, client_region: Optional[str] = None,
-                      estimated_tokens: int = 0,
-                      required_features: Optional[List[str]] = None) -> Optional[Hub]:
+    def route_request(
+        self,
+        model: str,
+        client_region: str | None = None,
+        estimated_tokens: int = 0,
+        required_features: list[str] | None = None,
+    ) -> Hub | None:
         """
         Route inference request to best hub.
-        
+
         Uses latency-aware routing: prefers hubs in client's region,
         falls back to other regions based on latency and capacity.
-        
+
         Args:
             model: Model name to serve
             client_region: Client's region hint
             estimated_tokens: Estimated tokens to generate
             required_features: Required hub features
-            
+
         Returns:
             Recommended Hub or None if no suitable hub found
         """
@@ -360,10 +364,10 @@ class FederationManager:
         # Return hub with best capacity
         return candidates[0]
 
-    def get_routing_stats(self) -> Dict[str, any]:
+    def get_routing_stats(self) -> dict[str, Any]:
         """
         Get statistics about federation state.
-        
+
         Returns:
             Dictionary with federation metrics
         """
@@ -384,9 +388,9 @@ class FederationManager:
             "hubs_by_region": self._count_hubs_by_region()
         }
 
-    def _count_hubs_by_region(self) -> Dict[str, int]:
+    def _count_hubs_by_region(self) -> dict[str, int]:
         """Count hubs by region."""
-        counts = {}
+        counts: dict[str, int] = {}
         for hub in self.hubs.values():
             counts[hub.region] = counts.get(hub.region, 0) + 1
         return counts
@@ -398,7 +402,7 @@ __all__ = [
     "Hub",
     "HubCapacity",
     "HubStatus",
-    "TopologySnapshot",
     "RoutingPolicy",
     "RoutingStrategy",
+    "TopologySnapshot",
 ]

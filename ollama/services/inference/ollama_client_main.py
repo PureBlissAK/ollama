@@ -111,16 +111,31 @@ class OllamaClient:
         return await self.generate_embeddings(model, prompt)
 
     async def generate_stream(
-        self, request: GenerateRequest
+        self,
+        request: GenerateRequest | None = None,
+        **kwargs: Any,
     ) -> AsyncGenerator[GenerateResponse, None]:
         """Generate text completion with streaming.
 
         Args:
             request: Generation request with prompt and parameters.
+            **kwargs: Keyword arguments (prompt, model, etc.) for backward compatibility.
 
         Yields:
             Generated response chunks.
         """
+        if request is None:
+            # Reconstruct request from kwargs for backward compatibility
+            request = GenerateRequest(
+                prompt=kwargs.get("prompt", ""),
+                model=kwargs.get("model", "llama3.2"),
+                temperature=kwargs.get("temperature", 0.7),
+                top_p=kwargs.get("top_p", 0.9),
+                top_k=kwargs.get("top_k", 40),
+                num_predict=kwargs.get("num_predict", 128),
+                stop=kwargs.get("stop"),
+            )
+
         log.info("ollama_generate_stream", model=request.model, prompt_len=len(request.prompt))
 
         payload: dict[str, Any] = {
@@ -156,11 +171,16 @@ class OllamaClient:
                     eval_duration=data.get("eval_duration", 0),
                 )
 
-    async def generate(self, request: GenerateRequest) -> GenerateResponse:
+    async def generate(
+        self,
+        request: GenerateRequest | None = None,
+        **kwargs: Any,
+    ) -> GenerateResponse:
         """Generate text completion.
 
         Args:
             request: Generation request with prompt and parameters.
+            **kwargs: Keyword arguments (prompt, model, etc.) for backward compatibility.
 
         Returns:
             Generated response with text and timing information.
@@ -168,6 +188,18 @@ class OllamaClient:
         Raises:
             httpx.HTTPError: If API request fails.
         """
+        if request is None:
+            # Reconstruct request from kwargs for backward compatibility
+            request = GenerateRequest(
+                prompt=kwargs.get("prompt", ""),
+                model=kwargs.get("model", "llama3.2"),
+                temperature=kwargs.get("temperature", 0.7),
+                top_p=kwargs.get("top_p", 0.9),
+                top_k=kwargs.get("top_k", 40),
+                num_predict=kwargs.get("num_predict", 128),
+                stop=kwargs.get("stop"),
+            )
+
         log.info("ollama_generate", model=request.model, prompt_len=len(request.prompt))
 
         payload: dict[str, Any] = {

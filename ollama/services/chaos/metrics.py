@@ -26,7 +26,7 @@ Example:
 """
 
 from collections import defaultdict
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 
 import structlog
@@ -41,12 +41,12 @@ class ExperimentMetrics:
 
     experiment_id: str
     experiment_name: str
-    start_time: datetime
+    start_time: datetime = field(default_factory=datetime.now)
     requests_total: int = 0
     requests_succeeded: int = 0
     requests_failed: int = 0
     requests_timeout: int = 0
-    error_types: dict[str, int] | None = None
+    error_types: dict[str, int] = field(default_factory=lambda: defaultdict(int))
     circuit_breaker_trips: int = 0
     cascading_failures: int = 0
     latency_p50_ms: float = 0.0
@@ -54,14 +54,7 @@ class ExperimentMetrics:
     latency_p99_ms: float = 0.0
     latency_max_ms: float = 0.0
     recovery_time_seconds: float | None = None
-    observed_failure_modes: list[str] | None = None
-
-    def __post_init__(self) -> None:
-        """Initialize default values."""
-        if self.error_types is None:
-            self.error_types = defaultdict(int)
-        if self.observed_failure_modes is None:
-            self.observed_failure_modes = []
+    observed_failure_modes: list[str] = field(default_factory=list)
 
     @property
     def success_rate(self) -> float:
@@ -369,7 +362,7 @@ class ChaosMetrics:
             "circuit_breaker_trips": total_cb_trips,
             "cascading_failures": total_cascading,
             "unique_failure_modes": len(
-                set(mode for e in experiments for mode in e.observed_failure_modes)
+                {mode for e in experiments for mode in e.observed_failure_modes}
             ),
         }
 

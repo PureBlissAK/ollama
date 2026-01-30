@@ -7,7 +7,8 @@ unit tests that import submodules (like ``zero_trust``) can run without
 installing full runtime dependencies.
 """
 
-from typing import Any, TYPE_CHECKING, Awaitable, Callable
+from collections.abc import Awaitable, Callable
+from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
     # Import FastAPI types only for static type checking; avoid runtime dependency.
@@ -26,9 +27,15 @@ try:
     )
     from .impl.manager import AuthManager
     from .impl.middleware import require_auth, verify_token_optional
+    from .policy import OPAAdapter, PolicyEngine, SimplePolicyEngine
+    from .zero_trust import ZeroTrustManager
 
     __all__ = [
         "AuthManager",
+        "OPAAdapter",
+        "PolicyEngine",
+        "SimplePolicyEngine",
+        "ZeroTrustManager",
         "get_current_user",
         "get_or_create_user",
         "init_firebase",
@@ -51,13 +58,13 @@ except Exception:  # pragma: no cover - defensive for test environments
         raise RuntimeError("get_or_create_user is not available in lightweight test env")
 
     def require_role(allowed_roles: list[str]) -> Callable[[dict[str, Any]], Awaitable[dict[str, Any]]]:
-        def _stub(user: dict[str, Any]) -> Awaitable[dict[str, Any]]:  # type: ignore[return-value]
+        async def _stub(user: dict[str, Any]) -> dict[str, Any]:
             raise RuntimeError("require_role is not available in lightweight test env")
 
         return _stub
 
     def require_root_admin(root_admin_email: str) -> Callable[[dict[str, Any]], Awaitable[dict[str, Any]]]:
-        def _stub(user: dict[str, Any]) -> Awaitable[dict[str, Any]]:  # type: ignore[return-value]
+        async def _stub(user: dict[str, Any]) -> dict[str, Any]:
             raise RuntimeError("require_root_admin is not available in lightweight test env")
 
         return _stub
@@ -80,8 +87,26 @@ except Exception:  # pragma: no cover - defensive for test environments
 
     AuthManager = AuthManagerStub  # type: ignore[misc,assignment]
 
+    class ZeroTrustManagerStub:
+        def __init__(self, *args: Any, **kwargs: Any) -> None:
+            raise RuntimeError("ZeroTrustManager is not available in lightweight test env")
+
+    ZeroTrustManager = ZeroTrustManagerStub  # type: ignore[misc,assignment]
+
+    class PolicyEngineStub:
+        def evaluate(self, *args: Any, **kwargs: Any) -> bool:
+            raise RuntimeError("PolicyEngine is not available in lightweight test env")
+
+    PolicyEngine = PolicyEngineStub # type: ignore
+    SimplePolicyEngine = PolicyEngineStub # type: ignore
+    OPAAdapter = PolicyEngineStub # type: ignore
+
     __all__ = [
         "AuthManager",
+        "OPAAdapter",
+        "PolicyEngine",
+        "SimplePolicyEngine",
+        "ZeroTrustManager",
         "get_current_user",
         "get_or_create_user",
         "init_firebase",

@@ -13,23 +13,25 @@ import threading
 import time
 from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Any, Optional, Type, Dict, cast
 from types import ModuleType
+from typing import Any, cast
 
 from ollama.auth.policy import OPAAdapter, SimplePolicyEngine
 
 try:
     import jwt as _jwt  # PyJWT
     from jwt import PyJWKClient as _PyJWKClient
-    jwt_mod: Optional[ModuleType] = _jwt
-    PyJWKClientType: Optional[Type[Any]] = _PyJWKClient
+
+    jwt_mod: ModuleType | None = _jwt
+    PyJWKClientType: type[Any] | None = _PyJWKClient
 except Exception:  # pragma: no cover - optional dependency
     jwt_mod = None
     PyJWKClientType = None
 
 try:
     import requests as _requests
-    requests_mod: Optional[ModuleType] = _requests
+
+    requests_mod: ModuleType | None = _requests
 except Exception:  # pragma: no cover - optional dependency
     requests_mod = None
 
@@ -76,15 +78,18 @@ class ZeroTrustManager:
         padding = "=" * (-len(payload_b64) % 4)
         payload_b64 += padding
         decoded = base64.urlsafe_b64decode(payload_b64.encode())
-        return cast(Dict[str, Any], json.loads(decoded))
+        return cast(dict[str, Any], json.loads(decoded))
 
     def _select_key_from_jwks(self, jwks_url: str, token: str, ttl: int = 300) -> Any:
         """Select a signing key from JWKS for the provided token's `kid`.
 
         Raises RuntimeError on failure.
         """
+        assert jwt_mod is not None, "jwt_mod must be available"
         if requests_mod is None:
-            raise RuntimeError("requests required for JWKS fetching when PyJWKClient is unavailable")
+            raise RuntimeError(
+                "requests required for JWKS fetching when PyJWKClient is unavailable"
+            )
 
         jwks = self._fetch_jwks(jwks_url, ttl=ttl)
         try:
@@ -93,7 +98,7 @@ class ZeroTrustManager:
         except Exception:
             raise RuntimeError("Failed to parse JWT header to determine `kid`")
 
-        jwk: Optional[Dict[str, Any]] = None
+        jwk: dict[str, Any] | None = None
         for k in jwks.get("keys", []):
             if k.get("kid") == kid:
                 jwk = k
@@ -111,6 +116,7 @@ class ZeroTrustManager:
             raise RuntimeError("No matching JWK found for token kid after refresh")
 
         try:
+            assert jwt_mod is not None
             return jwt_mod.algorithms.RSAAlgorithm.from_jwk(json.dumps(jwk))
         except Exception as e:
             raise RuntimeError(f"Failed to construct key from JWK: {e}")
@@ -162,7 +168,7 @@ class ZeroTrustManager:
             leeway=leeway,
             options=options,
         )
-        return cast(Dict[str, Any], claims)
+        return cast(dict[str, Any], claims)
 
     def _fetch_jwks(self, jwks_url: str, ttl: int = 300) -> dict[str, Any]:
         now = time.time()
@@ -173,7 +179,7 @@ class ZeroTrustManager:
                 entry_ttl = entry.get("ttl", ttl)
                 if now - fetched_at < entry_ttl:
                     self.jwks_cache_hits += 1
-                    return entry.get("jwks", {})
+                    return cast(dict[str, Any], entry.get("jwks", {}))
             self.jwks_cache_misses += 1
 
         backoff = 0.5
@@ -184,13 +190,13 @@ class ZeroTrustManager:
                 self.jwks_fetch_count += 1
                 if requests_mod is None:
                     raise RuntimeError("requests is required to fetch JWKS")
-                resp = requests_mod.get(jwks_url, timeout=5)  # type: ignore[attr-defined]
+                resp = requests_mod.get(jwks_url, timeout=5)
                 if resp.status_code != 200:
                     raise RuntimeError(f"Failed to fetch JWKS: HTTP {resp.status_code}")
                 jwks = resp.json()
                 with self._jwks_lock:
                     self._jwks_cache[jwks_url] = {"jwks": jwks, "fetched_at": now, "ttl": ttl}
-                return cast(Dict[str, Any], jwks)
+                return cast(dict[str, Any], jwks)
             except Exception as e:
                 self.jwks_fetch_errors += 1
                 last_exc = e

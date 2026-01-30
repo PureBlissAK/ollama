@@ -278,7 +278,7 @@ class BaseEliteAgent(ABC):
         - Error classification
         - Metrics tracking
         """
-        execution_id = str(uuid4())
+        str(uuid4())
         start_time = datetime.utcnow()
 
         for attempt in range(max_retries):

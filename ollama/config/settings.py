@@ -266,6 +266,7 @@ class Settings(BaseSettings):
 
     environment: Environment = Field(default=Environment.DEVELOPMENT)
     debug: bool = Field(default=False)
+    version: str = Field(default="1.0.0")
 
     # Sub-configurations
     database: DatabaseSettings = Field(default_factory=DatabaseSettings)
@@ -283,6 +284,7 @@ class Settings(BaseSettings):
         env_file=".env",
         env_file_encoding="utf-8",
         case_sensitive=False,
+        env_nested_delimiter="__",
     )
 
     def __init__(self, **data: Any) -> None:

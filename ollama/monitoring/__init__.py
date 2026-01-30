@@ -1,5 +1,6 @@
 """Monitoring domain."""
 
+from .fastapi_instrumentation import OTLPInstrumentor
 from .impl.jaeger_config import init_jaeger
 from .impl.metrics import (
     AUTH_ATTEMPTS,
@@ -16,11 +17,9 @@ from .impl.metrics import (
     get_metrics_summary,
 )
 from .impl.metrics_middleware import MetricsCollectionMiddleware, setup_metrics_endpoints
+from .otlp_collector import get_otlp_manager, setup_otlp_tracing
 
 __all__ = [
-    "setup_metrics_endpoints",
-    "MetricsCollectionMiddleware",
-    "init_jaeger",
     "AUTH_ATTEMPTS",
     "CACHE_HITS",
     "CACHE_MISSES",
@@ -30,7 +29,13 @@ __all__ = [
     "REQUEST_DURATION",
     "REQUEST_SIZE",
     "RESPONSE_SIZE",
+    "MetricsCollectionMiddleware",
+    "OTLPInstrumentor",
     "export_metrics",
     "generate_latest",
     "get_metrics_summary",
+    "get_otlp_manager",
+    "init_jaeger",
+    "setup_metrics_endpoints",
+    "setup_otlp_tracing",
 ]
