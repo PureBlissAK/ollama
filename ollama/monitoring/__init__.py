@@ -1,36 +1,7 @@
-"""Monitoring domain."""
+"""Compatibility package for `ollama.monitoring` re-exporting moved
+implementation under `ollama._legacy.monitoring`.
+"""
 
-from .impl.jaeger_config import init_jaeger
-from .impl.metrics import (
-    AUTH_ATTEMPTS,
-    CACHE_HITS,
-    CACHE_MISSES,
-    OLLAMA_TOKENS_GENERATED,
-    RATE_LIMIT_EXCEEDED,
-    REQUEST_COUNT,
-    REQUEST_DURATION,
-    REQUEST_SIZE,
-    RESPONSE_SIZE,
-    export_metrics,
-    generate_latest,
-    get_metrics_summary,
-)
-from .impl.metrics_middleware import MetricsCollectionMiddleware, setup_metrics_endpoints
+from ._legacy.monitoring import *  # noqa: F401,F403
 
-__all__ = [
-    "setup_metrics_endpoints",
-    "MetricsCollectionMiddleware",
-    "init_jaeger",
-    "AUTH_ATTEMPTS",
-    "CACHE_HITS",
-    "CACHE_MISSES",
-    "OLLAMA_TOKENS_GENERATED",
-    "RATE_LIMIT_EXCEEDED",
-    "REQUEST_COUNT",
-    "REQUEST_DURATION",
-    "REQUEST_SIZE",
-    "RESPONSE_SIZE",
-    "export_metrics",
-    "generate_latest",
-    "get_metrics_summary",
-]
+__all__ = getattr(__import__("ollama._legacy.monitoring", fromlist=["*"]), "__all__", [])

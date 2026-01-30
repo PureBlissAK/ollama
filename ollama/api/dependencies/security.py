@@ -20,7 +20,7 @@ async def get_dlp_redactor() -> DLPRedactor:
 
     if _dlp_redactor is None:
         settings = get_settings()
-        _dlp_redactor = DLPRedactor(project_id=settings.gcp_project_id)
+        _dlp_redactor = DLPRedactor(project_id=settings.gcp.project_id)
         log.info("DLP redactor dependency initialized")
 
     return _dlp_redactor

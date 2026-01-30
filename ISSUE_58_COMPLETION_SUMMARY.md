@@ -19,8 +19,9 @@ Issue #58 requested creation and maintenance of comprehensive GitHub Copilot ins
 ### 2. New Sections Added
 
 #### A. FAANG-Level Ruthless Mentor Master Prompt (NEW)
+
 - **Lines**: 25-120
-- **Content**: 
+- **Content**:
   - 10 core responsibilities of FAANG principal engineers
   - Enterprise Architecture Brutality
   - No-Bullshit Code Review
@@ -36,33 +37,39 @@ Issue #58 requested creation and maintenance of comprehensive GitHub Copilot ins
 - **Mission**: BUILD FAANG-LEVEL EVERYTHING
 
 #### B. Elite AI Engineering Standards (NEW)
+
 - **Lines**: 2,280-2,460
 - **Sub-sections**:
 
 ##### 1. AI Model Integration Mandate
+
 - Model versioning (no `latest` tags)
 - Inference performance requirements (P99 latency, memory usage)
 - Model evaluation pipeline (benchmarking, drift detection, A/B testing)
 - Prompt engineering best practices (templates, caching, structure)
 
 ##### 2. Elite AI Agent Development
+
 - Agent architecture (state machines, deterministic routing)
 - Tool/function availability (graceful degradation, dry-run mode)
 - Reasoning & decision making (transparency, confidence scoring)
 - Knowledge base management (versioning, schema, lineage tracking)
 
 ##### 3. Data Science & ML Operations Mandate
+
 - Data quality (validation, schema enforcement, lineage)
 - Model training & evaluation (stratified splits, cross-validation)
 - Production ML pipelines (orchestration, monitoring, auto-retraining)
 - Model registry & governance (versioning, signing, approval tracking)
 
 ##### 4. Performance Engineering for AI Systems
+
 - Inference optimization (profiling, batching, quantization, caching)
 - Scaling considerations (horizontal scaling, connection pooling, backpressure)
 - Cost optimization (cost per inference, spot instances, model selection)
 
 ##### 5. Collaboration Standards
+
 - Code review process (2+ reviewers, CODEOWNERS, branch protection)
 - Documentation standards (user-facing docs, API examples, ADRs, runbooks)
 - Knowledge sharing (architecture reviews, wikis, incident learnings)
@@ -73,6 +80,7 @@ Issue #58 requested creation and maintenance of comprehensive GitHub Copilot ins
 **New Version**: 2.1.0 (January 27, 2026)
 
 **Changes**:
+
 - Added "Elite AI Engineering Standards" indicator ✅
 - Added "FAANG Ruthless Review Process" indicator ✅
 - Updated "Maintained By" to include "GitHub Copilot AI Agent"
@@ -143,24 +151,28 @@ Status: ✅ Successfully pushed
 ## Key Features
 
 ### 1. FAANG-Grade Standards
+
 - Top 0.01% engineer perspective
 - No compromise on quality
 - Fortune 100 company standards
 - Enterprise-scale thinking (millions of users)
 
 ### 2. Specific, Actionable Guidance
+
 - Never vague ("use caching" ❌)
 - Specific with metrics ("Redis with 5-min TTL, 70% hit rate, 150ms reduction" ✅)
 - Quantified recommendations throughout
 - Before/after comparisons required
 
 ### 3. Production-Ready Focus
+
 - HA/DR audit required
 - Failure mode analysis expected
 - 3 a.m. incident prevention
 - SLO/SLI definition mandatory
 
 ### 4. Security & Compliance
+
 - Security red team mode enabled
 - Zero hardcoded credentials
 - GPG signed commits mandatory
@@ -168,6 +180,7 @@ Status: ✅ Successfully pushed
 - Landing Zone compliance checked
 
 ### 5. AI/ML Excellence
+
 - Model versioning (no `latest`)
 - Inference performance benchmarking
 - Model drift detection
@@ -176,6 +189,7 @@ Status: ✅ Successfully pushed
 - Prompt engineering best practices
 
 ### 6. Performance Excellence
+
 - Profile before optimizing
 - Quantified improvements required
 - P99 latency monitoring
@@ -183,6 +197,7 @@ Status: ✅ Successfully pushed
 - Cost per inference tracking
 
 ### 7. Collaboration Excellence
+
 - 2+ reviewer requirement
 - Branch protection rules
 - ADR documentation required

@@ -4,6 +4,7 @@ FastAPI-based AI inference server with production-grade features
 """
 
 import logging
+import os
 import sys
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
@@ -27,18 +28,20 @@ from ollama.api.routes import (
 )
 
 # Phase 8: Consolidated settings (replaces old config)
-from ollama.config.settings import get_settings
+from ollama.config.settings import Settings, get_settings
 from ollama.middleware.impl.rate_limit import RateLimitMiddleware
 
 # Phase 6: Rate limiting
 from ollama.middleware.rate_limiter import RateLimiter
 
 # Phase 7: Performance monitoring
-from ollama.monitoring import (
+from ollama.monitoring import (  # type: ignore[attr-defined]
     MetricsCollectionMiddleware,
-    init_jaeger,
+    OTLPInstrumentor,
     setup_metrics_endpoints,
+    setup_otlp_tracing,
 )
+from ollama.monitoring.profiling_endpoint import router as profiling_router
 from ollama.services import get_db_manager, init_cache, init_database, init_vector_db
 from ollama.services.inference.ollama_client import (
     clear_ollama_client,
@@ -125,7 +128,7 @@ async def get_training_engine() -> Any | None:
     return _training_worker.engine
 
 
-async def _startup_firebase(settings: Any) -> None:
+async def _startup_firebase(settings: Settings) -> None:
     """Initialize Firebase OAuth if enabled."""
     firebase_enabled = getattr(settings, "firebase_enabled", False)
     if firebase_enabled:
@@ -143,16 +146,12 @@ async def _startup_firebase(settings: Any) -> None:
         logger.info("⚠️  Firebase OAuth disabled (FIREBASE_ENABLED=false)")
 
 
-async def _startup_database(settings: Any) -> None:
+async def _startup_database(settings: Settings) -> None:
     """Initialize database connection pool."""
     logger.info("📦 Initializing database connection...")
     try:
         # Phase 8: Use consolidated settings with auto-generated URL
-        db_url = (
-            settings.database.url
-            if hasattr(settings, "database")
-            else getattr(settings, "database_url", None)
-        )
+        db_url = str(settings.database.url)
         db_manager = init_database(db_url, echo=False)
         await db_manager.initialize()
         logger.info("✅ Database connected")
@@ -161,7 +160,7 @@ async def _startup_database(settings: Any) -> None:
         logger.warning("⚠️  Running in degraded mode - persistence disabled")
 
 
-async def _startup_cache(settings: Any) -> None:
+async def _startup_cache(settings: Settings) -> None:
     """Initialize Redis connection."""
     logger.info("🔴 Connecting to Redis...")
     try:
@@ -169,12 +168,8 @@ async def _startup_cache(settings: Any) -> None:
         from ollama.services.cache.resilient_cache import ResilientCacheManager
 
         # Phase 8: Use consolidated settings with auto-generated URL
-        redis_url = (
-            settings.redis.url
-            if hasattr(settings, "redis")
-            else getattr(settings, "redis_url", None)
-        )
-        redis_db = settings.redis.db if hasattr(settings, "redis") else 0
+        redis_url = str(settings.redis.url)
+        redis_db = settings.redis.db
         cache_manager = init_cache(redis_url, db=redis_db)
         await cache_manager.initialize()
 
@@ -188,7 +183,7 @@ async def _startup_cache(settings: Any) -> None:
         logger.warning("⚠️  Caching disabled")
 
 
-async def _startup_vector_db(settings: Any) -> None:
+async def _startup_vector_db(settings: Settings) -> None:
     """Initialize Qdrant client."""
     logger.info("🔷 Connecting to Qdrant...")
     try:
@@ -196,12 +191,7 @@ async def _startup_vector_db(settings: Any) -> None:
         from ollama.services.models.resilient_vector import ResilientVectorManager
 
         # Phase 8: Use consolidated settings with auto-generated URL
-        if hasattr(settings, "vector_db"):
-            vector_url = settings.vector_db.url
-        else:
-            qdrant_host = getattr(settings, "qdrant_host", "qdrant")
-            qdrant_port = getattr(settings, "qdrant_port", 6333)
-            vector_url = f"http://{qdrant_host}:{qdrant_port}"
+        vector_url = str(settings.vector_db.url)
 
         vector_manager = init_vector_db(vector_url)
         await vector_manager.initialize()
@@ -216,16 +206,12 @@ async def _startup_vector_db(settings: Any) -> None:
         logger.warning("⚠️  Vector search disabled")
 
 
-async def _startup_ollama(settings: Any) -> None:
+async def _startup_ollama(settings: Settings) -> None:
     """Initialize Ollama inference client."""
     logger.info("🤖 Connecting to Ollama inference engine...")
     # Phase 8: Use consolidated settings
-    if hasattr(settings, "ollama"):
-        ollama_base_url = settings.ollama.base_url
-        ollama_timeout = settings.ollama.timeout
-    else:
-        ollama_base_url = getattr(settings, "ollama_base_url", "http://ollama:11434")
-        ollama_timeout = getattr(settings, "ollama_request_timeout", 300.0)
+    ollama_base_url = str(settings.ollama.base_url)
+    ollama_timeout = float(settings.ollama.timeout)
 
     ollama_client = init_ollama_client(
         base_url=ollama_base_url,
@@ -277,28 +263,35 @@ async def _startup_training_worker() -> None:
         # We don't raise here as training is an enhancement, not core to inference
 
 
-async def _startup_jaeger() -> None:
-    """Initialize Jaeger distributed tracing."""
-    logger.info("🔍 Initializing Jaeger distributed tracing...")
+async def _startup_tracing(app: FastAPI) -> None:
+    """Initialize OpenTelemetry distributed tracing via OTLP."""
+    logger.info("🔍 Initializing OpenTelemetry distributed tracing (OTLP)...")
     try:
-        jaeger_config = init_jaeger(
+        settings = get_settings()
+        # Initialize OTLP Collector Manager
+        setup_otlp_tracing(
             service_name="ollama-api",
-            jaeger_host="jaeger",
-            jaeger_port=6831,
-            trace_sample_rate=0.1,
+            endpoint=os.getenv("OTEL_EXPORTER_OTLP_ENDPOINT", "http://otel-collector:4317"),
+            sample_rate=1.0 if settings.debug else 0.1,
         )
-        jaeger_config.initialize_tracer()
-        logger.info("✅ Jaeger tracing initialized")
+
+        # Instrument FastAPI and other libraries
+        OTLPInstrumentor.instrument_all(app=app)
+
+        logger.info("✅ OpenTelemetry tracing initialized (OTLP)")
     except Exception as e:
-        logger.warning(f"⚠️  Jaeger tracing not available: {e}")
+        logger.warning(f"⚠️  OpenTelemetry tracing not available: {e}")
 
 
 # Application lifespan management
 @asynccontextmanager
-async def lifespan(_: FastAPI) -> AsyncGenerator[None, None]:
-    """Manage application startup and shutdown"""
+async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
+    """Manage application startup and shutdown."""
     settings = get_settings()
     logger.info("🚀 Starting Ollama API Server")
+
+    # Initialize tracing
+    await _startup_tracing(app)
     # Phase 8: Environment detection
     env = settings.environment.value if hasattr(settings, "environment") else "production"
     logger.info(f"Environment: {env}")
@@ -319,7 +312,6 @@ async def lifespan(_: FastAPI) -> AsyncGenerator[None, None]:
         await _startup_cache(settings)
         await _startup_vector_db(settings)
         await _startup_ollama(settings)
-        await _startup_jaeger()
         await _startup_training_worker()
         logger.info("✅ Ollama API Server started successfully")
 
@@ -388,7 +380,7 @@ def create_app() -> FastAPI:
 
     # Phase 6: Initialize rate limiter with Redis backend
     try:
-        redis_url = settings.redis.url if hasattr(settings, "redis") else settings.redis_url
+        redis_url = str(settings.redis.url)
         app.state.rate_limiter = RateLimiter(redis_url=redis_url)
         logger.info("✅ Phase 6: Rate limiter initialized (Redis backend)")
     except Exception as e:
@@ -473,6 +465,13 @@ def create_app() -> FastAPI:
     app.include_router(documents.router, tags=["Documents"])
     app.include_router(usage.router, tags=["Usage"])
     app.include_router(training_jobs.router, prefix="/api/v1/training", tags=["Training"])
+
+    # Development-only profiling endpoints (do not expose in production)
+    try:
+        app.include_router(profiling_router, prefix="/monitoring", tags=["Profiling"])
+    except Exception:
+        # Defensive: if instrumentation/profiling unavailable, continue
+        logger.debug("Profiling router not available; skipping")
 
     # Setup metrics endpoints
     setup_metrics_endpoints(app)

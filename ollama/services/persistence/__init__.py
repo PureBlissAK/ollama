@@ -6,7 +6,6 @@ serialization. Manages conversations, chat history, and document storage.
 This module provides the data access layer for the application.
 """
 
-from ollama.services.persistence.cache import CacheManager, get_cache_manager, init_cache
 from ollama.services.persistence.chat_message import ChatMessage
 from ollama.services.persistence.chat_request import ChatRequest
 from ollama.services.persistence.database import (
@@ -19,7 +18,6 @@ from ollama.services.persistence.database import (
 Database = DatabaseManager
 
 __all__: list[str] = [
-    "CacheManager",
     "ChatMessage",
     "ChatRequest",
     "Database",

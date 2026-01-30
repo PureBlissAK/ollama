@@ -8,11 +8,70 @@ single-class-per-file standards.
 """
 
 import logging
+from collections.abc import Callable, Sequence
+from typing import TYPE_CHECKING, Any
 from uuid import UUID
 
-from fastapi import Depends, HTTPException, Security, status
-from fastapi.security import APIKeyHeader, HTTPAuthorizationCredentials, HTTPBearer
-from sqlalchemy.ext.asyncio import AsyncSession
+if TYPE_CHECKING:
+    from fastapi import Depends, HTTPException, Security, status
+    from fastapi.security import APIKeyHeader, HTTPAuthorizationCredentials, HTTPBearer
+else:
+    try:
+        from fastapi import Depends, HTTPException, Security, status
+        from fastapi.security import APIKeyHeader, HTTPAuthorizationCredentials, HTTPBearer
+    except Exception:  # pragma: no cover
+        # Fallbacks for environments without FastAPI
+        def Depends(dependency: Callable[..., Any] | None = None, *, use_cache: bool = True) -> Any:
+            return None
+
+        class HTTPException(Exception):
+            def __init__(
+                self,
+                status_code: int,
+                detail: Any = None,
+                headers: dict[str, Any] | None = None,
+            ) -> None:
+                super().__init__(detail)
+                self.status_code = status_code
+                self.detail = detail
+                self.headers = headers
+
+        def Security(
+            dependency: Callable[..., Any] | None = None,
+            *,
+            scopes: Sequence[str] | None = None,
+            use_cache: bool = True,
+        ) -> Any:
+            return None
+
+        class status:
+            HTTP_401_UNAUTHORIZED = 401
+            HTTP_403_FORBIDDEN = 403
+
+        class APIKeyHeader:
+            def __init__(self, name: str, *, auto_error: bool = True) -> None:
+                pass
+
+        class HTTPAuthorizationCredentials:
+            def __init__(self, scheme: str, credentials: str) -> None:
+                self.scheme = scheme
+                self.credentials = credentials
+
+        class HTTPBearer:
+            def __init__(self, *, auto_error: bool = True) -> None:
+                pass
+
+
+if TYPE_CHECKING:
+    from sqlalchemy.ext.asyncio import AsyncSession
+else:
+    try:
+        from sqlalchemy.ext.asyncio import AsyncSession
+    except Exception:  # pragma: no cover
+
+        class AsyncSession:
+            pass
+
 
 from ollama.auth import AuthManager
 from ollama.config import get_settings

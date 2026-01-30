@@ -17,15 +17,15 @@ Features:
 - Cost attribution by cost-center
 """
 
-from typing import Dict, List, Optional, Any, Tuple
-from dataclasses import dataclass, field, asdict
-from datetime import datetime, timedelta, UTC
+from dataclasses import asdict, dataclass, field
+from datetime import UTC, datetime, timedelta
 from enum import Enum
-import logging
-import json
+from typing import Any
+
+import structlog
 
 # Configure logging
-log = logging.getLogger(__name__)
+log = structlog.get_logger(__name__)
 
 
 class CostCategory(Enum):
@@ -59,9 +59,9 @@ class ResourceMetric:
     value: float
     unit: str                       # e.g., "cores", "GB", "count"
     timestamp: datetime
-    labels: Dict[str, str] = field(default_factory=dict)
+    labels: dict[str, str] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary."""
         return {
             **asdict(self),
@@ -81,11 +81,11 @@ class CostSample:
     usage_unit: str = ""
     region: str = "global"
     timestamp: datetime = field(default_factory=lambda: datetime.now(UTC))
-    forecast_cost_usd: Optional[float] = None
+    forecast_cost_usd: float | None = None
     anomaly_score: float = 0.0      # 0.0 = normal, 1.0 = severe anomaly
-    metadata: Dict[str, Any] = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary."""
         data = asdict(self)
         data["category"] = self.category.value
@@ -99,15 +99,15 @@ class CostSnapshot:
     timestamp: datetime
     total_cost_usd: float
     total_forecast_usd: float
-    cost_by_category: Dict[CostCategory, float]
-    cost_by_service: Dict[str, float]
-    cost_by_project: Dict[str, float]
-    cost_by_region: Dict[str, float]
-    anomalies_detected: List[Dict[str, Any]]
-    data_freshness_minutes: int     # How old the data is
-    collection_duration_seconds: float
+    cost_by_category: dict[CostCategory, float]
+    cost_by_service: dict[str, float]
+    cost_by_project: dict[str, float]
+    cost_by_region: dict[str, float]
+    anomalies_detected: list[dict[str, Any]]
+    data_freshness_minutes: int = 0     # How old the data is
+    collection_duration_seconds: float = 0.0
 
-    def get_top_services(self, limit: int = 5) -> List[Tuple[str, float]]:
+    def get_top_services(self, limit: int = 5) -> list[tuple[str, float]]:
         """Get top N services by cost."""
         return sorted(
             self.cost_by_service.items(),
@@ -115,7 +115,7 @@ class CostSnapshot:
             reverse=True
         )[:limit]
 
-    def get_top_projects(self, limit: int = 5) -> List[Tuple[str, float]]:
+    def get_top_projects(self, limit: int = 5) -> list[tuple[str, float]]:
         """Get top N projects by cost."""
         return sorted(
             self.cost_by_project.items(),
@@ -123,7 +123,7 @@ class CostSnapshot:
             reverse=True
         )[:limit]
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
         """Convert to dictionary for JSON serialization."""
         return {
             "timestamp": self.timestamp.isoformat(),
@@ -175,9 +175,9 @@ class GCPCostCollector:
         self.region = region
 
         # Cost tracking
-        self.current_samples: List[CostSample] = []
-        self.hourly_snapshots: List[CostSnapshot] = []
-        self.monthly_totals: Dict[str, float] = {}
+        self.current_samples: list[CostSample] = []
+        self.hourly_snapshots: list[CostSnapshot] = []
+        self.monthly_totals: dict[str, float] = {}
 
         # Configuration
         self.update_interval_seconds = 300  # 5-minute update interval
@@ -246,14 +246,11 @@ class GCPCostCollector:
             return snapshot
 
         except Exception as e:
-            log.error(
-                "cost_collection_failed",
-                error=str(e),
-                project_id=self.project_id
-            )
+            # Use positional logging to avoid passing unexpected kwargs to stdlib logger
+            log.error("cost_collection_failed: %s", str(e))
             raise
 
-    async def _query_billing_api(self) -> List[CostSample]:
+    async def _query_billing_api(self) -> list[CostSample]:
         """
         Query GCP Billing API for cost data.
 
@@ -325,7 +322,7 @@ class GCPCostCollector:
 
         return samples
 
-    async def _query_monitoring_api(self) -> List[CostSample]:
+    async def _query_monitoring_api(self) -> list[CostSample]:
         """
         Query Cloud Monitoring API for real-time resource metrics.
 
@@ -375,7 +372,7 @@ class GCPCostCollector:
 
         return samples
 
-    def _aggregate_costs(self, samples: List[CostSample]) -> CostSnapshot:
+    def _aggregate_costs(self, samples: list[CostSample]) -> CostSnapshot:
         """
         Aggregate costs by category, service, project, and region.
 
@@ -385,10 +382,10 @@ class GCPCostCollector:
         Returns:
             Aggregated CostSnapshot
         """
-        cost_by_category: Dict[CostCategory, float] = {}
-        cost_by_service: Dict[str, float] = {}
-        cost_by_project: Dict[str, float] = {}
-        cost_by_region: Dict[str, float] = {}
+        cost_by_category: dict[CostCategory, float] = {}
+        cost_by_service: dict[str, float] = {}
+        cost_by_project: dict[str, float] = {}
+        cost_by_region: dict[str, float] = {}
 
         total_cost = 0.0
         total_forecast = 0.0
@@ -433,10 +430,8 @@ class GCPCostCollector:
         )
 
     def _detect_anomalies(
-        self,
-        samples: List[CostSample],
-        snapshot: CostSnapshot
-    ) -> List[Dict[str, Any]]:
+        self, samples: list[CostSample], snapshot: CostSnapshot
+    ) -> list[dict[str, Any]]:
         """
         Detect cost anomalies using statistical analysis.
 
@@ -488,7 +483,7 @@ class GCPCostCollector:
             if s.timestamp > cutoff
         ]
 
-    def get_cost_trend(self, hours: int = 24) -> List[Tuple[datetime, float]]:
+    def get_cost_trend(self, hours: int = 24) -> list[tuple[datetime, float]]:
         """
         Get cost trend for last N hours.
 
@@ -499,14 +494,16 @@ class GCPCostCollector:
             List of (timestamp, cost) tuples
         """
         cutoff = datetime.now(UTC) - timedelta(hours=hours)
+        # Allow a small tolerance for boundary timestamps created earlier
+        lower_cutoff = cutoff - timedelta(seconds=1)
         trend = [
             (s.timestamp, s.total_cost_usd)
             for s in self.hourly_snapshots
-            if s.timestamp > cutoff
+            if s.timestamp >= lower_cutoff
         ]
         return sorted(trend, key=lambda x: x[0])
 
-    def get_monthly_total(self, month: str = None) -> float:
+    def get_monthly_total(self, month: str | None = None) -> float:
         """
         Get total cost for a month (YYYY-MM).
 

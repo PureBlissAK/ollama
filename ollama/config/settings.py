@@ -6,7 +6,7 @@ strict validation, and secrets protection.
 
 import logging
 from enum import Enum
-from typing import Optional
+from typing import Any
 
 from pydantic import Field, SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -38,7 +38,8 @@ class DatabaseSettings(BaseSettings):
     host: str = Field(default="localhost")
     port: int = Field(default=5432)
     username: str = Field(default="postgres")
-    password: SecretStr = Field(default="")
+    # Use SecretStr for defaults to satisfy type checker
+    password: SecretStr = Field(default=SecretStr(""))
     database: str = Field(default="ollama")
     pool_size: int = Field(default=20, ge=5, le=100)
     max_overflow: int = Field(default=10, ge=0, le=50)
@@ -77,7 +78,7 @@ class RedisSettings(BaseSettings):
 
     host: str = Field(default="localhost")
     port: int = Field(default=6379)
-    password: Optional[SecretStr] = Field(default=None)
+    password: SecretStr | None = Field(default=None)
     db: int = Field(default=0, ge=0, le=15)
     ssl: bool = Field(default=False)
     socket_timeout: int = Field(default=5, ge=1, le=30)
@@ -182,7 +183,7 @@ class VectorDBSettings(BaseSettings):
 
     host: str = Field(default="localhost")
     port: int = Field(default=6333, ge=1, le=65535)
-    api_key: Optional[SecretStr] = Field(default=None)
+    api_key: SecretStr | None = Field(default=None)
     collection_name: str = Field(default="ollama_embeddings")
     vector_size: int = Field(default=768, ge=64, le=2048)
 
@@ -211,7 +212,7 @@ class GCPSettings(BaseSettings):
         use_workload_identity: Use Workload Identity
     """
 
-    project_id: Optional[str] = Field(default=None)
+    project_id: str | None = Field(default=None)
     region: str = Field(default="us-central1")
     secret_manager_enabled: bool = Field(default=False)
     use_workload_identity: bool = Field(default=False)
@@ -265,6 +266,7 @@ class Settings(BaseSettings):
 
     environment: Environment = Field(default=Environment.DEVELOPMENT)
     debug: bool = Field(default=False)
+    version: str = Field(default="1.0.0")
 
     # Sub-configurations
     database: DatabaseSettings = Field(default_factory=DatabaseSettings)
@@ -282,9 +284,10 @@ class Settings(BaseSettings):
         env_file=".env",
         env_file_encoding="utf-8",
         case_sensitive=False,
+        env_nested_delimiter="__",
     )
 
-    def __init__(self, **data: any) -> None:
+    def __init__(self, **data: Any) -> None:
         """Initialize settings with GCP Secret Manager support.
 
         Args:
@@ -361,7 +364,7 @@ class Settings(BaseSettings):
 
 
 # Global settings instance
-_settings: Optional[Settings] = None
+_settings: Settings | None = None
 
 
 def get_settings() -> Settings:

@@ -1,5 +1,7 @@
-"""Training domain - Handles AI model fine-tuning and adaptation lifecycle.
-
-This domain manages the asynchronous execution of training jobs, dataset management,
-and adapter (LoRA/QLoRA) integration within the Ollama platform.
+"""Compatibility package for `ollama.training` re-exporting moved
+implementation under `ollama._legacy.training`.
 """
+
+from ._legacy.training import *  # noqa: F401,F403
+
+__all__ = getattr(__import__("ollama._legacy.training", fromlist=["*"]), "__all__", [])

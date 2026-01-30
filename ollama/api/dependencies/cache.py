@@ -21,7 +21,7 @@ async def get_cache_manager() -> CacheManager | ResilientCacheManager:
         from ollama.config import get_settings
 
         settings = get_settings()
-        _cache_manager = CacheManager(redis_url=settings.redis_url)
+        _cache_manager = CacheManager(redis_url=settings.redis.url)
         await _cache_manager.initialize()
 
     return _cache_manager

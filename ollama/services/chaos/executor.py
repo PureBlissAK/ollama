@@ -44,7 +44,8 @@ class ChaosInjectionStatus:
     chaos_type: str
     active: bool
     applied_at: str | None = None
-    config: dict[str, Any] = None
+    # Config may be omitted; make it Optional to avoid mypy assignment errors
+    config: dict[str, Any] | None = None
 
 
 class ChaosExecutor:
@@ -109,7 +110,7 @@ class ChaosExecutor:
                 await self._execute_command(cmd)
 
             # Add bandwidth throttling
-            if config.bandwidth_limit_mbps > 0:
+            if (config.bandwidth_limit_mbps or 0) > 0:
                 cmd = (
                     f"docker exec {container_id} tc class add dev eth0 parent 1: classid 1:1 "
                     f"htb rate {config.bandwidth_limit_mbps}mbit"
@@ -142,7 +143,7 @@ class ChaosExecutor:
                 target_pod=target_pod,
                 error=str(e),
             )
-            raise RuntimeError(f"Network chaos injection failed: {e}")
+            raise RuntimeError(f"Network chaos injection failed: {e}") from e
 
     async def inject_compute_chaos(
         self,
@@ -161,19 +162,31 @@ class ChaosExecutor:
         Raises:
             RuntimeError: If injection fails
         """
+        # Normalize ComputeConfig fields with safe fallbacks for backward
+        # compatibility: older callers or different field names may exist in
+        # the config model. Use getattr with sensible defaults.
+        cpu_throttle_percent = int(
+            getattr(config, "cpu_throttle_percent", None)
+            or getattr(config, "cpu_percent", 0)  # percent as float
+            or 0
+        )
+        memory_limit_mb = getattr(config, "memory_limit_mb", None) or getattr(
+            config, "memory_mb", 0
+        )
+
         log.info(
             "compute_chaos_injection_start",
             target_pod=target_pod,
-            cpu_throttle_percent=config.cpu_throttle_percent,
-            memory_limit_mb=config.memory_limit_mb,
+            cpu_throttle_percent=cpu_throttle_percent,
+            memory_limit_mb=memory_limit_mb,
         )
 
         try:
             container_id = await self._get_container_id(target_pod)
 
             # Update CPU limits using cgroups
-            if config.cpu_throttle_percent > 0:
-                cpu_quota = int(100000 * (config.cpu_throttle_percent / 100))
+            if cpu_throttle_percent > 0:
+                cpu_quota = int(100000 * (cpu_throttle_percent / 100))
                 cmd = (
                     f"docker exec {container_id} sh -c "
                     f"'echo {cpu_quota} > /sys/fs/cgroup/cpu/cpu.cfs_quota_us'"
@@ -181,28 +194,31 @@ class ChaosExecutor:
                 await self._execute_command(cmd)
 
             # Update memory limits
-            if config.memory_limit_mb > 0:
-                memory_bytes = config.memory_limit_mb * 1024 * 1024
+            if memory_limit_mb and memory_limit_mb > 0:
+                memory_bytes = memory_limit_mb * 1024 * 1024
                 cmd = (
                     f"docker exec {container_id} sh -c "
                     f"'echo {memory_bytes} > /sys/fs/cgroup/memory/memory.limit_in_bytes'"
                 )
                 await self._execute_command(cmd)
 
-            # Inject CPU burn if configured
-            if config.cpu_burn_percent > 0:
+            # Inject CPU burn if configured (backwards compatible field names)
+            cpu_burn_percent = getattr(config, "cpu_burn_percent", 0) or 0
+            duration_seconds = getattr(config, "duration_seconds", 0) or 0
+            if cpu_burn_percent > 0 and duration_seconds > 0:
                 cmd = (
                     f"docker exec -d {container_id} stress --cpu 1 "
-                    f"--timeout {config.duration_seconds}s"
+                    f"--timeout {duration_seconds}s"
                 )
                 await self._execute_command(cmd)
 
             # Inject memory pressure if configured
-            if config.memory_pressure_percent > 0:
-                memory_alloc = int((config.memory_limit_mb * config.memory_pressure_percent) / 100)
+            memory_pressure_percent = getattr(config, "memory_pressure_percent", 0) or 0
+            if memory_pressure_percent > 0 and memory_limit_mb and duration_seconds > 0:
+                memory_alloc = int((memory_limit_mb * memory_pressure_percent) / 100)
                 cmd = (
                     f"docker exec -d {container_id} stress --vm 1 "
-                    f"--vm-bytes {memory_alloc}M --timeout {config.duration_seconds}s"
+                    f"--vm-bytes {memory_alloc}M --timeout {duration_seconds}s"
                 )
                 await self._execute_command(cmd)
 
@@ -211,10 +227,10 @@ class ChaosExecutor:
                 chaos_type="compute",
                 active=True,
                 config={
-                    "cpu_throttle_percent": config.cpu_throttle_percent,
-                    "cpu_burn_percent": config.cpu_burn_percent,
-                    "memory_limit_mb": config.memory_limit_mb,
-                    "memory_pressure_percent": config.memory_pressure_percent,
+                    "cpu_throttle_percent": cpu_throttle_percent,
+                    "cpu_burn_percent": cpu_burn_percent,
+                    "memory_limit_mb": memory_limit_mb,
+                    "memory_pressure_percent": memory_pressure_percent,
                 },
             )
 
@@ -232,7 +248,7 @@ class ChaosExecutor:
                 target_pod=target_pod,
                 error=str(e),
             )
-            raise RuntimeError(f"Compute chaos injection failed: {e}")
+            raise RuntimeError(f"Compute chaos injection failed: {e}") from e
 
     async def inject_service_failure(
         self,
@@ -301,7 +317,7 @@ class ChaosExecutor:
                 target_pod=target_pod,
                 error=str(e),
             )
-            raise RuntimeError(f"Service failure injection failed: {e}")
+            raise RuntimeError(f"Service failure injection failed: {e}") from e
 
     async def inject_cascading_failure(
         self,
@@ -364,7 +380,7 @@ class ChaosExecutor:
                 primary_pod=primary_pod,
                 error=str(e),
             )
-            raise RuntimeError(f"Cascading failure injection failed: {e}")
+            raise RuntimeError(f"Cascading failure injection failed: {e}") from e
 
     async def cleanup_chaos(self, target_pod: str) -> bool:
         """Clean up chaos injection from target pod.
@@ -471,8 +487,8 @@ class ChaosExecutor:
 
             return result.stdout
 
-        except subprocess.TimeoutExpired:
-            raise RuntimeError("Command execution timed out")
+        except subprocess.TimeoutExpired as e:
+            raise RuntimeError("Command execution timed out") from e
         except Exception as e:
             log.error("command_execution_failed", command=command, error=str(e))
-            raise RuntimeError(f"Command execution failed: {e}")
+            raise RuntimeError(f"Command execution failed: {e}") from e

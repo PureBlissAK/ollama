@@ -1,24 +1,11 @@
-"""Repositories module - Data access layer."""
+"""Compatibility package for `ollama.repositories` re-exporting the
+implementation now located under `ollama.services.repositories`.
 
-from .impl.api_key_repository import APIKeyRepository
-from .impl.base_repository import BaseRepository
-from .impl.conversation_repository import ConversationRepository
-from .impl.document_repository import DocumentRepository
-from .impl.message_repository import MessageRepository
-from .impl.repository_factory import RepositoryFactory, get_repositories
-from .impl.training_job_repository import TrainingJobRepository
-from .impl.usage_repository import UsageRepository
-from .impl.user_repository import UserRepository
+This module provides a stable import surface so code importing
+`ollama.repositories` continues to work after the package reorganization.
+"""
 
-__all__ = [
-    "RepositoryFactory",
-    "get_repositories",
-    "UserRepository",
-    "ConversationRepository",
-    "DocumentRepository",
-    "MessageRepository",
-    "UsageRepository",
-    "TrainingJobRepository",
-    "APIKeyRepository",
-    "BaseRepository",
-]
+# Use absolute import to ensure the services package is resolved correctly
+from ollama.services.repositories import *  # noqa: F401,F403
+
+__all__ = getattr(__import__("ollama.services.repositories", fromlist=["*"]), "__all__", [])

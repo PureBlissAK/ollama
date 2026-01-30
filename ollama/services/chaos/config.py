@@ -265,7 +265,7 @@ class ChaosExperiment(BaseModel):
 
     created_at: datetime = Field(default_factory=datetime.now)
 
-    @root_validator
+    @root_validator(skip_on_failure=True)
     def validate_experiment_config(cls, values: dict[str, Any]) -> dict[str, Any]:
         """Validate experiment has correct configuration for type."""
         exp_type = values.get("experiment_type")

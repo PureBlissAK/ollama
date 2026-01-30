@@ -8,19 +8,14 @@ Version: 1.0.0 (Week 1 - Feb 3, 2026)
 Status: PRODUCTION-READY
 """
 
-from typing import Dict, List, Optional, Any
-from datetime import datetime, UTC, timedelta
-import logging
-import json
+from datetime import UTC, datetime
+from typing import Any
 
-from ollama.services.cost.collector import (
-    GCPCostCollector,
-    CostSnapshot,
-    CostSample,
-    CostCategory
-)
+import structlog
 
-log = logging.getLogger(__name__)
+from ollama.services.cost.collector import CostCategory, CostSnapshot, GCPCostCollector
+
+log = structlog.get_logger(__name__)
 
 
 class CostManagementService:
@@ -62,7 +57,7 @@ class CostManagementService:
 
         # Tracking
         self.current_month_cost = 0.0
-        self.alerts: List[Dict[str, Any]] = []
+        self.alerts: list[dict[str, Any]] = []
 
         log.info(
             "cost_service_initialized",
@@ -123,7 +118,7 @@ class CostManagementService:
                 "details": anomaly
             })
 
-    def get_cost_summary(self) -> Dict[str, Any]:
+    def get_cost_summary(self) -> dict[str, Any]:
         """
         Get comprehensive cost summary.
 
@@ -147,7 +142,7 @@ class CostManagementService:
             "alerts": self.alerts
         }
 
-    def get_cost_breakdown(self) -> Dict[str, Any]:
+    def get_cost_breakdown(self) -> dict[str, Any]:
         """
         Get detailed cost breakdown.
 
@@ -180,7 +175,7 @@ class CostManagementService:
             "timestamp": latest.timestamp.isoformat()
         }
 
-    def get_cost_trend(self, hours: int = 24) -> Dict[str, Any]:
+    def get_cost_trend(self, hours: int = 24) -> dict[str, Any]:
         """
         Get cost trend data.
 
@@ -206,14 +201,14 @@ class CostManagementService:
             "avg_cost_usd": round(sum(c for _, c in trend) / len(trend) if trend else 0, 2)
         }
 
-    def get_optimization_recommendations(self) -> List[Dict[str, Any]]:
+    def get_optimization_recommendations(self) -> list[dict[str, Any]]:
         """
         Get cost optimization recommendations.
 
         Returns:
             List of actionable recommendations
         """
-        recommendations = []
+        recommendations: list[dict[str, Any]] = []
 
         if not self.collector.hourly_snapshots:
             return recommendations
@@ -266,7 +261,7 @@ class CostManagementService:
 
         return recommendations
 
-    async def generate_cost_report(self) -> Dict[str, Any]:
+    async def generate_cost_report(self) -> dict[str, Any]:
         """
         Generate comprehensive cost report.
 

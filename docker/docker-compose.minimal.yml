@@ -152,7 +152,9 @@ services:
       monitoring_enabled: "true"
 
     ports:
-      - "127.0.0.1:9090:9090"
+      # Host port is configurable to avoid local port conflicts.
+      # Default maps to 9091 on host -> 9090 in container.
+      - "127.0.0.1:${PROMETHEUS_HOST_PORT:-9092}:9090"
 
     volumes:
       - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
@@ -219,8 +221,8 @@ services:
       monitoring_enabled: "true"
 
     ports:
-      - "127.0.0.1:16686:16686"
-      - "127.0.0.1:6831:6831/udp"
+      - "127.0.0.1:${JAEGER_HOST_PORT:-16687}:16686"
+      - "127.0.0.1:${JAEGER_UDP_PORT:-6831}:6831/udp"
 
     environment:
       COLLECTOR_ZIPKIN_HOST_PORT: ":9411"

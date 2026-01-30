@@ -10,6 +10,12 @@ Each container follows single responsibility principle with clear domain boundar
 Maximum 5 levels deep enforced to maintain architectural clarity.
 """
 
+from ollama.services.cache import (
+    CacheManager,
+    ResilientCacheManager,
+    get_cache_manager,
+    init_cache,
+)
 from ollama.services.inference import (
     GenerateRequest,
     GenerateResponse,
@@ -19,15 +25,12 @@ from ollama.services.inference import (
 from ollama.services.models import Model, ModelType, OllamaModelManager, VectorStore
 from ollama.services.models.vector import VectorManager, get_vector_db, init_vector_db
 from ollama.services.persistence import (
-    CacheManager,
     ChatMessage,
     ChatRequest,
     Database,
     DatabaseManager,
-    get_cache_manager,
     get_db,
     get_db_manager,
-    init_cache,
     init_database,
 )
 from ollama.services.resources.manager import ResourceManager
@@ -46,6 +49,7 @@ __all__: list[str] = [
     "OllamaClient",
     "OllamaClientMain",
     "OllamaModelManager",
+    "ResilientCacheManager",
     "ResourceManager",
     "VectorManager",
     "VectorStore",
