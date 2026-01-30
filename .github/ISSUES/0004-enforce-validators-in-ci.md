@@ -25,5 +25,5 @@ Add steps to CI to run `scripts/validate_folder_structure.py --strict` and `scri
 Add caching for Python dependencies if needed and ensure job runs in a matrix where necessary.
 
 ---
-Status: Completed (workflow added)
-Resolution: Added `.github/workflows/validate-landing-zone.yml` to run PMO and folder-structure validators plus a detect-secrets scan. Further tuning may be required for CI runner tooling. (2026-01-30)
+Status: Closed
+Resolution: CI workflow `validate-landing-zone.yml` added to run folder-structure and PMO validators plus secret scanning on PRs/pushes. Recommend making checks blocking via branch protection in next PR. (2026-01-30)

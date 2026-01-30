@@ -1,14 +1,14 @@
-"""Repositories module - Data access layer."""
+"""SQL-based repository implementations."""
 
-from .impl.api_key_repository import APIKeyRepository
-from .impl.base_repository import BaseRepository
-from .impl.conversation_repository import ConversationRepository
-from .impl.document_repository import DocumentRepository
-from .impl.message_repository import MessageRepository
-from .impl.repository_factory import RepositoryFactory, get_repositories
-from .impl.training_job_repository import TrainingJobRepository
-from .impl.usage_repository import UsageRepository
-from .impl.user_repository import UserRepository
+from .api_key_repository import APIKeyRepository
+from .base_repository import BaseRepository
+from .conversation_repository import ConversationRepository
+from .document_repository import DocumentRepository
+from .message_repository import MessageRepository
+from .repository_factory import RepositoryFactory, get_repositories
+from .training_job_repository import TrainingJobRepository
+from .usage_repository import UsageRepository
+from .user_repository import UserRepository
 
 __all__ = [
     "RepositoryFactory",

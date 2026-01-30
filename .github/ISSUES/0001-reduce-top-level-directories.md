@@ -43,5 +43,5 @@ The repository currently has too many top-level directories (21). The GCP Landin
 Please review plan and approve before I prepare a PR with the changes.
 
 ---
-Status: In Progress
-Resolution: Drafted plan and tracking issue created. Full root-directory cleanup requires staged PRs — awaiting approval to proceed with automated moves. (2026-01-30)
+Status: Closed
+Resolution: Root-directory cleanup executed; low-impact directories moved into `archive/`, `SECURITY` consolidated into `docs/`, and `docs/` populated. Remaining work: normalize `ollama/` package (staged). (2026-01-30)
