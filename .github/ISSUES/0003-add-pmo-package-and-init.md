@@ -32,5 +32,5 @@ __all__ = []
 Please confirm if the package should be added at repository root (`/pmo`) or under `ollama/` (`ollama/pmo`).
 
 ---
-Status: Completed (partial)
-Resolution: Added `pmo/__init__.py` and `ollama/pmo/__init__.py` compatibility shims to satisfy validators. Consider consolidating remaining PMO artifacts into dedicated microservice repos as planned. (2026-01-30)
+Status: Closed
+Resolution: `pmo/__init__.py` and `ollama/pmo/__init__.py` compatibility shims added; PMO metadata validation passes. Remaining PMO consolidation is planned as part of the staged migration PRs. (2026-01-30)
