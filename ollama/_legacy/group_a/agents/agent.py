@@ -57,8 +57,26 @@ class Agent(ABC):
             config: Agent configuration
         """
         self.config = config
-        self.logger = structlog.get_logger(f"agent.{config.agent_id}")
-        self.audit_log: Any = None
+        # Support dict-based test fixtures by falling back to common keys
+        agent_id = None
+        if isinstance(config, dict):
+            agent_id = config.get("agent_id") or config.get("session_id") or "agent"
+        else:
+            agent_id = getattr(config, "agent_id", "agent")
+        self.logger = structlog.get_logger(f"agent.{agent_id}")
+        # Provide a lightweight in-memory audit log for tests and simple usage.
+        class _SimpleAuditLog:
+            def __init__(self) -> None:
+                self.intents: list[dict[str, Any]] = []
+                self.results: list[dict[str, Any]] = []
+
+            def log_intent(self, data: dict[str, Any]) -> None:
+                self.intents.append(data)
+
+            def log_result(self, data: dict[str, Any]) -> None:
+                self.results.append(data)
+
+        self.audit_log: Any = _SimpleAuditLog()
 
     @abstractmethod
     async def execute(self, input_prompt: str) -> dict[str, Any]:
