@@ -6,11 +6,11 @@ Provides factory functions for creating training-related services and managers.
 from typing import Annotated
 
 from fastapi import Depends
+from ollama.training.services.job_manager import TrainingJobManager
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ollama.repositories import TrainingJobRepository
 from ollama.services.persistence import get_db
-from ollama.training.services.job_manager import TrainingJobManager
 
 
 async def get_training_job_repository(

@@ -9,10 +9,10 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ollama.models import TrainingJob
-from ollama.repositories.impl.base_repository import BaseRepository
+from ollama.repositories.base_repository import BaseRepository
 
 
-class TrainingJobRepository(BaseRepository[TrainingJob]):
+class TrainingJobRepository(BaseRepository[TrainingJob]):  # type: ignore[misc]
     """Repository for TrainingJob model operations."""
 
     def __init__(self, session: AsyncSession):
@@ -47,8 +47,8 @@ class TrainingJobRepository(BaseRepository[TrainingJob]):
             List of matching training jobs.
         """
         if status:
-            return await self.get_all(status=status)
-        return await self.get_all()
+            return await self.get_all(status=status)  # type: ignore[no-any-return]
+        return await self.get_all()  # type: ignore[no-any-return]
 
     async def update_status(self, job_id: uuid.UUID, status: str) -> None:
         """Update the status of a specific job.

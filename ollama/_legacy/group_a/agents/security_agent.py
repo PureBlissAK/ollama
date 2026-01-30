@@ -19,7 +19,6 @@ from datetime import datetime
 from typing import Any
 
 import structlog
-
 from ollama.agents.templates import (
     AgentExecutionResult,
     AgentSpecialization,

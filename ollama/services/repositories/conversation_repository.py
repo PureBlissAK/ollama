@@ -10,10 +10,10 @@ from sqlalchemy import and_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ollama.models import Conversation
-from ollama.repositories.impl.base_repository import BaseRepository
+from ollama.repositories.base_repository import BaseRepository
 
 
-class ConversationRepository(BaseRepository[Conversation]):
+class ConversationRepository(BaseRepository[Conversation]):  # type: ignore[misc]
     """Repository for Conversation model operations."""
 
     def __init__(self, session: AsyncSession):
@@ -28,7 +28,7 @@ class ConversationRepository(BaseRepository[Conversation]):
         Returns:
             List of conversations
         """
-        return await self.get_all(user_id=user_id)
+        return await self.get_all(user_id=user_id)  # type: ignore[no-any-return]
 
     async def get_active_conversations(self, user_id: uuid.UUID) -> list[Conversation]:
         """Get all active (non-archived) conversations for a user.
@@ -191,7 +191,7 @@ class ConversationRepository(BaseRepository[Conversation]):
         Returns:
             Number of conversations
         """
-        return await self.count(user_id=user_id)
+        return await self.count(user_id=user_id)  # type: ignore[no-any-return]
 
     async def count_active_conversations(self, user_id: uuid.UUID) -> int:
         """Count active conversations for a user.

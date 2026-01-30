@@ -12,10 +12,10 @@ Do NOT expose them in production without proper auth and access controls.
 from __future__ import annotations
 
 import os
-from fastapi import APIRouter, HTTPException, Header, Depends
-from pydantic import BaseModel
 
+from fastapi import APIRouter, Depends, Header, HTTPException
 from ollama.monitoring.profiling import ProfilerManager
+from pydantic import BaseModel
 
 router = APIRouter()
 

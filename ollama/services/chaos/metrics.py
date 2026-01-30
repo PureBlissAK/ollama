@@ -375,4 +375,4 @@ class ChaosMetrics:
         from prometheus_client.exposition import generate_latest
 
         metrics_output = generate_latest(self.registry)
-        return metrics_output.decode("utf-8")
+        return metrics_output.decode("utf-8")  # type: ignore[no-any-return]

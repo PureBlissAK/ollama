@@ -3,9 +3,8 @@
 Defines the request model for initiating a new fine-tuning job.
 """
 
-from pydantic import BaseModel, Field
-
 from ollama.training.schemas.config import TrainingConfig
+from pydantic import BaseModel, Field
 
 
 class TrainingJobCreate(BaseModel):

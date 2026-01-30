@@ -10,7 +10,6 @@ from pathlib import Path
 from typing import Any
 
 import structlog
-
 from ollama.training.schemas import TrainingConfig, TrainingStatus
 
 log = structlog.get_logger(__name__)

@@ -35,7 +35,7 @@ from ollama.middleware.impl.rate_limit import RateLimitMiddleware
 from ollama.middleware.rate_limiter import RateLimiter
 
 # Phase 7: Performance monitoring
-from ollama.monitoring import (
+from ollama.monitoring import (  # type: ignore[attr-defined]
     MetricsCollectionMiddleware,
     OTLPInstrumentor,
     setup_metrics_endpoints,

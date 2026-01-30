@@ -3,7 +3,6 @@
 import logging
 
 from fastapi import HTTPException, Request, status
-
 from ollama.middleware.impl.rate_limiter import RateLimiter
 
 logger = logging.getLogger(__name__)

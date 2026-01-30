@@ -7,10 +7,9 @@ from datetime import UTC, datetime
 from typing import Any
 from uuid import UUID, uuid4
 
-from pydantic import BaseModel, ConfigDict, Field
-
 from ollama.training.schemas.config import TrainingConfig
 from ollama.training.schemas.status import TrainingStatus
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class TrainingJob(BaseModel):

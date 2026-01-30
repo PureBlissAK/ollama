@@ -6,10 +6,9 @@ from typing import Any
 
 from fastapi import Request, status
 from fastapi.responses import JSONResponse
+from ollama.middleware.impl.rate_limiter import RateLimiter
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import Response
-
-from ollama.middleware.impl.rate_limiter import RateLimiter
 
 logger = logging.getLogger(__name__)
 

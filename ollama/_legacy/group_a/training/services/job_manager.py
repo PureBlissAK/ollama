@@ -7,14 +7,14 @@ scheduling, and state transitions.
 from uuid import UUID
 
 import structlog
-
-from ollama.repositories import TrainingJobRepository
 from ollama.training.schemas import (
     TrainingJob,
     TrainingJobCreate,
     TrainingStatus,
 )
 from ollama.training.services.engine import TrainingEngine
+
+from ollama.repositories import TrainingJobRepository
 
 log = structlog.get_logger(__name__)
 

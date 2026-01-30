@@ -7,7 +7,6 @@ from typing import Annotated
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, status
-
 from ollama.training.dependencies.jobs import get_training_job_manager
 from ollama.training.schemas import (
     TrainingJob,

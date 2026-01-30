@@ -10,10 +10,10 @@ from sqlalchemy import and_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ollama.models import Usage
-from ollama.repositories.impl.base_repository import BaseRepository
+from ollama.repositories.base_repository import BaseRepository
 
 
-class UsageRepository(BaseRepository[Usage]):
+class UsageRepository(BaseRepository[Usage]):  # type: ignore[misc]
     """Repository for Usage analytics operations."""
 
     def __init__(self, session: AsyncSession):
@@ -119,7 +119,7 @@ class UsageRepository(BaseRepository[Usage]):
             Total cost in dollars
         """
         usage_records = await self.get_user_usage(user_id, days)
-        return sum(u.cost for u in usage_records)
+        return sum(u.cost for u in usage_records)  # type: ignore[no-any-return]
 
     async def get_average_response_time(self, user_id: uuid.UUID, days: int = 30) -> float:
         """Get average response time for a user.
@@ -136,7 +136,7 @@ class UsageRepository(BaseRepository[Usage]):
             return 0.0
 
         total_time = sum(u.response_time_ms for u in usage_records)
-        return total_time / len(usage_records)
+        return total_time / len(usage_records)  # type: ignore[no-any-return]
 
     async def get_endpoint_stats(self, endpoint: str, days: int = 30) -> dict[str, Any]:
         """Get statistics for an endpoint.
