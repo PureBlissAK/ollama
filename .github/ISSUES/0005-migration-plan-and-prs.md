@@ -45,3 +45,5 @@ This issue tracks the end-to-end migration to bring the repository into full GCP
 ---
 Status: In Progress
 Resolution: Preparation steps executed: added PMO shims and CI workflow; next step is staged PRs to move archival artifacts. (2026-01-30)
+
+Related PR: https://github.com/kushin77/ollama/pull/72 (feature/issue-43-zero-trust)
