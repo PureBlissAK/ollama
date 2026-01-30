@@ -131,7 +131,7 @@ class MetricsCollector:
         )
         self.metrics.append(metric)
 
-    def aggregate_metrics(
+    def aggregate_metrics(  # noqa: C901
         self,
         agent_id: str,
         agent_name: str,

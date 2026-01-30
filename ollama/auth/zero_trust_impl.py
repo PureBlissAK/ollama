@@ -96,7 +96,7 @@ class ZeroTrustManager:
             header = jwt_mod.get_unverified_header(token)
             kid = header.get("kid")
         except Exception:
-            raise RuntimeError("Failed to parse JWT header to determine `kid`")
+            raise RuntimeError("Failed to parse JWT header to determine `kid`") from None
 
         jwk: dict[str, Any] | None = None
         for k in jwks.get("keys", []):
@@ -119,7 +119,7 @@ class ZeroTrustManager:
             assert jwt_mod is not None
             return jwt_mod.algorithms.RSAAlgorithm.from_jwk(json.dumps(jwk))
         except Exception as e:
-            raise RuntimeError(f"Failed to construct key from JWK: {e}")
+            raise RuntimeError(f"Failed to construct key from JWK: {e}") from None
 
     def validate_identity(self, token: str) -> dict[str, Any]:
         if not token:
@@ -185,7 +185,7 @@ class ZeroTrustManager:
         backoff = 0.5
         max_retries = 3
         last_exc: Exception | None = None
-        for attempt in range(max_retries):
+        for _attempt in range(max_retries):
             try:
                 self.jwks_fetch_count += 1
                 if requests_mod is None:

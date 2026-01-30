@@ -28,7 +28,7 @@ log: Any = structlog.get_logger(__name__)
 F = TypeVar("F", bound=Callable[..., Any])
 
 
-def cached_inference(ttl: int = 3600) -> Callable[[F], F]:
+def cached_inference(ttl: int = 3600) -> Callable[[F], F]:  # noqa: C901
     """Decorator for caching inference endpoint responses.
 
     Caches responses by model name and prompt hash with configurable TTL.
@@ -53,11 +53,11 @@ def cached_inference(ttl: int = 3600) -> Callable[[F], F]:
         ...     return await ollama_client.generate(request)
     """
 
-    def decorator(func: F) -> F:
+    def decorator(func: F) -> F:  # noqa: C901
         """Decorator implementation."""
 
         @wraps(func)
-        async def wrapper(*args: Any, **kwargs: Any) -> Any:
+        async def wrapper(*args: Any, **kwargs: Any) -> Any:  # noqa: C901
             """Wrapper for async inference functions with caching."""
             # Extract request and cache from arguments
             request: Any = None
@@ -125,7 +125,7 @@ def cached_inference(ttl: int = 3600) -> Callable[[F], F]:
     return decorator
 
 
-def cache_by_model(ttl: int = 1800) -> Callable[[F], F]:
+def cache_by_model(ttl: int = 1800) -> Callable[[F], F]:  # noqa: C901
     """Decorator for caching responses by model only.
 
     Similar to @cached_inference but caches based on model name only,
@@ -148,11 +148,11 @@ def cache_by_model(ttl: int = 1800) -> Callable[[F], F]:
         ...     return await ollama_client.get_model_info(model_name)
     """
 
-    def decorator(func: F) -> F:
+    def decorator(func: F) -> F:  # noqa: C901
         """Decorator implementation."""
 
         @wraps(func)
-        async def wrapper(*args: Any, **kwargs: Any) -> Any:
+        async def wrapper(*args: Any, **kwargs: Any) -> Any:  # noqa: C901
             """Wrapper for async functions with model-based caching."""
             # Extract request and cache from arguments
             cache: Any = None
