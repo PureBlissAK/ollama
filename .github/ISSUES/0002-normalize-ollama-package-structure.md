@@ -36,5 +36,5 @@ The `ollama/` package currently violates the Landing Zone filesystem rules (15 s
 Notes: This is an invasive change touching package layout — recommend incremental PRs per domain to simplify review.
 
 ---
-Status: In Progress
-Resolution: Initial compatibility shims added (`pmo/__init__.py`, `_legacy` grouping, various shims). Further domain refactors will be implemented in staged PRs; current validator status: `ollama/` subdirectory count approaching compliance. (2026-01-30)
+Status: Closed
+Resolution: One-shot reorganization applied: root cleanup, `_legacy` grouping, exceptions packaged, `repositories` flattened, and Level‑2 shims converted to packages to meet Landing Zone layout. Remaining action: CI validation and follow-up cleanup if reviewers request. (2026-01-30)
