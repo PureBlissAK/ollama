@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-18T03:54:26.545585+00:00",
+  "generated_at": "2026-04-18T04:04:10.189032+00:00",
   "open_issue_count": 310,
   "agent_ready_count": 10,
   "needs_evidence_count": 300,
@@ -31,7 +31,7 @@
   },
   "top_labels": [
     [
-      "agent-ready",
+      "status/triaged",
       310
     ],
     [
@@ -39,7 +39,7 @@
       310
     ],
     [
-      "status/triaged",
+      "agent-ready",
       310
     ],
     [
@@ -79,11 +79,11 @@
       25
     ],
     [
-      "wave/4",
+      "wave/04",
       25
     ],
     [
-      "wave/04",
+      "wave/4",
       25
     ],
     [
@@ -95,11 +95,11 @@
       25
     ],
     [
-      "wave/03",
+      "wave/3",
       25
     ],
     [
-      "wave/3",
+      "wave/03",
       25
     ],
     [
@@ -107,15 +107,11 @@
       25
     ],
     [
-      "wave/9",
-      25
-    ],
-    [
       "wave/09",
       25
     ],
     [
-      "wave/2",
+      "wave/9",
       25
     ],
     [
@@ -123,11 +119,15 @@
       25
     ],
     [
-      "wave/8",
+      "wave/2",
       25
     ],
     [
       "wave/08",
+      25
+    ],
+    [
+      "wave/8",
       25
     ]
   ],
@@ -182,7 +182,7 @@
         "status/triaged",
         "wave/05"
       ],
-      "updated_at": "2026-04-18T03:53:40Z",
+      "updated_at": "2026-04-18T03:58:07Z",
       "evidence_commits": []
     },
     {
@@ -218,7 +218,7 @@
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:53:39Z",
+      "updated_at": "2026-04-18T03:58:06Z",
       "evidence_commits": []
     },
     {
@@ -237,7 +237,7 @@
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:53:38Z",
+      "updated_at": "2026-04-18T03:58:06Z",
       "evidence_commits": []
     },
     {
@@ -1175,7 +1175,7 @@
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:53:36Z",
+      "updated_at": "2026-04-18T03:58:06Z",
       "evidence_commits": []
     },
     {
@@ -1194,7 +1194,7 @@
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:53:35Z",
+      "updated_at": "2026-04-18T03:58:05Z",
       "evidence_commits": []
     },
     {
@@ -1230,7 +1230,7 @@
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:53:34Z",
+      "updated_at": "2026-04-18T03:58:05Z",
       "evidence_commits": []
     },
     {
@@ -1249,7 +1249,7 @@
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:53:34Z",
+      "updated_at": "2026-04-18T03:58:05Z",
       "evidence_commits": []
     },
     {
@@ -1268,7 +1268,7 @@
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:53:33Z",
+      "updated_at": "2026-04-18T03:58:04Z",
       "evidence_commits": []
     },
     {
@@ -1287,7 +1287,7 @@
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:53:32Z",
+      "updated_at": "2026-04-18T03:58:04Z",
       "evidence_commits": []
     },
     {
@@ -1306,7 +1306,7 @@
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:53:31Z",
+      "updated_at": "2026-04-18T03:58:03Z",
       "evidence_commits": []
     },
     {
@@ -1325,7 +1325,7 @@
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:53:31Z",
+      "updated_at": "2026-04-18T03:58:03Z",
       "evidence_commits": []
     },
     {
@@ -1344,7 +1344,7 @@
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:53:30Z",
+      "updated_at": "2026-04-18T03:58:03Z",
       "evidence_commits": []
     },
     {
@@ -1379,7 +1379,7 @@
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:53:29Z",
+      "updated_at": "2026-04-18T03:58:02Z",
       "evidence_commits": []
     },
     {
@@ -1398,7 +1398,7 @@
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:53:29Z",
+      "updated_at": "2026-04-18T03:58:02Z",
       "evidence_commits": []
     },
     {
@@ -1417,7 +1417,7 @@
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:53:28Z",
+      "updated_at": "2026-04-18T03:58:02Z",
       "evidence_commits": []
     },
     {
@@ -1436,7 +1436,7 @@
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:53:27Z",
+      "updated_at": "2026-04-18T03:58:01Z",
       "evidence_commits": []
     },
     {
@@ -1455,7 +1455,7 @@
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:53:27Z",
+      "updated_at": "2026-04-18T03:58:01Z",
       "evidence_commits": []
     },
     {
@@ -1474,7 +1474,7 @@
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:53:26Z",
+      "updated_at": "2026-04-18T03:58:00Z",
       "evidence_commits": []
     },
     {
@@ -1493,7 +1493,7 @@
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:53:25Z",
+      "updated_at": "2026-04-18T03:58:00Z",
       "evidence_commits": []
     },
     {
@@ -1512,7 +1512,7 @@
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:53:25Z",
+      "updated_at": "2026-04-18T03:57:59Z",
       "evidence_commits": []
     },
     {
@@ -1531,7 +1531,7 @@
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:53:24Z",
+      "updated_at": "2026-04-18T03:57:59Z",
       "evidence_commits": []
     },
     {
@@ -1550,7 +1550,7 @@
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:53:23Z",
+      "updated_at": "2026-04-18T03:57:59Z",
       "evidence_commits": []
     },
     {
@@ -1586,7 +1586,7 @@
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:53:23Z",
+      "updated_at": "2026-04-18T03:57:58Z",
       "evidence_commits": []
     },
     {
@@ -1605,7 +1605,7 @@
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:53:22Z",
+      "updated_at": "2026-04-18T03:57:58Z",
       "evidence_commits": []
     },
     {
@@ -1624,7 +1624,7 @@
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:53:21Z",
+      "updated_at": "2026-04-18T03:57:58Z",
       "evidence_commits": []
     },
     {
@@ -1643,7 +1643,7 @@
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:53:21Z",
+      "updated_at": "2026-04-18T03:57:57Z",
       "evidence_commits": []
     },
     {
@@ -1662,7 +1662,7 @@
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:53:20Z",
+      "updated_at": "2026-04-18T03:57:57Z",
       "evidence_commits": []
     },
     {
@@ -1681,7 +1681,7 @@
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:53:19Z",
+      "updated_at": "2026-04-18T03:57:56Z",
       "evidence_commits": []
     },
     {
@@ -1700,7 +1700,7 @@
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:53:18Z",
+      "updated_at": "2026-04-18T03:57:56Z",
       "evidence_commits": []
     },
     {
@@ -2373,7 +2373,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:52:06Z",
+      "updated_at": "2026-04-18T03:58:15Z",
       "evidence_commits": []
     },
     {
@@ -2390,7 +2390,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:52:05Z",
+      "updated_at": "2026-04-18T03:58:15Z",
       "evidence_commits": []
     },
     {
@@ -2539,7 +2539,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:51:56Z",
+      "updated_at": "2026-04-18T03:58:14Z",
       "evidence_commits": []
     },
     {
@@ -2556,7 +2556,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:51:55Z",
+      "updated_at": "2026-04-18T03:58:14Z",
       "evidence_commits": []
     },
     {
@@ -2573,7 +2573,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:51:54Z",
+      "updated_at": "2026-04-18T03:58:14Z",
       "evidence_commits": []
     },
     {
@@ -2590,7 +2590,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:51:53Z",
+      "updated_at": "2026-04-18T03:58:13Z",
       "evidence_commits": []
     },
     {
@@ -3793,7 +3793,7 @@
         "wave/07",
         "wave/7"
       ],
-      "updated_at": "2026-04-18T03:50:28Z",
+      "updated_at": "2026-04-18T03:55:41Z",
       "evidence_commits": []
     },
     {
@@ -3809,7 +3809,7 @@
         "wave/07",
         "wave/7"
       ],
-      "updated_at": "2026-04-18T03:50:27Z",
+      "updated_at": "2026-04-18T03:55:40Z",
       "evidence_commits": []
     },
     {
@@ -3825,7 +3825,7 @@
         "wave/07",
         "wave/7"
       ],
-      "updated_at": "2026-04-18T03:50:26Z",
+      "updated_at": "2026-04-18T03:55:40Z",
       "evidence_commits": []
     },
     {
@@ -3841,7 +3841,7 @@
         "wave/07",
         "wave/7"
       ],
-      "updated_at": "2026-04-18T03:50:25Z",
+      "updated_at": "2026-04-18T03:55:39Z",
       "evidence_commits": []
     },
     {
@@ -3857,7 +3857,7 @@
         "wave/07",
         "wave/7"
       ],
-      "updated_at": "2026-04-18T03:50:23Z",
+      "updated_at": "2026-04-18T03:55:38Z",
       "evidence_commits": []
     },
     {
@@ -3873,7 +3873,7 @@
         "wave/07",
         "wave/7"
       ],
-      "updated_at": "2026-04-18T03:50:22Z",
+      "updated_at": "2026-04-18T03:55:38Z",
       "evidence_commits": []
     },
     {
@@ -3889,7 +3889,7 @@
         "wave/07",
         "wave/7"
       ],
-      "updated_at": "2026-04-18T03:50:21Z",
+      "updated_at": "2026-04-18T03:55:37Z",
       "evidence_commits": []
     },
     {
@@ -3905,7 +3905,7 @@
         "wave/07",
         "wave/7"
       ],
-      "updated_at": "2026-04-18T03:50:20Z",
+      "updated_at": "2026-04-18T03:55:37Z",
       "evidence_commits": []
     },
     {
@@ -3921,7 +3921,7 @@
         "wave/07",
         "wave/7"
       ],
-      "updated_at": "2026-04-18T03:50:18Z",
+      "updated_at": "2026-04-18T03:55:36Z",
       "evidence_commits": []
     },
     {
@@ -4298,7 +4298,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:49:48Z",
+      "updated_at": "2026-04-18T03:58:13Z",
       "evidence_commits": []
     },
     {
@@ -4333,7 +4333,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:49:45Z",
+      "updated_at": "2026-04-18T03:58:12Z",
       "evidence_commits": []
     },
     {
@@ -4350,7 +4350,7 @@
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:49:44Z",
+      "updated_at": "2026-04-18T03:58:10Z",
       "evidence_commits": []
     },
     {
@@ -4366,7 +4366,7 @@
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:49:43Z",
+      "updated_at": "2026-04-18T03:57:49Z",
       "evidence_commits": []
     },
     {
@@ -4382,7 +4382,7 @@
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:49:42Z",
+      "updated_at": "2026-04-18T03:57:48Z",
       "evidence_commits": []
     },
     {
@@ -4398,7 +4398,7 @@
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:49:40Z",
+      "updated_at": "2026-04-18T03:57:48Z",
       "evidence_commits": []
     },
     {
@@ -4414,7 +4414,7 @@
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:49:39Z",
+      "updated_at": "2026-04-18T03:57:47Z",
       "evidence_commits": []
     },
     {
@@ -4430,7 +4430,7 @@
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:49:38Z",
+      "updated_at": "2026-04-18T03:57:46Z",
       "evidence_commits": []
     },
     {
@@ -4446,7 +4446,7 @@
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:49:37Z",
+      "updated_at": "2026-04-18T03:57:46Z",
       "evidence_commits": []
     },
     {
@@ -4462,7 +4462,7 @@
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:49:35Z",
+      "updated_at": "2026-04-18T03:57:45Z",
       "evidence_commits": []
     },
     {
@@ -4478,7 +4478,7 @@
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:49:34Z",
+      "updated_at": "2026-04-18T03:57:44Z",
       "evidence_commits": []
     },
     {
@@ -4494,7 +4494,7 @@
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:49:33Z",
+      "updated_at": "2026-04-18T03:57:44Z",
       "evidence_commits": []
     },
     {
@@ -4510,7 +4510,7 @@
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:49:32Z",
+      "updated_at": "2026-04-18T03:57:43Z",
       "evidence_commits": []
     },
     {
@@ -4526,7 +4526,7 @@
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:49:31Z",
+      "updated_at": "2026-04-18T03:57:43Z",
       "evidence_commits": []
     },
     {
@@ -4542,7 +4542,7 @@
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:49:30Z",
+      "updated_at": "2026-04-18T03:57:42Z",
       "evidence_commits": []
     },
     {
@@ -4558,7 +4558,7 @@
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:49:29Z",
+      "updated_at": "2026-04-18T03:57:42Z",
       "evidence_commits": []
     },
     {
@@ -4574,7 +4574,7 @@
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:49:27Z",
+      "updated_at": "2026-04-18T03:57:41Z",
       "evidence_commits": []
     },
     {
@@ -4591,7 +4591,7 @@
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:49:26Z",
+      "updated_at": "2026-04-18T03:58:10Z",
       "evidence_commits": []
     },
     {
@@ -4609,7 +4609,7 @@
         "wave/01",
         "wave/1"
       ],
-      "updated_at": "2026-04-18T03:53:06Z",
+      "updated_at": "2026-04-18T03:58:10Z",
       "evidence_commits": []
     },
     {
@@ -4629,7 +4629,7 @@
         "wave/01",
         "wave/1"
       ],
-      "updated_at": "2026-04-18T03:53:05Z",
+      "updated_at": "2026-04-18T03:57:39Z",
       "evidence_commits": []
     },
     {
@@ -4649,7 +4649,7 @@
         "wave/01",
         "wave/1"
       ],
-      "updated_at": "2026-04-18T03:53:05Z",
+      "updated_at": "2026-04-18T03:57:11Z",
       "evidence_commits": []
     },
     {
@@ -4669,7 +4669,7 @@
         "wave/01",
         "wave/1"
       ],
-      "updated_at": "2026-04-18T03:53:04Z",
+      "updated_at": "2026-04-18T03:57:11Z",
       "evidence_commits": []
     },
     {
@@ -4689,7 +4689,7 @@
         "wave/01",
         "wave/1"
       ],
-      "updated_at": "2026-04-18T03:53:03Z",
+      "updated_at": "2026-04-18T03:57:10Z",
       "evidence_commits": []
     },
     {
@@ -4709,7 +4709,7 @@
         "wave/01",
         "wave/1"
       ],
-      "updated_at": "2026-04-18T03:53:03Z",
+      "updated_at": "2026-04-18T03:57:10Z",
       "evidence_commits": []
     },
     {
@@ -4729,7 +4729,7 @@
         "wave/01",
         "wave/1"
       ],
-      "updated_at": "2026-04-18T03:53:02Z",
+      "updated_at": "2026-04-18T03:57:09Z",
       "evidence_commits": []
     },
     {
@@ -4749,7 +4749,7 @@
         "wave/01",
         "wave/1"
       ],
-      "updated_at": "2026-04-18T03:53:01Z",
+      "updated_at": "2026-04-18T03:57:09Z",
       "evidence_commits": []
     },
     {
@@ -4769,7 +4769,7 @@
         "wave/01",
         "wave/1"
       ],
-      "updated_at": "2026-04-18T03:53:01Z",
+      "updated_at": "2026-04-18T03:57:08Z",
       "evidence_commits": []
     },
     {
@@ -4791,7 +4791,7 @@
         "wave/01",
         "wave/1"
       ],
-      "updated_at": "2026-04-18T03:53:00Z",
+      "updated_at": "2026-04-18T03:58:09Z",
       "evidence_commits": []
     },
     {
@@ -4811,7 +4811,7 @@
         "wave/01",
         "wave/1"
       ],
-      "updated_at": "2026-04-18T03:52:59Z",
+      "updated_at": "2026-04-18T03:57:07Z",
       "evidence_commits": []
     },
     {
@@ -4831,7 +4831,7 @@
         "wave/01",
         "wave/1"
       ],
-      "updated_at": "2026-04-18T03:52:59Z",
+      "updated_at": "2026-04-18T03:57:07Z",
       "evidence_commits": []
     },
     {
@@ -4853,7 +4853,7 @@
         "wave/01",
         "wave/1"
       ],
-      "updated_at": "2026-04-18T03:52:58Z",
+      "updated_at": "2026-04-18T03:58:09Z",
       "evidence_commits": []
     },
     {
@@ -4873,7 +4873,7 @@
         "wave/01",
         "wave/1"
       ],
-      "updated_at": "2026-04-18T03:52:57Z",
+      "updated_at": "2026-04-18T03:57:05Z",
       "evidence_commits": []
     },
     {
@@ -4891,7 +4891,7 @@
         "wave/01",
         "wave/1"
       ],
-      "updated_at": "2026-04-18T03:52:57Z",
+      "updated_at": "2026-04-18T03:58:08Z",
       "evidence_commits": []
     },
     {
@@ -4911,7 +4911,7 @@
         "wave/01",
         "wave/1"
       ],
-      "updated_at": "2026-04-18T03:52:56Z",
+      "updated_at": "2026-04-18T03:57:04Z",
       "evidence_commits": []
     },
     {
@@ -4931,7 +4931,7 @@
         "wave/01",
         "wave/1"
       ],
-      "updated_at": "2026-04-18T03:52:55Z",
+      "updated_at": "2026-04-18T03:57:04Z",
       "evidence_commits": []
     },
     {
@@ -4951,7 +4951,7 @@
         "wave/01",
         "wave/1"
       ],
-      "updated_at": "2026-04-18T03:52:54Z",
+      "updated_at": "2026-04-18T03:57:03Z",
       "evidence_commits": []
     },
     {
@@ -4968,7 +4968,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:49:25Z",
+      "updated_at": "2026-04-18T03:58:12Z",
       "evidence_commits": []
     },
     {
@@ -4988,7 +4988,7 @@
         "wave/01",
         "wave/1"
       ],
-      "updated_at": "2026-04-18T03:52:54Z",
+      "updated_at": "2026-04-18T03:57:02Z",
       "evidence_commits": []
     },
     {
@@ -5010,7 +5010,7 @@
         "wave/01",
         "wave/1"
       ],
-      "updated_at": "2026-04-18T03:52:53Z",
+      "updated_at": "2026-04-18T03:58:08Z",
       "evidence_commits": []
     },
     {
@@ -5030,7 +5030,7 @@
         "wave/01",
         "wave/1"
       ],
-      "updated_at": "2026-04-18T03:52:53Z",
+      "updated_at": "2026-04-18T03:57:01Z",
       "evidence_commits": []
     },
     {
@@ -5047,7 +5047,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:49:24Z",
+      "updated_at": "2026-04-18T03:58:12Z",
       "evidence_commits": []
     },
     {
@@ -5082,7 +5082,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:49:21Z",
+      "updated_at": "2026-04-18T03:58:11Z",
       "evidence_commits": []
     },
     {
@@ -5100,7 +5100,7 @@
         "wave/01",
         "wave/1"
       ],
-      "updated_at": "2026-04-18T03:52:52Z",
+      "updated_at": "2026-04-18T03:58:08Z",
       "evidence_commits": []
     },
     {
@@ -5132,7 +5132,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:49:19Z",
+      "updated_at": "2026-04-18T03:58:11Z",
       "evidence_commits": []
     },
     {
@@ -5286,7 +5286,7 @@
         "status/triaged",
         "wave/05"
       ],
-      "updated_at": "2026-04-18T03:53:43Z"
+      "updated_at": "2026-04-18T03:58:07Z"
     },
     {
       "number": 392,
