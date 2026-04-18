@@ -1,10 +1,298 @@
 {
-  "generated_at_utc": "2026-04-18T02:39:16.726686+00:00",
+  "generated_at_utc": "2026-04-18T03:23:01.386156+00:00",
   "repository": "kushin77/ollama",
   "selection_policy": "severity_then_issue_number",
-  "open_issue_count": 319,
+  "open_issue_count": 316,
   "next_wave_size": 25,
   "next_wave_issues": [
+    {
+      "number": 82,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence",
+        "status/planned-wave",
+        "wave/01",
+        "wave/1"
+      ],
+      "updated_at": "2026-04-18T03:09:17Z",
+      "url": "https://github.com/kushin77/ollama/issues/82",
+      "severity": "critical"
+    },
+    {
+      "number": 84,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence",
+        "status/planned-wave",
+        "wave/01",
+        "wave/1"
+      ],
+      "updated_at": "2026-04-18T03:09:18Z",
+      "url": "https://github.com/kushin77/ollama/issues/84",
+      "severity": "critical"
+    },
+    {
+      "number": 86,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence",
+        "status/planned-wave",
+        "wave/01",
+        "wave/1"
+      ],
+      "updated_at": "2026-04-18T03:09:20Z",
+      "url": "https://github.com/kushin77/ollama/issues/86",
+      "severity": "critical"
+    },
+    {
+      "number": 87,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence",
+        "status/planned-wave",
+        "wave/01",
+        "wave/1"
+      ],
+      "updated_at": "2026-04-18T03:09:20Z",
+      "url": "https://github.com/kushin77/ollama/issues/87",
+      "severity": "critical"
+    },
+    {
+      "number": 88,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence",
+        "status/planned-wave",
+        "wave/01",
+        "wave/1"
+      ],
+      "updated_at": "2026-04-18T03:09:21Z",
+      "url": "https://github.com/kushin77/ollama/issues/88",
+      "severity": "critical"
+    },
+    {
+      "number": 90,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence",
+        "status/planned-wave",
+        "wave/01",
+        "wave/1"
+      ],
+      "updated_at": "2026-04-18T03:09:22Z",
+      "url": "https://github.com/kushin77/ollama/issues/90",
+      "severity": "critical"
+    },
+    {
+      "number": 92,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence",
+        "status/planned-wave",
+        "wave/01",
+        "wave/1"
+      ],
+      "updated_at": "2026-04-18T03:09:23Z",
+      "url": "https://github.com/kushin77/ollama/issues/92",
+      "severity": "critical"
+    },
+    {
+      "number": 93,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence",
+        "status/planned-wave",
+        "wave/01",
+        "wave/1"
+      ],
+      "updated_at": "2026-04-18T03:09:24Z",
+      "url": "https://github.com/kushin77/ollama/issues/93",
+      "severity": "critical"
+    },
+    {
+      "number": 95,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence",
+        "status/planned-wave",
+        "wave/01",
+        "wave/1"
+      ],
+      "updated_at": "2026-04-18T03:09:25Z",
+      "url": "https://github.com/kushin77/ollama/issues/95",
+      "severity": "critical"
+    },
+    {
+      "number": 96,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence",
+        "status/planned-wave",
+        "wave/01",
+        "wave/1"
+      ],
+      "updated_at": "2026-04-18T03:09:26Z",
+      "url": "https://github.com/kushin77/ollama/issues/96",
+      "severity": "critical"
+    },
+    {
+      "number": 97,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence",
+        "status/planned-wave",
+        "wave/01",
+        "wave/1"
+      ],
+      "updated_at": "2026-04-18T03:09:26Z",
+      "url": "https://github.com/kushin77/ollama/issues/97",
+      "severity": "critical"
+    },
+    {
+      "number": 98,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence",
+        "status/planned-wave",
+        "wave/01",
+        "wave/1"
+      ],
+      "updated_at": "2026-04-18T03:09:27Z",
+      "url": "https://github.com/kushin77/ollama/issues/98",
+      "severity": "critical"
+    },
+    {
+      "number": 99,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence",
+        "status/planned-wave",
+        "wave/01",
+        "wave/1"
+      ],
+      "updated_at": "2026-04-18T03:09:27Z",
+      "url": "https://github.com/kushin77/ollama/issues/99",
+      "severity": "critical"
+    },
+    {
+      "number": 100,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence",
+        "status/planned-wave",
+        "wave/01",
+        "wave/1"
+      ],
+      "updated_at": "2026-04-18T03:09:28Z",
+      "url": "https://github.com/kushin77/ollama/issues/100",
+      "severity": "critical"
+    },
+    {
+      "number": 101,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence",
+        "status/planned-wave",
+        "wave/01",
+        "wave/1"
+      ],
+      "updated_at": "2026-04-18T03:09:29Z",
+      "url": "https://github.com/kushin77/ollama/issues/101",
+      "severity": "critical"
+    },
+    {
+      "number": 102,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence",
+        "status/planned-wave",
+        "wave/01",
+        "wave/1"
+      ],
+      "updated_at": "2026-04-18T03:09:29Z",
+      "url": "https://github.com/kushin77/ollama/issues/102",
+      "severity": "critical"
+    },
     {
       "number": 389,
       "title": "[Monorepo Epic] Repository topology and tooling migration",
@@ -14,11 +302,13 @@
         "priority/low",
         "monorepo",
         "architecture",
-        "critical-path"
+        "critical-path",
+        "status/planned-wave",
+        "wave/01"
       ],
-      "severity": "critical",
-      "updated_at": "2026-04-18T02:28:48Z",
-      "url": "https://github.com/kushin77/ollama/issues/389"
+      "updated_at": "2026-04-18T02:46:05Z",
+      "url": "https://github.com/kushin77/ollama/issues/389",
+      "severity": "critical"
     },
     {
       "number": 391,
@@ -30,11 +320,13 @@
         "priority/low",
         "monorepo",
         "architecture",
-        "critical-path"
+        "critical-path",
+        "status/planned-wave",
+        "wave/01"
       ],
-      "severity": "critical",
-      "updated_at": "2026-04-18T02:28:47Z",
-      "url": "https://github.com/kushin77/ollama/issues/391"
+      "updated_at": "2026-04-18T02:46:07Z",
+      "url": "https://github.com/kushin77/ollama/issues/391",
+      "severity": "critical"
     },
     {
       "number": 395,
@@ -45,11 +337,13 @@
         "status/triaged",
         "priority/low",
         "monorepo",
-        "critical-path"
+        "critical-path",
+        "status/planned-wave",
+        "wave/01"
       ],
-      "severity": "critical",
-      "updated_at": "2026-04-18T02:28:45Z",
-      "url": "https://github.com/kushin77/ollama/issues/395"
+      "updated_at": "2026-04-18T02:46:08Z",
+      "url": "https://github.com/kushin77/ollama/issues/395",
+      "severity": "critical"
     },
     {
       "number": 67,
@@ -58,26 +352,14 @@
         "bug",
         "status/triaged",
         "priority/medium",
-        "needs-evidence"
+        "needs-evidence",
+        "status/planned-wave",
+        "wave/01",
+        "wave/1"
       ],
-      "severity": "high",
-      "updated_at": "2026-04-18T02:36:38Z",
-      "url": "https://github.com/kushin77/ollama/issues/67"
-    },
-    {
-      "number": 82,
-      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
-      "labels": [
-        "security",
-        "priority-p0",
-        "automated",
-        "type-bug",
-        "status/triaged",
-        "needs-evidence"
-      ],
-      "severity": "high",
-      "updated_at": "2026-04-18T02:36:35Z",
-      "url": "https://github.com/kushin77/ollama/issues/82"
+      "updated_at": "2026-04-18T03:09:14Z",
+      "url": "https://github.com/kushin77/ollama/issues/67",
+      "severity": "high"
     },
     {
       "number": 83,
@@ -90,71 +372,14 @@
         "monthly-report",
         "status/triaged",
         "priority/medium",
-        "needs-evidence"
+        "needs-evidence",
+        "status/planned-wave",
+        "wave/01",
+        "wave/1"
       ],
-      "severity": "high",
-      "updated_at": "2026-04-18T02:36:34Z",
-      "url": "https://github.com/kushin77/ollama/issues/83"
-    },
-    {
-      "number": 84,
-      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
-      "labels": [
-        "security",
-        "priority-p0",
-        "automated",
-        "type-bug",
-        "status/triaged",
-        "needs-evidence"
-      ],
-      "severity": "high",
-      "updated_at": "2026-04-18T02:36:33Z",
-      "url": "https://github.com/kushin77/ollama/issues/84"
-    },
-    {
-      "number": 86,
-      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
-      "labels": [
-        "security",
-        "priority-p0",
-        "automated",
-        "type-bug",
-        "status/triaged",
-        "needs-evidence"
-      ],
-      "severity": "high",
-      "updated_at": "2026-04-18T02:36:32Z",
-      "url": "https://github.com/kushin77/ollama/issues/86"
-    },
-    {
-      "number": 87,
-      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
-      "labels": [
-        "security",
-        "priority-p0",
-        "automated",
-        "type-bug",
-        "status/triaged",
-        "needs-evidence"
-      ],
-      "severity": "high",
-      "updated_at": "2026-04-18T02:36:31Z",
-      "url": "https://github.com/kushin77/ollama/issues/87"
-    },
-    {
-      "number": 88,
-      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
-      "labels": [
-        "security",
-        "priority-p0",
-        "automated",
-        "type-bug",
-        "status/triaged",
-        "needs-evidence"
-      ],
-      "severity": "high",
-      "updated_at": "2026-04-18T02:36:29Z",
-      "url": "https://github.com/kushin77/ollama/issues/88"
+      "updated_at": "2026-04-18T03:09:18Z",
+      "url": "https://github.com/kushin77/ollama/issues/83",
+      "severity": "high"
     },
     {
       "number": 89,
@@ -163,26 +388,14 @@
         "bug",
         "status/triaged",
         "priority/medium",
-        "needs-evidence"
+        "needs-evidence",
+        "status/planned-wave",
+        "wave/01",
+        "wave/1"
       ],
-      "severity": "high",
-      "updated_at": "2026-04-18T02:36:28Z",
-      "url": "https://github.com/kushin77/ollama/issues/89"
-    },
-    {
-      "number": 90,
-      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
-      "labels": [
-        "security",
-        "priority-p0",
-        "automated",
-        "type-bug",
-        "status/triaged",
-        "needs-evidence"
-      ],
-      "severity": "high",
-      "updated_at": "2026-04-18T02:36:28Z",
-      "url": "https://github.com/kushin77/ollama/issues/90"
+      "updated_at": "2026-04-18T03:09:21Z",
+      "url": "https://github.com/kushin77/ollama/issues/89",
+      "severity": "high"
     },
     {
       "number": 91,
@@ -195,41 +408,14 @@
         "monthly-report",
         "status/triaged",
         "priority/medium",
-        "needs-evidence"
+        "needs-evidence",
+        "status/planned-wave",
+        "wave/01",
+        "wave/1"
       ],
-      "severity": "high",
-      "updated_at": "2026-04-18T02:36:27Z",
-      "url": "https://github.com/kushin77/ollama/issues/91"
-    },
-    {
-      "number": 92,
-      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
-      "labels": [
-        "security",
-        "priority-p0",
-        "automated",
-        "type-bug",
-        "status/triaged",
-        "needs-evidence"
-      ],
-      "severity": "high",
-      "updated_at": "2026-04-18T02:36:26Z",
-      "url": "https://github.com/kushin77/ollama/issues/92"
-    },
-    {
-      "number": 93,
-      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
-      "labels": [
-        "security",
-        "priority-p0",
-        "automated",
-        "type-bug",
-        "status/triaged",
-        "needs-evidence"
-      ],
-      "severity": "high",
-      "updated_at": "2026-04-18T02:36:25Z",
-      "url": "https://github.com/kushin77/ollama/issues/93"
+      "updated_at": "2026-04-18T03:09:23Z",
+      "url": "https://github.com/kushin77/ollama/issues/91",
+      "severity": "high"
     },
     {
       "number": 94,
@@ -242,131 +428,14 @@
         "monthly-report",
         "status/triaged",
         "priority/medium",
-        "needs-evidence"
+        "needs-evidence",
+        "status/planned-wave",
+        "wave/01",
+        "wave/1"
       ],
-      "severity": "high",
-      "updated_at": "2026-04-18T02:36:24Z",
-      "url": "https://github.com/kushin77/ollama/issues/94"
-    },
-    {
-      "number": 95,
-      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
-      "labels": [
-        "security",
-        "priority-p0",
-        "automated",
-        "type-bug",
-        "status/triaged",
-        "needs-evidence"
-      ],
-      "severity": "high",
-      "updated_at": "2026-04-18T02:36:23Z",
-      "url": "https://github.com/kushin77/ollama/issues/95"
-    },
-    {
-      "number": 96,
-      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
-      "labels": [
-        "security",
-        "priority-p0",
-        "automated",
-        "type-bug",
-        "status/triaged",
-        "needs-evidence"
-      ],
-      "severity": "high",
-      "updated_at": "2026-04-18T02:36:22Z",
-      "url": "https://github.com/kushin77/ollama/issues/96"
-    },
-    {
-      "number": 97,
-      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
-      "labels": [
-        "security",
-        "priority-p0",
-        "automated",
-        "type-bug",
-        "status/triaged",
-        "needs-evidence"
-      ],
-      "severity": "high",
-      "updated_at": "2026-04-18T02:36:21Z",
-      "url": "https://github.com/kushin77/ollama/issues/97"
-    },
-    {
-      "number": 98,
-      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
-      "labels": [
-        "security",
-        "priority-p0",
-        "automated",
-        "type-bug",
-        "status/triaged",
-        "needs-evidence"
-      ],
-      "severity": "high",
-      "updated_at": "2026-04-18T02:36:20Z",
-      "url": "https://github.com/kushin77/ollama/issues/98"
-    },
-    {
-      "number": 99,
-      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
-      "labels": [
-        "security",
-        "priority-p0",
-        "automated",
-        "type-bug",
-        "status/triaged",
-        "needs-evidence"
-      ],
-      "severity": "high",
-      "updated_at": "2026-04-18T02:36:19Z",
-      "url": "https://github.com/kushin77/ollama/issues/99"
-    },
-    {
-      "number": 100,
-      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
-      "labels": [
-        "security",
-        "priority-p0",
-        "automated",
-        "type-bug",
-        "status/triaged",
-        "needs-evidence"
-      ],
-      "severity": "high",
-      "updated_at": "2026-04-18T02:36:18Z",
-      "url": "https://github.com/kushin77/ollama/issues/100"
-    },
-    {
-      "number": 101,
-      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
-      "labels": [
-        "security",
-        "priority-p0",
-        "automated",
-        "type-bug",
-        "status/triaged",
-        "needs-evidence"
-      ],
-      "severity": "high",
-      "updated_at": "2026-04-18T02:36:17Z",
-      "url": "https://github.com/kushin77/ollama/issues/101"
-    },
-    {
-      "number": 102,
-      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
-      "labels": [
-        "security",
-        "priority-p0",
-        "automated",
-        "type-bug",
-        "status/triaged",
-        "needs-evidence"
-      ],
-      "severity": "high",
-      "updated_at": "2026-04-18T02:36:15Z",
-      "url": "https://github.com/kushin77/ollama/issues/102"
+      "updated_at": "2026-04-18T03:09:24Z",
+      "url": "https://github.com/kushin77/ollama/issues/94",
+      "severity": "high"
     },
     {
       "number": 105,
@@ -375,17 +444,14 @@
         "bug",
         "status/triaged",
         "priority/medium",
-        "needs-evidence"
+        "needs-evidence",
+        "status/planned-wave",
+        "wave/01",
+        "wave/1"
       ],
-      "severity": "high",
-      "updated_at": "2026-04-18T02:36:14Z",
-      "url": "https://github.com/kushin77/ollama/issues/105"
+      "updated_at": "2026-04-18T03:09:30Z",
+      "url": "https://github.com/kushin77/ollama/issues/105",
+      "severity": "high"
     }
-  ],
-  "execution_rules": [
-    "implement issue with code/docs/tests as appropriate",
-    "post commit evidence comment before closure",
-    "close only after verification evidence",
-    "commit all generated reports/artifacts"
   ]
 }

@@ -1,8 +1,8 @@
 {
-  "generated_at_utc": "2026-04-18T03:16:44.430567+00:00",
+  "generated_at_utc": "2026-04-18T03:23:01.296517+00:00",
   "repository": "kushin77/ollama",
   "source_snapshot": ".github/open_issues_snapshot.json",
-  "open_issue_count": 319,
+  "open_issue_count": 316,
   "wave_size": 25,
   "wave_count": 13,
   "selection_policy": "severity_then_issue_number",
@@ -5152,12 +5152,12 @@
     },
     {
       "wave": 13,
-      "size": 19,
+      "size": 16,
       "severity_counts": {
         "critical": 0,
         "high": 0,
         "medium": 0,
-        "low": 19
+        "low": 16
       },
       "issue_numbers": [
         359,
@@ -5173,9 +5173,6 @@
         372,
         378,
         379,
-        383,
-        384,
-        385,
         390,
         392,
         398
@@ -5376,54 +5373,6 @@
           ],
           "updated_at": "2026-04-18T02:53:07Z",
           "url": "https://github.com/kushin77/ollama/issues/379",
-          "severity": "low"
-        },
-        {
-          "number": 383,
-          "title": "feat(cmd/github-issues): Add pagination, structured JSON output, and --watch mode",
-          "labels": [
-            "enhancement",
-            "status/triaged",
-            "priority/low",
-            "cli",
-            "needs-evidence",
-            "status/planned-wave",
-            "wave/13"
-          ],
-          "updated_at": "2026-04-18T02:53:09Z",
-          "url": "https://github.com/kushin77/ollama/issues/383",
-          "severity": "low"
-        },
-        {
-          "number": 384,
-          "title": "feat(cmd/github-issues): Add pagination, structured JSON output, and --watch mode",
-          "labels": [
-            "enhancement",
-            "status/triaged",
-            "priority/low",
-            "cli",
-            "needs-evidence",
-            "status/planned-wave",
-            "wave/13"
-          ],
-          "updated_at": "2026-04-18T02:53:10Z",
-          "url": "https://github.com/kushin77/ollama/issues/384",
-          "severity": "low"
-        },
-        {
-          "number": 385,
-          "title": "feat(cmd/github-issues): Add pagination, structured JSON/CSV output, and --watch mode",
-          "labels": [
-            "enhancement",
-            "status/triaged",
-            "priority/low",
-            "cli",
-            "needs-evidence",
-            "status/planned-wave",
-            "wave/13"
-          ],
-          "updated_at": "2026-04-18T02:53:11Z",
-          "url": "https://github.com/kushin77/ollama/issues/385",
           "severity": "low"
         },
         {
