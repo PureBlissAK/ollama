@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-18T04:37:10.510918+00:00",
+  "generated_at": "2026-04-18T04:39:01.094941+00:00",
   "open_issue_count": 294,
   "agent_ready_count": 10,
   "needs_evidence_count": 284,
@@ -31,11 +31,11 @@
   },
   "top_labels": [
     [
-      "status/planned-wave",
+      "agent-ready",
       294
     ],
     [
-      "agent-ready",
+      "status/planned-wave",
       294
     ],
     [
@@ -123,11 +123,11 @@
       25
     ],
     [
-      "wave/02",
+      "wave/2",
       25
     ],
     [
-      "wave/2",
+      "wave/02",
       25
     ]
   ],
