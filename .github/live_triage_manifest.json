@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-18T04:35:25.114477+00:00",
+  "generated_at": "2026-04-18T04:37:10.510918+00:00",
   "open_issue_count": 294,
   "agent_ready_count": 10,
   "needs_evidence_count": 284,
@@ -31,15 +31,15 @@
   },
   "top_labels": [
     [
-      "status/triaged",
-      294
-    ],
-    [
       "status/planned-wave",
       294
     ],
     [
       "agent-ready",
+      294
+    ],
+    [
+      "status/triaged",
       294
     ],
     [
@@ -115,11 +115,11 @@
       25
     ],
     [
-      "wave/09",
+      "wave/9",
       25
     ],
     [
-      "wave/9",
+      "wave/09",
       25
     ],
     [
