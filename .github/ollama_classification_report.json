@@ -1,0 +1,69 @@
+{
+  "timestamp": "2026-04-18T05:25:39Z",
+  "model": "mistral:7b",
+  "total_classified": 5,
+  "successful": 5,
+  "failed": 0,
+  "classifications": [
+    {
+      "issue": 60,
+      "classification": {
+        "priority": "normal",
+        "category": "feature",
+        "is_duplicate": false,
+        "complexity": "moderate",
+        "confidence": 0.6
+      },
+      "model": "mistral:7b",
+      "success": true
+    },
+    {
+      "issue": 62,
+      "classification": {
+        "priority": "normal",
+        "category": "refactor",
+        "is_duplicate": false,
+        "complexity": "moderate",
+        "confidence": 0.6
+      },
+      "model": "mistral:7b",
+      "success": true
+    },
+    {
+      "issue": 64,
+      "classification": {
+        "priority": "normal",
+        "category": "refactor",
+        "is_duplicate": false,
+        "complexity": "moderate",
+        "confidence": 0.7
+      },
+      "model": "mistral:7b",
+      "success": true
+    },
+    {
+      "issue": 65,
+      "classification": {
+        "priority": "normal",
+        "category": "refactor",
+        "is_duplicate": false,
+        "complexity": "moderate",
+        "confidence": 0.6
+      },
+      "model": "mistral:7b",
+      "success": true
+    },
+    {
+      "issue": 66,
+      "classification": {
+        "priority": "normal",
+        "category": "feature",
+        "is_duplicate": false,
+        "complexity": "moderate",
+        "confidence": 0.6
+      },
+      "model": "mistral:7b",
+      "success": true
+    }
+  ]
+}
