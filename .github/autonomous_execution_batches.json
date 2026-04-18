@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-04-18T04:09:13.459344+00:00",
+  "generated_at_utc": "2026-04-18T04:20:29.523443+00:00",
   "repository": "kushin77/ollama",
   "source_snapshot": ".github/open_issues_snapshot.json",
   "open_issue_count": 294,
@@ -808,7 +808,7 @@
             "agent-ready",
             "shard/1"
           ],
-          "updated_at": "2026-04-18T03:53:40Z",
+          "updated_at": "2026-04-18T04:11:36Z",
           "url": "https://github.com/kushin77/ollama/issues/389",
           "severity": "critical"
         },
@@ -828,7 +828,7 @@
             "agent-ready",
             "shard/2"
           ],
-          "updated_at": "2026-04-18T03:53:42Z",
+          "updated_at": "2026-04-18T04:11:36Z",
           "url": "https://github.com/kushin77/ollama/issues/391",
           "severity": "critical"
         },
@@ -847,7 +847,7 @@
             "agent-ready",
             "shard/3"
           ],
-          "updated_at": "2026-04-18T03:53:44Z",
+          "updated_at": "2026-04-18T04:11:37Z",
           "url": "https://github.com/kushin77/ollama/issues/395",
           "severity": "critical"
         },
@@ -865,7 +865,7 @@
             "agent-ready",
             "shard/4"
           ],
-          "updated_at": "2026-04-18T03:58:08Z",
+          "updated_at": "2026-04-18T04:11:26Z",
           "url": "https://github.com/kushin77/ollama/issues/67",
           "severity": "high"
         },
@@ -887,7 +887,7 @@
             "agent-ready",
             "shard/1"
           ],
-          "updated_at": "2026-04-18T03:58:08Z",
+          "updated_at": "2026-04-18T04:11:26Z",
           "url": "https://github.com/kushin77/ollama/issues/83",
           "severity": "high"
         },
@@ -905,7 +905,7 @@
             "agent-ready",
             "shard/2"
           ],
-          "updated_at": "2026-04-18T03:58:08Z",
+          "updated_at": "2026-04-18T04:11:26Z",
           "url": "https://github.com/kushin77/ollama/issues/89",
           "severity": "high"
         },
@@ -927,7 +927,7 @@
             "agent-ready",
             "shard/3"
           ],
-          "updated_at": "2026-04-18T03:58:09Z",
+          "updated_at": "2026-04-18T04:11:27Z",
           "url": "https://github.com/kushin77/ollama/issues/91",
           "severity": "high"
         },
@@ -949,7 +949,7 @@
             "agent-ready",
             "shard/4"
           ],
-          "updated_at": "2026-04-18T03:58:09Z",
+          "updated_at": "2026-04-18T04:11:27Z",
           "url": "https://github.com/kushin77/ollama/issues/94",
           "severity": "high"
         },
@@ -967,7 +967,7 @@
             "agent-ready",
             "shard/1"
           ],
-          "updated_at": "2026-04-18T03:58:10Z",
+          "updated_at": "2026-04-18T04:11:28Z",
           "url": "https://github.com/kushin77/ollama/issues/105",
           "severity": "high"
         },
@@ -985,7 +985,7 @@
             "agent-ready",
             "shard/2"
           ],
-          "updated_at": "2026-04-18T04:08:27Z",
+          "updated_at": "2026-04-18T04:11:28Z",
           "url": "https://github.com/kushin77/ollama/issues/106",
           "severity": "high"
         },
@@ -1280,7 +1280,7 @@
             "agent-ready",
             "shard/1"
           ],
-          "updated_at": "2026-04-18T04:08:38Z",
+          "updated_at": "2026-04-18T04:11:29Z",
           "url": "https://github.com/kushin77/ollama/issues/121",
           "severity": "high"
         },
@@ -1421,9 +1421,10 @@
             "status/planned-wave",
             "wave/02",
             "wave/2",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:51:15Z",
+          "updated_at": "2026-04-18T04:09:32Z",
           "url": "https://github.com/kushin77/ollama/issues/195",
           "severity": "high"
         },
@@ -1438,9 +1439,10 @@
             "status/planned-wave",
             "wave/02",
             "wave/2",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:51:18Z",
+          "updated_at": "2026-04-18T04:09:34Z",
           "url": "https://github.com/kushin77/ollama/issues/198",
           "severity": "high"
         },
@@ -1455,9 +1457,10 @@
             "status/planned-wave",
             "wave/03",
             "wave/3",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:51:21Z",
+          "updated_at": "2026-04-18T04:09:35Z",
           "url": "https://github.com/kushin77/ollama/issues/200",
           "severity": "high"
         },
@@ -1472,9 +1475,10 @@
             "status/planned-wave",
             "wave/03",
             "wave/3",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:51:25Z",
+          "updated_at": "2026-04-18T04:09:38Z",
           "url": "https://github.com/kushin77/ollama/issues/203",
           "severity": "high"
         },
@@ -1491,9 +1495,9 @@
             "wave/03",
             "wave/3",
             "agent-ready",
-            "shard/2"
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:57:56Z",
+          "updated_at": "2026-04-18T04:11:14Z",
           "url": "https://github.com/kushin77/ollama/issues/287",
           "severity": "high"
         },
@@ -1510,9 +1514,9 @@
             "wave/03",
             "wave/3",
             "agent-ready",
-            "shard/3"
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:57:56Z",
+          "updated_at": "2026-04-18T04:11:14Z",
           "url": "https://github.com/kushin77/ollama/issues/288",
           "severity": "high"
         },
@@ -1529,9 +1533,9 @@
             "wave/03",
             "wave/3",
             "agent-ready",
-            "shard/4"
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:57:57Z",
+          "updated_at": "2026-04-18T04:11:15Z",
           "url": "https://github.com/kushin77/ollama/issues/289",
           "severity": "high"
         }
@@ -1587,9 +1591,9 @@
             "wave/03",
             "wave/3",
             "agent-ready",
-            "shard/1"
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:57:57Z",
+          "updated_at": "2026-04-18T04:11:15Z",
           "url": "https://github.com/kushin77/ollama/issues/290",
           "severity": "high"
         },
@@ -1606,9 +1610,9 @@
             "wave/03",
             "wave/3",
             "agent-ready",
-            "shard/2"
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:57:58Z",
+          "updated_at": "2026-04-18T04:11:16Z",
           "url": "https://github.com/kushin77/ollama/issues/291",
           "severity": "high"
         },
@@ -1625,9 +1629,9 @@
             "wave/03",
             "wave/3",
             "agent-ready",
-            "shard/3"
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:57:58Z",
+          "updated_at": "2026-04-18T04:11:16Z",
           "url": "https://github.com/kushin77/ollama/issues/292",
           "severity": "high"
         },
@@ -1644,9 +1648,9 @@
             "wave/04",
             "wave/4",
             "agent-ready",
-            "shard/4"
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:57:58Z",
+          "updated_at": "2026-04-18T04:11:17Z",
           "url": "https://github.com/kushin77/ollama/issues/293",
           "severity": "high"
         },
@@ -1663,9 +1667,9 @@
             "wave/04",
             "wave/4",
             "agent-ready",
-            "shard/1"
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:57:59Z",
+          "updated_at": "2026-04-18T04:11:18Z",
           "url": "https://github.com/kushin77/ollama/issues/295",
           "severity": "high"
         },
@@ -1682,9 +1686,9 @@
             "wave/04",
             "wave/4",
             "agent-ready",
-            "shard/2"
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:57:59Z",
+          "updated_at": "2026-04-18T04:11:18Z",
           "url": "https://github.com/kushin77/ollama/issues/296",
           "severity": "high"
         },
@@ -1701,9 +1705,9 @@
             "wave/04",
             "wave/4",
             "agent-ready",
-            "shard/3"
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:57:59Z",
+          "updated_at": "2026-04-18T04:11:18Z",
           "url": "https://github.com/kushin77/ollama/issues/297",
           "severity": "high"
         },
@@ -1720,9 +1724,9 @@
             "wave/04",
             "wave/4",
             "agent-ready",
-            "shard/4"
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:58:00Z",
+          "updated_at": "2026-04-18T04:11:19Z",
           "url": "https://github.com/kushin77/ollama/issues/298",
           "severity": "high"
         },
@@ -1739,9 +1743,9 @@
             "wave/04",
             "wave/4",
             "agent-ready",
-            "shard/1"
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:58:00Z",
+          "updated_at": "2026-04-18T04:11:19Z",
           "url": "https://github.com/kushin77/ollama/issues/299",
           "severity": "high"
         },
@@ -1758,9 +1762,9 @@
             "wave/04",
             "wave/4",
             "agent-ready",
-            "shard/2"
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:58:01Z",
+          "updated_at": "2026-04-18T04:11:19Z",
           "url": "https://github.com/kushin77/ollama/issues/300",
           "severity": "high"
         },
@@ -1777,9 +1781,9 @@
             "wave/04",
             "wave/4",
             "agent-ready",
-            "shard/3"
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:58:01Z",
+          "updated_at": "2026-04-18T04:11:20Z",
           "url": "https://github.com/kushin77/ollama/issues/301",
           "severity": "high"
         },
@@ -1796,9 +1800,9 @@
             "wave/04",
             "wave/4",
             "agent-ready",
-            "shard/4"
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:58:02Z",
+          "updated_at": "2026-04-18T04:11:20Z",
           "url": "https://github.com/kushin77/ollama/issues/302",
           "severity": "high"
         },
@@ -1815,9 +1819,9 @@
             "wave/04",
             "wave/4",
             "agent-ready",
-            "shard/1"
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:58:02Z",
+          "updated_at": "2026-04-18T04:11:21Z",
           "url": "https://github.com/kushin77/ollama/issues/303",
           "severity": "high"
         },
@@ -1834,9 +1838,9 @@
             "wave/04",
             "wave/4",
             "agent-ready",
-            "shard/2"
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:58:02Z",
+          "updated_at": "2026-04-18T04:11:21Z",
           "url": "https://github.com/kushin77/ollama/issues/304",
           "severity": "high"
         },
@@ -1853,9 +1857,9 @@
             "wave/04",
             "wave/4",
             "agent-ready",
-            "shard/3"
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:58:03Z",
+          "updated_at": "2026-04-18T04:11:21Z",
           "url": "https://github.com/kushin77/ollama/issues/306",
           "severity": "high"
         },
@@ -1872,9 +1876,9 @@
             "wave/04",
             "wave/4",
             "agent-ready",
-            "shard/4"
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:58:03Z",
+          "updated_at": "2026-04-18T04:11:22Z",
           "url": "https://github.com/kushin77/ollama/issues/307",
           "severity": "high"
         },
@@ -1891,9 +1895,9 @@
             "wave/04",
             "wave/4",
             "agent-ready",
-            "shard/1"
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:58:03Z",
+          "updated_at": "2026-04-18T04:11:22Z",
           "url": "https://github.com/kushin77/ollama/issues/308",
           "severity": "high"
         },
@@ -1910,9 +1914,9 @@
             "wave/04",
             "wave/4",
             "agent-ready",
-            "shard/2"
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:58:04Z",
+          "updated_at": "2026-04-18T04:11:23Z",
           "url": "https://github.com/kushin77/ollama/issues/309",
           "severity": "high"
         },
@@ -1929,9 +1933,9 @@
             "wave/04",
             "wave/4",
             "agent-ready",
-            "shard/3"
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:58:04Z",
+          "updated_at": "2026-04-18T04:11:23Z",
           "url": "https://github.com/kushin77/ollama/issues/310",
           "severity": "high"
         },
@@ -1948,9 +1952,9 @@
             "wave/04",
             "wave/4",
             "agent-ready",
-            "shard/4"
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:58:05Z",
+          "updated_at": "2026-04-18T04:11:23Z",
           "url": "https://github.com/kushin77/ollama/issues/311",
           "severity": "high"
         },
@@ -1967,9 +1971,9 @@
             "wave/04",
             "wave/4",
             "agent-ready",
-            "shard/1"
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:58:05Z",
+          "updated_at": "2026-04-18T04:11:24Z",
           "url": "https://github.com/kushin77/ollama/issues/312",
           "severity": "high"
         },
@@ -1986,9 +1990,9 @@
             "wave/04",
             "wave/4",
             "agent-ready",
-            "shard/2"
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:58:05Z",
+          "updated_at": "2026-04-18T04:11:24Z",
           "url": "https://github.com/kushin77/ollama/issues/314",
           "severity": "high"
         },
@@ -2005,9 +2009,9 @@
             "wave/04",
             "wave/4",
             "agent-ready",
-            "shard/3"
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:58:06Z",
+          "updated_at": "2026-04-18T04:11:25Z",
           "url": "https://github.com/kushin77/ollama/issues/315",
           "severity": "high"
         },
@@ -2024,9 +2028,9 @@
             "wave/04",
             "wave/4",
             "agent-ready",
-            "shard/4"
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:58:06Z",
+          "updated_at": "2026-04-18T04:11:34Z",
           "url": "https://github.com/kushin77/ollama/issues/373",
           "severity": "high"
         },
@@ -2043,9 +2047,9 @@
             "wave/04",
             "wave/4",
             "agent-ready",
-            "shard/1"
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:58:06Z",
+          "updated_at": "2026-04-18T04:11:35Z",
           "url": "https://github.com/kushin77/ollama/issues/374",
           "severity": "high"
         }
@@ -2100,9 +2104,9 @@
             "status/planned-wave",
             "wave/05",
             "agent-ready",
-            "shard/2"
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:58:07Z",
+          "updated_at": "2026-04-18T04:11:37Z",
           "url": "https://github.com/kushin77/ollama/issues/376",
           "severity": "high"
         },
@@ -2119,9 +2123,9 @@
             "status/planned-wave",
             "wave/05",
             "agent-ready",
-            "shard/3"
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:58:07Z",
+          "updated_at": "2026-04-18T04:11:43Z",
           "url": "https://github.com/kushin77/ollama/issues/393",
           "severity": "high"
         },
@@ -2138,9 +2142,9 @@
             "status/planned-wave",
             "wave/05",
             "agent-ready",
-            "shard/4"
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:53:44Z",
+          "updated_at": "2026-04-18T04:11:44Z",
           "url": "https://github.com/kushin77/ollama/issues/394",
           "severity": "high"
         },
@@ -2157,9 +2161,9 @@
             "status/planned-wave",
             "wave/05",
             "agent-ready",
-            "shard/1"
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:53:45Z",
+          "updated_at": "2026-04-18T04:11:45Z",
           "url": "https://github.com/kushin77/ollama/issues/396",
           "severity": "high"
         },
@@ -2177,7 +2181,7 @@
             "agent-ready",
             "shard/1"
           ],
-          "updated_at": "2026-04-18T04:08:19Z",
+          "updated_at": "2026-04-18T04:11:30Z",
           "url": "https://github.com/kushin77/ollama/issues/65",
           "severity": "medium"
         },
@@ -2196,7 +2200,7 @@
             "agent-ready",
             "shard/2"
           ],
-          "updated_at": "2026-04-18T04:08:21Z",
+          "updated_at": "2026-04-18T04:11:30Z",
           "url": "https://github.com/kushin77/ollama/issues/69",
           "severity": "medium"
         },
@@ -2214,7 +2218,7 @@
             "agent-ready",
             "shard/3"
           ],
-          "updated_at": "2026-04-18T04:08:22Z",
+          "updated_at": "2026-04-18T04:11:30Z",
           "url": "https://github.com/kushin77/ollama/issues/77",
           "severity": "medium"
         },
@@ -2232,7 +2236,7 @@
             "agent-ready",
             "shard/4"
           ],
-          "updated_at": "2026-04-18T04:08:23Z",
+          "updated_at": "2026-04-18T04:11:31Z",
           "url": "https://github.com/kushin77/ollama/issues/85",
           "severity": "medium"
         },
@@ -2250,7 +2254,7 @@
             "agent-ready",
             "shard/1"
           ],
-          "updated_at": "2026-04-18T04:08:39Z",
+          "updated_at": "2026-04-18T04:11:31Z",
           "url": "https://github.com/kushin77/ollama/issues/122",
           "severity": "medium"
         },
@@ -2271,7 +2275,7 @@
             "agent-ready",
             "shard/2"
           ],
-          "updated_at": "2026-04-18T04:08:40Z",
+          "updated_at": "2026-04-18T04:11:32Z",
           "url": "https://github.com/kushin77/ollama/issues/124",
           "severity": "medium"
         },
@@ -2286,9 +2290,10 @@
             "status/planned-wave",
             "wave/05",
             "wave/5",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:58:13Z",
+          "updated_at": "2026-04-18T04:11:32Z",
           "url": "https://github.com/kushin77/ollama/issues/231",
           "severity": "medium"
         },
@@ -2303,9 +2308,10 @@
             "status/planned-wave",
             "wave/05",
             "wave/5",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:58:14Z",
+          "updated_at": "2026-04-18T04:11:32Z",
           "url": "https://github.com/kushin77/ollama/issues/232",
           "severity": "medium"
         },
@@ -2320,9 +2326,10 @@
             "status/planned-wave",
             "wave/05",
             "wave/5",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:58:14Z",
+          "updated_at": "2026-04-18T04:11:33Z",
           "url": "https://github.com/kushin77/ollama/issues/233",
           "severity": "medium"
         },
@@ -2337,9 +2344,10 @@
             "status/planned-wave",
             "wave/05",
             "wave/5",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:58:14Z",
+          "updated_at": "2026-04-18T04:11:33Z",
           "url": "https://github.com/kushin77/ollama/issues/234",
           "severity": "medium"
         },
@@ -2355,9 +2363,10 @@
             "status/planned-wave",
             "wave/05",
             "wave/5",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:52:14Z",
+          "updated_at": "2026-04-18T04:11:34Z",
           "url": "https://github.com/kushin77/ollama/issues/255",
           "severity": "medium"
         },
@@ -2372,9 +2381,10 @@
             "status/planned-wave",
             "wave/05",
             "wave/5",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:52:15Z",
+          "updated_at": "2026-04-18T04:11:34Z",
           "url": "https://github.com/kushin77/ollama/issues/260",
           "severity": "medium"
         },
@@ -2389,9 +2399,10 @@
             "status/planned-wave",
             "wave/05",
             "wave/5",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:52:16Z",
+          "updated_at": "2026-04-18T04:11:34Z",
           "url": "https://github.com/kushin77/ollama/issues/261",
           "severity": "medium"
         },
@@ -2406,9 +2417,10 @@
             "status/planned-wave",
             "wave/05",
             "wave/5",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:52:39Z",
+          "updated_at": "2026-04-18T04:11:35Z",
           "url": "https://github.com/kushin77/ollama/issues/294",
           "severity": "medium"
         },
@@ -2423,9 +2435,10 @@
             "status/planned-wave",
             "wave/06",
             "wave/6",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:52:41Z",
+          "updated_at": "2026-04-18T04:11:36Z",
           "url": "https://github.com/kushin77/ollama/issues/313",
           "severity": "medium"
         },
@@ -2440,9 +2453,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/06",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:53:43Z",
+          "updated_at": "2026-04-18T04:11:37Z",
           "url": "https://github.com/kushin77/ollama/issues/375",
           "severity": "medium"
         },
@@ -2459,9 +2473,9 @@
             "status/planned-wave",
             "wave/06",
             "agent-ready",
-            "shard/2"
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:53:46Z",
+          "updated_at": "2026-04-18T04:11:46Z",
           "url": "https://github.com/kushin77/ollama/issues/397",
           "severity": "medium"
         },
@@ -3270,9 +3284,10 @@
             "status/planned-wave",
             "wave/07",
             "wave/7",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:50:43Z",
+          "updated_at": "2026-04-18T04:09:13Z",
           "url": "https://github.com/kushin77/ollama/issues/169",
           "severity": "low"
         },
@@ -3286,9 +3301,10 @@
             "status/planned-wave",
             "wave/08",
             "wave/8",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:50:44Z",
+          "updated_at": "2026-04-18T04:09:14Z",
           "url": "https://github.com/kushin77/ollama/issues/170",
           "severity": "low"
         },
@@ -3302,9 +3318,10 @@
             "status/planned-wave",
             "wave/08",
             "wave/8",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:50:46Z",
+          "updated_at": "2026-04-18T04:09:14Z",
           "url": "https://github.com/kushin77/ollama/issues/171",
           "severity": "low"
         },
@@ -3318,9 +3335,10 @@
             "status/planned-wave",
             "wave/08",
             "wave/8",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:50:47Z",
+          "updated_at": "2026-04-18T04:09:15Z",
           "url": "https://github.com/kushin77/ollama/issues/172",
           "severity": "low"
         },
@@ -3334,9 +3352,10 @@
             "status/planned-wave",
             "wave/08",
             "wave/8",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:50:48Z",
+          "updated_at": "2026-04-18T04:09:16Z",
           "url": "https://github.com/kushin77/ollama/issues/173",
           "severity": "low"
         },
@@ -3350,9 +3369,10 @@
             "status/planned-wave",
             "wave/08",
             "wave/8",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:50:49Z",
+          "updated_at": "2026-04-18T04:09:17Z",
           "url": "https://github.com/kushin77/ollama/issues/174",
           "severity": "low"
         },
@@ -3366,9 +3386,10 @@
             "status/planned-wave",
             "wave/08",
             "wave/8",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:50:50Z",
+          "updated_at": "2026-04-18T04:09:17Z",
           "url": "https://github.com/kushin77/ollama/issues/175",
           "severity": "low"
         },
@@ -3382,9 +3403,10 @@
             "status/planned-wave",
             "wave/08",
             "wave/8",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:50:52Z",
+          "updated_at": "2026-04-18T04:09:18Z",
           "url": "https://github.com/kushin77/ollama/issues/176",
           "severity": "low"
         },
@@ -3398,9 +3420,10 @@
             "status/planned-wave",
             "wave/08",
             "wave/8",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:50:53Z",
+          "updated_at": "2026-04-18T04:09:19Z",
           "url": "https://github.com/kushin77/ollama/issues/177",
           "severity": "low"
         },
@@ -3414,9 +3437,10 @@
             "status/planned-wave",
             "wave/08",
             "wave/8",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:50:54Z",
+          "updated_at": "2026-04-18T04:09:20Z",
           "url": "https://github.com/kushin77/ollama/issues/178",
           "severity": "low"
         },
@@ -3430,9 +3454,10 @@
             "status/planned-wave",
             "wave/08",
             "wave/8",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:50:56Z",
+          "updated_at": "2026-04-18T04:09:20Z",
           "url": "https://github.com/kushin77/ollama/issues/179",
           "severity": "low"
         }
@@ -3485,9 +3510,10 @@
             "status/planned-wave",
             "wave/08",
             "wave/8",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:50:57Z",
+          "updated_at": "2026-04-18T04:09:21Z",
           "url": "https://github.com/kushin77/ollama/issues/180",
           "severity": "low"
         },
@@ -3501,9 +3527,10 @@
             "status/planned-wave",
             "wave/08",
             "wave/8",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:50:58Z",
+          "updated_at": "2026-04-18T04:09:22Z",
           "url": "https://github.com/kushin77/ollama/issues/181",
           "severity": "low"
         },
@@ -3517,9 +3544,10 @@
             "status/planned-wave",
             "wave/08",
             "wave/8",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:51:00Z",
+          "updated_at": "2026-04-18T04:09:23Z",
           "url": "https://github.com/kushin77/ollama/issues/183",
           "severity": "low"
         },
@@ -3533,9 +3561,10 @@
             "status/planned-wave",
             "wave/08",
             "wave/8",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:51:02Z",
+          "updated_at": "2026-04-18T04:09:23Z",
           "url": "https://github.com/kushin77/ollama/issues/184",
           "severity": "low"
         },
@@ -3549,9 +3578,10 @@
             "status/planned-wave",
             "wave/08",
             "wave/8",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:51:03Z",
+          "updated_at": "2026-04-18T04:09:24Z",
           "url": "https://github.com/kushin77/ollama/issues/185",
           "severity": "low"
         },
@@ -3565,9 +3595,10 @@
             "status/planned-wave",
             "wave/08",
             "wave/8",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:51:04Z",
+          "updated_at": "2026-04-18T04:09:25Z",
           "url": "https://github.com/kushin77/ollama/issues/186",
           "severity": "low"
         },
@@ -3581,9 +3612,10 @@
             "status/planned-wave",
             "wave/08",
             "wave/8",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:51:05Z",
+          "updated_at": "2026-04-18T04:09:26Z",
           "url": "https://github.com/kushin77/ollama/issues/187",
           "severity": "low"
         },
@@ -3597,9 +3629,10 @@
             "status/planned-wave",
             "wave/08",
             "wave/8",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:51:07Z",
+          "updated_at": "2026-04-18T04:09:26Z",
           "url": "https://github.com/kushin77/ollama/issues/188",
           "severity": "low"
         },
@@ -3613,9 +3646,10 @@
             "status/planned-wave",
             "wave/08",
             "wave/8",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:51:08Z",
+          "updated_at": "2026-04-18T04:09:27Z",
           "url": "https://github.com/kushin77/ollama/issues/189",
           "severity": "low"
         },
@@ -3629,9 +3663,10 @@
             "status/planned-wave",
             "wave/08",
             "wave/8",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:51:09Z",
+          "updated_at": "2026-04-18T04:09:28Z",
           "url": "https://github.com/kushin77/ollama/issues/190",
           "severity": "low"
         },
@@ -3645,9 +3680,10 @@
             "status/planned-wave",
             "wave/08",
             "wave/8",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:51:10Z",
+          "updated_at": "2026-04-18T04:09:29Z",
           "url": "https://github.com/kushin77/ollama/issues/191",
           "severity": "low"
         },
@@ -3661,9 +3697,10 @@
             "status/planned-wave",
             "wave/08",
             "wave/8",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:51:11Z",
+          "updated_at": "2026-04-18T04:09:29Z",
           "url": "https://github.com/kushin77/ollama/issues/192",
           "severity": "low"
         },
@@ -3677,9 +3714,10 @@
             "status/planned-wave",
             "wave/08",
             "wave/8",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:51:12Z",
+          "updated_at": "2026-04-18T04:09:30Z",
           "url": "https://github.com/kushin77/ollama/issues/193",
           "severity": "low"
         },
@@ -3693,9 +3731,10 @@
             "status/planned-wave",
             "wave/08",
             "wave/8",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:51:14Z",
+          "updated_at": "2026-04-18T04:09:31Z",
           "url": "https://github.com/kushin77/ollama/issues/194",
           "severity": "low"
         },
@@ -3709,9 +3748,10 @@
             "status/planned-wave",
             "wave/09",
             "wave/9",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:51:16Z",
+          "updated_at": "2026-04-18T04:09:32Z",
           "url": "https://github.com/kushin77/ollama/issues/196",
           "severity": "low"
         },
@@ -3725,9 +3765,10 @@
             "status/planned-wave",
             "wave/09",
             "wave/9",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:51:17Z",
+          "updated_at": "2026-04-18T04:09:33Z",
           "url": "https://github.com/kushin77/ollama/issues/197",
           "severity": "low"
         },
@@ -3741,9 +3782,10 @@
             "status/planned-wave",
             "wave/09",
             "wave/9",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:51:19Z",
+          "updated_at": "2026-04-18T04:09:35Z",
           "url": "https://github.com/kushin77/ollama/issues/199",
           "severity": "low"
         },
@@ -3757,9 +3799,10 @@
             "status/planned-wave",
             "wave/09",
             "wave/9",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:51:22Z",
+          "updated_at": "2026-04-18T04:09:36Z",
           "url": "https://github.com/kushin77/ollama/issues/201",
           "severity": "low"
         },
@@ -3773,9 +3816,10 @@
             "status/planned-wave",
             "wave/09",
             "wave/9",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:51:23Z",
+          "updated_at": "2026-04-18T04:09:37Z",
           "url": "https://github.com/kushin77/ollama/issues/202",
           "severity": "low"
         },
@@ -3789,9 +3833,10 @@
             "status/planned-wave",
             "wave/09",
             "wave/9",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:51:26Z",
+          "updated_at": "2026-04-18T04:09:38Z",
           "url": "https://github.com/kushin77/ollama/issues/204",
           "severity": "low"
         },
@@ -3805,9 +3850,10 @@
             "status/planned-wave",
             "wave/09",
             "wave/9",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:51:27Z",
+          "updated_at": "2026-04-18T04:09:39Z",
           "url": "https://github.com/kushin77/ollama/issues/205",
           "severity": "low"
         },
@@ -3821,9 +3867,10 @@
             "status/planned-wave",
             "wave/09",
             "wave/9",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:51:28Z",
+          "updated_at": "2026-04-18T04:09:40Z",
           "url": "https://github.com/kushin77/ollama/issues/206",
           "severity": "low"
         },
@@ -3837,9 +3884,10 @@
             "status/planned-wave",
             "wave/09",
             "wave/9",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:51:29Z",
+          "updated_at": "2026-04-18T04:09:41Z",
           "url": "https://github.com/kushin77/ollama/issues/207",
           "severity": "low"
         },
@@ -3853,9 +3901,10 @@
             "status/planned-wave",
             "wave/09",
             "wave/9",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:51:31Z",
+          "updated_at": "2026-04-18T04:09:41Z",
           "url": "https://github.com/kushin77/ollama/issues/208",
           "severity": "low"
         },
@@ -3869,9 +3918,10 @@
             "status/planned-wave",
             "wave/09",
             "wave/9",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:51:32Z",
+          "updated_at": "2026-04-18T04:09:42Z",
           "url": "https://github.com/kushin77/ollama/issues/209",
           "severity": "low"
         }
@@ -3924,9 +3974,10 @@
             "status/planned-wave",
             "wave/09",
             "wave/9",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:51:33Z",
+          "updated_at": "2026-04-18T04:09:43Z",
           "url": "https://github.com/kushin77/ollama/issues/210",
           "severity": "low"
         },
@@ -3940,9 +3991,10 @@
             "status/planned-wave",
             "wave/09",
             "wave/9",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:51:34Z",
+          "updated_at": "2026-04-18T04:09:44Z",
           "url": "https://github.com/kushin77/ollama/issues/211",
           "severity": "low"
         },
@@ -3956,9 +4008,10 @@
             "status/planned-wave",
             "wave/09",
             "wave/9",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:51:35Z",
+          "updated_at": "2026-04-18T04:09:44Z",
           "url": "https://github.com/kushin77/ollama/issues/212",
           "severity": "low"
         },
@@ -3972,9 +4025,10 @@
             "status/planned-wave",
             "wave/09",
             "wave/9",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:51:37Z",
+          "updated_at": "2026-04-18T04:09:45Z",
           "url": "https://github.com/kushin77/ollama/issues/213",
           "severity": "low"
         },
@@ -3988,9 +4042,10 @@
             "status/planned-wave",
             "wave/09",
             "wave/9",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:51:38Z",
+          "updated_at": "2026-04-18T04:09:46Z",
           "url": "https://github.com/kushin77/ollama/issues/214",
           "severity": "low"
         },
@@ -4004,9 +4059,10 @@
             "status/planned-wave",
             "wave/09",
             "wave/9",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:51:39Z",
+          "updated_at": "2026-04-18T04:09:47Z",
           "url": "https://github.com/kushin77/ollama/issues/215",
           "severity": "low"
         },
@@ -4020,9 +4076,10 @@
             "status/planned-wave",
             "wave/09",
             "wave/9",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:51:40Z",
+          "updated_at": "2026-04-18T04:09:47Z",
           "url": "https://github.com/kushin77/ollama/issues/216",
           "severity": "low"
         },
@@ -4036,9 +4093,10 @@
             "status/planned-wave",
             "wave/09",
             "wave/9",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:51:41Z",
+          "updated_at": "2026-04-18T04:09:48Z",
           "url": "https://github.com/kushin77/ollama/issues/217",
           "severity": "low"
         },
@@ -4052,9 +4110,10 @@
             "status/planned-wave",
             "wave/09",
             "wave/9",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:51:43Z",
+          "updated_at": "2026-04-18T04:09:49Z",
           "url": "https://github.com/kushin77/ollama/issues/218",
           "severity": "low"
         },
@@ -4068,9 +4127,10 @@
             "status/planned-wave",
             "wave/09",
             "wave/9",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:51:44Z",
+          "updated_at": "2026-04-18T04:09:49Z",
           "url": "https://github.com/kushin77/ollama/issues/219",
           "severity": "low"
         },
@@ -4084,9 +4144,10 @@
             "status/planned-wave",
             "wave/09",
             "wave/9",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:51:45Z",
+          "updated_at": "2026-04-18T04:09:50Z",
           "url": "https://github.com/kushin77/ollama/issues/220",
           "severity": "low"
         },
@@ -4100,9 +4161,10 @@
             "status/planned-wave",
             "wave/09",
             "wave/9",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:51:47Z",
+          "updated_at": "2026-04-18T04:09:51Z",
           "url": "https://github.com/kushin77/ollama/issues/221",
           "severity": "low"
         },
@@ -4116,9 +4178,10 @@
             "status/planned-wave",
             "wave/09",
             "wave/9",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:51:48Z",
+          "updated_at": "2026-04-18T04:09:52Z",
           "url": "https://github.com/kushin77/ollama/issues/222",
           "severity": "low"
         },
@@ -4132,9 +4195,10 @@
             "status/planned-wave",
             "wave/09",
             "wave/9",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:51:49Z",
+          "updated_at": "2026-04-18T04:09:53Z",
           "url": "https://github.com/kushin77/ollama/issues/223",
           "severity": "low"
         },
@@ -4147,9 +4211,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/10",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:51:50Z",
+          "updated_at": "2026-04-18T04:09:53Z",
           "url": "https://github.com/kushin77/ollama/issues/224",
           "severity": "low"
         },
@@ -4162,9 +4227,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/10",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:51:52Z",
+          "updated_at": "2026-04-18T04:09:54Z",
           "url": "https://github.com/kushin77/ollama/issues/226",
           "severity": "low"
         },
@@ -4177,9 +4243,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/10",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:51:58Z",
+          "updated_at": "2026-04-18T04:09:58Z",
           "url": "https://github.com/kushin77/ollama/issues/235",
           "severity": "low"
         },
@@ -4192,9 +4259,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/10",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:52:00Z",
+          "updated_at": "2026-04-18T04:09:59Z",
           "url": "https://github.com/kushin77/ollama/issues/236",
           "severity": "low"
         },
@@ -4207,9 +4275,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/10",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:52:02Z",
+          "updated_at": "2026-04-18T04:10:00Z",
           "url": "https://github.com/kushin77/ollama/issues/237",
           "severity": "low"
         },
@@ -4222,9 +4291,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/10",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:52:03Z",
+          "updated_at": "2026-04-18T04:10:00Z",
           "url": "https://github.com/kushin77/ollama/issues/238",
           "severity": "low"
         },
@@ -4237,9 +4307,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/10",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:52:04Z",
+          "updated_at": "2026-04-18T04:10:01Z",
           "url": "https://github.com/kushin77/ollama/issues/239",
           "severity": "low"
         },
@@ -4252,9 +4323,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/10",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:52:17Z",
+          "updated_at": "2026-04-18T04:10:09Z",
           "url": "https://github.com/kushin77/ollama/issues/268",
           "severity": "low"
         },
@@ -4267,9 +4339,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/10",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:52:19Z",
+          "updated_at": "2026-04-18T04:10:10Z",
           "url": "https://github.com/kushin77/ollama/issues/269",
           "severity": "low"
         },
@@ -4282,9 +4355,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/10",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:52:20Z",
+          "updated_at": "2026-04-18T04:10:11Z",
           "url": "https://github.com/kushin77/ollama/issues/270",
           "severity": "low"
         },
@@ -4297,9 +4371,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/10",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:52:21Z",
+          "updated_at": "2026-04-18T04:10:11Z",
           "url": "https://github.com/kushin77/ollama/issues/271",
           "severity": "low"
         }
@@ -4351,9 +4426,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/10",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:52:22Z",
+          "updated_at": "2026-04-18T04:10:12Z",
           "url": "https://github.com/kushin77/ollama/issues/272",
           "severity": "low"
         },
@@ -4367,9 +4443,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/10",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:52:23Z",
+          "updated_at": "2026-04-18T04:11:37Z",
           "url": "https://github.com/kushin77/ollama/issues/273",
           "severity": "low"
         },
@@ -4383,9 +4460,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/10",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:52:24Z",
+          "updated_at": "2026-04-18T04:11:38Z",
           "url": "https://github.com/kushin77/ollama/issues/274",
           "severity": "low"
         },
@@ -4399,9 +4477,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/10",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:52:25Z",
+          "updated_at": "2026-04-18T04:11:38Z",
           "url": "https://github.com/kushin77/ollama/issues/275",
           "severity": "low"
         },
@@ -4415,9 +4494,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/10",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:52:26Z",
+          "updated_at": "2026-04-18T04:11:39Z",
           "url": "https://github.com/kushin77/ollama/issues/276",
           "severity": "low"
         },
@@ -4431,9 +4511,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/10",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:52:27Z",
+          "updated_at": "2026-04-18T04:11:39Z",
           "url": "https://github.com/kushin77/ollama/issues/277",
           "severity": "low"
         },
@@ -4447,9 +4528,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/10",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:52:28Z",
+          "updated_at": "2026-04-18T04:11:39Z",
           "url": "https://github.com/kushin77/ollama/issues/278",
           "severity": "low"
         },
@@ -4463,9 +4545,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/10",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:52:30Z",
+          "updated_at": "2026-04-18T04:11:40Z",
           "url": "https://github.com/kushin77/ollama/issues/279",
           "severity": "low"
         },
@@ -4479,9 +4562,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/10",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:52:31Z",
+          "updated_at": "2026-04-18T04:11:40Z",
           "url": "https://github.com/kushin77/ollama/issues/280",
           "severity": "low"
         },
@@ -4495,9 +4579,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/11",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:52:40Z",
+          "updated_at": "2026-04-18T04:14:33Z",
           "url": "https://github.com/kushin77/ollama/issues/305",
           "severity": "low"
         },
@@ -4511,9 +4596,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/11",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:52:42Z",
+          "updated_at": "2026-04-18T04:14:36Z",
           "url": "https://github.com/kushin77/ollama/issues/316",
           "severity": "low"
         },
@@ -4527,9 +4613,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/11",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:52:43Z",
+          "updated_at": "2026-04-18T04:14:37Z",
           "url": "https://github.com/kushin77/ollama/issues/317",
           "severity": "low"
         },
@@ -4543,9 +4630,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/11",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:52:44Z",
+          "updated_at": "2026-04-18T04:14:39Z",
           "url": "https://github.com/kushin77/ollama/issues/318",
           "severity": "low"
         },
@@ -4559,9 +4647,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/11",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:52:45Z",
+          "updated_at": "2026-04-18T04:14:40Z",
           "url": "https://github.com/kushin77/ollama/issues/319",
           "severity": "low"
         },
@@ -4575,9 +4664,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/11",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:52:46Z",
+          "updated_at": "2026-04-18T04:14:41Z",
           "url": "https://github.com/kushin77/ollama/issues/320",
           "severity": "low"
         },
@@ -4591,9 +4681,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/11",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:52:47Z",
+          "updated_at": "2026-04-18T04:14:42Z",
           "url": "https://github.com/kushin77/ollama/issues/321",
           "severity": "low"
         },
@@ -4607,9 +4698,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/11",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:52:48Z",
+          "updated_at": "2026-04-18T04:14:43Z",
           "url": "https://github.com/kushin77/ollama/issues/322",
           "severity": "low"
         },
@@ -4623,9 +4715,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/11",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:52:49Z",
+          "updated_at": "2026-04-18T04:14:45Z",
           "url": "https://github.com/kushin77/ollama/issues/323",
           "severity": "low"
         },
@@ -4639,9 +4732,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/11",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:52:50Z",
+          "updated_at": "2026-04-18T04:14:46Z",
           "url": "https://github.com/kushin77/ollama/issues/324",
           "severity": "low"
         },
@@ -4655,9 +4749,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/11",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:52:52Z",
+          "updated_at": "2026-04-18T04:14:47Z",
           "url": "https://github.com/kushin77/ollama/issues/325",
           "severity": "low"
         },
@@ -4671,9 +4766,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/11",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:52:53Z",
+          "updated_at": "2026-04-18T04:14:48Z",
           "url": "https://github.com/kushin77/ollama/issues/326",
           "severity": "low"
         },
@@ -4687,9 +4783,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/11",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:52:54Z",
+          "updated_at": "2026-04-18T04:14:49Z",
           "url": "https://github.com/kushin77/ollama/issues/327",
           "severity": "low"
         },
@@ -4703,9 +4800,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/11",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:52:55Z",
+          "updated_at": "2026-04-18T04:14:51Z",
           "url": "https://github.com/kushin77/ollama/issues/328",
           "severity": "low"
         },
@@ -4719,9 +4817,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/11",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:52:57Z",
+          "updated_at": "2026-04-18T04:14:52Z",
           "url": "https://github.com/kushin77/ollama/issues/329",
           "severity": "low"
         },
@@ -4735,9 +4834,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/11",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:52:58Z",
+          "updated_at": "2026-04-18T04:14:53Z",
           "url": "https://github.com/kushin77/ollama/issues/330",
           "severity": "low"
         }
@@ -4790,9 +4890,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/11",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:52:59Z",
+          "updated_at": "2026-04-18T04:14:54Z",
           "url": "https://github.com/kushin77/ollama/issues/331",
           "severity": "low"
         },
@@ -4806,9 +4907,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/11",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:53:00Z",
+          "updated_at": "2026-04-18T04:14:56Z",
           "url": "https://github.com/kushin77/ollama/issues/332",
           "severity": "low"
         },
@@ -4822,9 +4924,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/11",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:53:01Z",
+          "updated_at": "2026-04-18T04:14:57Z",
           "url": "https://github.com/kushin77/ollama/issues/333",
           "severity": "low"
         },
@@ -4838,9 +4941,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/12",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:53:02Z",
+          "updated_at": "2026-04-18T04:14:58Z",
           "url": "https://github.com/kushin77/ollama/issues/334",
           "severity": "low"
         },
@@ -4854,9 +4958,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/12",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:53:03Z",
+          "updated_at": "2026-04-18T04:14:59Z",
           "url": "https://github.com/kushin77/ollama/issues/335",
           "severity": "low"
         },
@@ -4870,9 +4975,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/12",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:53:04Z",
+          "updated_at": "2026-04-18T04:15:00Z",
           "url": "https://github.com/kushin77/ollama/issues/336",
           "severity": "low"
         },
@@ -4886,9 +4992,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/12",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:53:05Z",
+          "updated_at": "2026-04-18T04:15:02Z",
           "url": "https://github.com/kushin77/ollama/issues/337",
           "severity": "low"
         },
@@ -4902,9 +5009,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/12",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:53:06Z",
+          "updated_at": "2026-04-18T04:15:03Z",
           "url": "https://github.com/kushin77/ollama/issues/338",
           "severity": "low"
         },
@@ -4918,9 +5026,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/12",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:53:07Z",
+          "updated_at": "2026-04-18T04:15:04Z",
           "url": "https://github.com/kushin77/ollama/issues/339",
           "severity": "low"
         },
@@ -4934,9 +5043,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/12",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:53:08Z",
+          "updated_at": "2026-04-18T04:15:05Z",
           "url": "https://github.com/kushin77/ollama/issues/340",
           "severity": "low"
         },
@@ -4950,9 +5060,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/12",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:53:10Z",
+          "updated_at": "2026-04-18T04:15:07Z",
           "url": "https://github.com/kushin77/ollama/issues/341",
           "severity": "low"
         },
@@ -4966,9 +5077,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/12",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:53:11Z",
+          "updated_at": "2026-04-18T04:15:08Z",
           "url": "https://github.com/kushin77/ollama/issues/342",
           "severity": "low"
         },
@@ -4982,9 +5094,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/12",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:53:12Z",
+          "updated_at": "2026-04-18T04:15:09Z",
           "url": "https://github.com/kushin77/ollama/issues/343",
           "severity": "low"
         },
@@ -4998,9 +5111,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/12",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:53:13Z",
+          "updated_at": "2026-04-18T04:15:10Z",
           "url": "https://github.com/kushin77/ollama/issues/344",
           "severity": "low"
         },
@@ -5014,9 +5128,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/12",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:53:15Z",
+          "updated_at": "2026-04-18T04:15:12Z",
           "url": "https://github.com/kushin77/ollama/issues/345",
           "severity": "low"
         },
@@ -5030,9 +5145,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/12",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:53:16Z",
+          "updated_at": "2026-04-18T04:15:13Z",
           "url": "https://github.com/kushin77/ollama/issues/346",
           "severity": "low"
         },
@@ -5046,9 +5162,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/12",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:53:17Z",
+          "updated_at": "2026-04-18T04:15:14Z",
           "url": "https://github.com/kushin77/ollama/issues/347",
           "severity": "low"
         },
@@ -5062,9 +5179,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/12",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:53:18Z",
+          "updated_at": "2026-04-18T04:15:15Z",
           "url": "https://github.com/kushin77/ollama/issues/348",
           "severity": "low"
         },
@@ -5078,9 +5196,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/12",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:53:19Z",
+          "updated_at": "2026-04-18T04:15:17Z",
           "url": "https://github.com/kushin77/ollama/issues/349",
           "severity": "low"
         },
@@ -5094,9 +5213,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/12",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:53:20Z",
+          "updated_at": "2026-04-18T04:15:18Z",
           "url": "https://github.com/kushin77/ollama/issues/350",
           "severity": "low"
         },
@@ -5110,9 +5230,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/12",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:53:22Z",
+          "updated_at": "2026-04-18T04:15:19Z",
           "url": "https://github.com/kushin77/ollama/issues/351",
           "severity": "low"
         },
@@ -5126,9 +5247,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/12",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:53:23Z",
+          "updated_at": "2026-04-18T04:15:20Z",
           "url": "https://github.com/kushin77/ollama/issues/352",
           "severity": "low"
         },
@@ -5142,9 +5264,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/12",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:53:24Z",
+          "updated_at": "2026-04-18T04:15:21Z",
           "url": "https://github.com/kushin77/ollama/issues/353",
           "severity": "low"
         },
@@ -5158,9 +5281,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/12",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:53:25Z",
+          "updated_at": "2026-04-18T04:15:23Z",
           "url": "https://github.com/kushin77/ollama/issues/354",
           "severity": "low"
         },
@@ -5174,9 +5298,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/12",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:53:26Z",
+          "updated_at": "2026-04-18T04:15:24Z",
           "url": "https://github.com/kushin77/ollama/issues/355",
           "severity": "low"
         }
@@ -5223,9 +5348,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/12",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:53:27Z",
+          "updated_at": "2026-04-18T04:15:25Z",
           "url": "https://github.com/kushin77/ollama/issues/356",
           "severity": "low"
         },
@@ -5239,9 +5365,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/12",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:53:29Z",
+          "updated_at": "2026-04-18T04:15:26Z",
           "url": "https://github.com/kushin77/ollama/issues/357",
           "severity": "low"
         },
@@ -5255,9 +5382,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/12",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:53:30Z",
+          "updated_at": "2026-04-18T04:15:28Z",
           "url": "https://github.com/kushin77/ollama/issues/358",
           "severity": "low"
         },
@@ -5271,9 +5399,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/13",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:53:31Z",
+          "updated_at": "2026-04-18T04:15:29Z",
           "url": "https://github.com/kushin77/ollama/issues/359",
           "severity": "low"
         },
@@ -5287,9 +5416,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/13",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:53:32Z",
+          "updated_at": "2026-04-18T04:15:30Z",
           "url": "https://github.com/kushin77/ollama/issues/360",
           "severity": "low"
         },
@@ -5303,9 +5433,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/13",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:53:33Z",
+          "updated_at": "2026-04-18T04:15:31Z",
           "url": "https://github.com/kushin77/ollama/issues/361",
           "severity": "low"
         },
@@ -5319,9 +5450,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/13",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:53:34Z",
+          "updated_at": "2026-04-18T04:15:33Z",
           "url": "https://github.com/kushin77/ollama/issues/362",
           "severity": "low"
         },
@@ -5335,9 +5467,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/13",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:53:35Z",
+          "updated_at": "2026-04-18T04:15:34Z",
           "url": "https://github.com/kushin77/ollama/issues/363",
           "severity": "low"
         },
@@ -5351,9 +5484,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/13",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:53:37Z",
+          "updated_at": "2026-04-18T04:15:35Z",
           "url": "https://github.com/kushin77/ollama/issues/364",
           "severity": "low"
         },
@@ -5367,9 +5501,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/13",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:53:38Z",
+          "updated_at": "2026-04-18T04:15:36Z",
           "url": "https://github.com/kushin77/ollama/issues/365",
           "severity": "low"
         },
@@ -5383,9 +5518,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/13",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:53:39Z",
+          "updated_at": "2026-04-18T04:15:37Z",
           "url": "https://github.com/kushin77/ollama/issues/366",
           "severity": "low"
         },
@@ -5399,9 +5535,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/13",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:53:40Z",
+          "updated_at": "2026-04-18T04:15:39Z",
           "url": "https://github.com/kushin77/ollama/issues/367",
           "severity": "low"
         },
@@ -5415,9 +5552,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/13",
-            "agent-ready"
+            "agent-ready",
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:53:41Z",
+          "updated_at": "2026-04-18T04:15:40Z",
           "url": "https://github.com/kushin77/ollama/issues/368",
           "severity": "low"
         },
@@ -5431,9 +5569,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/13",
-            "agent-ready"
+            "agent-ready",
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:53:42Z",
+          "updated_at": "2026-04-18T04:15:42Z",
           "url": "https://github.com/kushin77/ollama/issues/372",
           "severity": "low"
         },
@@ -5448,9 +5587,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/13",
-            "agent-ready"
+            "agent-ready",
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:53:45Z",
+          "updated_at": "2026-04-18T04:15:44Z",
           "url": "https://github.com/kushin77/ollama/issues/378",
           "severity": "low"
         },
@@ -5465,9 +5605,10 @@
             "needs-evidence",
             "status/planned-wave",
             "wave/13",
-            "agent-ready"
+            "agent-ready",
+            "shard/3"
           ],
-          "updated_at": "2026-04-18T03:53:46Z",
+          "updated_at": "2026-04-18T04:15:45Z",
           "url": "https://github.com/kushin77/ollama/issues/379",
           "severity": "low"
         },
@@ -5484,9 +5625,9 @@
             "status/planned-wave",
             "wave/13",
             "agent-ready",
-            "shard/3"
+            "shard/4"
           ],
-          "updated_at": "2026-04-18T03:53:41Z",
+          "updated_at": "2026-04-18T04:15:46Z",
           "url": "https://github.com/kushin77/ollama/issues/390",
           "severity": "low"
         },
@@ -5502,9 +5643,9 @@
             "status/planned-wave",
             "wave/13",
             "agent-ready",
-            "shard/4"
+            "shard/1"
           ],
-          "updated_at": "2026-04-18T03:53:42Z",
+          "updated_at": "2026-04-18T04:15:48Z",
           "url": "https://github.com/kushin77/ollama/issues/392",
           "severity": "low"
         },
@@ -5519,9 +5660,9 @@
             "status/planned-wave",
             "wave/13",
             "agent-ready",
-            "shard/1"
+            "shard/2"
           ],
-          "updated_at": "2026-04-18T03:53:46Z",
+          "updated_at": "2026-04-18T04:15:50Z",
           "url": "https://github.com/kushin77/ollama/issues/398",
           "severity": "low"
         }
