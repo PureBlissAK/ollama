@@ -1,0 +1,50 @@
+{
+  "execution_state": "STARTED",
+  "execution_timestamp": "2026-04-18T00:00:00Z",
+  "total_issues": 294,
+  "total_batches": 28,
+  "total_expected_prs": 28,
+  "lanes": {
+    "lane_1": {
+      "shard": "shard_1",
+      "issues_assigned": 74,
+      "p0_count": 9,
+      "batches": 7,
+      "recommended_model": "llama3:8b"
+    },
+    "lane_2": {
+      "shard": "shard_2",
+      "issues_assigned": 74,
+      "p0_count": 7,
+      "batches": 7,
+      "recommended_model": "llama3:8b"
+    },
+    "lane_3": {
+      "shard": "shard_3",
+      "issues_assigned": 73,
+      "p0_count": 8,
+      "batches": 7,
+      "recommended_model": "llama3:8b"
+    },
+    "lane_4": {
+      "shard": "shard_4",
+      "issues_assigned": 73,
+      "p0_count": 6,
+      "batches": 7,
+      "recommended_model": "llama3:8b"
+    }
+  },
+  "progress": {
+    "claimed": 0,
+    "in_progress": 0,
+    "pr_submitted": 0,
+    "completed": 0
+  },
+  "active_agents": [],
+  "in_progress": [],
+  "pr_submitted": [],
+  "completed": [],
+  "failed": [],
+  "conflicts": [],
+  "notes": "Execution framework ready. Agents may start claiming work from lane_workpacks/shard_*.json"
+}
