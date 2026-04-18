@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-04-18T01:04:44.221804",
-  "repository": "kushin77/ollama",
+  "timestamp": "2026-04-18T04:46:28.402571",
+  "repository": "offline",
   "requested_repository": "kushin77/ollama",
   "auth_source": "git_credentials",
   "total_issues_processed": 0,
@@ -31,7 +31,7 @@
     },
     "execution": {
       "status": "success",
-      "dry_run": false,
+      "dry_run": true,
       "attempted": 0,
       "succeeded": 0,
       "failed": 0
@@ -40,33 +40,29 @@
   "execution_results": [],
   "state_transitions": {},
   "run_config": {
-    "run_id": "0cf7fe8daf19",
+    "run_id": "13dc173e6226",
     "requested_repository": "kushin77/ollama",
-    "selected_repository": "kushin77/ollama",
+    "selected_repository": "offline",
     "fallback_repository": "ollama/ollama",
     "allow_fallback": false,
     "all_severities": true,
     "severity": "high",
     "max_issues": 100,
-    "execute": true,
-    "auto_close_labels": [
-      "duplicate",
-      "invalid",
-      "wontfix"
-    ],
+    "execute": false,
+    "auto_close_labels": [],
     "auth_source": "git_credentials",
     "token_present": true,
-    "config_hash": "b612389b056469d3"
+    "config_hash": "4fb4d14c49d86694"
   },
   "orchestration": {
-    "run_id": "0cf7fe8daf19",
+    "run_id": "13dc173e6226",
     "mode": "all-severities",
     "summaries": [
       {
-        "timestamp": "2026-04-18T01:04:43.412430",
-        "repository": "kushin77/ollama",
+        "timestamp": "2026-04-18T04:46:28.402454",
+        "repository": "offline",
         "requested_repository": "kushin77/ollama",
-        "run_id": "0cf7fe8daf19",
+        "run_id": "13dc173e6226",
         "auth_source": "git_credentials",
         "ops_ledger_file": ".github/issue_ops_ledger.jsonl",
         "pipeline": {
@@ -87,7 +83,7 @@
           },
           "execution": {
             "status": "skipped",
-            "dry_run": false,
+            "dry_run": true,
             "attempted": 0,
             "succeeded": 0,
             "failed": 0
@@ -96,10 +92,10 @@
         "issues_processed": []
       },
       {
-        "timestamp": "2026-04-18T01:04:43.737218",
-        "repository": "kushin77/ollama",
+        "timestamp": "2026-04-18T04:46:28.402496",
+        "repository": "offline",
         "requested_repository": "kushin77/ollama",
-        "run_id": "0cf7fe8daf19",
+        "run_id": "13dc173e6226",
         "auth_source": "git_credentials",
         "ops_ledger_file": ".github/issue_ops_ledger.jsonl",
         "pipeline": {
@@ -120,7 +116,7 @@
           },
           "execution": {
             "status": "skipped",
-            "dry_run": false,
+            "dry_run": true,
             "attempted": 0,
             "succeeded": 0,
             "failed": 0
@@ -129,10 +125,10 @@
         "issues_processed": []
       },
       {
-        "timestamp": "2026-04-18T01:04:44.013885",
-        "repository": "kushin77/ollama",
+        "timestamp": "2026-04-18T04:46:28.402526",
+        "repository": "offline",
         "requested_repository": "kushin77/ollama",
-        "run_id": "0cf7fe8daf19",
+        "run_id": "13dc173e6226",
         "auth_source": "git_credentials",
         "ops_ledger_file": ".github/issue_ops_ledger.jsonl",
         "pipeline": {
@@ -153,7 +149,7 @@
           },
           "execution": {
             "status": "skipped",
-            "dry_run": false,
+            "dry_run": true,
             "attempted": 0,
             "succeeded": 0,
             "failed": 0
@@ -162,6 +158,6 @@
         "issues_processed": []
       }
     ],
-    "timestamp": "2026-04-18T01:04:44.221717"
+    "timestamp": "2026-04-18T04:46:28.402550"
   }
 }

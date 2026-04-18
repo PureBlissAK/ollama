@@ -362,7 +362,11 @@ class IssueOrchestrator:
             issues = []
         else:
             print(f"📥 Fetching issues from {self.selected_repo}...")
-            issues = self.gh.fetch_issues(state='open', per_page=max_issues)
+            issues = self.gh.fetch_issues(
+                state='open',
+                per_page=min(max_issues, 100),
+                max_issues=max_issues,
+            )
 
         summary['pipeline']['fetch'] = {
             'status': 'success',

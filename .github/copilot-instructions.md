@@ -158,7 +158,7 @@ go test -bench=. -benchmem ./cmd/bench
 func TestModelLoad_InferenceCompletes(t *testing.T) {
     m, err := LoadModel("llama")
     require.NoError(t, err)
-    
+
     resp, err := m.Generate(ctx, prompt)
     require.NoError(t, err)
     assert.NotEmpty(t, resp.Text)
@@ -265,6 +265,10 @@ Before adding a new dependency:
 9. **Documentation**: Update docs if behavior changes
 
 ## Review & Merge Criteria
+
+### Mandatory Main Deployment Rule
+- Every merge to `main` or direct push to `main` must trigger a production redeploy through the approved deployment workflow.
+- A change is not considered fully complete until that redeploy succeeds for the resulting `main` commit.
 
 **Ideal PRs** (reviewed quickly):
 - Bug fixes with clear minimal changes

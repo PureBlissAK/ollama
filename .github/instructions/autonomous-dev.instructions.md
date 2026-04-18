@@ -348,15 +348,18 @@ CLOSURE REQUIREMENTS:
 4. Code coverage >= acceptance criteria
 5. Documentation updated
 6. Issue acceptance criteria met
+7. Production redeploy completed for the merged `main` commit (performed by approved maintainer or automation)
 
 CLOSURE PROCESS:
 1. Verify all checks passed in CI/CD
 2. Get approval from designated reviewer
 3. Merge PR (maintainer may do this)
-4. Update issue with completion comment
-5. Link merged PR in closure comment
-6. Add affected files/modules list
-7. Note any follow-up work needed
+4. Trigger mandatory production redeploy for the new `main` commit via approved pipeline
+5. Verify production redeploy success (or escalate immediately if it fails)
+6. Update issue with completion comment
+7. Link merged PR in closure comment
+8. Add affected files/modules list
+9. Note any follow-up work needed
 
 CLOSURE COMMENT TEMPLATE:
 ---
@@ -453,6 +456,7 @@ Escalate immediately to maintainers if:
 - Architectural change needed
 - Breaking change required
 - External dependency update needed
+- Production redeploy after `main` update fails or is blocked
 ```
 
 ## Interaction Patterns
