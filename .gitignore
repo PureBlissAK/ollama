@@ -161,3 +161,6 @@ crash.*.log
 .terraformrc
 terraform.rc
 .terraform/providers/
+
+.gocache
+.gomodcache
