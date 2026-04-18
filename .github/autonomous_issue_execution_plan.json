@@ -1,0 +1,3201 @@
+{
+  "generated_at_utc": "2026-04-18T02:22:27.751204+00:00",
+  "repository": "kushin77/ollama",
+  "execution_contract": {
+    "closure_rule": "Issue may be closed only after linked commit evidence and verification notes are posted.",
+    "idempotency_rule": "Operations must be safe to re-run and avoid duplicate comments via markers.",
+    "immutability_rule": "Every execution pass must commit generated reports to git."
+  },
+  "queue": [
+    {
+      "issue_number": 82,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 84,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 86,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 87,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 88,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 90,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 92,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 93,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 95,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 96,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 97,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 98,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 99,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 100,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 101,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 102,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 107,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 108,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 109,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 110,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 111,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 112,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 113,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 114,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 115,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 116,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 117,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 118,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 119,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 120,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 161,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 162,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 163,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 164,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 165,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 166,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 167,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 195,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 198,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 200,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 203,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 373,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 374,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 376,
+      "priority": "P0",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 389,
+      "priority": "P0",
+      "recommended_action": "implement",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 391,
+      "priority": "P0",
+      "recommended_action": "implement",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 395,
+      "priority": "P0",
+      "recommended_action": "implement",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 263,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 287,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 288,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 289,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 290,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 291,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 292,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 293,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 295,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 296,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 297,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 298,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 299,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 300,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 301,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 302,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 303,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 304,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 306,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 307,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 308,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 309,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 310,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 311,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 312,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 314,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 315,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 369,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 370,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 371,
+      "priority": "P1",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 55,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 56,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 57,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 58,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 60,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 61,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 62,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 63,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 64,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 65,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 66,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 67,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 69,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 71,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 77,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 83,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 85,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 89,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 91,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 94,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 105,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 106,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 121,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 122,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 123,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 124,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 125,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 126,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 127,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 128,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 129,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 130,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 131,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 132,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 133,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 134,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 135,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 136,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 137,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 138,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 139,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 140,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 141,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 142,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 143,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 144,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 145,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 146,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 147,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 148,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 149,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 150,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 151,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 152,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 153,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 154,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 155,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 156,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 157,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 158,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 159,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 160,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 168,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 169,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 170,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 171,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 172,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 173,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 174,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 175,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 176,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 177,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 178,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 179,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 180,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 181,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 182,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 183,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 184,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 185,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 186,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 187,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 188,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 189,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 190,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 191,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 192,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 193,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 194,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 196,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 197,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 199,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 201,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 202,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 204,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 205,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 206,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 207,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 208,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 209,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 210,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 211,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 212,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 213,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 214,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 215,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 216,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 217,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 218,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 219,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 220,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 221,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 222,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 223,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 224,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 226,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 227,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 228,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 229,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 230,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 231,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 232,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 233,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 234,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 235,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 236,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 237,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 238,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 239,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 240,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 241,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 242,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 244,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 245,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 246,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 247,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 248,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 249,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 250,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 251,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 252,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 253,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 254,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 255,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 256,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 257,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 258,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 259,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 260,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 261,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 262,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 264,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 265,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 268,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 269,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 270,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 271,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 272,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 273,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 274,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 275,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 276,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 277,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 278,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 279,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 280,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 281,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 282,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 283,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 284,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 285,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 286,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 294,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 305,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 313,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 316,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 317,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 318,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 319,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 320,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 321,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 322,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 323,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 324,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 325,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 326,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 327,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 328,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 329,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 330,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 331,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 332,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 333,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 334,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 335,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 336,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 337,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 338,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 339,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 340,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 341,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 342,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 343,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 344,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 345,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 346,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 347,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 348,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 349,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 350,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 351,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 352,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 353,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 354,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 355,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 356,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 357,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 358,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 359,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 360,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 361,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 362,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 363,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 364,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 365,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 366,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 367,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 368,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 372,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 375,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 378,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 379,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 383,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 384,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 385,
+      "priority": "P2",
+      "recommended_action": "implement_with_evidence",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 390,
+      "priority": "P2",
+      "recommended_action": "implement",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 392,
+      "priority": "P2",
+      "recommended_action": "implement",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 393,
+      "priority": "P2",
+      "recommended_action": "implement",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 394,
+      "priority": "P2",
+      "recommended_action": "implement",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 396,
+      "priority": "P2",
+      "recommended_action": "implement",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 397,
+      "priority": "P2",
+      "recommended_action": "implement",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    },
+    {
+      "issue_number": 398,
+      "priority": "P2",
+      "recommended_action": "implement",
+      "acceptance_gate": [
+        "code change committed",
+        "tests or validation notes attached",
+        "issue comment includes commit links"
+      ]
+    }
+  ]
+}
