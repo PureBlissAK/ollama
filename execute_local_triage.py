@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import subprocess
 import sys
 import urllib.error
@@ -18,6 +19,57 @@ from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+
+
+COMMIT_RECORD_SEPARATOR = "\x1e"
+COMMIT_FIELD_SEPARATOR = "\x1f"
+MERGE_PULL_REQUEST_RE = re.compile(r"^Merge pull request #\d+\b", re.IGNORECASE)
+CLOSURE_VERBS = (
+    "close",
+    "closes",
+    "closed",
+    "fix",
+    "fixes",
+    "fixed",
+    "resolve",
+    "resolves",
+    "resolved",
+    "implement",
+    "implements",
+    "implemented",
+    "address",
+    "addresses",
+    "addressed",
+)
+STOPWORDS = {
+    "add",
+    "adds",
+    "agent",
+    "and",
+    "are",
+    "bug",
+    "feat",
+    "feature",
+    "fix",
+    "for",
+    "from",
+    "github",
+    "http",
+    "into",
+    "issue",
+    "migrate",
+    "migration",
+    "not",
+    "pmo",
+    "pull",
+    "repo",
+    "repository",
+    "replace",
+    "that",
+    "the",
+    "this",
+    "with",
+}
 
 
 def resolve_token() -> str:
@@ -76,20 +128,109 @@ class GitHubIssueClient:
         return issues
 
 
-def git_evidence(issue_number: int) -> list[dict[str, str]]:
-    pattern = f"#{issue_number}"
+def issue_reference_pattern(issue_number: int) -> re.Pattern[str]:
+    return re.compile(rf"(?<!\d)#{issue_number}(?!\d)", re.IGNORECASE)
+
+
+def issue_url_pattern(issue_number: int) -> re.Pattern[str]:
+    return re.compile(rf"/issues/{issue_number}(?!\d)", re.IGNORECASE)
+
+
+def extract_issue_keywords(title: str) -> list[str]:
+    normalized = re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", title)
+    keywords: list[str] = []
+    for token in re.findall(r"[a-z0-9]+", normalized.lower()):
+        if len(token) < 4 or token in STOPWORDS:
+            continue
+        if token not in keywords:
+            keywords.append(token)
+    return keywords
+
+
+def is_merge_pull_request(subject: str) -> bool:
+    return bool(MERGE_PULL_REQUEST_RE.match(subject.strip()))
+
+
+def parse_git_log(output: str) -> list[dict[str, str]]:
+    entries: list[dict[str, str]] = []
+    for record in output.split(COMMIT_RECORD_SEPARATOR):
+        if not record.strip():
+            continue
+        parts = record.split(COMMIT_FIELD_SEPARATOR)
+        if len(parts) != 3:
+            continue
+        commit, subject, body = parts
+        entries.append(
+            {
+                "commit": commit.strip(),
+                "subject": subject.strip(),
+                "body": body.strip(),
+            }
+        )
+    return entries
+
+
+def classify_commit_evidence(issue_number: int, issue_title: str, commit: dict[str, str]) -> dict[str, Any] | None:
+    subject = commit["subject"]
+    body = commit["body"]
+    combined = f"{subject}\n{body}"
+
+    if is_merge_pull_request(subject):
+        return None
+
+    has_reference = bool(issue_reference_pattern(issue_number).search(combined)) or bool(
+        issue_url_pattern(issue_number).search(combined)
+    )
+    if not has_reference:
+        return None
+
+    keyword_matches = [
+        keyword
+        for keyword in extract_issue_keywords(issue_title)
+        if re.search(rf"\b{re.escape(keyword)}\b", combined, re.IGNORECASE)
+    ]
+    has_closure_verb = any(
+        re.search(rf"\b{verb}\b", combined, re.IGNORECASE) for verb in CLOSURE_VERBS
+    )
+
+    if has_closure_verb and len(keyword_matches) >= 2:
+        confidence = "high"
+    elif len(keyword_matches) >= 3:
+        confidence = "medium"
+    else:
+        return None
+
+    return {
+        "commit": commit["commit"],
+        "subject": subject,
+        "matched_keywords": keyword_matches,
+        "has_closure_verb": has_closure_verb,
+        "confidence": confidence,
+    }
+
+
+def git_evidence(issue_number: int, issue_title: str) -> list[dict[str, Any]]:
+    reference_pattern = issue_reference_pattern(issue_number).pattern
+    url_pattern = issue_url_pattern(issue_number).pattern
     proc = subprocess.run(
-        ["git", "log", "--format=%H%x09%s", "--all", f"--grep={pattern}"],
+        [
+            "git",
+            "log",
+            f"--format=%H{COMMIT_FIELD_SEPARATOR}%s{COMMIT_FIELD_SEPARATOR}%b{COMMIT_RECORD_SEPARATOR}",
+            "--all",
+            "--perl-regexp",
+            f"--grep={reference_pattern}",
+            f"--grep={url_pattern}",
+        ],
         capture_output=True,
         text=True,
         check=False,
     )
-    results: list[dict[str, str]] = []
-    for line in proc.stdout.splitlines():
-        if not line.strip():
-            continue
-        commit, subject = line.split("\t", 1)
-        results.append({"commit": commit, "subject": subject})
+    results: list[dict[str, Any]] = []
+    for commit in parse_git_log(proc.stdout):
+        evidence = classify_commit_evidence(issue_number, issue_title, commit)
+        if evidence is not None:
+            results.append(evidence)
     return results
 
 
@@ -120,7 +261,7 @@ def summarize(issues: list[dict[str, Any]]) -> dict[str, Any]:
         }
 
         if "needs-evidence" in issue_labels:
-            item["evidence_commits"] = git_evidence(issue["number"])
+            item["evidence_commits"] = git_evidence(issue["number"], issue["title"])
             needs_evidence.append(item)
 
         if "status/triaged" in issue_labels and "status/planned-wave" in issue_labels and "needs-evidence" not in issue_labels:
