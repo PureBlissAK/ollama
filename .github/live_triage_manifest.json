@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-18T03:38:00.081709+00:00",
+  "generated_at": "2026-04-18T03:45:33.036555+00:00",
   "open_issue_count": 310,
   "agent_ready_count": 10,
   "needs_evidence_count": 300,
@@ -31,11 +31,11 @@
   },
   "top_labels": [
     [
-      "status/planned-wave",
+      "status/triaged",
       310
     ],
     [
-      "status/triaged",
+      "status/planned-wave",
       310
     ],
     [
@@ -49,6 +49,10 @@
     [
       "priority/low",
       88
+    ],
+    [
+      "agent-ready",
+      60
     ],
     [
       "priority/high",
@@ -67,8 +71,8 @@
       40
     ],
     [
-      "agent-ready",
-      32
+      "priority-p0",
+      36
     ],
     [
       "wave/01",
@@ -91,11 +95,11 @@
       25
     ],
     [
-      "wave/3",
+      "wave/03",
       25
     ],
     [
-      "wave/03",
+      "wave/3",
       25
     ],
     [
@@ -124,10 +128,6 @@
     ],
     [
       "wave/08",
-      25
-    ],
-    [
-      "wave/07",
       25
     ]
   ],
@@ -251,15 +251,17 @@
       "title": "[P0][STRUCTURE] Resolve strict folder-structure validation failures",
       "url": "https://github.com/kushin77/ollama/issues/371",
       "labels": [
+        "agent-ready",
         "documentation",
         "needs-evidence",
+        "priority-p0",
         "priority/high",
         "status/planned-wave",
         "status/triaged",
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:12:17Z",
+      "updated_at": "2026-04-18T03:45:03Z",
       "evidence_commits": []
     },
     {
@@ -267,14 +269,16 @@
       "title": "[P0][IAC-IMMUTABLE] Enforce exact Terraform and provider version pins",
       "url": "https://github.com/kushin77/ollama/issues/370",
       "labels": [
+        "agent-ready",
         "needs-evidence",
+        "priority-p0",
         "priority/high",
         "status/planned-wave",
         "status/triaged",
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:12:16Z",
+      "updated_at": "2026-04-18T03:45:02Z",
       "evidence_commits": []
     },
     {
@@ -282,14 +286,16 @@
       "title": "[P0][IAC-IMMUTABLE] Add missing Terraform lockfiles and governance gate",
       "url": "https://github.com/kushin77/ollama/issues/369",
       "labels": [
+        "agent-ready",
         "needs-evidence",
+        "priority-p0",
         "priority/high",
         "status/planned-wave",
         "status/triaged",
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:12:15Z",
+      "updated_at": "2026-04-18T03:45:00Z",
       "evidence_commits": []
     },
     {
@@ -1429,6 +1435,7 @@
       "title": "[BROWSER-CHAT][KNOWLEDGE] YouTube channel/page ingestion metadata",
       "url": "https://github.com/kushin77/ollama/issues/295",
       "labels": [
+        "agent-ready",
         "bug",
         "needs-evidence",
         "priority/high",
@@ -1438,7 +1445,7 @@
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:11:34Z",
+      "updated_at": "2026-04-18T03:45:06Z",
       "evidence_commits": []
     },
     {
@@ -1462,6 +1469,7 @@
       "title": "[BROWSER-CHAT][AGENT-FLEET] Fleet audit trail and forensics",
       "url": "https://github.com/kushin77/ollama/issues/293",
       "labels": [
+        "agent-ready",
         "bug",
         "needs-evidence",
         "priority/high",
@@ -1471,7 +1479,7 @@
         "wave/04",
         "wave/4"
       ],
-      "updated_at": "2026-04-18T03:11:33Z",
+      "updated_at": "2026-04-18T03:45:05Z",
       "evidence_commits": []
     },
     {
@@ -1479,6 +1487,7 @@
       "title": "[BROWSER-CHAT][AGENT-FLEET] Fleet lifecycle operations UX",
       "url": "https://github.com/kushin77/ollama/issues/292",
       "labels": [
+        "agent-ready",
         "bug",
         "needs-evidence",
         "priority/high",
@@ -1488,7 +1497,7 @@
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:11:32Z",
+      "updated_at": "2026-04-18T03:45:05Z",
       "evidence_commits": []
     },
     {
@@ -1496,6 +1505,7 @@
       "title": "[BROWSER-CHAT][AGENT-FLEET] Cross-agent handoff protocol",
       "url": "https://github.com/kushin77/ollama/issues/291",
       "labels": [
+        "agent-ready",
         "bug",
         "needs-evidence",
         "priority/high",
@@ -1505,7 +1515,7 @@
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:11:32Z",
+      "updated_at": "2026-04-18T03:45:04Z",
       "evidence_commits": []
     },
     {
@@ -1513,6 +1523,7 @@
       "title": "[BROWSER-CHAT][AGENT-FLEET] Fleet dashboard and health panel",
       "url": "https://github.com/kushin77/ollama/issues/290",
       "labels": [
+        "agent-ready",
         "bug",
         "needs-evidence",
         "priority/high",
@@ -1522,7 +1533,7 @@
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:11:31Z",
+      "updated_at": "2026-04-18T03:45:04Z",
       "evidence_commits": []
     },
     {
@@ -1530,6 +1541,7 @@
       "title": "[BROWSER-CHAT][AGENT-FLEET] Agent capability policy matrix",
       "url": "https://github.com/kushin77/ollama/issues/289",
       "labels": [
+        "agent-ready",
         "bug",
         "needs-evidence",
         "priority/high",
@@ -1539,7 +1551,7 @@
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:11:30Z",
+      "updated_at": "2026-04-18T03:45:03Z",
       "evidence_commits": []
     },
     {
@@ -1547,6 +1559,7 @@
       "title": "[BROWSER-CHAT][AGENT-FLEET] Suite and farm hierarchy model",
       "url": "https://github.com/kushin77/ollama/issues/288",
       "labels": [
+        "agent-ready",
         "bug",
         "needs-evidence",
         "priority/high",
@@ -1556,7 +1569,7 @@
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:11:30Z",
+      "updated_at": "2026-04-18T03:45:03Z",
       "evidence_commits": []
     },
     {
@@ -1564,6 +1577,7 @@
       "title": "[BROWSER-CHAT][MASTER] Browser Chat Enhancement Program Tracker",
       "url": "https://github.com/kushin77/ollama/issues/287",
       "labels": [
+        "agent-ready",
         "bug",
         "needs-evidence",
         "priority/high",
@@ -1573,7 +1587,7 @@
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:11:29Z",
+      "updated_at": "2026-04-18T03:45:02Z",
       "evidence_commits": []
     },
     {
@@ -1861,16 +1875,18 @@
       "title": "[P0][IDEMPOTENT] Double-Run CI Matrix on Primary/Secondary Hosts (.42/.31)",
       "url": "https://github.com/kushin77/ollama/issues/265",
       "labels": [
+        "agent-ready",
         "enhancement",
         "idempotency",
         "needs-evidence",
+        "priority-p0",
         "priority/high",
         "status/planned-wave",
         "status/triaged",
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:11:18Z",
+      "updated_at": "2026-04-18T03:45:02Z",
       "evidence_commits": []
     },
     {
@@ -1878,16 +1894,18 @@
       "title": "[P0][IDEMPOTENT] Script Idempotency Standard + Shared Guard Library",
       "url": "https://github.com/kushin77/ollama/issues/264",
       "labels": [
+        "agent-ready",
         "enhancement",
         "idempotency",
         "needs-evidence",
+        "priority-p0",
         "priority/high",
         "status/planned-wave",
         "status/triaged",
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:11:17Z",
+      "updated_at": "2026-04-18T03:45:01Z",
       "evidence_commits": []
     },
     {
@@ -1895,16 +1913,18 @@
       "title": "[P0][IAC-IMMUTABLE] Terraform Lockdown: Provider/Module Pinning and Lockfile Governance",
       "url": "https://github.com/kushin77/ollama/issues/263",
       "labels": [
+        "agent-ready",
         "enhancement",
         "iac-immutable",
         "needs-evidence",
+        "priority-p0",
         "priority/high",
         "status/planned-wave",
         "status/triaged",
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:11:16Z",
+      "updated_at": "2026-04-18T03:45:01Z",
       "evidence_commits": []
     },
     {
@@ -1912,16 +1932,18 @@
       "title": "[P0][IAC-IMMUTABLE] CI Policy Check: Block Mutable Image Tags and Floating Versions",
       "url": "https://github.com/kushin77/ollama/issues/262",
       "labels": [
+        "agent-ready",
         "enhancement",
         "iac-immutable",
         "needs-evidence",
+        "priority-p0",
         "priority/high",
         "status/planned-wave",
         "status/triaged",
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:11:16Z",
+      "updated_at": "2026-04-18T03:45:00Z",
       "evidence_commits": []
     },
     {
@@ -1961,15 +1983,17 @@
       "title": "[P0][IDEMPOTENT] Double-Run CI Matrix on Primary/Secondary Hosts (.42/.31)",
       "url": "https://github.com/kushin77/ollama/issues/259",
       "labels": [
+        "agent-ready",
         "enhancement",
         "needs-evidence",
+        "priority-p0",
         "priority/high",
         "status/planned-wave",
         "status/triaged",
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:11:14Z",
+      "updated_at": "2026-04-18T03:45:00Z",
       "evidence_commits": []
     },
     {
@@ -1977,15 +2001,17 @@
       "title": "[P0][IDEMPOTENT] Script Idempotency Standard + Shared Guard Library",
       "url": "https://github.com/kushin77/ollama/issues/258",
       "labels": [
+        "agent-ready",
         "enhancement",
         "needs-evidence",
+        "priority-p0",
         "priority/high",
         "status/planned-wave",
         "status/triaged",
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:11:13Z",
+      "updated_at": "2026-04-18T03:45:00Z",
       "evidence_commits": []
     },
     {
@@ -1993,15 +2019,17 @@
       "title": "[P0][IAC-IMMUTABLE] Terraform Lockdown: Provider/Module Pinning and Lockfile Governance",
       "url": "https://github.com/kushin77/ollama/issues/257",
       "labels": [
+        "agent-ready",
         "enhancement",
         "needs-evidence",
+        "priority-p0",
         "priority/high",
         "status/planned-wave",
         "status/triaged",
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:11:13Z",
+      "updated_at": "2026-04-18T03:44:59Z",
       "evidence_commits": []
     },
     {
@@ -2009,15 +2037,17 @@
       "title": "[P0][IAC-IMMUTABLE] CI Policy Check: Block Mutable Image Tags and Floating Versions",
       "url": "https://github.com/kushin77/ollama/issues/256",
       "labels": [
+        "agent-ready",
         "enhancement",
         "needs-evidence",
+        "priority-p0",
         "priority/high",
         "status/planned-wave",
         "status/triaged",
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:11:12Z",
+      "updated_at": "2026-04-18T03:44:59Z",
       "evidence_commits": []
     },
     {
@@ -2042,16 +2072,18 @@
       "title": "[P0][ONPREM-FAANG][IAC] Idempotency Validation Harness + CI Gate",
       "url": "https://github.com/kushin77/ollama/issues/254",
       "labels": [
+        "agent-ready",
         "enhancement",
         "idempotency",
         "needs-evidence",
+        "priority-p0",
         "priority/high",
         "status/planned-wave",
         "status/triaged",
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:11:11Z",
+      "updated_at": "2026-04-18T03:44:58Z",
       "evidence_commits": []
     },
     {
@@ -2059,16 +2091,18 @@
       "title": "[P0][ONPREM-FAANG][IAC] Immutable Infrastructure Baseline Enforcement",
       "url": "https://github.com/kushin77/ollama/issues/253",
       "labels": [
+        "agent-ready",
         "enhancement",
         "iac-immutable",
         "needs-evidence",
+        "priority-p0",
         "priority/high",
         "status/planned-wave",
         "status/triaged",
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:11:10Z",
+      "updated_at": "2026-04-18T03:44:58Z",
       "evidence_commits": []
     },
     {
@@ -2210,15 +2244,17 @@
       "title": "[P0][ONPREM-FAANG] Structured Output Reliability (Schema-Constrained Generation)",
       "url": "https://github.com/kushin77/ollama/issues/242",
       "labels": [
+        "agent-ready",
         "enhancement",
         "needs-evidence",
+        "priority-p0",
         "priority/high",
         "status/planned-wave",
         "status/triaged",
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:11:04Z",
+      "updated_at": "2026-04-18T03:44:58Z",
       "evidence_commits": []
     },
     {
@@ -2226,15 +2262,17 @@
       "title": "[P0][ONPREM-FAANG] Retrieval 2.0 (Hybrid Search + Reranker + Grounding)",
       "url": "https://github.com/kushin77/ollama/issues/241",
       "labels": [
+        "agent-ready",
         "enhancement",
         "needs-evidence",
+        "priority-p0",
         "priority/high",
         "status/planned-wave",
         "status/triaged",
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:11:04Z",
+      "updated_at": "2026-04-18T03:44:57Z",
       "evidence_commits": []
     },
     {
@@ -2242,15 +2280,17 @@
       "title": "[P0][ONPREM-FAANG] Intelligent Model Router (Task-Aware + SLA-Aware Dispatch)",
       "url": "https://github.com/kushin77/ollama/issues/240",
       "labels": [
+        "agent-ready",
         "enhancement",
         "needs-evidence",
+        "priority-p0",
         "priority/high",
         "status/planned-wave",
         "status/triaged",
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:11:03Z",
+      "updated_at": "2026-04-18T03:44:57Z",
       "evidence_commits": []
     },
     {
@@ -2392,15 +2432,17 @@
       "title": "[P0][ONPREM-FAANG] LLM Observability Baseline (Tracing, Cost, Quality Signals)",
       "url": "https://github.com/kushin77/ollama/issues/230",
       "labels": [
+        "agent-ready",
         "enhancement",
         "needs-evidence",
+        "priority-p0",
         "priority/high",
         "status/planned-wave",
         "status/triaged",
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:10:57Z",
+      "updated_at": "2026-04-18T03:44:56Z",
       "evidence_commits": []
     },
     {
@@ -2408,15 +2450,17 @@
       "title": "[P0][ONPREM-FAANG] Structured Output Reliability (Schema-Constrained Generation)",
       "url": "https://github.com/kushin77/ollama/issues/229",
       "labels": [
+        "agent-ready",
         "enhancement",
         "needs-evidence",
+        "priority-p0",
         "priority/high",
         "status/planned-wave",
         "status/triaged",
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:10:56Z",
+      "updated_at": "2026-04-18T03:44:56Z",
       "evidence_commits": []
     },
     {
@@ -2424,15 +2468,17 @@
       "title": "[P0][ONPREM-FAANG] Retrieval 2.0 (Hybrid Search + Reranker + Grounding)",
       "url": "https://github.com/kushin77/ollama/issues/228",
       "labels": [
+        "agent-ready",
         "enhancement",
         "needs-evidence",
+        "priority-p0",
         "priority/high",
         "status/planned-wave",
         "status/triaged",
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:10:56Z",
+      "updated_at": "2026-04-18T03:44:56Z",
       "evidence_commits": []
     },
     {
@@ -2440,15 +2486,17 @@
       "title": "[P0][ONPREM-FAANG] Intelligent Model Router (Task-Aware + SLA-Aware Dispatch)",
       "url": "https://github.com/kushin77/ollama/issues/227",
       "labels": [
+        "agent-ready",
         "enhancement",
         "needs-evidence",
+        "priority-p0",
         "priority/high",
         "status/planned-wave",
         "status/triaged",
         "wave/03",
         "wave/3"
       ],
-      "updated_at": "2026-04-18T03:10:55Z",
+      "updated_at": "2026-04-18T03:44:55Z",
       "evidence_commits": []
     },
     {
