@@ -1,0 +1,693 @@
+{
+  "generated_at_utc": "2026-04-18T03:37:45.924404+00:00",
+  "source": ".github/agent_ready_queue.json",
+  "open_agent_ready_count": 32,
+  "shard_count": 4,
+  "assignment_policy": "severity_then_issue_number_round_robin",
+  "shards": [
+    {
+      "shard": 1,
+      "issues": [
+        {
+          "number": 82,
+          "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+          "labels": [
+            "security",
+            "priority-p0",
+            "automated",
+            "type-bug",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/82",
+          "updated_at": "2026-04-18T03:32:31Z",
+          "severity": "critical"
+        },
+        {
+          "number": 88,
+          "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+          "labels": [
+            "security",
+            "priority-p0",
+            "automated",
+            "type-bug",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/88",
+          "updated_at": "2026-04-18T03:32:33Z",
+          "severity": "critical"
+        },
+        {
+          "number": 95,
+          "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+          "labels": [
+            "security",
+            "priority-p0",
+            "automated",
+            "type-bug",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/95",
+          "updated_at": "2026-04-18T03:32:35Z",
+          "severity": "critical"
+        },
+        {
+          "number": 99,
+          "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+          "labels": [
+            "security",
+            "priority-p0",
+            "automated",
+            "type-bug",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/99",
+          "updated_at": "2026-04-18T03:32:37Z",
+          "severity": "critical"
+        },
+        {
+          "number": 389,
+          "title": "[Monorepo Epic] Repository topology and tooling migration",
+          "labels": [
+            "tracking",
+            "status/triaged",
+            "priority/low",
+            "monorepo",
+            "architecture",
+            "critical-path",
+            "status/planned-wave",
+            "wave/01",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/389",
+          "updated_at": "2026-04-18T03:32:39Z",
+          "severity": "critical"
+        },
+        {
+          "number": 83,
+          "title": "\ud83d\udcb0 Monthly Cost Report - February 2026",
+          "labels": [
+            "bug",
+            "pmo",
+            "automated",
+            "cost-tracking",
+            "monthly-report",
+            "status/triaged",
+            "priority/medium",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/83",
+          "updated_at": "2026-04-18T03:32:41Z",
+          "severity": "high"
+        },
+        {
+          "number": 105,
+          "title": "Monthly Cost Report - April 2026 [from ollama#94]",
+          "labels": [
+            "bug",
+            "status/triaged",
+            "priority/medium",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/105",
+          "updated_at": "2026-04-18T03:32:43Z",
+          "severity": "high"
+        },
+        {
+          "number": 397,
+          "title": "[Monorepo] Define CODEOWNERS and review policy by domain",
+          "labels": [
+            "documentation",
+            "governance",
+            "status/triaged",
+            "priority/medium",
+            "monorepo",
+            "developer-experience",
+            "status/planned-wave",
+            "wave/06",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/397",
+          "updated_at": "2026-04-18T03:26:41Z",
+          "severity": "medium"
+        }
+      ],
+      "size": 8,
+      "severity_counts": {
+        "critical": 5,
+        "high": 2,
+        "medium": 1,
+        "low": 0
+      },
+      "issue_numbers": [
+        82,
+        88,
+        95,
+        99,
+        389,
+        83,
+        105,
+        397
+      ]
+    },
+    {
+      "shard": 2,
+      "issues": [
+        {
+          "number": 84,
+          "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+          "labels": [
+            "security",
+            "priority-p0",
+            "automated",
+            "type-bug",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/84",
+          "updated_at": "2026-04-18T03:32:32Z",
+          "severity": "critical"
+        },
+        {
+          "number": 90,
+          "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+          "labels": [
+            "security",
+            "priority-p0",
+            "automated",
+            "type-bug",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/90",
+          "updated_at": "2026-04-18T03:32:34Z",
+          "severity": "critical"
+        },
+        {
+          "number": 96,
+          "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+          "labels": [
+            "security",
+            "priority-p0",
+            "automated",
+            "type-bug",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/96",
+          "updated_at": "2026-04-18T03:32:36Z",
+          "severity": "critical"
+        },
+        {
+          "number": 100,
+          "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+          "labels": [
+            "security",
+            "priority-p0",
+            "automated",
+            "type-bug",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/100",
+          "updated_at": "2026-04-18T03:32:38Z",
+          "severity": "critical"
+        },
+        {
+          "number": 391,
+          "title": "[Monorepo] Introduce apps-packages-infra structure with compatibility shims",
+          "labels": [
+            "bug",
+            "python",
+            "status/triaged",
+            "priority/low",
+            "monorepo",
+            "architecture",
+            "critical-path",
+            "status/planned-wave",
+            "wave/01",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/391",
+          "updated_at": "2026-04-18T03:32:39Z",
+          "severity": "critical"
+        },
+        {
+          "number": 89,
+          "title": "EOD: lint/mypy failures \u2014 cleanup required",
+          "labels": [
+            "bug",
+            "status/triaged",
+            "priority/medium",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/89",
+          "updated_at": "2026-04-18T03:32:41Z",
+          "severity": "high"
+        },
+        {
+          "number": 393,
+          "title": "[Monorepo] Bootstrap pnpm workspace for active JS packages (conditional gate)",
+          "labels": [
+            "priority/high",
+            "status/triaged",
+            "monorepo",
+            "developer-experience",
+            "frontend",
+            "decision-record",
+            "status/planned-wave",
+            "wave/05",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/393",
+          "updated_at": "2026-04-18T03:26:43Z",
+          "severity": "high"
+        },
+        {
+          "number": 390,
+          "title": "[ADR] Monorepo topology and pnpm adoption decision",
+          "labels": [
+            "documentation",
+            "status/triaged",
+            "priority/low",
+            "monorepo",
+            "architecture",
+            "decision-record",
+            "status/planned-wave",
+            "wave/13",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/390",
+          "updated_at": "2026-04-18T03:26:44Z",
+          "severity": "low"
+        }
+      ],
+      "size": 8,
+      "severity_counts": {
+        "critical": 5,
+        "high": 2,
+        "medium": 0,
+        "low": 1
+      },
+      "issue_numbers": [
+        84,
+        90,
+        96,
+        100,
+        391,
+        89,
+        393,
+        390
+      ]
+    },
+    {
+      "shard": 3,
+      "issues": [
+        {
+          "number": 86,
+          "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+          "labels": [
+            "security",
+            "priority-p0",
+            "automated",
+            "type-bug",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/86",
+          "updated_at": "2026-04-18T03:32:32Z",
+          "severity": "critical"
+        },
+        {
+          "number": 92,
+          "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+          "labels": [
+            "security",
+            "priority-p0",
+            "automated",
+            "type-bug",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/92",
+          "updated_at": "2026-04-18T03:32:34Z",
+          "severity": "critical"
+        },
+        {
+          "number": 97,
+          "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+          "labels": [
+            "security",
+            "priority-p0",
+            "automated",
+            "type-bug",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/97",
+          "updated_at": "2026-04-18T03:32:36Z",
+          "severity": "critical"
+        },
+        {
+          "number": 101,
+          "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+          "labels": [
+            "security",
+            "priority-p0",
+            "automated",
+            "type-bug",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/101",
+          "updated_at": "2026-04-18T03:32:38Z",
+          "severity": "critical"
+        },
+        {
+          "number": 395,
+          "title": "[Monorepo] Implement path-based CI workflows and cache strategy",
+          "labels": [
+            "documentation",
+            "ci-cd",
+            "status/triaged",
+            "priority/low",
+            "monorepo",
+            "critical-path",
+            "status/planned-wave",
+            "wave/01",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/395",
+          "updated_at": "2026-04-18T03:32:40Z",
+          "severity": "critical"
+        },
+        {
+          "number": 91,
+          "title": "\ud83d\udcb0 Monthly Cost Report - March 2026",
+          "labels": [
+            "bug",
+            "pmo",
+            "automated",
+            "cost-tracking",
+            "monthly-report",
+            "status/triaged",
+            "priority/medium",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/91",
+          "updated_at": "2026-04-18T03:32:42Z",
+          "severity": "high"
+        },
+        {
+          "number": 394,
+          "title": "[Monorepo] Create shared API contracts package and generated clients",
+          "labels": [
+            "bug",
+            "status/triaged",
+            "priority/medium",
+            "monorepo",
+            "developer-experience",
+            "api",
+            "status/planned-wave",
+            "wave/05",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/394",
+          "updated_at": "2026-04-18T03:26:42Z",
+          "severity": "high"
+        },
+        {
+          "number": 392,
+          "title": "[Monorepo] Resolve frontend lifecycle state and documentation drift",
+          "labels": [
+            "documentation",
+            "status/triaged",
+            "monorepo",
+            "architecture",
+            "frontend",
+            "status/planned-wave",
+            "wave/13",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/392",
+          "updated_at": "2026-04-18T03:26:43Z",
+          "severity": "low"
+        }
+      ],
+      "size": 8,
+      "severity_counts": {
+        "critical": 5,
+        "high": 2,
+        "medium": 0,
+        "low": 1
+      },
+      "issue_numbers": [
+        86,
+        92,
+        97,
+        101,
+        395,
+        91,
+        394,
+        392
+      ]
+    },
+    {
+      "shard": 4,
+      "issues": [
+        {
+          "number": 87,
+          "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+          "labels": [
+            "security",
+            "priority-p0",
+            "automated",
+            "type-bug",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/87",
+          "updated_at": "2026-04-18T03:32:33Z",
+          "severity": "critical"
+        },
+        {
+          "number": 93,
+          "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+          "labels": [
+            "security",
+            "priority-p0",
+            "automated",
+            "type-bug",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/93",
+          "updated_at": "2026-04-18T03:32:35Z",
+          "severity": "critical"
+        },
+        {
+          "number": 98,
+          "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+          "labels": [
+            "security",
+            "priority-p0",
+            "automated",
+            "type-bug",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/98",
+          "updated_at": "2026-04-18T03:32:37Z",
+          "severity": "critical"
+        },
+        {
+          "number": 102,
+          "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+          "labels": [
+            "security",
+            "priority-p0",
+            "automated",
+            "type-bug",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/102",
+          "updated_at": "2026-04-18T03:32:39Z",
+          "severity": "critical"
+        },
+        {
+          "number": 67,
+          "title": "Vscode/workspace integration",
+          "labels": [
+            "bug",
+            "status/triaged",
+            "priority/medium",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/67",
+          "updated_at": "2026-04-18T03:32:40Z",
+          "severity": "high"
+        },
+        {
+          "number": 94,
+          "title": "\ud83d\udcb0 Monthly Cost Report - April 2026",
+          "labels": [
+            "bug",
+            "pmo",
+            "automated",
+            "cost-tracking",
+            "monthly-report",
+            "status/triaged",
+            "priority/medium",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/94",
+          "updated_at": "2026-04-18T03:32:42Z",
+          "severity": "high"
+        },
+        {
+          "number": 396,
+          "title": "[Monorepo] Unify local developer commands and task entrypoints",
+          "labels": [
+            "bug",
+            "python",
+            "status/triaged",
+            "priority/medium",
+            "monorepo",
+            "developer-experience",
+            "status/planned-wave",
+            "wave/05",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/396",
+          "updated_at": "2026-04-18T03:26:41Z",
+          "severity": "high"
+        },
+        {
+          "number": 398,
+          "title": "[Monorepo] Publish migration runbook and validate rollback procedure",
+          "labels": [
+            "documentation",
+            "operations",
+            "status/triaged",
+            "monorepo",
+            "status/planned-wave",
+            "wave/13",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/398",
+          "updated_at": "2026-04-18T03:26:40Z",
+          "severity": "low"
+        }
+      ],
+      "size": 8,
+      "severity_counts": {
+        "critical": 4,
+        "high": 3,
+        "medium": 0,
+        "low": 1
+      },
+      "issue_numbers": [
+        87,
+        93,
+        98,
+        102,
+        67,
+        94,
+        396,
+        398
+      ]
+    }
+  ]
+}
