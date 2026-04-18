@@ -3,6 +3,8 @@
 ## Overview
 This document outlines policies and automated mechanisms to maintain a clean, manageable branch structure and prevent branch sprawl.
 
+Production deployment mandate: every merge or direct push to `main` must be followed by a production redeploy using the approved CI/CD pipeline.
+
 ## 1. Branch Lifecycle Policy
 
 ### Branch Categories
@@ -152,7 +154,14 @@ Deploy branch protection rules programmatically:
 # Require PR reviews before merge
 # Auto-delete head branches after merge
 # Require status checks to pass
+# Require production redeploy workflow for main branch updates
 ```
+
+### D. Main Branch Deployment Mandate
+- Any commit that reaches `main` (merge commit, squash merge, rebase merge, or direct push) must trigger a production redeploy.
+- The redeploy must target the exact commit SHA currently on `main`.
+- If deployment fails, production incident handling starts immediately and the commit is treated as incomplete until redeploy succeeds.
+- No issue, task, or rollout is considered complete until production redeploy verification is recorded.
 
 ## 5. Monitoring & Dashboards
 
