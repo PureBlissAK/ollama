@@ -76,15 +76,26 @@ func (o *observabilityCollector) middleware() gin.HandlerFunc {
 			incCounter(&o.cacheSignalsTotal, route+"|retrieval_hit", 1)
 		}
 
-		prompt, completion := extractTokenCounts([]byte(ow.buf.String()))
+		prompt, completion := extractTokenCounts(ow.tailBytes())
+		// Extract model name for per-model token metrics (#380).
+		model := modelFromGinContext(c)
 		if prompt > 0 {
 			incCounter(&o.tokensTotal, route+"|prompt", uint64(prompt))
+			if model != "" {
+				incCounter(&o.tokensTotal, route+"|model="+model+"|prompt", uint64(prompt))
+			}
 		}
 		if completion > 0 {
 			incCounter(&o.tokensTotal, route+"|completion", uint64(completion))
+			if model != "" {
+				incCounter(&o.tokensTotal, route+"|model="+model+"|completion", uint64(completion))
+			}
 		}
 		if prompt+completion > 0 {
 			incCounter(&o.tokensTotal, route+"|total", uint64(prompt+completion))
+			if model != "" {
+				incCounter(&o.tokensTotal, route+"|model="+model+"|total", uint64(prompt+completion))
+			}
 		}
 	}
 }
@@ -158,6 +169,26 @@ func newTraceID() string {
 func isTruthy(v string) bool {
 	v = strings.TrimSpace(strings.ToLower(v))
 	return v == "1" || v == "true" || v == "yes" || v == "hit"
+}
+
+// modelFromGinContext extracts the model name for per-model metrics (#380).
+// It checks the X-Ollama-Model header first, then falls back to the cached
+// request body stored by body-buffering middleware.
+func modelFromGinContext(c *gin.Context) string {
+	if m := c.GetHeader("X-Ollama-Model"); m != "" {
+		return m
+	}
+	if raw, ok := c.Get("requestBody"); ok {
+		if b, ok2 := raw.([]byte); ok2 {
+			var req struct {
+				Model string `json:"model"`
+			}
+			if err := json.Unmarshal(b, &req); err == nil {
+				return req.Model
+			}
+		}
+	}
+	return ""
 }
 
 func observeLatency(m *sync.Map, route string, latencyMs int64) {
