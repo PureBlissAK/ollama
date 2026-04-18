@@ -1,10 +1,15 @@
 {
-  "generated_at_utc": "2026-04-18T03:25:54.866642+00:00",
+  "generated_at_utc": "2026-04-18T03:25:38.826857+00:00",
   "repository": "kushin77/ollama",
-  "source_report": ".github/wave_assignment_report_20260418T032535Z.json",
+  "manifest": ".github/autonomous_execution_batches.json",
+  "processed": 49,
+  "labels_added": 0,
+  "comments_added": 20,
+  "already_marked": 0,
+  "comment_deferred": 29,
   "rate_limit_blocked": false,
-  "deferred_count": 29,
-  "deferred_issues": [
+  "failures": [],
+  "deferred_comment_issues": [
     {
       "issue": 128,
       "wave": 6,
@@ -150,10 +155,5 @@
       "wave": 7,
       "reason": "budget_or_rate_limit"
     }
-  ],
-  "retry_instructions": [
-    "rerun scripts/run_autonomous_issue_cycle.py --config .github/autonomous_cycle.iac.json",
-    "commit the updated wave_assignment_report_*.json and deferred queue after each pass",
-    "keep bounded budgets to respect GitHub secondary rate limits"
   ]
 }

@@ -1,8 +1,8 @@
 {
-  "generated_at_utc": "2026-04-18T03:23:01.296517+00:00",
+  "generated_at_utc": "2026-04-18T03:25:35.888296+00:00",
   "repository": "kushin77/ollama",
   "source_snapshot": ".github/open_issues_snapshot.json",
-  "open_issue_count": 316,
+  "open_issue_count": 315,
   "wave_size": 25,
   "wave_count": 13,
   "selection_policy": "severity_then_issue_number",
@@ -2296,7 +2296,6 @@
         375,
         397,
         57,
-        58,
         60,
         61,
         62,
@@ -2316,7 +2315,8 @@
         134,
         135,
         136,
-        137
+        137,
+        138
       ],
       "issues": [
         {
@@ -2380,20 +2380,6 @@
           ],
           "updated_at": "2026-04-18T03:09:09Z",
           "url": "https://github.com/kushin77/ollama/issues/57",
-          "severity": "low"
-        },
-        {
-          "number": 58,
-          "title": "copilot instructions",
-          "labels": [
-            "status/triaged",
-            "needs-evidence",
-            "status/planned-wave",
-            "wave/06",
-            "wave/6"
-          ],
-          "updated_at": "2026-04-18T03:09:09Z",
-          "url": "https://github.com/kushin77/ollama/issues/58",
           "severity": "low"
         },
         {
@@ -2682,6 +2668,21 @@
           "updated_at": "2026-04-18T03:09:52Z",
           "url": "https://github.com/kushin77/ollama/issues/137",
           "severity": "low"
+        },
+        {
+          "number": 138,
+          "title": "[LLM/T10-98] Automated Regression Test Suite \u0393\u00c7\u00f6 Weekly 50-Question Baseline Comparison with Alerting",
+          "labels": [
+            "enhancement",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
+          ],
+          "updated_at": "2026-04-18T03:09:52Z",
+          "url": "https://github.com/kushin77/ollama/issues/138",
+          "severity": "low"
         }
       ]
     },
@@ -2695,7 +2696,6 @@
         "low": 25
       },
       "issue_numbers": [
-        138,
         139,
         140,
         141,
@@ -2719,24 +2719,10 @@
         159,
         160,
         168,
-        169
+        169,
+        170
       ],
       "issues": [
-        {
-          "number": 138,
-          "title": "[LLM/T10-98] Automated Regression Test Suite \u0393\u00c7\u00f6 Weekly 50-Question Baseline Comparison with Alerting",
-          "labels": [
-            "enhancement",
-            "status/triaged",
-            "needs-evidence",
-            "status/planned-wave",
-            "wave/07",
-            "wave/7"
-          ],
-          "updated_at": "2026-04-18T03:09:52Z",
-          "url": "https://github.com/kushin77/ollama/issues/138",
-          "severity": "low"
-        },
         {
           "number": 139,
           "title": "[LLM/T10-97] DSPy Prompt Optimizer \u0393\u00c7\u00f6 Automated System Prompt Optimization via MIPROv2 Algorithm",
@@ -3094,6 +3080,21 @@
           "updated_at": "2026-04-18T03:10:16Z",
           "url": "https://github.com/kushin77/ollama/issues/169",
           "severity": "low"
+        },
+        {
+          "number": 170,
+          "title": "[LLM/T6-56] Implicit Satisfaction Signals \u0393\u00c7\u00f6 Behavioral Proxy Metrics for Response Quality",
+          "labels": [
+            "enhancement",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
+          ],
+          "updated_at": "2026-04-18T03:10:17Z",
+          "url": "https://github.com/kushin77/ollama/issues/170",
+          "severity": "low"
         }
       ]
     },
@@ -3107,7 +3108,6 @@
         "low": 25
       },
       "issue_numbers": [
-        170,
         171,
         172,
         173,
@@ -3131,24 +3131,10 @@
         191,
         192,
         193,
-        194
+        194,
+        196
       ],
       "issues": [
-        {
-          "number": 170,
-          "title": "[LLM/T6-56] Implicit Satisfaction Signals \u0393\u00c7\u00f6 Behavioral Proxy Metrics for Response Quality",
-          "labels": [
-            "enhancement",
-            "status/triaged",
-            "needs-evidence",
-            "status/planned-wave",
-            "wave/08",
-            "wave/8"
-          ],
-          "updated_at": "2026-04-18T03:10:17Z",
-          "url": "https://github.com/kushin77/ollama/issues/170",
-          "severity": "low"
-        },
         {
           "number": 171,
           "title": "[LLM/T6-55] A/B Testing Framework \u0393\u00c7\u00f6 10% Traffic Split for Prompt Experiments with Auto-Promotion",
@@ -3508,6 +3494,21 @@
           "updated_at": "2026-04-18T03:10:33Z",
           "url": "https://github.com/kushin77/ollama/issues/194",
           "severity": "low"
+        },
+        {
+          "number": 196,
+          "title": "[LLM/T3-29] Prompt Version Control \u0393\u00c7\u00f6 Semantic Versioning for System Prompts in Git",
+          "labels": [
+            "enhancement",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
+          ],
+          "updated_at": "2026-04-18T03:10:35Z",
+          "url": "https://github.com/kushin77/ollama/issues/196",
+          "severity": "low"
         }
       ]
     },
@@ -3521,7 +3522,6 @@
         "low": 25
       },
       "issue_numbers": [
-        196,
         197,
         199,
         201,
@@ -3545,24 +3545,10 @@
         220,
         221,
         222,
-        223
+        223,
+        224
       ],
       "issues": [
-        {
-          "number": 196,
-          "title": "[LLM/T3-29] Prompt Version Control \u0393\u00c7\u00f6 Semantic Versioning for System Prompts in Git",
-          "labels": [
-            "enhancement",
-            "status/triaged",
-            "needs-evidence",
-            "status/planned-wave",
-            "wave/09",
-            "wave/9"
-          ],
-          "updated_at": "2026-04-18T03:10:35Z",
-          "url": "https://github.com/kushin77/ollama/issues/196",
-          "severity": "low"
-        },
         {
           "number": 197,
           "title": "[LLM/T3-28] Health Checks and Streaming SSE Normalization \u0393\u00c7\u00f6 Reliable Token Delivery",
@@ -3922,6 +3908,20 @@
           "updated_at": "2026-04-18T03:10:53Z",
           "url": "https://github.com/kushin77/ollama/issues/223",
           "severity": "low"
+        },
+        {
+          "number": 224,
+          "title": "[LLM/T1-1] Constitutional AI System Prompt \u0393\u00c7\u00f6 HHH Framework in Modelfile",
+          "labels": [
+            "enhancement",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
+          ],
+          "updated_at": "2026-04-18T03:10:54Z",
+          "url": "https://github.com/kushin77/ollama/issues/224",
+          "severity": "low"
         }
       ]
     },
@@ -3935,7 +3935,6 @@
         "low": 25
       },
       "issue_numbers": [
-        224,
         226,
         235,
         236,
@@ -3959,23 +3958,10 @@
         277,
         278,
         279,
-        280
+        280,
+        281
       ],
       "issues": [
-        {
-          "number": 224,
-          "title": "[LLM/T1-1] Constitutional AI System Prompt \u0393\u00c7\u00f6 HHH Framework in Modelfile",
-          "labels": [
-            "enhancement",
-            "status/triaged",
-            "needs-evidence",
-            "status/planned-wave",
-            "wave/10"
-          ],
-          "updated_at": "2026-04-18T03:10:54Z",
-          "url": "https://github.com/kushin77/ollama/issues/224",
-          "severity": "low"
-        },
         {
           "number": 226,
           "title": "[EPIC][ONPREM-FAANG] 90-Day On-Prem AI Capability Uplift (Grok/Claude/Gemini Benchmark)",
@@ -4319,6 +4305,21 @@
           "updated_at": "2026-04-18T03:11:25Z",
           "url": "https://github.com/kushin77/ollama/issues/280",
           "severity": "low"
+        },
+        {
+          "number": 281,
+          "title": "[BROWSER-CHAT][EPIC] Agent Fleet Management for Multi-Agent Suites and Farms",
+          "labels": [
+            "enhancement",
+            "status/triaged",
+            "priority/low",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
+          ],
+          "updated_at": "2026-04-18T03:11:26Z",
+          "url": "https://github.com/kushin77/ollama/issues/281",
+          "severity": "low"
         }
       ]
     },
@@ -4332,7 +4333,6 @@
         "low": 25
       },
       "issue_numbers": [
-        281,
         282,
         283,
         284,
@@ -4356,24 +4356,10 @@
         330,
         331,
         332,
-        333
+        333,
+        334
       ],
       "issues": [
-        {
-          "number": 281,
-          "title": "[BROWSER-CHAT][EPIC] Agent Fleet Management for Multi-Agent Suites and Farms",
-          "labels": [
-            "enhancement",
-            "status/triaged",
-            "priority/low",
-            "needs-evidence",
-            "status/planned-wave",
-            "wave/11"
-          ],
-          "updated_at": "2026-04-18T03:11:26Z",
-          "url": "https://github.com/kushin77/ollama/issues/281",
-          "severity": "low"
-        },
         {
           "number": 282,
           "title": "[BROWSER-CHAT][EPIC] Knowledge Hub for Curated Links and YouTube Learning Sources",
@@ -4733,6 +4719,21 @@
           "updated_at": "2026-04-18T03:11:57Z",
           "url": "https://github.com/kushin77/ollama/issues/333",
           "severity": "low"
+        },
+        {
+          "number": 334,
+          "title": "[SENTIMENT][ENHANCEMENT-26] Action item extraction with owner/date",
+          "labels": [
+            "enhancement",
+            "status/triaged",
+            "priority/low",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
+          ],
+          "updated_at": "2026-04-18T03:11:57Z",
+          "url": "https://github.com/kushin77/ollama/issues/334",
+          "severity": "low"
         }
       ]
     },
@@ -4746,7 +4747,6 @@
         "low": 25
       },
       "issue_numbers": [
-        334,
         335,
         336,
         337,
@@ -4770,24 +4770,10 @@
         355,
         356,
         357,
-        358
+        358,
+        359
       ],
       "issues": [
-        {
-          "number": 334,
-          "title": "[SENTIMENT][ENHANCEMENT-26] Action item extraction with owner/date",
-          "labels": [
-            "enhancement",
-            "status/triaged",
-            "priority/low",
-            "needs-evidence",
-            "status/planned-wave",
-            "wave/12"
-          ],
-          "updated_at": "2026-04-18T03:11:57Z",
-          "url": "https://github.com/kushin77/ollama/issues/334",
-          "severity": "low"
-        },
         {
           "number": 335,
           "title": "[SENTIMENT][ENHANCEMENT-27] Checklist synthesis from conversation",
@@ -5147,20 +5133,34 @@
           "updated_at": "2026-04-18T03:12:09Z",
           "url": "https://github.com/kushin77/ollama/issues/358",
           "severity": "low"
+        },
+        {
+          "number": 359,
+          "title": "[SENTIMENT][ENHANCEMENT-51] Engineer deep-dive response mode",
+          "labels": [
+            "enhancement",
+            "status/triaged",
+            "priority/low",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/13"
+          ],
+          "updated_at": "2026-04-18T03:12:10Z",
+          "url": "https://github.com/kushin77/ollama/issues/359",
+          "severity": "low"
         }
       ]
     },
     {
       "wave": 13,
-      "size": 16,
+      "size": 15,
       "severity_counts": {
         "critical": 0,
         "high": 0,
         "medium": 0,
-        "low": 16
+        "low": 15
       },
       "issue_numbers": [
-        359,
         360,
         361,
         362,
@@ -5178,21 +5178,6 @@
         398
       ],
       "issues": [
-        {
-          "number": 359,
-          "title": "[SENTIMENT][ENHANCEMENT-51] Engineer deep-dive response mode",
-          "labels": [
-            "enhancement",
-            "status/triaged",
-            "priority/low",
-            "needs-evidence",
-            "status/planned-wave",
-            "wave/13"
-          ],
-          "updated_at": "2026-04-18T03:12:10Z",
-          "url": "https://github.com/kushin77/ollama/issues/359",
-          "severity": "low"
-        },
         {
           "number": 360,
           "title": "[SENTIMENT][ENHANCEMENT-52] Learner coaching progression mode",

@@ -1,7 +1,7 @@
 {
-  "generated_at_utc": "2026-04-18T03:23:01.228619+00:00",
+  "generated_at_utc": "2026-04-18T03:25:35.819036+00:00",
   "repository": "kushin77/ollama",
-  "open_issue_count": 316,
+  "open_issue_count": 315,
   "open_issues": [
     {
       "number": 398,
@@ -4544,19 +4544,6 @@
       ],
       "updated_at": "2026-04-18T03:09:10Z",
       "url": "https://github.com/kushin77/ollama/issues/60"
-    },
-    {
-      "number": 58,
-      "title": "copilot instructions",
-      "labels": [
-        "status/triaged",
-        "needs-evidence",
-        "status/planned-wave",
-        "wave/06",
-        "wave/6"
-      ],
-      "updated_at": "2026-04-18T03:09:09Z",
-      "url": "https://github.com/kushin77/ollama/issues/58"
     },
     {
       "number": 57,
