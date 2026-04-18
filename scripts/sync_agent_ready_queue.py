@@ -25,7 +25,13 @@ def github_token_from_git_credentials() -> str:
     raise RuntimeError("No GitHub token available from git credential helper")
 
 
-def api_call(method: str, url: str, headers: Dict[str, str], data: Optional[Dict] = None) -> Tuple[int, Dict]:
+def api_call(
+    method: str,
+    url: str,
+    headers: Dict[str, str],
+    data: Optional[Dict] = None,
+    timeout: int = 20,
+) -> Tuple[int, Dict]:
     payload = None
     req_headers = dict(headers)
     if data is not None:
@@ -33,7 +39,7 @@ def api_call(method: str, url: str, headers: Dict[str, str], data: Optional[Dict
         payload = json.dumps(data).encode()
     req = urllib.request.Request(url, method=method, headers=req_headers, data=payload)
     try:
-        with urllib.request.urlopen(req) as resp:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
             body = resp.read().decode()
             return resp.status, (json.loads(body) if body else {})
     except urllib.error.HTTPError as e:
@@ -65,6 +71,8 @@ def main() -> None:
     parser.add_argument("--repo", default="kushin77/ollama")
     parser.add_argument("--queue", default=".github/next_wave_execution_queue.json")
     parser.add_argument("--output", default="")
+    parser.add_argument("--max-issues", type=int, default=0)
+    parser.add_argument("--timeout", type=int, default=20)
     args = parser.parse_args()
 
     with open(args.queue, "r", encoding="utf-8") as handle:
@@ -90,7 +98,11 @@ def main() -> None:
         "issues": [],
     }
 
-    for issue in queue.get("next_wave_issues", []):
+    queue_issues = queue.get("next_wave_issues", [])
+    if args.max_issues > 0:
+        queue_issues = queue_issues[:args.max_issues]
+
+    for issue in queue_issues:
         issue_number = int(issue["number"])
         report["processed"] += 1
         status, response = api_call(
@@ -98,6 +110,7 @@ def main() -> None:
             f"{base}/issues/{issue_number}/labels",
             headers,
             {"labels": ["agent-ready"]},
+            timeout=args.timeout,
         )
         if status == 200:
             names = {label.get("name") for label in response if isinstance(label, dict)}

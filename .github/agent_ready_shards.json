@@ -1,7 +1,7 @@
 {
-  "generated_at_utc": "2026-04-18T03:37:45.924404+00:00",
+  "generated_at_utc": "2026-04-18T03:46:04.903589+00:00",
   "source": ".github/agent_ready_queue.json",
-  "open_agent_ready_count": 32,
+  "open_agent_ready_count": 81,
   "shard_count": 4,
   "assignment_policy": "severity_then_issue_number_round_robin",
   "shards": [
@@ -85,6 +85,98 @@
           "severity": "critical"
         },
         {
+          "number": 227,
+          "title": "[P0][ONPREM-FAANG] Intelligent Model Router (Task-Aware + SLA-Aware Dispatch)",
+          "labels": [
+            "enhancement",
+            "priority-p0",
+            "priority/high",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/227",
+          "updated_at": "2026-04-18T03:44:55Z",
+          "severity": "critical"
+        },
+        {
+          "number": 240,
+          "title": "[P0][ONPREM-FAANG] Intelligent Model Router (Task-Aware + SLA-Aware Dispatch)",
+          "labels": [
+            "enhancement",
+            "priority-p0",
+            "priority/high",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/240",
+          "updated_at": "2026-04-18T03:44:57Z",
+          "severity": "critical"
+        },
+        {
+          "number": 254,
+          "title": "[P0][ONPREM-FAANG][IAC] Idempotency Validation Harness + CI Gate",
+          "labels": [
+            "enhancement",
+            "priority-p0",
+            "idempotency",
+            "priority/high",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/254",
+          "updated_at": "2026-04-18T03:44:58Z",
+          "severity": "critical"
+        },
+        {
+          "number": 259,
+          "title": "[P0][IDEMPOTENT] Double-Run CI Matrix on Primary/Secondary Hosts (.42/.31)",
+          "labels": [
+            "enhancement",
+            "priority-p0",
+            "priority/high",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/259",
+          "updated_at": "2026-04-18T03:45:00Z",
+          "severity": "critical"
+        },
+        {
+          "number": 265,
+          "title": "[P0][IDEMPOTENT] Double-Run CI Matrix on Primary/Secondary Hosts (.42/.31)",
+          "labels": [
+            "enhancement",
+            "priority-p0",
+            "idempotency",
+            "priority/high",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/265",
+          "updated_at": "2026-04-18T03:45:02Z",
+          "severity": "critical"
+        },
+        {
           "number": 389,
           "title": "[Monorepo Epic] Repository topology and tooling migration",
           "labels": [
@@ -141,40 +233,195 @@
           "severity": "high"
         },
         {
-          "number": 397,
-          "title": "[Monorepo] Define CODEOWNERS and review policy by domain",
+          "number": 290,
+          "title": "[BROWSER-CHAT][AGENT-FLEET] Fleet dashboard and health panel",
           "labels": [
-            "documentation",
-            "governance",
+            "bug",
+            "priority/high",
+            "status/triaged",
+            "priority/medium",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/290",
+          "updated_at": "2026-04-18T03:45:04Z",
+          "severity": "high"
+        },
+        {
+          "number": 295,
+          "title": "[BROWSER-CHAT][KNOWLEDGE] YouTube channel/page ingestion metadata",
+          "labels": [
+            "bug",
+            "priority/high",
+            "status/triaged",
+            "priority/medium",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/295",
+          "updated_at": "2026-04-18T03:45:06Z",
+          "severity": "high"
+        },
+        {
+          "number": 299,
+          "title": "[BROWSER-CHAT][COPILOT] Goal-to-plan decomposition mode",
+          "labels": [
+            "bug",
+            "priority/high",
+            "status/triaged",
+            "priority/low",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/299",
+          "updated_at": "2026-04-18T03:45:17Z",
+          "severity": "high"
+        },
+        {
+          "number": 303,
+          "title": "[BROWSER-CHAT][COPILOT] Risky action simulation and dry-run",
+          "labels": [
+            "bug",
+            "priority/high",
+            "status/triaged",
+            "priority/low",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/303",
+          "updated_at": "2026-04-18T03:45:20Z",
+          "severity": "high"
+        },
+        {
+          "number": 308,
+          "title": "[BROWSER-CHAT][ASSIMILATION] Assimilation PR template and governance",
+          "labels": [
+            "bug",
+            "priority/high",
+            "status/triaged",
+            "priority/medium",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/308",
+          "updated_at": "2026-04-18T03:45:57Z",
+          "severity": "high"
+        },
+        {
+          "number": 312,
+          "title": "[BROWSER-CHAT][HARDWARE] Runtime backend selector",
+          "labels": [
+            "bug",
+            "priority/high",
+            "status/triaged",
+            "priority/medium",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/312",
+          "updated_at": "2026-04-18T03:45:52Z",
+          "severity": "high"
+        },
+        {
+          "number": 374,
+          "title": "bug(secrets): GSMClient lazy-init is not thread-safe \u2014 add sync.Once guard",
+          "labels": [
+            "bug",
+            "security",
+            "priority/high",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/374",
+          "updated_at": "2026-04-18T03:45:47Z",
+          "severity": "high"
+        },
+        {
+          "number": 396,
+          "title": "[Monorepo] Unify local developer commands and task entrypoints",
+          "labels": [
+            "bug",
+            "python",
             "status/triaged",
             "priority/medium",
             "monorepo",
             "developer-experience",
             "status/planned-wave",
-            "wave/06",
+            "wave/05",
             "agent-ready"
           ],
-          "url": "https://github.com/kushin77/ollama/issues/397",
+          "url": "https://github.com/kushin77/ollama/issues/396",
           "updated_at": "2026-04-18T03:26:41Z",
-          "severity": "medium"
+          "severity": "high"
+        },
+        {
+          "number": 398,
+          "title": "[Monorepo] Publish migration runbook and validate rollback procedure",
+          "labels": [
+            "documentation",
+            "operations",
+            "status/triaged",
+            "monorepo",
+            "status/planned-wave",
+            "wave/13",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/398",
+          "updated_at": "2026-04-18T03:26:40Z",
+          "severity": "low"
         }
       ],
-      "size": 8,
+      "size": 21,
       "severity_counts": {
-        "critical": 5,
-        "high": 2,
-        "medium": 1,
-        "low": 0
+        "critical": 10,
+        "high": 10,
+        "medium": 0,
+        "low": 1
       },
       "issue_numbers": [
         82,
         88,
         95,
         99,
+        227,
+        240,
+        254,
+        259,
+        265,
         389,
         83,
         105,
-        397
+        290,
+        295,
+        299,
+        303,
+        308,
+        312,
+        374,
+        396,
+        398
       ]
     },
     {
@@ -257,6 +504,96 @@
           "severity": "critical"
         },
         {
+          "number": 228,
+          "title": "[P0][ONPREM-FAANG] Retrieval 2.0 (Hybrid Search + Reranker + Grounding)",
+          "labels": [
+            "enhancement",
+            "priority-p0",
+            "priority/high",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/228",
+          "updated_at": "2026-04-18T03:44:56Z",
+          "severity": "critical"
+        },
+        {
+          "number": 241,
+          "title": "[P0][ONPREM-FAANG] Retrieval 2.0 (Hybrid Search + Reranker + Grounding)",
+          "labels": [
+            "enhancement",
+            "priority-p0",
+            "priority/high",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/241",
+          "updated_at": "2026-04-18T03:44:57Z",
+          "severity": "critical"
+        },
+        {
+          "number": 256,
+          "title": "[P0][IAC-IMMUTABLE] CI Policy Check: Block Mutable Image Tags and Floating Versions",
+          "labels": [
+            "enhancement",
+            "priority-p0",
+            "priority/high",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/256",
+          "updated_at": "2026-04-18T03:44:59Z",
+          "severity": "critical"
+        },
+        {
+          "number": 262,
+          "title": "[P0][IAC-IMMUTABLE] CI Policy Check: Block Mutable Image Tags and Floating Versions",
+          "labels": [
+            "enhancement",
+            "priority-p0",
+            "iac-immutable",
+            "priority/high",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/262",
+          "updated_at": "2026-04-18T03:45:00Z",
+          "severity": "critical"
+        },
+        {
+          "number": 369,
+          "title": "[P0][IAC-IMMUTABLE] Add missing Terraform lockfiles and governance gate",
+          "labels": [
+            "priority-p0",
+            "priority/high",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/369",
+          "updated_at": "2026-04-18T03:45:00Z",
+          "severity": "critical"
+        },
+        {
           "number": 391,
           "title": "[Monorepo] Introduce apps-packages-infra structure with compatibility shims",
           "labels": [
@@ -293,58 +630,195 @@
           "severity": "high"
         },
         {
-          "number": 393,
-          "title": "[Monorepo] Bootstrap pnpm workspace for active JS packages (conditional gate)",
+          "number": 287,
+          "title": "[BROWSER-CHAT][MASTER] Browser Chat Enhancement Program Tracker",
           "labels": [
+            "bug",
             "priority/high",
             "status/triaged",
-            "monorepo",
-            "developer-experience",
-            "frontend",
-            "decision-record",
+            "priority/low",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/287",
+          "updated_at": "2026-04-18T03:45:02Z",
+          "severity": "high"
+        },
+        {
+          "number": 291,
+          "title": "[BROWSER-CHAT][AGENT-FLEET] Cross-agent handoff protocol",
+          "labels": [
+            "bug",
+            "priority/high",
+            "status/triaged",
+            "priority/medium",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/291",
+          "updated_at": "2026-04-18T03:45:04Z",
+          "severity": "high"
+        },
+        {
+          "number": 296,
+          "title": "[BROWSER-CHAT][KNOWLEDGE] Stale/broken source detection",
+          "labels": [
+            "bug",
+            "priority/high",
+            "status/triaged",
+            "priority/low",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/296",
+          "updated_at": "2026-04-18T03:45:16Z",
+          "severity": "high"
+        },
+        {
+          "number": 300,
+          "title": "[BROWSER-CHAT][COPILOT] Live task execution checkpoints",
+          "labels": [
+            "bug",
+            "priority/high",
+            "status/triaged",
+            "priority/low",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/300",
+          "updated_at": "2026-04-18T03:45:18Z",
+          "severity": "high"
+        },
+        {
+          "number": 304,
+          "title": "[BROWSER-CHAT][COPILOT] Task replay and postmortem export",
+          "labels": [
+            "bug",
+            "priority/high",
+            "status/triaged",
+            "priority/medium",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/304",
+          "updated_at": "2026-04-18T03:45:20Z",
+          "severity": "high"
+        },
+        {
+          "number": 309,
+          "title": "[BROWSER-CHAT][ASSIMILATION] Quarterly re-scan automation",
+          "labels": [
+            "bug",
+            "priority/high",
+            "status/triaged",
+            "priority/low",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/309",
+          "updated_at": "2026-04-18T03:45:56Z",
+          "severity": "high"
+        },
+        {
+          "number": 314,
+          "title": "[BROWSER-CHAT][HARDWARE] Thermal and stability guardrails",
+          "labels": [
+            "bug",
+            "priority/high",
+            "status/triaged",
+            "priority/medium",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/314",
+          "updated_at": "2026-04-18T03:45:51Z",
+          "severity": "high"
+        },
+        {
+          "number": 376,
+          "title": "bug(github): http.Client has no timeout \u2014 fix potential goroutine leak",
+          "labels": [
+            "bug",
+            "security",
+            "priority/high",
+            "status/triaged",
+            "needs-evidence",
             "status/planned-wave",
             "wave/05",
             "agent-ready"
           ],
-          "url": "https://github.com/kushin77/ollama/issues/393",
-          "updated_at": "2026-04-18T03:26:43Z",
+          "url": "https://github.com/kushin77/ollama/issues/376",
+          "updated_at": "2026-04-18T03:45:46Z",
           "severity": "high"
         },
         {
-          "number": 390,
-          "title": "[ADR] Monorepo topology and pnpm adoption decision",
+          "number": 397,
+          "title": "[Monorepo] Define CODEOWNERS and review policy by domain",
           "labels": [
             "documentation",
+            "governance",
             "status/triaged",
-            "priority/low",
+            "priority/medium",
             "monorepo",
-            "architecture",
-            "decision-record",
+            "developer-experience",
             "status/planned-wave",
-            "wave/13",
+            "wave/06",
             "agent-ready"
           ],
-          "url": "https://github.com/kushin77/ollama/issues/390",
-          "updated_at": "2026-04-18T03:26:44Z",
-          "severity": "low"
+          "url": "https://github.com/kushin77/ollama/issues/397",
+          "updated_at": "2026-04-18T03:26:41Z",
+          "severity": "medium"
         }
       ],
-      "size": 8,
+      "size": 20,
       "severity_counts": {
-        "critical": 5,
-        "high": 2,
-        "medium": 0,
-        "low": 1
+        "critical": 10,
+        "high": 9,
+        "medium": 1,
+        "low": 0
       },
       "issue_numbers": [
         84,
         90,
         96,
         100,
+        228,
+        241,
+        256,
+        262,
+        369,
         391,
         89,
-        393,
-        390
+        287,
+        291,
+        296,
+        300,
+        304,
+        309,
+        314,
+        376,
+        397
       ]
     },
     {
@@ -427,6 +901,96 @@
           "severity": "critical"
         },
         {
+          "number": 229,
+          "title": "[P0][ONPREM-FAANG] Structured Output Reliability (Schema-Constrained Generation)",
+          "labels": [
+            "enhancement",
+            "priority-p0",
+            "priority/high",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/229",
+          "updated_at": "2026-04-18T03:44:56Z",
+          "severity": "critical"
+        },
+        {
+          "number": 242,
+          "title": "[P0][ONPREM-FAANG] Structured Output Reliability (Schema-Constrained Generation)",
+          "labels": [
+            "enhancement",
+            "priority-p0",
+            "priority/high",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/242",
+          "updated_at": "2026-04-18T03:44:58Z",
+          "severity": "critical"
+        },
+        {
+          "number": 257,
+          "title": "[P0][IAC-IMMUTABLE] Terraform Lockdown: Provider/Module Pinning and Lockfile Governance",
+          "labels": [
+            "enhancement",
+            "priority-p0",
+            "priority/high",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/257",
+          "updated_at": "2026-04-18T03:44:59Z",
+          "severity": "critical"
+        },
+        {
+          "number": 263,
+          "title": "[P0][IAC-IMMUTABLE] Terraform Lockdown: Provider/Module Pinning and Lockfile Governance",
+          "labels": [
+            "enhancement",
+            "priority-p0",
+            "iac-immutable",
+            "priority/high",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/263",
+          "updated_at": "2026-04-18T03:45:01Z",
+          "severity": "critical"
+        },
+        {
+          "number": 370,
+          "title": "[P0][IAC-IMMUTABLE] Enforce exact Terraform and provider version pins",
+          "labels": [
+            "priority-p0",
+            "priority/high",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/370",
+          "updated_at": "2026-04-18T03:45:02Z",
+          "severity": "critical"
+        },
+        {
           "number": 395,
           "title": "[Monorepo] Implement path-based CI workflows and cache strategy",
           "labels": [
@@ -466,45 +1030,172 @@
           "severity": "high"
         },
         {
-          "number": 394,
-          "title": "[Monorepo] Create shared API contracts package and generated clients",
+          "number": 288,
+          "title": "[BROWSER-CHAT][AGENT-FLEET] Suite and farm hierarchy model",
           "labels": [
             "bug",
+            "priority/high",
+            "status/triaged",
+            "priority/low",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/288",
+          "updated_at": "2026-04-18T03:45:03Z",
+          "severity": "high"
+        },
+        {
+          "number": 292,
+          "title": "[BROWSER-CHAT][AGENT-FLEET] Fleet lifecycle operations UX",
+          "labels": [
+            "bug",
+            "priority/high",
             "status/triaged",
             "priority/medium",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/292",
+          "updated_at": "2026-04-18T03:45:05Z",
+          "severity": "high"
+        },
+        {
+          "number": 297,
+          "title": "[BROWSER-CHAT][KNOWLEDGE] Knowledge packs for agent suites",
+          "labels": [
+            "bug",
+            "priority/high",
+            "status/triaged",
+            "priority/low",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/297",
+          "updated_at": "2026-04-18T03:45:17Z",
+          "severity": "high"
+        },
+        {
+          "number": 301,
+          "title": "[BROWSER-CHAT][COPILOT] Host connector permission gates",
+          "labels": [
+            "bug",
+            "priority/high",
+            "status/triaged",
+            "priority/medium",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/301",
+          "updated_at": "2026-04-18T03:45:18Z",
+          "severity": "high"
+        },
+        {
+          "number": 306,
+          "title": "[BROWSER-CHAT][ASSIMILATION] Reuse scoring and fit analysis",
+          "labels": [
+            "bug",
+            "priority/high",
+            "status/triaged",
+            "priority/low",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/306",
+          "updated_at": "2026-04-18T03:45:20Z",
+          "severity": "high"
+        },
+        {
+          "number": 310,
+          "title": "[BROWSER-CHAT][HARDWARE] Capability detection matrix (CPU/GPU/NPU)",
+          "labels": [
+            "bug",
+            "priority/high",
+            "status/triaged",
+            "priority/medium",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/310",
+          "updated_at": "2026-04-18T03:45:54Z",
+          "severity": "high"
+        },
+        {
+          "number": 315,
+          "title": "[BROWSER-CHAT][HARDWARE] User-facing tuning controls",
+          "labels": [
+            "bug",
+            "priority/high",
+            "status/triaged",
+            "priority/medium",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/315",
+          "updated_at": "2026-04-18T03:45:49Z",
+          "severity": "high"
+        },
+        {
+          "number": 393,
+          "title": "[Monorepo] Bootstrap pnpm workspace for active JS packages (conditional gate)",
+          "labels": [
+            "priority/high",
+            "status/triaged",
             "monorepo",
             "developer-experience",
-            "api",
+            "frontend",
+            "decision-record",
             "status/planned-wave",
             "wave/05",
             "agent-ready"
           ],
-          "url": "https://github.com/kushin77/ollama/issues/394",
-          "updated_at": "2026-04-18T03:26:42Z",
+          "url": "https://github.com/kushin77/ollama/issues/393",
+          "updated_at": "2026-04-18T03:26:43Z",
           "severity": "high"
         },
         {
-          "number": 392,
-          "title": "[Monorepo] Resolve frontend lifecycle state and documentation drift",
+          "number": 390,
+          "title": "[ADR] Monorepo topology and pnpm adoption decision",
           "labels": [
             "documentation",
             "status/triaged",
+            "priority/low",
             "monorepo",
             "architecture",
-            "frontend",
+            "decision-record",
             "status/planned-wave",
             "wave/13",
             "agent-ready"
           ],
-          "url": "https://github.com/kushin77/ollama/issues/392",
-          "updated_at": "2026-04-18T03:26:43Z",
+          "url": "https://github.com/kushin77/ollama/issues/390",
+          "updated_at": "2026-04-18T03:26:44Z",
           "severity": "low"
         }
       ],
-      "size": 8,
+      "size": 20,
       "severity_counts": {
-        "critical": 5,
-        "high": 2,
+        "critical": 10,
+        "high": 9,
         "medium": 0,
         "low": 1
       },
@@ -513,10 +1204,22 @@
         92,
         97,
         101,
+        229,
+        242,
+        257,
+        263,
+        370,
         395,
         91,
-        394,
-        392
+        288,
+        292,
+        297,
+        301,
+        306,
+        310,
+        315,
+        393,
+        390
       ]
     },
     {
@@ -599,6 +1302,98 @@
           "severity": "critical"
         },
         {
+          "number": 230,
+          "title": "[P0][ONPREM-FAANG] LLM Observability Baseline (Tracing, Cost, Quality Signals)",
+          "labels": [
+            "enhancement",
+            "priority-p0",
+            "priority/high",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/230",
+          "updated_at": "2026-04-18T03:44:56Z",
+          "severity": "critical"
+        },
+        {
+          "number": 253,
+          "title": "[P0][ONPREM-FAANG][IAC] Immutable Infrastructure Baseline Enforcement",
+          "labels": [
+            "enhancement",
+            "priority-p0",
+            "iac-immutable",
+            "priority/high",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/253",
+          "updated_at": "2026-04-18T03:44:58Z",
+          "severity": "critical"
+        },
+        {
+          "number": 258,
+          "title": "[P0][IDEMPOTENT] Script Idempotency Standard + Shared Guard Library",
+          "labels": [
+            "enhancement",
+            "priority-p0",
+            "priority/high",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/258",
+          "updated_at": "2026-04-18T03:45:00Z",
+          "severity": "critical"
+        },
+        {
+          "number": 264,
+          "title": "[P0][IDEMPOTENT] Script Idempotency Standard + Shared Guard Library",
+          "labels": [
+            "enhancement",
+            "priority-p0",
+            "idempotency",
+            "priority/high",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/264",
+          "updated_at": "2026-04-18T03:45:01Z",
+          "severity": "critical"
+        },
+        {
+          "number": 371,
+          "title": "[P0][STRUCTURE] Resolve strict folder-structure validation failures",
+          "labels": [
+            "documentation",
+            "priority-p0",
+            "priority/high",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/371",
+          "updated_at": "2026-04-18T03:45:03Z",
+          "severity": "critical"
+        },
+        {
           "number": 67,
           "title": "Vscode/workspace integration",
           "labels": [
@@ -637,44 +1432,171 @@
           "severity": "high"
         },
         {
-          "number": 396,
-          "title": "[Monorepo] Unify local developer commands and task entrypoints",
+          "number": 289,
+          "title": "[BROWSER-CHAT][AGENT-FLEET] Agent capability policy matrix",
           "labels": [
             "bug",
-            "python",
+            "priority/high",
+            "status/triaged",
+            "priority/medium",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/289",
+          "updated_at": "2026-04-18T03:45:03Z",
+          "severity": "high"
+        },
+        {
+          "number": 293,
+          "title": "[BROWSER-CHAT][AGENT-FLEET] Fleet audit trail and forensics",
+          "labels": [
+            "bug",
+            "priority/high",
+            "status/triaged",
+            "priority/low",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/293",
+          "updated_at": "2026-04-18T03:45:05Z",
+          "severity": "high"
+        },
+        {
+          "number": 298,
+          "title": "[BROWSER-CHAT][KNOWLEDGE] Review workflow and trust scoring",
+          "labels": [
+            "bug",
+            "priority/high",
+            "status/triaged",
+            "priority/low",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/298",
+          "updated_at": "2026-04-18T03:45:17Z",
+          "severity": "high"
+        },
+        {
+          "number": 302,
+          "title": "[BROWSER-CHAT][COPILOT] Action evidence and verification ledger",
+          "labels": [
+            "bug",
+            "priority/high",
+            "status/triaged",
+            "priority/medium",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/302",
+          "updated_at": "2026-04-18T03:45:19Z",
+          "severity": "high"
+        },
+        {
+          "number": 307,
+          "title": "[BROWSER-CHAT][ASSIMILATION] Duplicate capability reconciliation",
+          "labels": [
+            "bug",
+            "priority/high",
+            "status/triaged",
+            "priority/medium",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/307",
+          "updated_at": "2026-04-18T03:45:21Z",
+          "severity": "high"
+        },
+        {
+          "number": 311,
+          "title": "[BROWSER-CHAT][HARDWARE] Quantization profile strategy",
+          "labels": [
+            "bug",
+            "priority/high",
+            "status/triaged",
+            "priority/low",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/311",
+          "updated_at": "2026-04-18T03:45:53Z",
+          "severity": "high"
+        },
+        {
+          "number": 373,
+          "title": "feat(secrets): GSMClient lazy-init is not thread-safe \u2014 add mutex guard",
+          "labels": [
+            "bug",
+            "security",
+            "priority/high",
+            "status/triaged",
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4",
+            "agent-ready"
+          ],
+          "url": "https://github.com/kushin77/ollama/issues/373",
+          "updated_at": "2026-04-18T03:45:48Z",
+          "severity": "high"
+        },
+        {
+          "number": 394,
+          "title": "[Monorepo] Create shared API contracts package and generated clients",
+          "labels": [
+            "bug",
             "status/triaged",
             "priority/medium",
             "monorepo",
             "developer-experience",
+            "api",
             "status/planned-wave",
             "wave/05",
             "agent-ready"
           ],
-          "url": "https://github.com/kushin77/ollama/issues/396",
-          "updated_at": "2026-04-18T03:26:41Z",
+          "url": "https://github.com/kushin77/ollama/issues/394",
+          "updated_at": "2026-04-18T03:26:42Z",
           "severity": "high"
         },
         {
-          "number": 398,
-          "title": "[Monorepo] Publish migration runbook and validate rollback procedure",
+          "number": 392,
+          "title": "[Monorepo] Resolve frontend lifecycle state and documentation drift",
           "labels": [
             "documentation",
-            "operations",
             "status/triaged",
             "monorepo",
+            "architecture",
+            "frontend",
             "status/planned-wave",
             "wave/13",
             "agent-ready"
           ],
-          "url": "https://github.com/kushin77/ollama/issues/398",
-          "updated_at": "2026-04-18T03:26:40Z",
+          "url": "https://github.com/kushin77/ollama/issues/392",
+          "updated_at": "2026-04-18T03:26:43Z",
           "severity": "low"
         }
       ],
-      "size": 8,
+      "size": 20,
       "severity_counts": {
-        "critical": 4,
-        "high": 3,
+        "critical": 9,
+        "high": 10,
         "medium": 0,
         "low": 1
       },
@@ -683,10 +1605,22 @@
         93,
         98,
         102,
+        230,
+        253,
+        258,
+        264,
+        371,
         67,
         94,
-        396,
-        398
+        289,
+        293,
+        298,
+        302,
+        307,
+        311,
+        373,
+        394,
+        392
       ]
     }
   ]
