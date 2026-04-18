@@ -206,4 +206,3 @@ func (sm *StorageManager) ListPVCs(ctx context.Context) ([]*corev1.PersistentVol
 	// 3. Return list
 	return nil, fmt.Errorf("not implemented")
 }
-

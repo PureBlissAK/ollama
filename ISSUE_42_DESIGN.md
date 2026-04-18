@@ -1,8 +1,8 @@
 # Issue #42 Design: Kubernetes Hub Support
 
-**Date:** April 18, 2026  
-**Phase:** 2 - Design & Planning  
-**Status:** In Progress  
+**Date:** April 18, 2026
+**Phase:** 2 - Design & Planning
+**Status:** In Progress
 
 ---
 

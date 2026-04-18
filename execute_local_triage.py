@@ -12,17 +12,17 @@ from pathlib import Path
 
 def analyze_issues_locally():
     """Analyze all issues from the roadmap and generate triage recommendations."""
-    
+
     # Load the issue roadmap
     roadmap_path = Path("GITHUB_ISSUES_ROADMAP.md")
     if not roadmap_path.exists():
         print("❌ GITHUB_ISSUES_ROADMAP.md not found")
         return False
-    
+
     # Parse the roadmap to extract issue information
     with open(roadmap_path, 'r') as f:
         roadmap_content = f.read()
-    
+
     # Create triage results structure
     triage_results = {
         "timestamp": datetime.now().isoformat(),
@@ -43,7 +43,7 @@ def analyze_issues_locally():
             "All triage operations will be logged in .github/issue_audit_trail.jsonl"
         ]
     }
-    
+
     # Document completed issues
     completed_issues = [55, 56, 57]
     for issue_num in completed_issues:
@@ -54,8 +54,8 @@ def analyze_issues_locally():
             "priority": "completed",
             "action": "Reference and build upon"
         })
-    
-    # Document critical path issues  
+
+    # Document critical path issues
     critical_issues = [42, 43, 44, 45, 46, 47]
     for issue_num in critical_issues:
         triage_results["triaged_issues"].append({
@@ -65,7 +65,7 @@ def analyze_issues_locally():
             "priority": "critical",
             "action": "Begin autonomous implementation"
         })
-    
+
     # Document medium priority (sample)
     for i in range(1, 11):
         triage_results["triaged_issues"].append({
@@ -75,14 +75,14 @@ def analyze_issues_locally():
             "priority": "medium",
             "action": "Schedule for future sprint"
         })
-    
+
     # Save triage results
     output_path = Path(".github/local_triage_results.json")
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    
+
     with open(output_path, 'w') as f:
         json.dump(triage_results, f, indent=2)
-    
+
     print(f"✅ Local triage analysis complete")
     print(f"   - Total issues analyzed: {triage_results['total_issues_analyzed']}")
     print(f"   - Completed: {triage_results['triage_summary']['completed']}")
@@ -91,7 +91,7 @@ def analyze_issues_locally():
     print(f"   - Low priority: {triage_results['triage_summary']['low_priority']}")
     print(f"   - Bugs/Fixes: {triage_results['triage_summary']['bugs_and_fixes']}")
     print(f"✅ Results saved to: {output_path}")
-    
+
     return True
 
 def main():
@@ -100,9 +100,9 @@ def main():
     print("LOCAL ISSUE TRIAGE EXECUTION")
     print("=" * 60)
     print()
-    
+
     success = analyze_issues_locally()
-    
+
     if success:
         print()
         print("TRIAGE EXECUTION COMPLETE")

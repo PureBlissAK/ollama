@@ -1,11 +1,11 @@
 // waitForDeployment waits for a deployment to reach desired state.
 func (dc *DeploymentController) waitForDeployment(ctx context.Context, modelName string, timeoutSeconds int) error {
 	deploymentName := fmt.Sprintf("ollama-%s", modelName)
-	
+
 	// Simple polling mechanism with timeout
 	checkInterval := 2 // seconds
 	maxChecks := timeoutSeconds / checkInterval
-	
+
 	for i := 0; i < maxChecks; i++ {
 		deployment, err := dc.provider.clientset.AppsV1().Deployments(dc.provider.namespace).Get(ctx, deploymentName, metav1.GetOptions{})
 		if err != nil {
@@ -436,4 +436,3 @@ func (dc *DeploymentController) generateDeploymentManifest(modelName, version st
 	}
 
 	return deployment
-

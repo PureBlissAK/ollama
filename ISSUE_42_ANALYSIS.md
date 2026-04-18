@@ -1,8 +1,8 @@
 # Issue #42 Analysis: Kubernetes Hub Support
 
-**Date:** April 18, 2026  
-**Phase:** 1 - Analysis  
-**Status:** In Progress  
+**Date:** April 18, 2026
+**Phase:** 1 - Analysis
+**Status:** In Progress
 
 ---
 
@@ -57,8 +57,8 @@ Based on standard practice, the following criteria should be met:
 
 ### 5. Effort Estimation
 
-**Complexity:** High  
-**Estimated Effort:** 40-60 hours autonomous development  
+**Complexity:** High
+**Estimated Effort:** 40-60 hours autonomous development
 **Breakdown:**
 - Design & architecture: 8 hours
 - Core implementation: 25 hours

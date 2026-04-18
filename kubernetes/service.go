@@ -168,7 +168,7 @@ func (sm *ServiceManager) DeleteService(ctx context.Context, name string) error 
 			err,
 		).WithDetails("service", name)
 	}
-	
+
 	return nil
 }
 
@@ -202,8 +202,6 @@ func (sm *ServiceManager) GetEndpoints(ctx context.Context, name string) (*corev
 			err,
 		).WithDetails("service", name)
 	}
-	
+
 	return endpoints, nil
 }
-
-
