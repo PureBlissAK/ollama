@@ -6,6 +6,18 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 
+def is_pull_request(issue):
+    if issue.get("pull_request") or issue.get("is_pull_request"):
+        return True
+
+    for key in ("url", "html_url"):
+        value = issue.get(key)
+        if isinstance(value, str) and "/pull/" in value:
+            return True
+
+    return False
+
+
 def severity_from_labels(labels):
     names = [label.lower() for label in labels]
     if any("critical" in n or "priority-p0" in n for n in names):
@@ -42,6 +54,9 @@ def load_issues(path):
     normalized = []
     for issue in issues:
         if not isinstance(issue, dict):
+            continue
+
+        if is_pull_request(issue):
             continue
 
         raw_labels = issue.get("labels", [])

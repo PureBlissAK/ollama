@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-04-18T04:47:59.174482+00:00",
+  "generated_at_utc": "2026-04-18T05:34:53.246943+00:00",
   "repository": "kushin77/ollama",
   "open_issue_count": 294,
   "open_issues": [
@@ -16,7 +16,7 @@
         "agent-ready",
         "shard/2"
       ],
-      "updated_at": "2026-04-18T04:15:50Z",
+      "updated_at": "2026-04-18T05:33:28Z",
       "url": "https://github.com/kushin77/ollama/issues/398"
     },
     {
@@ -123,7 +123,7 @@
         "agent-ready",
         "shard/1"
       ],
-      "updated_at": "2026-04-18T04:15:48Z",
+      "updated_at": "2026-04-18T05:33:26Z",
       "url": "https://github.com/kushin77/ollama/issues/392"
     },
     {
@@ -160,7 +160,7 @@
         "agent-ready",
         "shard/4"
       ],
-      "updated_at": "2026-04-18T04:15:46Z",
+      "updated_at": "2026-04-18T05:33:25Z",
       "url": "https://github.com/kushin77/ollama/issues/390"
     },
     {

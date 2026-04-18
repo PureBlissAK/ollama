@@ -1,7 +1,7 @@
 {
-  "generated_at_utc": "2026-04-18T05:17:58.622249+00:00",
+  "generated_at_utc": "2026-04-18T05:35:29.949030+00:00",
   "source": ".github/agent_ready_queue.json",
-  "open_agent_ready_count": 297,
+  "open_agent_ready_count": 294,
   "shard_count": 4,
   "assignment_policy": "severity_then_issue_number_round_robin",
   "shards": [
@@ -24,8 +24,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/82",
+          "updated_at": "2026-04-18T03:57:01Z",
           "severity": "critical"
         },
         {
@@ -44,8 +44,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/88",
+          "updated_at": "2026-04-18T03:57:04Z",
           "severity": "critical"
         },
         {
@@ -64,8 +64,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/95",
+          "updated_at": "2026-04-18T03:57:08Z",
           "severity": "critical"
         },
         {
@@ -84,8 +84,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/99",
+          "updated_at": "2026-04-18T03:57:10Z",
           "severity": "critical"
         },
         {
@@ -103,8 +103,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/227",
+          "updated_at": "2026-04-18T03:53:07Z",
           "severity": "critical"
         },
         {
@@ -122,8 +122,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/240",
+          "updated_at": "2026-04-18T03:53:09Z",
           "severity": "critical"
         },
         {
@@ -142,8 +142,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/254",
+          "updated_at": "2026-04-18T03:53:12Z",
           "severity": "critical"
         },
         {
@@ -161,8 +161,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/259",
+          "updated_at": "2026-04-18T03:53:15Z",
           "severity": "critical"
         },
         {
@@ -181,8 +181,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/265",
+          "updated_at": "2026-04-18T03:53:18Z",
           "severity": "critical"
         },
         {
@@ -200,8 +200,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/389",
+          "updated_at": "2026-04-18T04:11:36Z",
           "severity": "critical"
         },
         {
@@ -222,8 +222,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/83",
+          "updated_at": "2026-04-18T04:11:26Z",
           "severity": "high"
         },
         {
@@ -240,8 +240,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/105",
+          "updated_at": "2026-04-18T04:11:28Z",
           "severity": "high"
         },
         {
@@ -257,8 +257,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/109",
+          "updated_at": "2026-04-18T04:08:29Z",
           "severity": "high"
         },
         {
@@ -274,8 +274,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/113",
+          "updated_at": "2026-04-18T04:08:32Z",
           "severity": "high"
         },
         {
@@ -291,8 +291,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/117",
+          "updated_at": "2026-04-18T04:08:35Z",
           "severity": "high"
         },
         {
@@ -309,8 +309,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/121",
+          "updated_at": "2026-04-18T04:11:29Z",
           "severity": "high"
         },
         {
@@ -327,8 +327,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/164",
+          "updated_at": "2026-04-18T04:09:09Z",
           "severity": "high"
         },
         {
@@ -345,8 +345,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/195",
+          "updated_at": "2026-04-18T04:09:32Z",
           "severity": "high"
         },
         {
@@ -364,8 +364,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/287",
+          "updated_at": "2026-04-18T04:11:14Z",
           "severity": "high"
         },
         {
@@ -383,8 +383,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/291",
+          "updated_at": "2026-04-18T04:11:16Z",
           "severity": "high"
         },
         {
@@ -402,8 +402,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/296",
+          "updated_at": "2026-04-18T04:11:18Z",
           "severity": "high"
         },
         {
@@ -421,8 +421,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/300",
+          "updated_at": "2026-04-18T04:11:19Z",
           "severity": "high"
         },
         {
@@ -440,8 +440,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/304",
+          "updated_at": "2026-04-18T04:11:21Z",
           "severity": "high"
         },
         {
@@ -459,8 +459,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/309",
+          "updated_at": "2026-04-18T04:11:23Z",
           "severity": "high"
         },
         {
@@ -478,8 +478,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/314",
+          "updated_at": "2026-04-18T04:11:24Z",
           "severity": "high"
         },
         {
@@ -496,8 +496,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/376",
+          "updated_at": "2026-04-18T04:11:37Z",
           "severity": "high"
         },
         {
@@ -514,8 +514,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/65",
+          "updated_at": "2026-04-18T04:11:30Z",
           "severity": "medium"
         },
         {
@@ -532,8 +532,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/122",
+          "updated_at": "2026-04-18T04:11:31Z",
           "severity": "medium"
         },
         {
@@ -550,8 +550,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/233",
+          "updated_at": "2026-04-18T04:11:33Z",
           "severity": "medium"
         },
         {
@@ -568,8 +568,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/261",
+          "updated_at": "2026-04-18T04:11:34Z",
           "severity": "medium"
         },
         {
@@ -587,8 +587,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/397",
+          "updated_at": "2026-04-18T04:11:46Z",
           "severity": "medium"
         },
         {
@@ -603,8 +603,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/66",
+          "updated_at": "2026-04-18T04:08:20Z",
           "severity": "low"
         },
         {
@@ -619,8 +619,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/126",
+          "updated_at": "2026-04-18T04:08:41Z",
           "severity": "low"
         },
         {
@@ -635,8 +635,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/130",
+          "updated_at": "2026-04-18T04:08:44Z",
           "severity": "low"
         },
         {
@@ -651,8 +651,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/134",
+          "updated_at": "2026-04-18T04:08:47Z",
           "severity": "low"
         },
         {
@@ -668,8 +668,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/138",
+          "updated_at": "2026-04-18T04:08:50Z",
           "severity": "low"
         },
         {
@@ -685,8 +685,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/142",
+          "updated_at": "2026-04-18T04:08:53Z",
           "severity": "low"
         },
         {
@@ -702,8 +702,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/146",
+          "updated_at": "2026-04-18T04:08:56Z",
           "severity": "low"
         },
         {
@@ -719,8 +719,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/150",
+          "updated_at": "2026-04-18T04:08:59Z",
           "severity": "low"
         },
         {
@@ -736,8 +736,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/154",
+          "updated_at": "2026-04-18T04:09:02Z",
           "severity": "low"
         },
         {
@@ -752,8 +752,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/158",
+          "updated_at": "2026-04-18T04:09:05Z",
           "severity": "low"
         },
         {
@@ -769,8 +769,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/169",
+          "updated_at": "2026-04-18T04:09:13Z",
           "severity": "low"
         },
         {
@@ -786,8 +786,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/173",
+          "updated_at": "2026-04-18T04:09:16Z",
           "severity": "low"
         },
         {
@@ -803,8 +803,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/177",
+          "updated_at": "2026-04-18T04:09:19Z",
           "severity": "low"
         },
         {
@@ -820,8 +820,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/181",
+          "updated_at": "2026-04-18T04:09:22Z",
           "severity": "low"
         },
         {
@@ -837,8 +837,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/186",
+          "updated_at": "2026-04-18T04:09:25Z",
           "severity": "low"
         },
         {
@@ -854,8 +854,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/190",
+          "updated_at": "2026-04-18T04:09:28Z",
           "severity": "low"
         },
         {
@@ -871,8 +871,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/194",
+          "updated_at": "2026-04-18T04:09:31Z",
           "severity": "low"
         },
         {
@@ -888,8 +888,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/201",
+          "updated_at": "2026-04-18T04:09:36Z",
           "severity": "low"
         },
         {
@@ -905,8 +905,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/206",
+          "updated_at": "2026-04-18T04:09:40Z",
           "severity": "low"
         },
         {
@@ -922,8 +922,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/210",
+          "updated_at": "2026-04-18T04:09:43Z",
           "severity": "low"
         },
         {
@@ -939,8 +939,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/214",
+          "updated_at": "2026-04-18T04:09:46Z",
           "severity": "low"
         },
         {
@@ -956,8 +956,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/218",
+          "updated_at": "2026-04-18T04:09:49Z",
           "severity": "low"
         },
         {
@@ -973,8 +973,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/222",
+          "updated_at": "2026-04-18T04:09:52Z",
           "severity": "low"
         },
         {
@@ -989,8 +989,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/235",
+          "updated_at": "2026-04-18T04:09:58Z",
           "severity": "low"
         },
         {
@@ -1005,8 +1005,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/239",
+          "updated_at": "2026-04-18T04:10:01Z",
           "severity": "low"
         },
         {
@@ -1021,8 +1021,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/271",
+          "updated_at": "2026-04-18T04:10:11Z",
           "severity": "low"
         },
         {
@@ -1038,8 +1038,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/275",
+          "updated_at": "2026-04-18T04:11:38Z",
           "severity": "low"
         },
         {
@@ -1055,8 +1055,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/279",
+          "updated_at": "2026-04-18T04:11:40Z",
           "severity": "low"
         },
         {
@@ -1072,8 +1072,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/317",
+          "updated_at": "2026-04-18T04:14:37Z",
           "severity": "low"
         },
         {
@@ -1089,8 +1089,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/321",
+          "updated_at": "2026-04-18T04:14:42Z",
           "severity": "low"
         },
         {
@@ -1106,8 +1106,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/325",
+          "updated_at": "2026-04-18T04:14:47Z",
           "severity": "low"
         },
         {
@@ -1123,8 +1123,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/329",
+          "updated_at": "2026-04-18T04:14:52Z",
           "severity": "low"
         },
         {
@@ -1140,8 +1140,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/333",
+          "updated_at": "2026-04-18T04:14:57Z",
           "severity": "low"
         },
         {
@@ -1157,8 +1157,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/337",
+          "updated_at": "2026-04-18T04:15:02Z",
           "severity": "low"
         },
         {
@@ -1174,8 +1174,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/341",
+          "updated_at": "2026-04-18T04:15:07Z",
           "severity": "low"
         },
         {
@@ -1191,8 +1191,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/345",
+          "updated_at": "2026-04-18T04:15:12Z",
           "severity": "low"
         },
         {
@@ -1208,8 +1208,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/349",
+          "updated_at": "2026-04-18T04:15:17Z",
           "severity": "low"
         },
         {
@@ -1225,8 +1225,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/353",
+          "updated_at": "2026-04-18T04:15:21Z",
           "severity": "low"
         },
         {
@@ -1242,8 +1242,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/357",
+          "updated_at": "2026-04-18T04:15:26Z",
           "severity": "low"
         },
         {
@@ -1259,8 +1259,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/361",
+          "updated_at": "2026-04-18T04:15:31Z",
           "severity": "low"
         },
         {
@@ -1276,8 +1276,8 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/365",
+          "updated_at": "2026-04-18T04:15:36Z",
           "severity": "low"
         },
         {
@@ -1293,44 +1293,35 @@
             "agent-ready",
             "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/372",
+          "updated_at": "2026-04-18T04:15:42Z",
           "severity": "low"
         },
         {
-          "number": 390,
-          "title": "[ADR] Monorepo topology and pnpm adoption decision",
+          "number": 392,
+          "title": "[Monorepo] Resolve frontend lifecycle state and documentation drift",
           "labels": [
             "documentation",
             "status/triaged",
-            "priority/low",
             "monorepo",
             "architecture",
-            "decision-record",
+            "frontend",
             "status/planned-wave",
             "wave/13",
             "agent-ready",
-            "shard/4"
+            "shard/1"
           ],
-          "url": null,
-          "updated_at": null,
-          "severity": "low"
-        },
-        {
-          "number": 400,
-          "title": "[chore] Autonomous issue operations, governance, and immutable audit artifacts",
-          "labels": [],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/392",
+          "updated_at": "2026-04-18T05:33:26Z",
           "severity": "low"
         }
       ],
-      "size": 75,
+      "size": 74,
       "severity_counts": {
         "critical": 10,
         "high": 16,
         "medium": 5,
-        "low": 44
+        "low": 43
       },
       "issue_numbers": [
         82,
@@ -1406,8 +1397,7 @@
         361,
         365,
         372,
-        390,
-        400
+        392
       ]
     },
     {
@@ -1429,8 +1419,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/84",
+          "updated_at": "2026-04-18T03:57:02Z",
           "severity": "critical"
         },
         {
@@ -1449,8 +1439,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/90",
+          "updated_at": "2026-04-18T03:57:05Z",
           "severity": "critical"
         },
         {
@@ -1469,8 +1459,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/96",
+          "updated_at": "2026-04-18T03:57:09Z",
           "severity": "critical"
         },
         {
@@ -1489,8 +1479,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/100",
+          "updated_at": "2026-04-18T03:57:11Z",
           "severity": "critical"
         },
         {
@@ -1508,8 +1498,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/228",
+          "updated_at": "2026-04-18T03:53:07Z",
           "severity": "critical"
         },
         {
@@ -1527,8 +1517,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/241",
+          "updated_at": "2026-04-18T03:53:10Z",
           "severity": "critical"
         },
         {
@@ -1546,8 +1536,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/256",
+          "updated_at": "2026-04-18T03:53:13Z",
           "severity": "critical"
         },
         {
@@ -1566,8 +1556,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/262",
+          "updated_at": "2026-04-18T03:53:16Z",
           "severity": "critical"
         },
         {
@@ -1584,8 +1574,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/369",
+          "updated_at": "2026-04-18T03:53:36Z",
           "severity": "critical"
         },
         {
@@ -1604,8 +1594,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/391",
+          "updated_at": "2026-04-18T04:11:36Z",
           "severity": "critical"
         },
         {
@@ -1622,8 +1612,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/89",
+          "updated_at": "2026-04-18T04:11:26Z",
           "severity": "high"
         },
         {
@@ -1640,8 +1630,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/106",
+          "updated_at": "2026-04-18T04:11:28Z",
           "severity": "high"
         },
         {
@@ -1657,8 +1647,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/110",
+          "updated_at": "2026-04-18T04:08:30Z",
           "severity": "high"
         },
         {
@@ -1674,8 +1664,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/114",
+          "updated_at": "2026-04-18T04:08:33Z",
           "severity": "high"
         },
         {
@@ -1691,8 +1681,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/118",
+          "updated_at": "2026-04-18T04:08:36Z",
           "severity": "high"
         },
         {
@@ -1709,8 +1699,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/161",
+          "updated_at": "2026-04-18T04:09:07Z",
           "severity": "high"
         },
         {
@@ -1727,8 +1717,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/165",
+          "updated_at": "2026-04-18T04:09:10Z",
           "severity": "high"
         },
         {
@@ -1745,8 +1735,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/198",
+          "updated_at": "2026-04-18T04:09:34Z",
           "severity": "high"
         },
         {
@@ -1764,8 +1754,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/288",
+          "updated_at": "2026-04-18T04:11:14Z",
           "severity": "high"
         },
         {
@@ -1783,8 +1773,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/292",
+          "updated_at": "2026-04-18T04:11:16Z",
           "severity": "high"
         },
         {
@@ -1802,8 +1792,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/297",
+          "updated_at": "2026-04-18T04:11:18Z",
           "severity": "high"
         },
         {
@@ -1821,8 +1811,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/301",
+          "updated_at": "2026-04-18T04:11:20Z",
           "severity": "high"
         },
         {
@@ -1840,8 +1830,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/306",
+          "updated_at": "2026-04-18T04:11:21Z",
           "severity": "high"
         },
         {
@@ -1859,8 +1849,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/310",
+          "updated_at": "2026-04-18T04:11:23Z",
           "severity": "high"
         },
         {
@@ -1878,8 +1868,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/315",
+          "updated_at": "2026-04-18T04:11:25Z",
           "severity": "high"
         },
         {
@@ -1897,8 +1887,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/393",
+          "updated_at": "2026-04-18T04:11:43Z",
           "severity": "high"
         },
         {
@@ -1916,8 +1906,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/69",
+          "updated_at": "2026-04-18T04:11:30Z",
           "severity": "medium"
         },
         {
@@ -1937,8 +1927,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/124",
+          "updated_at": "2026-04-18T04:11:32Z",
           "severity": "medium"
         },
         {
@@ -1955,8 +1945,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/234",
+          "updated_at": "2026-04-18T04:11:33Z",
           "severity": "medium"
         },
         {
@@ -1973,8 +1963,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/294",
+          "updated_at": "2026-04-18T04:11:35Z",
           "severity": "medium"
         },
         {
@@ -1989,8 +1979,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/60",
+          "updated_at": "2026-04-18T04:08:17Z",
           "severity": "low"
         },
         {
@@ -2007,8 +1997,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/71",
+          "updated_at": "2026-04-18T04:08:21Z",
           "severity": "low"
         },
         {
@@ -2023,8 +2013,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/127",
+          "updated_at": "2026-04-18T04:08:42Z",
           "severity": "low"
         },
         {
@@ -2039,8 +2029,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/131",
+          "updated_at": "2026-04-18T04:08:45Z",
           "severity": "low"
         },
         {
@@ -2055,8 +2045,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/135",
+          "updated_at": "2026-04-18T04:08:48Z",
           "severity": "low"
         },
         {
@@ -2072,8 +2062,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/139",
+          "updated_at": "2026-04-18T04:08:51Z",
           "severity": "low"
         },
         {
@@ -2089,8 +2079,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/143",
+          "updated_at": "2026-04-18T04:08:54Z",
           "severity": "low"
         },
         {
@@ -2106,8 +2096,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/147",
+          "updated_at": "2026-04-18T04:08:57Z",
           "severity": "low"
         },
         {
@@ -2123,8 +2113,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/151",
+          "updated_at": "2026-04-18T04:09:00Z",
           "severity": "low"
         },
         {
@@ -2140,8 +2130,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/155",
+          "updated_at": "2026-04-18T04:09:03Z",
           "severity": "low"
         },
         {
@@ -2157,8 +2147,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/159",
+          "updated_at": "2026-04-18T04:09:05Z",
           "severity": "low"
         },
         {
@@ -2174,8 +2164,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/170",
+          "updated_at": "2026-04-18T04:09:14Z",
           "severity": "low"
         },
         {
@@ -2191,8 +2181,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/174",
+          "updated_at": "2026-04-18T04:09:17Z",
           "severity": "low"
         },
         {
@@ -2208,8 +2198,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/178",
+          "updated_at": "2026-04-18T04:09:20Z",
           "severity": "low"
         },
         {
@@ -2225,8 +2215,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/183",
+          "updated_at": "2026-04-18T04:09:23Z",
           "severity": "low"
         },
         {
@@ -2242,8 +2232,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/187",
+          "updated_at": "2026-04-18T04:09:26Z",
           "severity": "low"
         },
         {
@@ -2259,8 +2249,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/191",
+          "updated_at": "2026-04-18T04:09:29Z",
           "severity": "low"
         },
         {
@@ -2276,8 +2266,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/196",
+          "updated_at": "2026-04-18T04:09:32Z",
           "severity": "low"
         },
         {
@@ -2293,8 +2283,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/202",
+          "updated_at": "2026-04-18T04:09:37Z",
           "severity": "low"
         },
         {
@@ -2310,8 +2300,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/207",
+          "updated_at": "2026-04-18T04:09:41Z",
           "severity": "low"
         },
         {
@@ -2327,8 +2317,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/211",
+          "updated_at": "2026-04-18T04:09:44Z",
           "severity": "low"
         },
         {
@@ -2344,8 +2334,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/215",
+          "updated_at": "2026-04-18T04:09:47Z",
           "severity": "low"
         },
         {
@@ -2361,8 +2351,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/219",
+          "updated_at": "2026-04-18T04:09:49Z",
           "severity": "low"
         },
         {
@@ -2378,8 +2368,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/223",
+          "updated_at": "2026-04-18T04:09:53Z",
           "severity": "low"
         },
         {
@@ -2394,8 +2384,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/236",
+          "updated_at": "2026-04-18T04:09:59Z",
           "severity": "low"
         },
         {
@@ -2410,8 +2400,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/268",
+          "updated_at": "2026-04-18T04:10:09Z",
           "severity": "low"
         },
         {
@@ -2426,8 +2416,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/272",
+          "updated_at": "2026-04-18T04:10:12Z",
           "severity": "low"
         },
         {
@@ -2443,8 +2433,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/276",
+          "updated_at": "2026-04-18T04:11:39Z",
           "severity": "low"
         },
         {
@@ -2460,8 +2450,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/280",
+          "updated_at": "2026-04-18T04:11:40Z",
           "severity": "low"
         },
         {
@@ -2477,8 +2467,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/318",
+          "updated_at": "2026-04-18T04:14:39Z",
           "severity": "low"
         },
         {
@@ -2494,8 +2484,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/322",
+          "updated_at": "2026-04-18T04:14:43Z",
           "severity": "low"
         },
         {
@@ -2511,8 +2501,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/326",
+          "updated_at": "2026-04-18T04:14:48Z",
           "severity": "low"
         },
         {
@@ -2528,8 +2518,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/330",
+          "updated_at": "2026-04-18T04:14:53Z",
           "severity": "low"
         },
         {
@@ -2545,8 +2535,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/334",
+          "updated_at": "2026-04-18T04:14:58Z",
           "severity": "low"
         },
         {
@@ -2562,8 +2552,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/338",
+          "updated_at": "2026-04-18T04:15:03Z",
           "severity": "low"
         },
         {
@@ -2579,8 +2569,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/342",
+          "updated_at": "2026-04-18T04:15:08Z",
           "severity": "low"
         },
         {
@@ -2596,8 +2586,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/346",
+          "updated_at": "2026-04-18T04:15:13Z",
           "severity": "low"
         },
         {
@@ -2613,8 +2603,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/350",
+          "updated_at": "2026-04-18T04:15:18Z",
           "severity": "low"
         },
         {
@@ -2630,8 +2620,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/354",
+          "updated_at": "2026-04-18T04:15:23Z",
           "severity": "low"
         },
         {
@@ -2647,8 +2637,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/358",
+          "updated_at": "2026-04-18T04:15:28Z",
           "severity": "low"
         },
         {
@@ -2664,8 +2654,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/362",
+          "updated_at": "2026-04-18T04:15:33Z",
           "severity": "low"
         },
         {
@@ -2681,8 +2671,8 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/366",
+          "updated_at": "2026-04-18T04:15:37Z",
           "severity": "low"
         },
         {
@@ -2699,26 +2689,25 @@
             "agent-ready",
             "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/378",
+          "updated_at": "2026-04-18T04:15:44Z",
           "severity": "low"
         },
         {
-          "number": 392,
-          "title": "[Monorepo] Resolve frontend lifecycle state and documentation drift",
+          "number": 398,
+          "title": "[Monorepo] Publish migration runbook and validate rollback procedure",
           "labels": [
             "documentation",
+            "operations",
             "status/triaged",
             "monorepo",
-            "architecture",
-            "frontend",
             "status/planned-wave",
             "wave/13",
             "agent-ready",
-            "shard/1"
+            "shard/2"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/398",
+          "updated_at": "2026-04-18T05:33:28Z",
           "severity": "low"
         }
       ],
@@ -2803,7 +2792,7 @@
         362,
         366,
         378,
-        392
+        398
       ]
     },
     {
@@ -2825,8 +2814,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/86",
+          "updated_at": "2026-04-18T03:57:03Z",
           "severity": "critical"
         },
         {
@@ -2845,8 +2834,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/92",
+          "updated_at": "2026-04-18T03:57:07Z",
           "severity": "critical"
         },
         {
@@ -2865,8 +2854,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/97",
+          "updated_at": "2026-04-18T03:57:09Z",
           "severity": "critical"
         },
         {
@@ -2885,8 +2874,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/101",
+          "updated_at": "2026-04-18T03:57:11Z",
           "severity": "critical"
         },
         {
@@ -2904,8 +2893,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/229",
+          "updated_at": "2026-04-18T03:53:08Z",
           "severity": "critical"
         },
         {
@@ -2923,8 +2912,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/242",
+          "updated_at": "2026-04-18T03:53:11Z",
           "severity": "critical"
         },
         {
@@ -2942,8 +2931,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/257",
+          "updated_at": "2026-04-18T03:53:14Z",
           "severity": "critical"
         },
         {
@@ -2962,8 +2951,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/263",
+          "updated_at": "2026-04-18T03:53:16Z",
           "severity": "critical"
         },
         {
@@ -2980,8 +2969,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/370",
+          "updated_at": "2026-04-18T03:53:37Z",
           "severity": "critical"
         },
         {
@@ -2999,8 +2988,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/395",
+          "updated_at": "2026-04-18T04:11:37Z",
           "severity": "critical"
         },
         {
@@ -3021,8 +3010,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/91",
+          "updated_at": "2026-04-18T04:11:27Z",
           "severity": "high"
         },
         {
@@ -3038,8 +3027,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/107",
+          "updated_at": "2026-04-18T04:08:28Z",
           "severity": "high"
         },
         {
@@ -3055,8 +3044,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/111",
+          "updated_at": "2026-04-18T04:08:31Z",
           "severity": "high"
         },
         {
@@ -3072,8 +3061,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/115",
+          "updated_at": "2026-04-18T04:08:34Z",
           "severity": "high"
         },
         {
@@ -3089,8 +3078,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/119",
+          "updated_at": "2026-04-18T04:08:36Z",
           "severity": "high"
         },
         {
@@ -3107,8 +3096,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/162",
+          "updated_at": "2026-04-18T04:09:08Z",
           "severity": "high"
         },
         {
@@ -3125,8 +3114,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/166",
+          "updated_at": "2026-04-18T04:09:11Z",
           "severity": "high"
         },
         {
@@ -3143,8 +3132,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/200",
+          "updated_at": "2026-04-18T04:09:35Z",
           "severity": "high"
         },
         {
@@ -3162,8 +3151,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/289",
+          "updated_at": "2026-04-18T04:11:15Z",
           "severity": "high"
         },
         {
@@ -3181,8 +3170,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/293",
+          "updated_at": "2026-04-18T04:11:17Z",
           "severity": "high"
         },
         {
@@ -3200,8 +3189,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/298",
+          "updated_at": "2026-04-18T04:11:19Z",
           "severity": "high"
         },
         {
@@ -3219,8 +3208,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/302",
+          "updated_at": "2026-04-18T04:11:20Z",
           "severity": "high"
         },
         {
@@ -3238,8 +3227,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/307",
+          "updated_at": "2026-04-18T04:11:22Z",
           "severity": "high"
         },
         {
@@ -3257,8 +3246,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/311",
+          "updated_at": "2026-04-18T04:11:23Z",
           "severity": "high"
         },
         {
@@ -3276,8 +3265,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/373",
+          "updated_at": "2026-04-18T04:11:34Z",
           "severity": "high"
         },
         {
@@ -3295,8 +3284,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/394",
+          "updated_at": "2026-04-18T04:11:44Z",
           "severity": "high"
         },
         {
@@ -3313,8 +3302,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/77",
+          "updated_at": "2026-04-18T04:11:30Z",
           "severity": "medium"
         },
         {
@@ -3331,8 +3320,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/231",
+          "updated_at": "2026-04-18T04:11:32Z",
           "severity": "medium"
         },
         {
@@ -3350,8 +3339,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/255",
+          "updated_at": "2026-04-18T04:11:34Z",
           "severity": "medium"
         },
         {
@@ -3368,8 +3357,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/313",
+          "updated_at": "2026-04-18T04:11:36Z",
           "severity": "medium"
         },
         {
@@ -3384,8 +3373,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/62",
+          "updated_at": "2026-04-18T04:08:18Z",
           "severity": "low"
         },
         {
@@ -3403,8 +3392,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/123",
+          "updated_at": "2026-04-18T04:08:39Z",
           "severity": "low"
         },
         {
@@ -3419,8 +3408,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/128",
+          "updated_at": "2026-04-18T04:08:43Z",
           "severity": "low"
         },
         {
@@ -3435,8 +3424,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/132",
+          "updated_at": "2026-04-18T04:08:46Z",
           "severity": "low"
         },
         {
@@ -3452,8 +3441,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/136",
+          "updated_at": "2026-04-18T04:08:48Z",
           "severity": "low"
         },
         {
@@ -3469,8 +3458,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/140",
+          "updated_at": "2026-04-18T04:08:51Z",
           "severity": "low"
         },
         {
@@ -3486,8 +3475,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/144",
+          "updated_at": "2026-04-18T04:08:54Z",
           "severity": "low"
         },
         {
@@ -3503,8 +3492,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/148",
+          "updated_at": "2026-04-18T04:08:57Z",
           "severity": "low"
         },
         {
@@ -3520,8 +3509,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/152",
+          "updated_at": "2026-04-18T04:09:00Z",
           "severity": "low"
         },
         {
@@ -3537,8 +3526,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/156",
+          "updated_at": "2026-04-18T04:09:03Z",
           "severity": "low"
         },
         {
@@ -3554,8 +3543,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/160",
+          "updated_at": "2026-04-18T04:09:06Z",
           "severity": "low"
         },
         {
@@ -3571,8 +3560,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/171",
+          "updated_at": "2026-04-18T04:09:14Z",
           "severity": "low"
         },
         {
@@ -3588,8 +3577,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/175",
+          "updated_at": "2026-04-18T04:09:17Z",
           "severity": "low"
         },
         {
@@ -3605,8 +3594,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/179",
+          "updated_at": "2026-04-18T04:09:20Z",
           "severity": "low"
         },
         {
@@ -3622,8 +3611,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/184",
+          "updated_at": "2026-04-18T04:09:23Z",
           "severity": "low"
         },
         {
@@ -3639,8 +3628,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/188",
+          "updated_at": "2026-04-18T04:09:26Z",
           "severity": "low"
         },
         {
@@ -3656,8 +3645,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/192",
+          "updated_at": "2026-04-18T04:09:29Z",
           "severity": "low"
         },
         {
@@ -3673,8 +3662,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/197",
+          "updated_at": "2026-04-18T04:09:33Z",
           "severity": "low"
         },
         {
@@ -3690,8 +3679,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/204",
+          "updated_at": "2026-04-18T04:09:38Z",
           "severity": "low"
         },
         {
@@ -3707,8 +3696,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/208",
+          "updated_at": "2026-04-18T04:09:41Z",
           "severity": "low"
         },
         {
@@ -3724,8 +3713,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/212",
+          "updated_at": "2026-04-18T04:09:44Z",
           "severity": "low"
         },
         {
@@ -3741,8 +3730,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/216",
+          "updated_at": "2026-04-18T04:09:47Z",
           "severity": "low"
         },
         {
@@ -3758,8 +3747,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/220",
+          "updated_at": "2026-04-18T04:09:50Z",
           "severity": "low"
         },
         {
@@ -3774,8 +3763,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/224",
+          "updated_at": "2026-04-18T04:09:53Z",
           "severity": "low"
         },
         {
@@ -3790,8 +3779,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/237",
+          "updated_at": "2026-04-18T04:10:00Z",
           "severity": "low"
         },
         {
@@ -3806,8 +3795,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/269",
+          "updated_at": "2026-04-18T04:10:10Z",
           "severity": "low"
         },
         {
@@ -3823,8 +3812,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/273",
+          "updated_at": "2026-04-18T04:11:37Z",
           "severity": "low"
         },
         {
@@ -3840,8 +3829,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/277",
+          "updated_at": "2026-04-18T04:11:39Z",
           "severity": "low"
         },
         {
@@ -3857,8 +3846,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/305",
+          "updated_at": "2026-04-18T04:14:33Z",
           "severity": "low"
         },
         {
@@ -3874,8 +3863,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/319",
+          "updated_at": "2026-04-18T04:14:40Z",
           "severity": "low"
         },
         {
@@ -3891,8 +3880,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/323",
+          "updated_at": "2026-04-18T04:14:45Z",
           "severity": "low"
         },
         {
@@ -3908,8 +3897,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/327",
+          "updated_at": "2026-04-18T04:14:49Z",
           "severity": "low"
         },
         {
@@ -3925,8 +3914,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/331",
+          "updated_at": "2026-04-18T04:14:54Z",
           "severity": "low"
         },
         {
@@ -3942,8 +3931,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/335",
+          "updated_at": "2026-04-18T04:14:59Z",
           "severity": "low"
         },
         {
@@ -3959,8 +3948,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/339",
+          "updated_at": "2026-04-18T04:15:04Z",
           "severity": "low"
         },
         {
@@ -3976,8 +3965,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/343",
+          "updated_at": "2026-04-18T04:15:09Z",
           "severity": "low"
         },
         {
@@ -3993,8 +3982,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/347",
+          "updated_at": "2026-04-18T04:15:14Z",
           "severity": "low"
         },
         {
@@ -4010,8 +3999,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/351",
+          "updated_at": "2026-04-18T04:15:19Z",
           "severity": "low"
         },
         {
@@ -4027,8 +4016,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/355",
+          "updated_at": "2026-04-18T04:15:24Z",
           "severity": "low"
         },
         {
@@ -4044,8 +4033,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/359",
+          "updated_at": "2026-04-18T04:15:29Z",
           "severity": "low"
         },
         {
@@ -4061,8 +4050,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/363",
+          "updated_at": "2026-04-18T04:15:34Z",
           "severity": "low"
         },
         {
@@ -4078,8 +4067,8 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/367",
+          "updated_at": "2026-04-18T04:15:39Z",
           "severity": "low"
         },
         {
@@ -4096,34 +4085,17 @@
             "agent-ready",
             "shard/3"
           ],
-          "url": null,
-          "updated_at": null,
-          "severity": "low"
-        },
-        {
-          "number": 398,
-          "title": "[Monorepo] Publish migration runbook and validate rollback procedure",
-          "labels": [
-            "documentation",
-            "operations",
-            "status/triaged",
-            "monorepo",
-            "status/planned-wave",
-            "wave/13",
-            "agent-ready",
-            "shard/2"
-          ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/379",
+          "updated_at": "2026-04-18T04:15:45Z",
           "severity": "low"
         }
       ],
-      "size": 74,
+      "size": 73,
       "severity_counts": {
         "critical": 10,
         "high": 16,
         "medium": 4,
-        "low": 44
+        "low": 43
       },
       "issue_numbers": [
         86,
@@ -4198,8 +4170,7 @@
         359,
         363,
         367,
-        379,
-        398
+        379
       ]
     },
     {
@@ -4221,8 +4192,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/87",
+          "updated_at": "2026-04-18T03:57:04Z",
           "severity": "critical"
         },
         {
@@ -4241,8 +4212,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/93",
+          "updated_at": "2026-04-18T03:57:07Z",
           "severity": "critical"
         },
         {
@@ -4261,8 +4232,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/98",
+          "updated_at": "2026-04-18T03:57:10Z",
           "severity": "critical"
         },
         {
@@ -4281,8 +4252,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/102",
+          "updated_at": "2026-04-18T03:57:39Z",
           "severity": "critical"
         },
         {
@@ -4300,8 +4271,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/230",
+          "updated_at": "2026-04-18T03:53:09Z",
           "severity": "critical"
         },
         {
@@ -4320,8 +4291,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/253",
+          "updated_at": "2026-04-18T03:53:11Z",
           "severity": "critical"
         },
         {
@@ -4339,8 +4310,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/258",
+          "updated_at": "2026-04-18T03:53:14Z",
           "severity": "critical"
         },
         {
@@ -4359,8 +4330,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/264",
+          "updated_at": "2026-04-18T03:53:17Z",
           "severity": "critical"
         },
         {
@@ -4378,8 +4349,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/371",
+          "updated_at": "2026-04-18T03:53:38Z",
           "severity": "critical"
         },
         {
@@ -4396,8 +4367,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/67",
+          "updated_at": "2026-04-18T04:11:26Z",
           "severity": "high"
         },
         {
@@ -4418,8 +4389,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/94",
+          "updated_at": "2026-04-18T04:11:27Z",
           "severity": "high"
         },
         {
@@ -4435,8 +4406,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/108",
+          "updated_at": "2026-04-18T04:08:29Z",
           "severity": "high"
         },
         {
@@ -4452,8 +4423,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/112",
+          "updated_at": "2026-04-18T04:08:32Z",
           "severity": "high"
         },
         {
@@ -4469,8 +4440,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/116",
+          "updated_at": "2026-04-18T04:08:34Z",
           "severity": "high"
         },
         {
@@ -4486,8 +4457,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/120",
+          "updated_at": "2026-04-18T04:08:37Z",
           "severity": "high"
         },
         {
@@ -4504,8 +4475,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/163",
+          "updated_at": "2026-04-18T04:09:08Z",
           "severity": "high"
         },
         {
@@ -4522,8 +4493,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/167",
+          "updated_at": "2026-04-18T04:09:11Z",
           "severity": "high"
         },
         {
@@ -4540,8 +4511,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/203",
+          "updated_at": "2026-04-18T04:09:38Z",
           "severity": "high"
         },
         {
@@ -4559,8 +4530,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/290",
+          "updated_at": "2026-04-18T04:11:15Z",
           "severity": "high"
         },
         {
@@ -4578,8 +4549,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/295",
+          "updated_at": "2026-04-18T04:11:18Z",
           "severity": "high"
         },
         {
@@ -4597,8 +4568,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/299",
+          "updated_at": "2026-04-18T04:11:19Z",
           "severity": "high"
         },
         {
@@ -4616,8 +4587,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/303",
+          "updated_at": "2026-04-18T04:11:21Z",
           "severity": "high"
         },
         {
@@ -4635,8 +4606,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/308",
+          "updated_at": "2026-04-18T04:11:22Z",
           "severity": "high"
         },
         {
@@ -4654,8 +4625,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/312",
+          "updated_at": "2026-04-18T04:11:24Z",
           "severity": "high"
         },
         {
@@ -4673,8 +4644,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/374",
+          "updated_at": "2026-04-18T04:11:35Z",
           "severity": "high"
         },
         {
@@ -4692,8 +4663,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/396",
+          "updated_at": "2026-04-18T04:11:45Z",
           "severity": "high"
         },
         {
@@ -4710,8 +4681,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/85",
+          "updated_at": "2026-04-18T04:11:31Z",
           "severity": "medium"
         },
         {
@@ -4728,8 +4699,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/232",
+          "updated_at": "2026-04-18T04:11:32Z",
           "severity": "medium"
         },
         {
@@ -4746,8 +4717,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/260",
+          "updated_at": "2026-04-18T04:11:34Z",
           "severity": "medium"
         },
         {
@@ -4764,8 +4735,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/375",
+          "updated_at": "2026-04-18T04:11:37Z",
           "severity": "medium"
         },
         {
@@ -4780,8 +4751,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/64",
+          "updated_at": "2026-04-18T04:08:18Z",
           "severity": "low"
         },
         {
@@ -4796,8 +4767,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/125",
+          "updated_at": "2026-04-18T04:08:41Z",
           "severity": "low"
         },
         {
@@ -4812,8 +4783,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/129",
+          "updated_at": "2026-04-18T04:08:43Z",
           "severity": "low"
         },
         {
@@ -4828,8 +4799,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/133",
+          "updated_at": "2026-04-18T04:08:46Z",
           "severity": "low"
         },
         {
@@ -4845,8 +4816,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/137",
+          "updated_at": "2026-04-18T04:08:49Z",
           "severity": "low"
         },
         {
@@ -4862,8 +4833,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/141",
+          "updated_at": "2026-04-18T04:08:52Z",
           "severity": "low"
         },
         {
@@ -4879,8 +4850,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/145",
+          "updated_at": "2026-04-18T04:08:55Z",
           "severity": "low"
         },
         {
@@ -4896,8 +4867,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/149",
+          "updated_at": "2026-04-18T04:08:58Z",
           "severity": "low"
         },
         {
@@ -4913,8 +4884,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/153",
+          "updated_at": "2026-04-18T04:09:01Z",
           "severity": "low"
         },
         {
@@ -4929,8 +4900,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/157",
+          "updated_at": "2026-04-18T04:09:04Z",
           "severity": "low"
         },
         {
@@ -4946,8 +4917,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/168",
+          "updated_at": "2026-04-18T04:09:12Z",
           "severity": "low"
         },
         {
@@ -4963,8 +4934,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/172",
+          "updated_at": "2026-04-18T04:09:15Z",
           "severity": "low"
         },
         {
@@ -4980,8 +4951,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/176",
+          "updated_at": "2026-04-18T04:09:18Z",
           "severity": "low"
         },
         {
@@ -4997,8 +4968,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/180",
+          "updated_at": "2026-04-18T04:09:21Z",
           "severity": "low"
         },
         {
@@ -5014,8 +4985,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/185",
+          "updated_at": "2026-04-18T04:09:24Z",
           "severity": "low"
         },
         {
@@ -5031,8 +5002,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/189",
+          "updated_at": "2026-04-18T04:09:27Z",
           "severity": "low"
         },
         {
@@ -5048,8 +5019,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/193",
+          "updated_at": "2026-04-18T04:09:30Z",
           "severity": "low"
         },
         {
@@ -5065,8 +5036,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/199",
+          "updated_at": "2026-04-18T04:09:35Z",
           "severity": "low"
         },
         {
@@ -5082,8 +5053,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/205",
+          "updated_at": "2026-04-18T04:09:39Z",
           "severity": "low"
         },
         {
@@ -5099,8 +5070,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/209",
+          "updated_at": "2026-04-18T04:09:42Z",
           "severity": "low"
         },
         {
@@ -5116,8 +5087,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/213",
+          "updated_at": "2026-04-18T04:09:45Z",
           "severity": "low"
         },
         {
@@ -5133,8 +5104,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/217",
+          "updated_at": "2026-04-18T04:09:48Z",
           "severity": "low"
         },
         {
@@ -5150,8 +5121,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/221",
+          "updated_at": "2026-04-18T04:09:51Z",
           "severity": "low"
         },
         {
@@ -5166,8 +5137,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/226",
+          "updated_at": "2026-04-18T04:09:54Z",
           "severity": "low"
         },
         {
@@ -5182,8 +5153,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/238",
+          "updated_at": "2026-04-18T04:10:00Z",
           "severity": "low"
         },
         {
@@ -5198,8 +5169,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/270",
+          "updated_at": "2026-04-18T04:10:11Z",
           "severity": "low"
         },
         {
@@ -5215,8 +5186,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/274",
+          "updated_at": "2026-04-18T04:11:38Z",
           "severity": "low"
         },
         {
@@ -5232,8 +5203,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/278",
+          "updated_at": "2026-04-18T04:11:39Z",
           "severity": "low"
         },
         {
@@ -5249,8 +5220,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/316",
+          "updated_at": "2026-04-18T04:14:36Z",
           "severity": "low"
         },
         {
@@ -5266,8 +5237,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/320",
+          "updated_at": "2026-04-18T04:14:41Z",
           "severity": "low"
         },
         {
@@ -5283,8 +5254,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/324",
+          "updated_at": "2026-04-18T04:14:46Z",
           "severity": "low"
         },
         {
@@ -5300,8 +5271,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/328",
+          "updated_at": "2026-04-18T04:14:51Z",
           "severity": "low"
         },
         {
@@ -5317,8 +5288,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/332",
+          "updated_at": "2026-04-18T04:14:56Z",
           "severity": "low"
         },
         {
@@ -5334,8 +5305,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/336",
+          "updated_at": "2026-04-18T04:15:00Z",
           "severity": "low"
         },
         {
@@ -5351,8 +5322,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/340",
+          "updated_at": "2026-04-18T04:15:05Z",
           "severity": "low"
         },
         {
@@ -5368,8 +5339,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/344",
+          "updated_at": "2026-04-18T04:15:10Z",
           "severity": "low"
         },
         {
@@ -5385,8 +5356,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/348",
+          "updated_at": "2026-04-18T04:15:15Z",
           "severity": "low"
         },
         {
@@ -5402,8 +5373,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/352",
+          "updated_at": "2026-04-18T04:15:20Z",
           "severity": "low"
         },
         {
@@ -5419,8 +5390,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/356",
+          "updated_at": "2026-04-18T04:15:25Z",
           "severity": "low"
         },
         {
@@ -5436,8 +5407,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/360",
+          "updated_at": "2026-04-18T04:15:30Z",
           "severity": "low"
         },
         {
@@ -5453,8 +5424,8 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/364",
+          "updated_at": "2026-04-18T04:15:35Z",
           "severity": "low"
         },
         {
@@ -5470,43 +5441,36 @@
             "agent-ready",
             "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/368",
+          "updated_at": "2026-04-18T04:15:40Z",
           "severity": "low"
         },
         {
-          "number": 388,
-          "title": "chore(deps): bump next from 14.2.35 to 16.2.4 in /archive/frontend in the npm_and_yarn group across 1 directory",
+          "number": 390,
+          "title": "[ADR] Monorepo topology and pnpm adoption decision",
           "labels": [
-            "dependencies",
-            "javascript",
+            "documentation",
+            "status/triaged",
+            "priority/low",
+            "monorepo",
+            "architecture",
+            "decision-record",
+            "status/planned-wave",
+            "wave/13",
             "agent-ready",
-            "shard/1"
+            "shard/4"
           ],
-          "url": null,
-          "updated_at": null,
-          "severity": "low"
-        },
-        {
-          "number": 399,
-          "title": "chore(deps): bump the pip group across 1 directory with 8 updates",
-          "labels": [
-            "dependencies",
-            "python",
-            "agent-ready",
-            "shard/1"
-          ],
-          "url": null,
-          "updated_at": null,
+          "url": "https://github.com/kushin77/ollama/issues/390",
+          "updated_at": "2026-04-18T05:33:25Z",
           "severity": "low"
         }
       ],
-      "size": 74,
+      "size": 73,
       "severity_counts": {
         "critical": 9,
         "high": 17,
         "medium": 4,
-        "low": 44
+        "low": 43
       },
       "issue_numbers": [
         87,
@@ -5581,8 +5545,7 @@
         360,
         364,
         368,
-        388,
-        399
+        390
       ]
     }
   ]

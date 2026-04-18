@@ -9,10 +9,11 @@ import json
 import argparse
 import sys
 from pathlib import Path
-from typing import Optional, Dict, List
+from typing import Dict, List
 import subprocess
 import urllib.request
 import urllib.error
+import re
 
 OLLAMA_HOST = "http://192.168.168.42:11434"
 DEFAULT_MODEL = "mistral:7b"  # Fast, good reasoning for classification
@@ -25,6 +26,71 @@ class OllamaClassifier:
         self.host = host
         self.model = model
         self.api_url = f"{host}/api/generate"
+
+    @staticmethod
+    def _extract_json_object(text: str) -> Dict:
+        start = text.find("{")
+        if start == -1:
+            raise ValueError("No JSON object found")
+
+        depth = 0
+        in_string = False
+        escape = False
+        for idx in range(start, len(text)):
+            ch = text[idx]
+            if escape:
+                escape = False
+                continue
+            if ch == "\\":
+                escape = True
+                continue
+            if ch == '"':
+                in_string = not in_string
+                continue
+            if in_string:
+                continue
+            if ch == "{":
+                depth += 1
+            elif ch == "}":
+                depth -= 1
+                if depth == 0:
+                    return json.loads(text[start:idx + 1])
+
+        raise ValueError("Unbalanced JSON object in model response")
+
+    @staticmethod
+    def _normalize_classification(classification: Dict) -> Dict:
+        priority = str(classification.get("priority", "normal")).lower()
+        category = str(classification.get("category", "chore")).lower()
+        complexity = str(classification.get("complexity", "moderate")).lower()
+
+        if priority not in {"critical", "high", "normal", "low"}:
+            priority = "normal"
+        if category not in {"bug", "feature", "docs", "refactor", "chore", "question"}:
+            category = "chore"
+        if complexity not in {"trivial", "simple", "moderate", "complex"}:
+            if any(word in complexity for word in ("trivial", "simple", "moderate", "complex")):
+                complexity = next(
+                    word for word in ("trivial", "simple", "moderate", "complex") if word in complexity
+                )
+            else:
+                complexity = "moderate"
+
+        confidence = classification.get("confidence", 0.5)
+        try:
+            confidence = float(confidence)
+        except (TypeError, ValueError):
+            numbers = re.findall(r"\d+(?:\.\d+)?", str(confidence))
+            confidence = float(numbers[0]) if numbers else 0.5
+        confidence = max(0.0, min(1.0, confidence))
+
+        return {
+            "priority": priority,
+            "category": category,
+            "is_duplicate": bool(classification.get("is_duplicate", False)),
+            "complexity": complexity,
+            "confidence": confidence,
+        }
 
     def classify_issue(self, issue_number: int, title: str, body: str = "") -> Dict:
         """
@@ -60,13 +126,9 @@ Respond with JSON only:
             # Extract JSON from response
             try:
                 response_text = result.get("response", "{}")
-                # Try to extract JSON from response
-                import re
-                json_match = re.search(r'\{[^{}]*\}', response_text, re.DOTALL)
-                if json_match:
-                    classification = json.loads(json_match.group())
-                else:
-                    classification = {}
+                classification = self._normalize_classification(
+                    self._extract_json_object(response_text)
+                )
                 return {
                     "issue": issue_number,
                     "classification": classification,
@@ -128,10 +190,25 @@ def batch_classify_from_queue(
         return
 
     issues = queue if isinstance(queue, list) else queue.get("issues", [])
+    filtered_issues = []
+    skipped_pull_requests = 0
+    for issue in issues:
+        if isinstance(issue, dict):
+            if issue.get("pull_request") or issue.get("is_pull_request"):
+                skipped_pull_requests += 1
+                continue
+            url = issue.get("url") or issue.get("html_url")
+            if isinstance(url, str) and "/pull/" in url:
+                skipped_pull_requests += 1
+                continue
+        filtered_issues.append(issue)
+    issues = filtered_issues
     if limit > 0:
         issues = issues[:limit]
 
     print(f"Classifying {len(issues)} issues with {classifier.model}...")
+    if skipped_pull_requests:
+        print(f"Skipped {skipped_pull_requests} pull request entries from the input queue")
 
     results = []
     for i, issue in enumerate(issues, 1):
@@ -163,6 +240,7 @@ def batch_classify_from_queue(
         "total_classified": len(results),
         "successful": sum(1 for r in results if r.get("success")),
         "failed": sum(1 for r in results if not r.get("success")),
+        "skipped_pull_requests": skipped_pull_requests,
         "classifications": results,
     }
 
