@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-04-18T03:25:34.549866+00:00",
-  "open_issue_count": 316,
+  "generated_at": "2026-04-18T03:27:16.538374+00:00",
+  "open_issue_count": 312,
   "agent_ready_count": 10,
-  "needs_evidence_count": 306,
-  "close_candidate_count": 281,
+  "needs_evidence_count": 302,
+  "close_candidate_count": 277,
   "blocked_count": 0,
   "wave_counts": {
     "wave/01": 25,
     "wave/02": 25,
     "wave/03": 25,
     "wave/04": 25,
-    "wave/05": 25,
-    "wave/06": 25,
+    "wave/05": 23,
+    "wave/06": 23,
     "wave/07": 25,
     "wave/08": 25,
     "wave/09": 25,
@@ -23,8 +23,8 @@
     "wave/2": 25,
     "wave/3": 25,
     "wave/4": 25,
-    "wave/5": 21,
-    "wave/6": 23,
+    "wave/5": 19,
+    "wave/6": 21,
     "wave/7": 25,
     "wave/8": 25,
     "wave/9": 25
@@ -32,15 +32,15 @@
   "top_labels": [
     [
       "status/planned-wave",
-      316
+      312
     ],
     [
       "status/triaged",
-      316
+      312
     ],
     [
       "needs-evidence",
-      306
+      302
     ],
     [
       "enhancement",
@@ -56,7 +56,7 @@
     ],
     [
       "priority/medium",
-      47
+      45
     ],
     [
       "security",
@@ -67,23 +67,15 @@
       40
     ],
     [
-      "wave/06",
-      25
-    ],
-    [
-      "wave/05",
-      25
-    ],
-    [
       "wave/01",
       25
     ],
     [
-      "wave/4",
+      "wave/04",
       25
     ],
     [
-      "wave/04",
+      "wave/4",
       25
     ],
     [
@@ -95,11 +87,11 @@
       25
     ],
     [
-      "wave/3",
+      "wave/03",
       25
     ],
     [
-      "wave/03",
+      "wave/3",
       25
     ],
     [
@@ -107,11 +99,11 @@
       25
     ],
     [
-      "wave/09",
+      "wave/9",
       25
     ],
     [
-      "wave/9",
+      "wave/09",
       25
     ],
     [
@@ -123,11 +115,19 @@
       25
     ],
     [
+      "wave/8",
+      25
+    ],
+    [
       "wave/08",
       25
     ],
     [
-      "wave/8",
+      "wave/07",
+      25
+    ],
+    [
+      "wave/7",
       25
     ]
   ],
@@ -8408,7 +8408,7 @@
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:09:45Z",
+      "updated_at": "2026-04-18T03:25:50Z",
       "evidence_commits": [
         {
           "commit": "53985b3c4d94f22517e4090696a5b8ecd06caedb",
@@ -8491,7 +8491,7 @@
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:09:45Z",
+      "updated_at": "2026-04-18T03:25:49Z",
       "evidence_commits": [
         {
           "commit": "6286d9a3a549c600896a4a7029983a09a8488b56",
@@ -8622,7 +8622,7 @@
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:09:44Z",
+      "updated_at": "2026-04-18T03:25:48Z",
       "evidence_commits": [
         {
           "commit": "3258a89b6e4c2030ca47dfe51483e768cbd38b33",
@@ -8750,7 +8750,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:09:43Z",
+      "updated_at": "2026-04-18T03:25:48Z",
       "evidence_commits": [
         {
           "commit": "fe3ec8dbf031c872c101678a2fa5da438ee7dbfa",
@@ -8864,7 +8864,7 @@
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:09:43Z",
+      "updated_at": "2026-04-18T03:25:47Z",
       "evidence_commits": [
         {
           "commit": "fbd82ba5bb35c42a6b09f5bd50ff1aa0690b9626",
@@ -8973,7 +8973,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:09:42Z",
+      "updated_at": "2026-04-18T03:25:47Z",
       "evidence_commits": [
         {
           "commit": "9a50fd584ccac3e7035d8a8112980167e37a60de",
@@ -12214,7 +12214,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:09:19Z",
+      "updated_at": "2026-04-18T03:25:46Z",
       "evidence_commits": [
         {
           "commit": "a499390648e9184211a1e9d196cdb20b48355591",
@@ -12490,7 +12490,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:09:16Z",
+      "updated_at": "2026-04-18T03:25:45Z",
       "evidence_commits": [
         {
           "commit": "900f64e6be859f52350c25032ff5b11f10509c7e",
@@ -12635,7 +12635,7 @@
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:09:16Z",
+      "updated_at": "2026-04-18T03:25:45Z",
       "evidence_commits": [
         {
           "commit": "baa41be2aafbcb56a7e17710e23b885d2baa5adb",
@@ -12725,7 +12725,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:09:15Z",
+      "updated_at": "2026-04-18T03:25:44Z",
       "evidence_commits": [
         {
           "commit": "31cb1ca9e567fac7f940d041d9c5f45032dd8972",
@@ -12929,7 +12929,7 @@
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:09:14Z",
+      "updated_at": "2026-04-18T03:25:44Z",
       "evidence_commits": [
         {
           "commit": "2ebdb54fb3012142a56ad9bee58298d0892f4c1a",
@@ -13046,7 +13046,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:09:13Z",
+      "updated_at": "2026-04-18T03:25:43Z",
       "evidence_commits": [
         {
           "commit": "f3fd74d888f3f2a258636655ee563d790ec30769",
@@ -13185,7 +13185,7 @@
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:09:13Z",
+      "updated_at": "2026-04-18T03:25:43Z",
       "evidence_commits": [
         {
           "commit": "f3fd74d888f3f2a258636655ee563d790ec30769",
@@ -13298,7 +13298,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:09:12Z",
+      "updated_at": "2026-04-18T03:25:42Z",
       "evidence_commits": [
         {
           "commit": "f3fd74d888f3f2a258636655ee563d790ec30769",
@@ -13417,7 +13417,7 @@
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:09:11Z",
+      "updated_at": "2026-04-18T03:25:42Z",
       "evidence_commits": [
         {
           "commit": "f3fd74d888f3f2a258636655ee563d790ec30769",
@@ -13508,7 +13508,7 @@
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:09:11Z",
+      "updated_at": "2026-04-18T03:25:41Z",
       "evidence_commits": [
         {
           "commit": "f3fd74d888f3f2a258636655ee563d790ec30769",
@@ -13651,7 +13651,7 @@
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:09:10Z",
+      "updated_at": "2026-04-18T03:25:40Z",
       "evidence_commits": [
         {
           "commit": "93a8daf285af45ed71544e79aae0cb15245e75f4",
@@ -13724,698 +13724,6 @@
         {
           "commit": "7774ed4ae6490d5ae38afc78819a715ca3148712",
           "subject": "Update README.md for linux + cleanup (#601)"
-        }
-      ]
-    },
-    {
-      "number": 58,
-      "title": "copilot instructions",
-      "url": "https://github.com/kushin77/ollama/issues/58",
-      "labels": [
-        "needs-evidence",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/06",
-        "wave/6"
-      ],
-      "updated_at": "2026-04-18T03:09:09Z",
-      "evidence_commits": [
-        {
-          "commit": "4ed177842cd720472cf327795739f12ee62e0758",
-          "subject": "docs: add issue #58 completion summary"
-        },
-        {
-          "commit": "cc2d5dc0940c4b542971fd765718af8249c17705",
-          "subject": "docs(copilot): enhance with FAANG-level ruthless mentor master prompt and elite AI engineering standards"
-        },
-        {
-          "commit": "757eeacc1b34c825f5927d2db86d4e73e8fdf52a",
-          "subject": "server: lowercase hostname for Host header check (#5851)"
-        },
-        {
-          "commit": "4e94227b5d564030cb8cad47c37e3ce74dc65e1b",
-          "subject": "readme: add browser extension that enables using Ollama for interacting with web pages (#5827)"
-        },
-        {
-          "commit": "f3c8b898cde83ed5977f227fca66665846de7955",
-          "subject": "Track GPU discovery failure information  (#5820)"
-        },
-        {
-          "commit": "5f944baac7eb468216a75fbbdc073cdca77934c3",
-          "subject": "Update gpu.md: Add RTX 3050 Ti and RTX 3050 Ti (#5888)"
-        },
-        {
-          "commit": "9df5f0e8e4d9a7f2f0fdfc782304df8dbcbd50c6",
-          "subject": "Reduce docker image size (#5847)"
-        },
-        {
-          "commit": "01d544d373d0f7782a9da2a830e0e7fa6926a584",
-          "subject": "OpenAI: Simplify input output in testing (#5858)"
-        },
-        {
-          "commit": "1dc3ef3aa9d451a63fcb6ea2e1b6ea5289a1a325",
-          "subject": "Revert \"server: speed up single gguf creates (#5898)\" (#6323)"
-        },
-        {
-          "commit": "8aac22438ef34192ff804dbeb1b5e9a7e180eb7c",
-          "subject": "server: speed up single gguf creates (#5898)"
-        },
-        {
-          "commit": "7edaf6e7e8d79a9c88419988ae98afaf3fc32f15",
-          "subject": "manifest: Store layers inside manifests consistently as values."
-        },
-        {
-          "commit": "69eb06c40ec22fe002cfbe1d52b560fce0dcddba",
-          "subject": "Merge pull request #6145 from ollama/jessegross/bug5840"
-        },
-        {
-          "commit": "1829fb61bd7a4186881714618f09b2877d0bc9a3",
-          "subject": "manifest: Fix crash on startup when trying to clean up unused files (#5840)"
-        },
-        {
-          "commit": "6f133a0bdd1a768d7936f6bbc40d11af732eee6f",
-          "subject": "OpenAI: Add Usage to `v1/embeddings` (#5886)"
-        },
-        {
-          "commit": "cef2c6054d6f9d030092026b7516adc1cb693043",
-          "subject": "Merge pull request #5859 from dhiltgen/homogeneous_gpus"
-        },
-        {
-          "commit": "1a83581a8e1063418f5f1fec14638409d0681b68",
-          "subject": "Merge pull request #5895 from dhiltgen/sched_faq"
-        },
-        {
-          "commit": "46e6327e0f85b046f5f92995d7f59146d347cd70",
-          "subject": "api: add stringifier for `Tool` (#5891)"
-        },
-        {
-          "commit": "ac33aa7d3782887878e6e24fb4a6238356a489a6",
-          "subject": "Fix Embed Test Flakes (#5893)"
-        },
-        {
-          "commit": "c78089263a35260f17f583ece54e9f5559fd2cf4",
-          "subject": "Merge pull request #5864 from dhiltgen/bump_go"
-        },
-        {
-          "commit": "db0968f30c895b9f2059da48800018739ef9bca7",
-          "subject": "fix dupe err message (#5857)"
-        },
-        {
-          "commit": "d835368eb8599b4f4c2f8a766bad5b57498a988d",
-          "subject": "convert: capture `head_dim` for mistral (#5818)"
-        },
-        {
-          "commit": "5784c053978a1dd7a289ac46ad6ee88eadf5524e",
-          "subject": "Merge pull request #5854 from dhiltgen/win_exit_status"
-        },
-        {
-          "commit": "f14aa5435dee17afe929d1daf14a988c533b045e",
-          "subject": "Merge pull request #5855 from dhiltgen/remove_max_vram"
-        },
-        {
-          "commit": "f8fedbda20b1b2531499ba64758642b0568b6f01",
-          "subject": "Update llama.cpp submodule commit to `d94c6e0c` (#5805)"
-        },
-        {
-          "commit": "b3e5491e41811294de9d81649a96581af6522d08",
-          "subject": "server: collect nested tool call objects when parsing (#5824)"
-        },
-        {
-          "commit": "80ee9b5e47fc0ea99d1f3f33224923266627c15c",
-          "subject": "Remove out of space test temporarily (#5825)"
-        },
-        {
-          "commit": "5534f2cc6a3f29022998950472741d16e7a66b40",
-          "subject": "llm: consider `head_dim` in llama arch (#5817)"
-        },
-        {
-          "commit": "d321297d8a63d0bc1c80ad041023124332b74b30",
-          "subject": "Merge pull request #5815 from dhiltgen/win_rocm_gfx_features"
-        },
-        {
-          "commit": "1475eab95f5a4ddc5b1bb169df0d89e71732dfa0",
-          "subject": "add patch for tekken (#5807)"
-        },
-        {
-          "commit": "20090f3172c4848584060cbd51e7c9b14c3630cb",
-          "subject": "preserve last assistant message (#5802)"
-        },
-        {
-          "commit": "69a2d4ccffa7532680bed245fad77bb166ec0bb9",
-          "subject": "Fix generate test flakyness (#5804)"
-        },
-        {
-          "commit": "767f9bdbbb6f2540a33b21ebc23c26526474b01d",
-          "subject": "Merge pull request #585 from jmorganca/matt/examplementors"
-        },
-        {
-          "commit": "ed94a3dd029575a4035e7edf265154c52c82e4d8",
-          "subject": "Merge pull request #589 from jmorganca/mxyng/install.sh"
-        },
-        {
-          "commit": "c65edb15068b763fbd9e8e1afd014ab53064ad14",
-          "subject": "fix linux installer warning logs (#588)"
-        },
-        {
-          "commit": "b5614f3ebcb0fd9167ead2627b066d50555a780d",
-          "subject": "fix end-of-line issue with the new prompt (#582)"
-        },
-        {
-          "commit": "cbc40aa9967d27a58f87442018f2d889782d1980",
-          "subject": "debian installer support (#579)"
-        },
-        {
-          "commit": "0859d5094227a0753ca76970abdc7686ac9be489",
-          "subject": "Merge pull request #58 from jmorganca/generate-errors"
-        }
-      ]
-    },
-    {
-      "number": 57,
-      "title": "\ud83e\uddea [Phase 3 Issue #40]: Comprehensive Test Coverage",
-      "url": "https://github.com/kushin77/ollama/issues/57",
-      "labels": [
-        "needs-evidence",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/06",
-        "wave/6"
-      ],
-      "updated_at": "2026-04-18T03:09:09Z",
-      "evidence_commits": [
-        {
-          "commit": "75ef4474b837cab046bad376c82792f4de74ad20",
-          "subject": "docs: add final validation report for issues #55, #56, #57"
-        },
-        {
-          "commit": "c701642e2db16bead6c7cdcb87d08c57c3bc4ab9",
-          "subject": "docs: add comprehensive implementation summary for issues #55, #56, #57"
-        },
-        {
-          "commit": "e28ce43d0a9b0aad825c81bc78ce54105546d1f0",
-          "subject": "feat: implement issues #55, #56, #57 - load testing, scaling roadmap, test coverage"
-        },
-        {
-          "commit": "f564c22e04cc19111e69275225a068640472b20f",
-          "subject": "chore: add load testing framework, test coverage validation, and issue analysis"
-        },
-        {
-          "commit": "da3e5e045ecf34cb6ce33a9ea1cf34100b008b0c",
-          "subject": "docs(status): add Phase 3 Tier 1 completion summary for Issue #57"
-        },
-        {
-          "commit": "71c2d6905cef5e0ca2e3620aa488e4c8403c0955",
-          "subject": "feat(monitoring): add monitoring impl stubs and legacy compat"
-        },
-        {
-          "commit": "d3bb9bc9dc9a43607610cd4a07c2e2d71f9094fe",
-          "subject": "chore(config): remove non-existent PMO agent dependencies"
-        },
-        {
-          "commit": "38bf697c144bbeef900736faad3f37e811fd30ad",
-          "subject": "test(comprehensive): add comprehensive test suites for Tier 1 coverage enhancement"
-        },
-        {
-          "commit": "b072098bb050735312f1d60855816eea6063003d",
-          "subject": "chore(config): fix pytest configuration for Phase 3 test work"
-        },
-        {
-          "commit": "1101c804a59ba1a6ab8471cf2e15728729ed4647",
-          "subject": "docs: create Phase 3 official status report"
-        },
-        {
-          "commit": "89be9dd731ade3d2a1d4113704d1aef72d8f867f",
-          "subject": "docs(phase3): document Phase 3 kickoff and Issue #57 status"
-        },
-        {
-          "commit": "4ae4ea502014924b26c9d4e86fdb7accfa5f2676",
-          "subject": "docs(test): create comprehensive test coverage plan for Issue #57"
-        },
-        {
-          "commit": "d632e23fbae005ca3522c0e3b2cf31a2499e4c03",
-          "subject": "Add Windows arm64 support to official builds (#5712)"
-        },
-        {
-          "commit": "f27c00d8c5e2d4bad747c9d330bc02abaec465ae",
-          "subject": "readme: add Gentoo package manager entry to community integrations (#5714)"
-        },
-        {
-          "commit": "1b44d873e74f62de4f53f154da386919c1426f8b",
-          "subject": "Add Metrics to `api\\embed` response (#5709)"
-        },
-        {
-          "commit": "e8a66680d179f2bea094bf54c6a1dcce19c779a8",
-          "subject": "Merge pull request #5705 from dhiltgen/win_errormode"
-        },
-        {
-          "commit": "a6cd8f6169c029c92105962017562274bd90626b",
-          "subject": "Update README.md to add LLMStack integration (#5799)"
-        },
-        {
-          "commit": "3e5ea035d5b50fe9aa8301e95c66c72f5a2d761f",
-          "subject": "Merge pull request #5757 from lreed-mdsol/lreed/bump-go-version-fix-vulnerabilities"
-        },
-        {
-          "commit": "e8b954c646544d40d84be50aae9cd909fcbd8f41",
-          "subject": "server: validate template (#5734)"
-        },
-        {
-          "commit": "c57317cbf0c865dd1fbe4852e1cce3cf4703b7ee",
-          "subject": "OpenAI: Function Based Testing (#5752)"
-        },
-        {
-          "commit": "51b2fd299cd568093ce796aef3e7e37ae656b02a",
-          "subject": "adjust openai chat msg processing (#5729)"
-        },
-        {
-          "commit": "d0634b15961558fd5a06119ea0a08d3bd8511e43",
-          "subject": "Merge pull request #5780 from ollama/mxyng/tools"
-        },
-        {
-          "commit": "70b1010fa53095b4f8699b04375fa29f8c3e54b0",
-          "subject": "server: check for empty tools array too (#5779)"
-        },
-        {
-          "commit": "84e5721f3a2febbd8bc2600bedcaa6e67aaa9b49",
-          "subject": "always provide content even if empty (#5778)"
-        },
-        {
-          "commit": "319fb1ce033921b70685abce0b2e06f52304fe74",
-          "subject": "server: only parse tool calls if tools are provided (#5771)"
-        },
-        {
-          "commit": "b2554455572b28c0e18423d6fe6896cf7137dbd6",
-          "subject": "marshal json automatically for some template values (#5758)"
-        },
-        {
-          "commit": "b23424bb3c5771dca6628b70638ade3b9fdbd069",
-          "subject": "Merge pull request #5753 from ollama/mxyng/parse-tool-call"
-        },
-        {
-          "commit": "5b82960df840a8bd545b9a60a1b69c089e0e24f1",
-          "subject": "stub response (#5750)"
-        },
-        {
-          "commit": "cc9a252d8c4f1f3237b65847b55998a4f8080194",
-          "subject": "Merge pull request #5732 from ollama/mxyng/cleanup"
-        },
-        {
-          "commit": "d281a6e6036cf122fc9828ca93c58d7d3d57502f",
-          "subject": "add sidellama link (#5702)"
-        },
-        {
-          "commit": "154f6f45d4acd4ea1f2e35cac3b90eb6faeea6bd",
-          "subject": "OpenAI: Support Tools (#5614)"
-        },
-        {
-          "commit": "499e87c9ba9b2b0f30b33cba2faba8a80454fb74",
-          "subject": "Merge pull request #5730 from ollama/mxyng/cleanup"
-        },
-        {
-          "commit": "97c20ede33ca67f8bf21e55ffe318831d83290d0",
-          "subject": "README: Added AI Studio to the list of UIs (#5721)"
-        },
-        {
-          "commit": "a8388beb94bff464d742aaf6d3b94b2264009b86",
-          "subject": "Merge pull request #5726 from ollama/mxyng/tools-templates"
-        },
-        {
-          "commit": "4cb5d7decc08f4c7c136f81b2b5f1c74ebffbc62",
-          "subject": "server: omit model system prompt if empty (#5717)"
-        },
-        {
-          "commit": "7ac6d462ecb9a26591b5f7457bea32c1cd63541f",
-          "subject": "server: return empty slice on empty `/api/embed` request (#5713)"
-        },
-        {
-          "commit": "8288ec8824f76e05d77ca76a6a822cd0ac76d68b",
-          "subject": "Merge pull request #5710 from dhiltgen/rocm_bump"
-        },
-        {
-          "commit": "1605af32ec8d21798ca7599535863c5a3f7a19a7",
-          "subject": "Added a new community project (#574)"
-        },
-        {
-          "commit": "cbc40aa9967d27a58f87442018f2d889782d1980",
-          "subject": "debian installer support (#579)"
-        },
-        {
-          "commit": "e1a0846483b468fd0b09771611fc724d63122794",
-          "subject": "Merge pull request #571 from jmorganca/mxyng/update-dockerfile"
-        },
-        {
-          "commit": "87d9efb3642e4ecd061909c01b3fde26e4c38419",
-          "subject": "switch to forked readline lib which doesn't wreck the repl prompt (#578)"
-        },
-        {
-          "commit": "a89ef99aedffefde201a48a256e4d406bda543f0",
-          "subject": "Merge pull request #575 from jmorganca/mxyng/fix-ipv6-only"
-        },
-        {
-          "commit": "dc0c725ceb7098415dd1daa82fe8c4fb02df8d84",
-          "subject": "ubuntu cuda drivers (#576)"
-        },
-        {
-          "commit": "5d71bda4780ef26850656531773c795ffa81e400",
-          "subject": "close llm on interrupt (#577)"
-        },
-        {
-          "commit": "2044f9d4da96bbe4a8e98330e0060728f1518a23",
-          "subject": "Merge pull request #570 from jmorganca/mxyng/head-request"
-        }
-      ]
-    },
-    {
-      "number": 56,
-      "title": "\ud83d\uddfa\ufe0f [Phase 3 Issue #39]: Scaling Roadmap & Tech Debt",
-      "url": "https://github.com/kushin77/ollama/issues/56",
-      "labels": [
-        "documentation",
-        "needs-evidence",
-        "priority/medium",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/05",
-        "wave/5"
-      ],
-      "updated_at": "2026-04-18T03:09:08Z",
-      "evidence_commits": [
-        {
-          "commit": "75ef4474b837cab046bad376c82792f4de74ad20",
-          "subject": "docs: add final validation report for issues #55, #56, #57"
-        },
-        {
-          "commit": "c701642e2db16bead6c7cdcb87d08c57c3bc4ab9",
-          "subject": "docs: add comprehensive implementation summary for issues #55, #56, #57"
-        },
-        {
-          "commit": "e28ce43d0a9b0aad825c81bc78ce54105546d1f0",
-          "subject": "feat: implement issues #55, #56, #57 - load testing, scaling roadmap, test coverage"
-        },
-        {
-          "commit": "6a0c2ec50f796e547b6db8d17396a03d0105ffe4",
-          "subject": "readme: add terminal tool ParLlama to community integrations (#5623)"
-        },
-        {
-          "commit": "2157b1232e1b28448f2e09062d371aff46574fc3",
-          "subject": "readme: add Terraform AWS Ollama & Open WebUI community example (#5633)"
-        },
-        {
-          "commit": "811bafba8243fbc246470ea4b4fbd07bf04d1564",
-          "subject": "readme: Add LLPhant to community integrations (#5679)"
-        },
-        {
-          "commit": "94fff5805fecd25287e1a21ac9910859011adcff",
-          "subject": "Fix sprintf to snprintf (#5664)"
-        },
-        {
-          "commit": "4de1370a9dcc88b79ddc2d4af2e8c954bdfa67a1",
-          "subject": "openai tools doc (#5617)"
-        },
-        {
-          "commit": "154f6f45d4acd4ea1f2e35cac3b90eb6faeea6bd",
-          "subject": "OpenAI: Support Tools (#5614)"
-        },
-        {
-          "commit": "0d41623b52b77725624a9f4dbc4c0f9a356a9021",
-          "subject": "OpenAI: Add Suffix to `v1/completions` (#5611)"
-        },
-        {
-          "commit": "8eac50dd4f53a15c1d6267d2a4dc810ab63e6909",
-          "subject": "Merge pull request #5684 from ollama/mxyng/tests"
-        },
-        {
-          "commit": "9e35d9bbee4c96ca064bcb7eadc5b2eb3a200ce7",
-          "subject": "server: lowercase roles for compatibility with clients (#5695)"
-        },
-        {
-          "commit": "057d31861e3514b60a7eedf694899067b72bd2fa",
-          "subject": "remove template (#5655)"
-        },
-        {
-          "commit": "1ed0aa8feab58a5cbdf2d79fdb718e3a5cc03525",
-          "subject": "server: fix `context`, `load_duration` and `total_duration` fields (#5676)"
-        },
-        {
-          "commit": "ef98803d63a4e4c56853688343f011256ced130d",
-          "subject": "llm: looser checks for minimum memory (#5677)"
-        },
-        {
-          "commit": "02fea420e5a0042d5e4cfbb5024a6d7e092dc789",
-          "subject": "Add Kerlig AI, an app for macOS (#5675)"
-        },
-        {
-          "commit": "22c5451fc28b20dd83a389c49d9caf6a1e50a9e3",
-          "subject": "fix system prompt (#5662)"
-        },
-        {
-          "commit": "e5c65a85df21a78052bb9f46bdb37bf6838644f7",
-          "subject": "Merge pull request #5653 from ollama/mxyng/collect-system"
-        },
-        {
-          "commit": "33627331a370755ff5033c0fcd71d1c9210c9d96",
-          "subject": "app: also clean up tempdir runners on install (#5646)"
-        },
-        {
-          "commit": "179737feb7311fc57c507a93378a3ac15da3a346",
-          "subject": "Clean up old files when installing on Windows (#5645)"
-        },
-        {
-          "commit": "47353f5ee4ebca31dd51a48eb546f96ae34ee0fe",
-          "subject": "Merge pull request #5639 from ollama/mxyng/unaggregated-system"
-        },
-        {
-          "commit": "10e768826c7d5a8f7d7fab13832299a466a01f87",
-          "subject": "fix: quant err message (#5616)"
-        },
-        {
-          "commit": "c4cf8ad55966cc61c73f119ab9cbfaf57264fc81",
-          "subject": "llm: avoid loading model if system memory is too small (#5637)"
-        },
-        {
-          "commit": "791650ddef9eb11e011506dbd5d22ed6bfcb6a10",
-          "subject": "sched: only error when over-allocating system memory (#5626)"
-        },
-        {
-          "commit": "efbf41ed8151098b942c142e2522b9ab8364f97a",
-          "subject": "llm: dont link cuda with compat libs (#5621)"
-        },
-        {
-          "commit": "cf15589851cf87e46f3a8b3bdb70934b83fd8338",
-          "subject": "Merge pull request #5620 from ollama/mxyng/templates"
-        },
-        {
-          "commit": "37a570f962a300b45c40d1f81beeeeb026dd0776",
-          "subject": "Merge pull request #5612 from ollama/mxyng/mem"
-        },
-        {
-          "commit": "b50c818623049e533ca5f8d07dfe5ead3ca08d9a",
-          "subject": "Merge pull request #5607 from dhiltgen/win_rocm_v6"
-        },
-        {
-          "commit": "b99e750b62932bc33d066d7110538c58986f215a",
-          "subject": "Merge pull request #5605 from dhiltgen/merge_glitch"
-        },
-        {
-          "commit": "0d186f3b3362671292a770c5d38b2ca2bd0d6522",
-          "subject": "Merge pull request #569 from jmorganca/mxyng/update-submodules"
-        },
-        {
-          "commit": "ee1c994d15c7df18886eb454dc90747b3944aef7",
-          "subject": "update submodule (#567)"
-        },
-        {
-          "commit": "8c83701e9ff67ccd14cd70cafb335fb36a69626f",
-          "subject": "Merge pull request #566 from jmorganca/mxyng/api-check-model-exists"
-        },
-        {
-          "commit": "765770efdbb8db463dfc359ae1f9653af908c779",
-          "subject": "Merge pull request #562 from jmorganca/mxyng/fix-ollama-host"
-        }
-      ]
-    },
-    {
-      "number": 55,
-      "title": "\u26a1 [Phase 3 Issue #38]: Load Testing Baseline",
-      "url": "https://github.com/kushin77/ollama/issues/55",
-      "labels": [
-        "needs-evidence",
-        "performance",
-        "priority/medium",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/05",
-        "wave/5"
-      ],
-      "updated_at": "2026-04-18T03:09:07Z",
-      "evidence_commits": [
-        {
-          "commit": "75ef4474b837cab046bad376c82792f4de74ad20",
-          "subject": "docs: add final validation report for issues #55, #56, #57"
-        },
-        {
-          "commit": "c701642e2db16bead6c7cdcb87d08c57c3bc4ab9",
-          "subject": "docs: add comprehensive implementation summary for issues #55, #56, #57"
-        },
-        {
-          "commit": "e28ce43d0a9b0aad825c81bc78ce54105546d1f0",
-          "subject": "feat: implement issues #55, #56, #57 - load testing, scaling roadmap, test coverage"
-        },
-        {
-          "commit": "f564c22e04cc19111e69275225a068640472b20f",
-          "subject": "chore: add load testing framework, test coverage validation, and issue analysis"
-        },
-        {
-          "commit": "37711578a29f86cedcd100fad5c12f4f3277f8b9",
-          "subject": "readme: add R2R to community integrations (#5587)"
-        },
-        {
-          "commit": "c4f27225acd196d0cba3957419834de393b4ecd0",
-          "subject": "readme: add community contribution to readme ollama-kis (#5575)"
-        },
-        {
-          "commit": "50c05d57e0100625ee5bdd4ba9accec7f4536005",
-          "subject": "readme: add Painting Droid community integration (#5514)"
-        },
-        {
-          "commit": "ec4c35fe99e5e5e02f38d94d310615828dd3a2c8",
-          "subject": "Merge pull request #5512 from ollama/mxyng/detect-stop"
-        },
-        {
-          "commit": "37096790a70dc423c1d32828fbc9bf5b2ce6d9b3",
-          "subject": "Merge pull request #5552 from ollama/mxyng/messages-docs"
-        },
-        {
-          "commit": "06e5d74e342fd971f78f07641f424d1189223637",
-          "subject": "Merge pull request #5506 from dhiltgen/sched_tests"
-        },
-        {
-          "commit": "5d707e6fd52e307d583d7a1d6fa20b6deb2e4b38",
-          "subject": "Merge pull request #5583 from dhiltgen/integration_improvements"
-        },
-        {
-          "commit": "4e262eb2a8aaee31e228febc216c2a83a9a7e4d8",
-          "subject": "remove `GGML_CUDA_FORCE_MMQ=on` from build (#5588)"
-        },
-        {
-          "commit": "79292ff3e06219bc67d06932cee98a5ad2ce5c04",
-          "subject": "Merge pull request #5555 from dhiltgen/msvc_deps"
-        },
-        {
-          "commit": "8ea500441dc822d0ecee32fa3cd618dc78643143",
-          "subject": "Merge pull request #5580 from dhiltgen/cuda_overhead"
-        },
-        {
-          "commit": "2d1e3c32291239137fe7763431fc094dc809da28",
-          "subject": "Merge pull request #5503 from dhiltgen/dual_rocm"
-        },
-        {
-          "commit": "4918fae535cb3d146100bacc0eff67a8579a8a7f",
-          "subject": "OpenAI v1/completions: allow stop token list (#5551)"
-        },
-        {
-          "commit": "0aff67877ed01adc00056742c9a88143eeabf0c5",
-          "subject": "separate request tests (#5578)"
-        },
-        {
-          "commit": "9544a57ee4eea209d3dd85690d971a578f4470cb",
-          "subject": "Merge pull request #5579 from dhiltgen/win_static_deps"
-        },
-        {
-          "commit": "e4ff73297db2f53f1ea4b603df5670c5bde6a944",
-          "subject": "server: fix model reloads when setting `OLLAMA_NUM_PARALLEL` (#5560)"
-        },
-        {
-          "commit": "53da2c69654769c0c086af695722e1d9b9ee6ecc",
-          "subject": "llm: remove ambiguous comment when putting upper limit on predictions to avoid infinite generation (#5535)"
-        },
-        {
-          "commit": "d8def1ff9432ef60d1067e5e6dde0d700dd95021",
-          "subject": "llm: allow gemma 2 to context shift (#5534)"
-        },
-        {
-          "commit": "571dc61955ced560a45e9d32b1cd2a52d9803c8c",
-          "subject": "Update llama.cpp submodule to `a8db2a9c` (#5530)"
-        },
-        {
-          "commit": "0e09c380fcae8b81db3c3447d70d721cfad00dbd",
-          "subject": "llm: print caching notices in debug only (#5533)"
-        },
-        {
-          "commit": "0ee87615c74c69d8fbc3cad8f3ea5a2364b1a876",
-          "subject": "sched: don't error if paging to disk on Windows and macOS (#5523)"
-        },
-        {
-          "commit": "f8241bfba384cf8c888847dc44b73d7f43a42d82",
-          "subject": "gpu: report system free memory instead of 0 (#5521)"
-        },
-        {
-          "commit": "4607c706413f1354d0e762d25a9a0a933edc14ec",
-          "subject": "llm: add `-DBUILD_SHARED_LIBS=off` to common cpu cmake flags (#5520)"
-        },
-        {
-          "commit": "e0348d3fe8042b7e378a7cbcee95d17d20a14017",
-          "subject": "llm: add `COMMON_DARWIN_DEFS` to arm static build (#5513)"
-        },
-        {
-          "commit": "2cc854f8cb5b9670fc53134f8104569c60d535be",
-          "subject": "llm: fix missing dylibs by restoring old build behavior on Linux and macOS (#5511)"
-        },
-        {
-          "commit": "5304b765b2bf934070e06412f6617b97a56ae3d2",
-          "subject": "llm: put back old include dir (#5507)"
-        },
-        {
-          "commit": "4fd5f3526a116d05cd74cfcc7217d4e6326e1bea",
-          "subject": "fix cmake build (#5505)"
-        },
-        {
-          "commit": "842f85f758db6d0af8e380b45daeb6bc861e4255",
-          "subject": "Merge pull request #5502 from dhiltgen/ci_fixes"
-        },
-        {
-          "commit": "631cfd9e62362d6aea72da96fa67c52a1fd4e990",
-          "subject": "types/model: remove knowledge of digest (#5500)"
-        },
-        {
-          "commit": "78fb33dd07ecbbd78de2293bc542187afa6b671b",
-          "subject": "fix typo in cgo directives in `llm.go` (#5501)"
-        },
-        {
-          "commit": "c928ceb927bf27ec00fd0d424300362c86927c8d",
-          "subject": "add word wrapping for lines which are longer than the terminal width (#553)"
-        },
-        {
-          "commit": "f997e29e457e510e53382bf619c2729db47ead74",
-          "subject": "Add `Dockerfile.build` for building linux binaries (#558)"
-        },
-        {
-          "commit": "4cba75efc589a4d630dd9182593046ae565fff86",
-          "subject": "remove tmp directories created by previous servers (#559)"
-        },
-        {
-          "commit": "ee4fd16f2c02a643e70c5393f7bb27cfda58671f",
-          "subject": "Merge pull request #556 from jmorganca/pack-cuda"
-        },
-        {
-          "commit": "084e4c782a552fe8442cd4d5bae5b34ab54e843d",
-          "subject": "Merge pull request #557 from jmorganca/mxyng/cleanup"
-        },
-        {
-          "commit": "e35565c5671305cb36926e812cd64f2e0a5d4e38",
-          "subject": "Merge pull request #555 from jmorganca/mxyng/fix-windows-startup"
-        },
-        {
-          "commit": "2627c464ba1e9b032a37babaa6400d2308f562a7",
-          "subject": "Merge pull request #554 from jmorganca/mxyng/fix-windows-startup"
-        },
-        {
-          "commit": "94e1d96b2997bb2af4e729cd7217853234be31db",
-          "subject": "Updated README section on community projects for table (#550)"
-        },
-        {
-          "commit": "ba2bade0d51405dd4abe4edd4d1dfca08099b303",
-          "subject": "Merge pull request #55 from jmorganca/fix-run-generate"
         }
       ]
     }
@@ -23085,7 +22393,7 @@
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:09:45Z",
+      "updated_at": "2026-04-18T03:25:50Z",
       "evidence_commits": [
         {
           "commit": "53985b3c4d94f22517e4090696a5b8ecd06caedb",
@@ -23168,7 +22476,7 @@
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:09:45Z",
+      "updated_at": "2026-04-18T03:25:49Z",
       "evidence_commits": [
         {
           "commit": "6286d9a3a549c600896a4a7029983a09a8488b56",
@@ -23299,7 +22607,7 @@
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:09:44Z",
+      "updated_at": "2026-04-18T03:25:48Z",
       "evidence_commits": [
         {
           "commit": "3258a89b6e4c2030ca47dfe51483e768cbd38b33",
@@ -23427,7 +22735,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:09:43Z",
+      "updated_at": "2026-04-18T03:25:48Z",
       "evidence_commits": [
         {
           "commit": "fe3ec8dbf031c872c101678a2fa5da438ee7dbfa",
@@ -23541,7 +22849,7 @@
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:09:43Z",
+      "updated_at": "2026-04-18T03:25:47Z",
       "evidence_commits": [
         {
           "commit": "fbd82ba5bb35c42a6b09f5bd50ff1aa0690b9626",
@@ -23650,7 +22958,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:09:42Z",
+      "updated_at": "2026-04-18T03:25:47Z",
       "evidence_commits": [
         {
           "commit": "9a50fd584ccac3e7035d8a8112980167e37a60de",
@@ -26891,7 +26199,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:09:19Z",
+      "updated_at": "2026-04-18T03:25:46Z",
       "evidence_commits": [
         {
           "commit": "a499390648e9184211a1e9d196cdb20b48355591",
@@ -27167,7 +26475,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:09:16Z",
+      "updated_at": "2026-04-18T03:25:45Z",
       "evidence_commits": [
         {
           "commit": "900f64e6be859f52350c25032ff5b11f10509c7e",
@@ -27312,7 +26620,7 @@
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:09:16Z",
+      "updated_at": "2026-04-18T03:25:45Z",
       "evidence_commits": [
         {
           "commit": "baa41be2aafbcb56a7e17710e23b885d2baa5adb",
@@ -27402,7 +26710,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:09:15Z",
+      "updated_at": "2026-04-18T03:25:44Z",
       "evidence_commits": [
         {
           "commit": "31cb1ca9e567fac7f940d041d9c5f45032dd8972",
@@ -27606,7 +26914,7 @@
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:09:14Z",
+      "updated_at": "2026-04-18T03:25:44Z",
       "evidence_commits": [
         {
           "commit": "2ebdb54fb3012142a56ad9bee58298d0892f4c1a",
@@ -27723,7 +27031,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:09:13Z",
+      "updated_at": "2026-04-18T03:25:43Z",
       "evidence_commits": [
         {
           "commit": "f3fd74d888f3f2a258636655ee563d790ec30769",
@@ -27862,7 +27170,7 @@
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:09:13Z",
+      "updated_at": "2026-04-18T03:25:43Z",
       "evidence_commits": [
         {
           "commit": "f3fd74d888f3f2a258636655ee563d790ec30769",
@@ -27975,7 +27283,7 @@
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:09:12Z",
+      "updated_at": "2026-04-18T03:25:42Z",
       "evidence_commits": [
         {
           "commit": "f3fd74d888f3f2a258636655ee563d790ec30769",
@@ -28094,7 +27402,7 @@
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:09:11Z",
+      "updated_at": "2026-04-18T03:25:42Z",
       "evidence_commits": [
         {
           "commit": "f3fd74d888f3f2a258636655ee563d790ec30769",
@@ -28185,7 +27493,7 @@
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:09:11Z",
+      "updated_at": "2026-04-18T03:25:41Z",
       "evidence_commits": [
         {
           "commit": "f3fd74d888f3f2a258636655ee563d790ec30769",
@@ -28328,7 +27636,7 @@
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:09:10Z",
+      "updated_at": "2026-04-18T03:25:40Z",
       "evidence_commits": [
         {
           "commit": "93a8daf285af45ed71544e79aae0cb15245e75f4",
@@ -28403,698 +27711,6 @@
           "subject": "Update README.md for linux + cleanup (#601)"
         }
       ]
-    },
-    {
-      "number": 58,
-      "title": "copilot instructions",
-      "url": "https://github.com/kushin77/ollama/issues/58",
-      "labels": [
-        "needs-evidence",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/06",
-        "wave/6"
-      ],
-      "updated_at": "2026-04-18T03:09:09Z",
-      "evidence_commits": [
-        {
-          "commit": "4ed177842cd720472cf327795739f12ee62e0758",
-          "subject": "docs: add issue #58 completion summary"
-        },
-        {
-          "commit": "cc2d5dc0940c4b542971fd765718af8249c17705",
-          "subject": "docs(copilot): enhance with FAANG-level ruthless mentor master prompt and elite AI engineering standards"
-        },
-        {
-          "commit": "757eeacc1b34c825f5927d2db86d4e73e8fdf52a",
-          "subject": "server: lowercase hostname for Host header check (#5851)"
-        },
-        {
-          "commit": "4e94227b5d564030cb8cad47c37e3ce74dc65e1b",
-          "subject": "readme: add browser extension that enables using Ollama for interacting with web pages (#5827)"
-        },
-        {
-          "commit": "f3c8b898cde83ed5977f227fca66665846de7955",
-          "subject": "Track GPU discovery failure information  (#5820)"
-        },
-        {
-          "commit": "5f944baac7eb468216a75fbbdc073cdca77934c3",
-          "subject": "Update gpu.md: Add RTX 3050 Ti and RTX 3050 Ti (#5888)"
-        },
-        {
-          "commit": "9df5f0e8e4d9a7f2f0fdfc782304df8dbcbd50c6",
-          "subject": "Reduce docker image size (#5847)"
-        },
-        {
-          "commit": "01d544d373d0f7782a9da2a830e0e7fa6926a584",
-          "subject": "OpenAI: Simplify input output in testing (#5858)"
-        },
-        {
-          "commit": "1dc3ef3aa9d451a63fcb6ea2e1b6ea5289a1a325",
-          "subject": "Revert \"server: speed up single gguf creates (#5898)\" (#6323)"
-        },
-        {
-          "commit": "8aac22438ef34192ff804dbeb1b5e9a7e180eb7c",
-          "subject": "server: speed up single gguf creates (#5898)"
-        },
-        {
-          "commit": "7edaf6e7e8d79a9c88419988ae98afaf3fc32f15",
-          "subject": "manifest: Store layers inside manifests consistently as values."
-        },
-        {
-          "commit": "69eb06c40ec22fe002cfbe1d52b560fce0dcddba",
-          "subject": "Merge pull request #6145 from ollama/jessegross/bug5840"
-        },
-        {
-          "commit": "1829fb61bd7a4186881714618f09b2877d0bc9a3",
-          "subject": "manifest: Fix crash on startup when trying to clean up unused files (#5840)"
-        },
-        {
-          "commit": "6f133a0bdd1a768d7936f6bbc40d11af732eee6f",
-          "subject": "OpenAI: Add Usage to `v1/embeddings` (#5886)"
-        },
-        {
-          "commit": "cef2c6054d6f9d030092026b7516adc1cb693043",
-          "subject": "Merge pull request #5859 from dhiltgen/homogeneous_gpus"
-        },
-        {
-          "commit": "1a83581a8e1063418f5f1fec14638409d0681b68",
-          "subject": "Merge pull request #5895 from dhiltgen/sched_faq"
-        },
-        {
-          "commit": "46e6327e0f85b046f5f92995d7f59146d347cd70",
-          "subject": "api: add stringifier for `Tool` (#5891)"
-        },
-        {
-          "commit": "ac33aa7d3782887878e6e24fb4a6238356a489a6",
-          "subject": "Fix Embed Test Flakes (#5893)"
-        },
-        {
-          "commit": "c78089263a35260f17f583ece54e9f5559fd2cf4",
-          "subject": "Merge pull request #5864 from dhiltgen/bump_go"
-        },
-        {
-          "commit": "db0968f30c895b9f2059da48800018739ef9bca7",
-          "subject": "fix dupe err message (#5857)"
-        },
-        {
-          "commit": "d835368eb8599b4f4c2f8a766bad5b57498a988d",
-          "subject": "convert: capture `head_dim` for mistral (#5818)"
-        },
-        {
-          "commit": "5784c053978a1dd7a289ac46ad6ee88eadf5524e",
-          "subject": "Merge pull request #5854 from dhiltgen/win_exit_status"
-        },
-        {
-          "commit": "f14aa5435dee17afe929d1daf14a988c533b045e",
-          "subject": "Merge pull request #5855 from dhiltgen/remove_max_vram"
-        },
-        {
-          "commit": "f8fedbda20b1b2531499ba64758642b0568b6f01",
-          "subject": "Update llama.cpp submodule commit to `d94c6e0c` (#5805)"
-        },
-        {
-          "commit": "b3e5491e41811294de9d81649a96581af6522d08",
-          "subject": "server: collect nested tool call objects when parsing (#5824)"
-        },
-        {
-          "commit": "80ee9b5e47fc0ea99d1f3f33224923266627c15c",
-          "subject": "Remove out of space test temporarily (#5825)"
-        },
-        {
-          "commit": "5534f2cc6a3f29022998950472741d16e7a66b40",
-          "subject": "llm: consider `head_dim` in llama arch (#5817)"
-        },
-        {
-          "commit": "d321297d8a63d0bc1c80ad041023124332b74b30",
-          "subject": "Merge pull request #5815 from dhiltgen/win_rocm_gfx_features"
-        },
-        {
-          "commit": "1475eab95f5a4ddc5b1bb169df0d89e71732dfa0",
-          "subject": "add patch for tekken (#5807)"
-        },
-        {
-          "commit": "20090f3172c4848584060cbd51e7c9b14c3630cb",
-          "subject": "preserve last assistant message (#5802)"
-        },
-        {
-          "commit": "69a2d4ccffa7532680bed245fad77bb166ec0bb9",
-          "subject": "Fix generate test flakyness (#5804)"
-        },
-        {
-          "commit": "767f9bdbbb6f2540a33b21ebc23c26526474b01d",
-          "subject": "Merge pull request #585 from jmorganca/matt/examplementors"
-        },
-        {
-          "commit": "ed94a3dd029575a4035e7edf265154c52c82e4d8",
-          "subject": "Merge pull request #589 from jmorganca/mxyng/install.sh"
-        },
-        {
-          "commit": "c65edb15068b763fbd9e8e1afd014ab53064ad14",
-          "subject": "fix linux installer warning logs (#588)"
-        },
-        {
-          "commit": "b5614f3ebcb0fd9167ead2627b066d50555a780d",
-          "subject": "fix end-of-line issue with the new prompt (#582)"
-        },
-        {
-          "commit": "cbc40aa9967d27a58f87442018f2d889782d1980",
-          "subject": "debian installer support (#579)"
-        },
-        {
-          "commit": "0859d5094227a0753ca76970abdc7686ac9be489",
-          "subject": "Merge pull request #58 from jmorganca/generate-errors"
-        }
-      ]
-    },
-    {
-      "number": 57,
-      "title": "\ud83e\uddea [Phase 3 Issue #40]: Comprehensive Test Coverage",
-      "url": "https://github.com/kushin77/ollama/issues/57",
-      "labels": [
-        "needs-evidence",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/06",
-        "wave/6"
-      ],
-      "updated_at": "2026-04-18T03:09:09Z",
-      "evidence_commits": [
-        {
-          "commit": "75ef4474b837cab046bad376c82792f4de74ad20",
-          "subject": "docs: add final validation report for issues #55, #56, #57"
-        },
-        {
-          "commit": "c701642e2db16bead6c7cdcb87d08c57c3bc4ab9",
-          "subject": "docs: add comprehensive implementation summary for issues #55, #56, #57"
-        },
-        {
-          "commit": "e28ce43d0a9b0aad825c81bc78ce54105546d1f0",
-          "subject": "feat: implement issues #55, #56, #57 - load testing, scaling roadmap, test coverage"
-        },
-        {
-          "commit": "f564c22e04cc19111e69275225a068640472b20f",
-          "subject": "chore: add load testing framework, test coverage validation, and issue analysis"
-        },
-        {
-          "commit": "da3e5e045ecf34cb6ce33a9ea1cf34100b008b0c",
-          "subject": "docs(status): add Phase 3 Tier 1 completion summary for Issue #57"
-        },
-        {
-          "commit": "71c2d6905cef5e0ca2e3620aa488e4c8403c0955",
-          "subject": "feat(monitoring): add monitoring impl stubs and legacy compat"
-        },
-        {
-          "commit": "d3bb9bc9dc9a43607610cd4a07c2e2d71f9094fe",
-          "subject": "chore(config): remove non-existent PMO agent dependencies"
-        },
-        {
-          "commit": "38bf697c144bbeef900736faad3f37e811fd30ad",
-          "subject": "test(comprehensive): add comprehensive test suites for Tier 1 coverage enhancement"
-        },
-        {
-          "commit": "b072098bb050735312f1d60855816eea6063003d",
-          "subject": "chore(config): fix pytest configuration for Phase 3 test work"
-        },
-        {
-          "commit": "1101c804a59ba1a6ab8471cf2e15728729ed4647",
-          "subject": "docs: create Phase 3 official status report"
-        },
-        {
-          "commit": "89be9dd731ade3d2a1d4113704d1aef72d8f867f",
-          "subject": "docs(phase3): document Phase 3 kickoff and Issue #57 status"
-        },
-        {
-          "commit": "4ae4ea502014924b26c9d4e86fdb7accfa5f2676",
-          "subject": "docs(test): create comprehensive test coverage plan for Issue #57"
-        },
-        {
-          "commit": "d632e23fbae005ca3522c0e3b2cf31a2499e4c03",
-          "subject": "Add Windows arm64 support to official builds (#5712)"
-        },
-        {
-          "commit": "f27c00d8c5e2d4bad747c9d330bc02abaec465ae",
-          "subject": "readme: add Gentoo package manager entry to community integrations (#5714)"
-        },
-        {
-          "commit": "1b44d873e74f62de4f53f154da386919c1426f8b",
-          "subject": "Add Metrics to `api\\embed` response (#5709)"
-        },
-        {
-          "commit": "e8a66680d179f2bea094bf54c6a1dcce19c779a8",
-          "subject": "Merge pull request #5705 from dhiltgen/win_errormode"
-        },
-        {
-          "commit": "a6cd8f6169c029c92105962017562274bd90626b",
-          "subject": "Update README.md to add LLMStack integration (#5799)"
-        },
-        {
-          "commit": "3e5ea035d5b50fe9aa8301e95c66c72f5a2d761f",
-          "subject": "Merge pull request #5757 from lreed-mdsol/lreed/bump-go-version-fix-vulnerabilities"
-        },
-        {
-          "commit": "e8b954c646544d40d84be50aae9cd909fcbd8f41",
-          "subject": "server: validate template (#5734)"
-        },
-        {
-          "commit": "c57317cbf0c865dd1fbe4852e1cce3cf4703b7ee",
-          "subject": "OpenAI: Function Based Testing (#5752)"
-        },
-        {
-          "commit": "51b2fd299cd568093ce796aef3e7e37ae656b02a",
-          "subject": "adjust openai chat msg processing (#5729)"
-        },
-        {
-          "commit": "d0634b15961558fd5a06119ea0a08d3bd8511e43",
-          "subject": "Merge pull request #5780 from ollama/mxyng/tools"
-        },
-        {
-          "commit": "70b1010fa53095b4f8699b04375fa29f8c3e54b0",
-          "subject": "server: check for empty tools array too (#5779)"
-        },
-        {
-          "commit": "84e5721f3a2febbd8bc2600bedcaa6e67aaa9b49",
-          "subject": "always provide content even if empty (#5778)"
-        },
-        {
-          "commit": "319fb1ce033921b70685abce0b2e06f52304fe74",
-          "subject": "server: only parse tool calls if tools are provided (#5771)"
-        },
-        {
-          "commit": "b2554455572b28c0e18423d6fe6896cf7137dbd6",
-          "subject": "marshal json automatically for some template values (#5758)"
-        },
-        {
-          "commit": "b23424bb3c5771dca6628b70638ade3b9fdbd069",
-          "subject": "Merge pull request #5753 from ollama/mxyng/parse-tool-call"
-        },
-        {
-          "commit": "5b82960df840a8bd545b9a60a1b69c089e0e24f1",
-          "subject": "stub response (#5750)"
-        },
-        {
-          "commit": "cc9a252d8c4f1f3237b65847b55998a4f8080194",
-          "subject": "Merge pull request #5732 from ollama/mxyng/cleanup"
-        },
-        {
-          "commit": "d281a6e6036cf122fc9828ca93c58d7d3d57502f",
-          "subject": "add sidellama link (#5702)"
-        },
-        {
-          "commit": "154f6f45d4acd4ea1f2e35cac3b90eb6faeea6bd",
-          "subject": "OpenAI: Support Tools (#5614)"
-        },
-        {
-          "commit": "499e87c9ba9b2b0f30b33cba2faba8a80454fb74",
-          "subject": "Merge pull request #5730 from ollama/mxyng/cleanup"
-        },
-        {
-          "commit": "97c20ede33ca67f8bf21e55ffe318831d83290d0",
-          "subject": "README: Added AI Studio to the list of UIs (#5721)"
-        },
-        {
-          "commit": "a8388beb94bff464d742aaf6d3b94b2264009b86",
-          "subject": "Merge pull request #5726 from ollama/mxyng/tools-templates"
-        },
-        {
-          "commit": "4cb5d7decc08f4c7c136f81b2b5f1c74ebffbc62",
-          "subject": "server: omit model system prompt if empty (#5717)"
-        },
-        {
-          "commit": "7ac6d462ecb9a26591b5f7457bea32c1cd63541f",
-          "subject": "server: return empty slice on empty `/api/embed` request (#5713)"
-        },
-        {
-          "commit": "8288ec8824f76e05d77ca76a6a822cd0ac76d68b",
-          "subject": "Merge pull request #5710 from dhiltgen/rocm_bump"
-        },
-        {
-          "commit": "1605af32ec8d21798ca7599535863c5a3f7a19a7",
-          "subject": "Added a new community project (#574)"
-        },
-        {
-          "commit": "cbc40aa9967d27a58f87442018f2d889782d1980",
-          "subject": "debian installer support (#579)"
-        },
-        {
-          "commit": "e1a0846483b468fd0b09771611fc724d63122794",
-          "subject": "Merge pull request #571 from jmorganca/mxyng/update-dockerfile"
-        },
-        {
-          "commit": "87d9efb3642e4ecd061909c01b3fde26e4c38419",
-          "subject": "switch to forked readline lib which doesn't wreck the repl prompt (#578)"
-        },
-        {
-          "commit": "a89ef99aedffefde201a48a256e4d406bda543f0",
-          "subject": "Merge pull request #575 from jmorganca/mxyng/fix-ipv6-only"
-        },
-        {
-          "commit": "dc0c725ceb7098415dd1daa82fe8c4fb02df8d84",
-          "subject": "ubuntu cuda drivers (#576)"
-        },
-        {
-          "commit": "5d71bda4780ef26850656531773c795ffa81e400",
-          "subject": "close llm on interrupt (#577)"
-        },
-        {
-          "commit": "2044f9d4da96bbe4a8e98330e0060728f1518a23",
-          "subject": "Merge pull request #570 from jmorganca/mxyng/head-request"
-        }
-      ]
-    },
-    {
-      "number": 56,
-      "title": "\ud83d\uddfa\ufe0f [Phase 3 Issue #39]: Scaling Roadmap & Tech Debt",
-      "url": "https://github.com/kushin77/ollama/issues/56",
-      "labels": [
-        "documentation",
-        "needs-evidence",
-        "priority/medium",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/05",
-        "wave/5"
-      ],
-      "updated_at": "2026-04-18T03:09:08Z",
-      "evidence_commits": [
-        {
-          "commit": "75ef4474b837cab046bad376c82792f4de74ad20",
-          "subject": "docs: add final validation report for issues #55, #56, #57"
-        },
-        {
-          "commit": "c701642e2db16bead6c7cdcb87d08c57c3bc4ab9",
-          "subject": "docs: add comprehensive implementation summary for issues #55, #56, #57"
-        },
-        {
-          "commit": "e28ce43d0a9b0aad825c81bc78ce54105546d1f0",
-          "subject": "feat: implement issues #55, #56, #57 - load testing, scaling roadmap, test coverage"
-        },
-        {
-          "commit": "6a0c2ec50f796e547b6db8d17396a03d0105ffe4",
-          "subject": "readme: add terminal tool ParLlama to community integrations (#5623)"
-        },
-        {
-          "commit": "2157b1232e1b28448f2e09062d371aff46574fc3",
-          "subject": "readme: add Terraform AWS Ollama & Open WebUI community example (#5633)"
-        },
-        {
-          "commit": "811bafba8243fbc246470ea4b4fbd07bf04d1564",
-          "subject": "readme: Add LLPhant to community integrations (#5679)"
-        },
-        {
-          "commit": "94fff5805fecd25287e1a21ac9910859011adcff",
-          "subject": "Fix sprintf to snprintf (#5664)"
-        },
-        {
-          "commit": "4de1370a9dcc88b79ddc2d4af2e8c954bdfa67a1",
-          "subject": "openai tools doc (#5617)"
-        },
-        {
-          "commit": "154f6f45d4acd4ea1f2e35cac3b90eb6faeea6bd",
-          "subject": "OpenAI: Support Tools (#5614)"
-        },
-        {
-          "commit": "0d41623b52b77725624a9f4dbc4c0f9a356a9021",
-          "subject": "OpenAI: Add Suffix to `v1/completions` (#5611)"
-        },
-        {
-          "commit": "8eac50dd4f53a15c1d6267d2a4dc810ab63e6909",
-          "subject": "Merge pull request #5684 from ollama/mxyng/tests"
-        },
-        {
-          "commit": "9e35d9bbee4c96ca064bcb7eadc5b2eb3a200ce7",
-          "subject": "server: lowercase roles for compatibility with clients (#5695)"
-        },
-        {
-          "commit": "057d31861e3514b60a7eedf694899067b72bd2fa",
-          "subject": "remove template (#5655)"
-        },
-        {
-          "commit": "1ed0aa8feab58a5cbdf2d79fdb718e3a5cc03525",
-          "subject": "server: fix `context`, `load_duration` and `total_duration` fields (#5676)"
-        },
-        {
-          "commit": "ef98803d63a4e4c56853688343f011256ced130d",
-          "subject": "llm: looser checks for minimum memory (#5677)"
-        },
-        {
-          "commit": "02fea420e5a0042d5e4cfbb5024a6d7e092dc789",
-          "subject": "Add Kerlig AI, an app for macOS (#5675)"
-        },
-        {
-          "commit": "22c5451fc28b20dd83a389c49d9caf6a1e50a9e3",
-          "subject": "fix system prompt (#5662)"
-        },
-        {
-          "commit": "e5c65a85df21a78052bb9f46bdb37bf6838644f7",
-          "subject": "Merge pull request #5653 from ollama/mxyng/collect-system"
-        },
-        {
-          "commit": "33627331a370755ff5033c0fcd71d1c9210c9d96",
-          "subject": "app: also clean up tempdir runners on install (#5646)"
-        },
-        {
-          "commit": "179737feb7311fc57c507a93378a3ac15da3a346",
-          "subject": "Clean up old files when installing on Windows (#5645)"
-        },
-        {
-          "commit": "47353f5ee4ebca31dd51a48eb546f96ae34ee0fe",
-          "subject": "Merge pull request #5639 from ollama/mxyng/unaggregated-system"
-        },
-        {
-          "commit": "10e768826c7d5a8f7d7fab13832299a466a01f87",
-          "subject": "fix: quant err message (#5616)"
-        },
-        {
-          "commit": "c4cf8ad55966cc61c73f119ab9cbfaf57264fc81",
-          "subject": "llm: avoid loading model if system memory is too small (#5637)"
-        },
-        {
-          "commit": "791650ddef9eb11e011506dbd5d22ed6bfcb6a10",
-          "subject": "sched: only error when over-allocating system memory (#5626)"
-        },
-        {
-          "commit": "efbf41ed8151098b942c142e2522b9ab8364f97a",
-          "subject": "llm: dont link cuda with compat libs (#5621)"
-        },
-        {
-          "commit": "cf15589851cf87e46f3a8b3bdb70934b83fd8338",
-          "subject": "Merge pull request #5620 from ollama/mxyng/templates"
-        },
-        {
-          "commit": "37a570f962a300b45c40d1f81beeeeb026dd0776",
-          "subject": "Merge pull request #5612 from ollama/mxyng/mem"
-        },
-        {
-          "commit": "b50c818623049e533ca5f8d07dfe5ead3ca08d9a",
-          "subject": "Merge pull request #5607 from dhiltgen/win_rocm_v6"
-        },
-        {
-          "commit": "b99e750b62932bc33d066d7110538c58986f215a",
-          "subject": "Merge pull request #5605 from dhiltgen/merge_glitch"
-        },
-        {
-          "commit": "0d186f3b3362671292a770c5d38b2ca2bd0d6522",
-          "subject": "Merge pull request #569 from jmorganca/mxyng/update-submodules"
-        },
-        {
-          "commit": "ee1c994d15c7df18886eb454dc90747b3944aef7",
-          "subject": "update submodule (#567)"
-        },
-        {
-          "commit": "8c83701e9ff67ccd14cd70cafb335fb36a69626f",
-          "subject": "Merge pull request #566 from jmorganca/mxyng/api-check-model-exists"
-        },
-        {
-          "commit": "765770efdbb8db463dfc359ae1f9653af908c779",
-          "subject": "Merge pull request #562 from jmorganca/mxyng/fix-ollama-host"
-        }
-      ]
-    },
-    {
-      "number": 55,
-      "title": "\u26a1 [Phase 3 Issue #38]: Load Testing Baseline",
-      "url": "https://github.com/kushin77/ollama/issues/55",
-      "labels": [
-        "needs-evidence",
-        "performance",
-        "priority/medium",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/05",
-        "wave/5"
-      ],
-      "updated_at": "2026-04-18T03:09:07Z",
-      "evidence_commits": [
-        {
-          "commit": "75ef4474b837cab046bad376c82792f4de74ad20",
-          "subject": "docs: add final validation report for issues #55, #56, #57"
-        },
-        {
-          "commit": "c701642e2db16bead6c7cdcb87d08c57c3bc4ab9",
-          "subject": "docs: add comprehensive implementation summary for issues #55, #56, #57"
-        },
-        {
-          "commit": "e28ce43d0a9b0aad825c81bc78ce54105546d1f0",
-          "subject": "feat: implement issues #55, #56, #57 - load testing, scaling roadmap, test coverage"
-        },
-        {
-          "commit": "f564c22e04cc19111e69275225a068640472b20f",
-          "subject": "chore: add load testing framework, test coverage validation, and issue analysis"
-        },
-        {
-          "commit": "37711578a29f86cedcd100fad5c12f4f3277f8b9",
-          "subject": "readme: add R2R to community integrations (#5587)"
-        },
-        {
-          "commit": "c4f27225acd196d0cba3957419834de393b4ecd0",
-          "subject": "readme: add community contribution to readme ollama-kis (#5575)"
-        },
-        {
-          "commit": "50c05d57e0100625ee5bdd4ba9accec7f4536005",
-          "subject": "readme: add Painting Droid community integration (#5514)"
-        },
-        {
-          "commit": "ec4c35fe99e5e5e02f38d94d310615828dd3a2c8",
-          "subject": "Merge pull request #5512 from ollama/mxyng/detect-stop"
-        },
-        {
-          "commit": "37096790a70dc423c1d32828fbc9bf5b2ce6d9b3",
-          "subject": "Merge pull request #5552 from ollama/mxyng/messages-docs"
-        },
-        {
-          "commit": "06e5d74e342fd971f78f07641f424d1189223637",
-          "subject": "Merge pull request #5506 from dhiltgen/sched_tests"
-        },
-        {
-          "commit": "5d707e6fd52e307d583d7a1d6fa20b6deb2e4b38",
-          "subject": "Merge pull request #5583 from dhiltgen/integration_improvements"
-        },
-        {
-          "commit": "4e262eb2a8aaee31e228febc216c2a83a9a7e4d8",
-          "subject": "remove `GGML_CUDA_FORCE_MMQ=on` from build (#5588)"
-        },
-        {
-          "commit": "79292ff3e06219bc67d06932cee98a5ad2ce5c04",
-          "subject": "Merge pull request #5555 from dhiltgen/msvc_deps"
-        },
-        {
-          "commit": "8ea500441dc822d0ecee32fa3cd618dc78643143",
-          "subject": "Merge pull request #5580 from dhiltgen/cuda_overhead"
-        },
-        {
-          "commit": "2d1e3c32291239137fe7763431fc094dc809da28",
-          "subject": "Merge pull request #5503 from dhiltgen/dual_rocm"
-        },
-        {
-          "commit": "4918fae535cb3d146100bacc0eff67a8579a8a7f",
-          "subject": "OpenAI v1/completions: allow stop token list (#5551)"
-        },
-        {
-          "commit": "0aff67877ed01adc00056742c9a88143eeabf0c5",
-          "subject": "separate request tests (#5578)"
-        },
-        {
-          "commit": "9544a57ee4eea209d3dd85690d971a578f4470cb",
-          "subject": "Merge pull request #5579 from dhiltgen/win_static_deps"
-        },
-        {
-          "commit": "e4ff73297db2f53f1ea4b603df5670c5bde6a944",
-          "subject": "server: fix model reloads when setting `OLLAMA_NUM_PARALLEL` (#5560)"
-        },
-        {
-          "commit": "53da2c69654769c0c086af695722e1d9b9ee6ecc",
-          "subject": "llm: remove ambiguous comment when putting upper limit on predictions to avoid infinite generation (#5535)"
-        },
-        {
-          "commit": "d8def1ff9432ef60d1067e5e6dde0d700dd95021",
-          "subject": "llm: allow gemma 2 to context shift (#5534)"
-        },
-        {
-          "commit": "571dc61955ced560a45e9d32b1cd2a52d9803c8c",
-          "subject": "Update llama.cpp submodule to `a8db2a9c` (#5530)"
-        },
-        {
-          "commit": "0e09c380fcae8b81db3c3447d70d721cfad00dbd",
-          "subject": "llm: print caching notices in debug only (#5533)"
-        },
-        {
-          "commit": "0ee87615c74c69d8fbc3cad8f3ea5a2364b1a876",
-          "subject": "sched: don't error if paging to disk on Windows and macOS (#5523)"
-        },
-        {
-          "commit": "f8241bfba384cf8c888847dc44b73d7f43a42d82",
-          "subject": "gpu: report system free memory instead of 0 (#5521)"
-        },
-        {
-          "commit": "4607c706413f1354d0e762d25a9a0a933edc14ec",
-          "subject": "llm: add `-DBUILD_SHARED_LIBS=off` to common cpu cmake flags (#5520)"
-        },
-        {
-          "commit": "e0348d3fe8042b7e378a7cbcee95d17d20a14017",
-          "subject": "llm: add `COMMON_DARWIN_DEFS` to arm static build (#5513)"
-        },
-        {
-          "commit": "2cc854f8cb5b9670fc53134f8104569c60d535be",
-          "subject": "llm: fix missing dylibs by restoring old build behavior on Linux and macOS (#5511)"
-        },
-        {
-          "commit": "5304b765b2bf934070e06412f6617b97a56ae3d2",
-          "subject": "llm: put back old include dir (#5507)"
-        },
-        {
-          "commit": "4fd5f3526a116d05cd74cfcc7217d4e6326e1bea",
-          "subject": "fix cmake build (#5505)"
-        },
-        {
-          "commit": "842f85f758db6d0af8e380b45daeb6bc861e4255",
-          "subject": "Merge pull request #5502 from dhiltgen/ci_fixes"
-        },
-        {
-          "commit": "631cfd9e62362d6aea72da96fa67c52a1fd4e990",
-          "subject": "types/model: remove knowledge of digest (#5500)"
-        },
-        {
-          "commit": "78fb33dd07ecbbd78de2293bc542187afa6b671b",
-          "subject": "fix typo in cgo directives in `llm.go` (#5501)"
-        },
-        {
-          "commit": "c928ceb927bf27ec00fd0d424300362c86927c8d",
-          "subject": "add word wrapping for lines which are longer than the terminal width (#553)"
-        },
-        {
-          "commit": "f997e29e457e510e53382bf619c2729db47ead74",
-          "subject": "Add `Dockerfile.build` for building linux binaries (#558)"
-        },
-        {
-          "commit": "4cba75efc589a4d630dd9182593046ae565fff86",
-          "subject": "remove tmp directories created by previous servers (#559)"
-        },
-        {
-          "commit": "ee4fd16f2c02a643e70c5393f7bb27cfda58671f",
-          "subject": "Merge pull request #556 from jmorganca/pack-cuda"
-        },
-        {
-          "commit": "084e4c782a552fe8442cd4d5bae5b34ab54e843d",
-          "subject": "Merge pull request #557 from jmorganca/mxyng/cleanup"
-        },
-        {
-          "commit": "e35565c5671305cb36926e812cd64f2e0a5d4e38",
-          "subject": "Merge pull request #555 from jmorganca/mxyng/fix-windows-startup"
-        },
-        {
-          "commit": "2627c464ba1e9b032a37babaa6400d2308f562a7",
-          "subject": "Merge pull request #554 from jmorganca/mxyng/fix-windows-startup"
-        },
-        {
-          "commit": "94e1d96b2997bb2af4e729cd7217853234be31db",
-          "subject": "Updated README section on community projects for table (#550)"
-        },
-        {
-          "commit": "ba2bade0d51405dd4abe4edd4d1dfca08099b303",
-          "subject": "Merge pull request #55 from jmorganca/fix-run-generate"
-        }
-      ]
     }
   ],
   "agent_ready": [
@@ -29103,6 +27719,7 @@
       "title": "[Monorepo] Publish migration runbook and validate rollback procedure",
       "url": "https://github.com/kushin77/ollama/issues/398",
       "labels": [
+        "agent-ready",
         "documentation",
         "monorepo",
         "operations",
@@ -29110,13 +27727,14 @@
         "status/triaged",
         "wave/13"
       ],
-      "updated_at": "2026-04-18T02:53:16Z"
+      "updated_at": "2026-04-18T03:26:40Z"
     },
     {
       "number": 397,
       "title": "[Monorepo] Define CODEOWNERS and review policy by domain",
       "url": "https://github.com/kushin77/ollama/issues/397",
       "labels": [
+        "agent-ready",
         "developer-experience",
         "documentation",
         "governance",
@@ -29126,13 +27744,14 @@
         "status/triaged",
         "wave/06"
       ],
-      "updated_at": "2026-04-18T02:48:41Z"
+      "updated_at": "2026-04-18T03:26:41Z"
     },
     {
       "number": 396,
       "title": "[Monorepo] Unify local developer commands and task entrypoints",
       "url": "https://github.com/kushin77/ollama/issues/396",
       "labels": [
+        "agent-ready",
         "bug",
         "developer-experience",
         "monorepo",
@@ -29142,13 +27761,14 @@
         "status/triaged",
         "wave/05"
       ],
-      "updated_at": "2026-04-18T02:48:07Z"
+      "updated_at": "2026-04-18T03:26:41Z"
     },
     {
       "number": 395,
       "title": "[Monorepo] Implement path-based CI workflows and cache strategy",
       "url": "https://github.com/kushin77/ollama/issues/395",
       "labels": [
+        "agent-ready",
         "ci-cd",
         "critical-path",
         "documentation",
@@ -29158,13 +27778,14 @@
         "status/triaged",
         "wave/01"
       ],
-      "updated_at": "2026-04-18T02:46:08Z"
+      "updated_at": "2026-04-18T03:26:42Z"
     },
     {
       "number": 394,
       "title": "[Monorepo] Create shared API contracts package and generated clients",
       "url": "https://github.com/kushin77/ollama/issues/394",
       "labels": [
+        "agent-ready",
         "api",
         "bug",
         "developer-experience",
@@ -29174,13 +27795,14 @@
         "status/triaged",
         "wave/05"
       ],
-      "updated_at": "2026-04-18T02:48:06Z"
+      "updated_at": "2026-04-18T03:26:42Z"
     },
     {
       "number": 393,
       "title": "[Monorepo] Bootstrap pnpm workspace for active JS packages (conditional gate)",
       "url": "https://github.com/kushin77/ollama/issues/393",
       "labels": [
+        "agent-ready",
         "decision-record",
         "developer-experience",
         "frontend",
@@ -29190,13 +27812,14 @@
         "status/triaged",
         "wave/05"
       ],
-      "updated_at": "2026-04-18T02:48:05Z"
+      "updated_at": "2026-04-18T03:26:43Z"
     },
     {
       "number": 392,
       "title": "[Monorepo] Resolve frontend lifecycle state and documentation drift",
       "url": "https://github.com/kushin77/ollama/issues/392",
       "labels": [
+        "agent-ready",
         "architecture",
         "documentation",
         "frontend",
@@ -29205,13 +27828,14 @@
         "status/triaged",
         "wave/13"
       ],
-      "updated_at": "2026-04-18T02:53:14Z"
+      "updated_at": "2026-04-18T03:26:43Z"
     },
     {
       "number": 391,
       "title": "[Monorepo] Introduce apps-packages-infra structure with compatibility shims",
       "url": "https://github.com/kushin77/ollama/issues/391",
       "labels": [
+        "agent-ready",
         "architecture",
         "bug",
         "critical-path",
@@ -29222,13 +27846,14 @@
         "status/triaged",
         "wave/01"
       ],
-      "updated_at": "2026-04-18T02:46:07Z"
+      "updated_at": "2026-04-18T03:26:44Z"
     },
     {
       "number": 390,
       "title": "[ADR] Monorepo topology and pnpm adoption decision",
       "url": "https://github.com/kushin77/ollama/issues/390",
       "labels": [
+        "agent-ready",
         "architecture",
         "decision-record",
         "documentation",
@@ -29238,13 +27863,14 @@
         "status/triaged",
         "wave/13"
       ],
-      "updated_at": "2026-04-18T02:53:13Z"
+      "updated_at": "2026-04-18T03:26:44Z"
     },
     {
       "number": 389,
       "title": "[Monorepo Epic] Repository topology and tooling migration",
       "url": "https://github.com/kushin77/ollama/issues/389",
       "labels": [
+        "agent-ready",
         "architecture",
         "critical-path",
         "monorepo",
@@ -29254,7 +27880,7 @@
         "tracking",
         "wave/01"
       ],
-      "updated_at": "2026-04-18T02:46:05Z"
+      "updated_at": "2026-04-18T03:26:45Z"
     }
   ],
   "blocked": []
