@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-04-18T03:34:56.888535+00:00",
-  "open_issue_count": 312,
+  "generated_at": "2026-04-18T03:38:00.081709+00:00",
+  "open_issue_count": 310,
   "agent_ready_count": 10,
-  "needs_evidence_count": 302,
-  "close_candidate_count": 2,
+  "needs_evidence_count": 300,
+  "close_candidate_count": 0,
   "blocked_count": 0,
   "wave_counts": {
     "wave/01": 25,
     "wave/02": 25,
     "wave/03": 25,
     "wave/04": 25,
-    "wave/05": 23,
-    "wave/06": 23,
+    "wave/05": 22,
+    "wave/06": 22,
     "wave/07": 25,
     "wave/08": 25,
     "wave/09": 25,
@@ -23,24 +23,24 @@
     "wave/2": 25,
     "wave/3": 25,
     "wave/4": 25,
-    "wave/5": 19,
-    "wave/6": 21,
+    "wave/5": 18,
+    "wave/6": 20,
     "wave/7": 25,
     "wave/8": 25,
     "wave/9": 25
   },
   "top_labels": [
     [
-      "status/triaged",
-      312
+      "status/planned-wave",
+      310
     ],
     [
-      "status/planned-wave",
-      312
+      "status/triaged",
+      310
     ],
     [
       "needs-evidence",
-      302
+      300
     ],
     [
       "enhancement",
@@ -56,7 +56,7 @@
     ],
     [
       "priority/medium",
-      45
+      44
     ],
     [
       "security",
@@ -75,11 +75,11 @@
       25
     ],
     [
-      "wave/04",
+      "wave/4",
       25
     ],
     [
-      "wave/4",
+      "wave/04",
       25
     ],
     [
@@ -91,11 +91,11 @@
       25
     ],
     [
-      "wave/03",
+      "wave/3",
       25
     ],
     [
-      "wave/3",
+      "wave/03",
       25
     ],
     [
@@ -111,11 +111,11 @@
       25
     ],
     [
-      "wave/02",
+      "wave/2",
       25
     ],
     [
-      "wave/2",
+      "wave/02",
       25
     ],
     [
@@ -127,96 +127,11 @@
       25
     ],
     [
-      "wave/7",
+      "wave/07",
       25
     ]
   ],
-  "close_candidates": [
-    {
-      "number": 63,
-      "title": "Migrate DriftPredictor to pmo-agent-drift-predictor repo",
-      "url": "https://github.com/kushin77/ollama/issues/63",
-      "labels": [
-        "documentation",
-        "needs-evidence",
-        "priority/medium",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/05",
-        "wave/5"
-      ],
-      "updated_at": "2026-04-18T03:25:42Z",
-      "evidence_commits": [
-        {
-          "commit": "97d63fce51f98266092fbba5f06c86ff6fcd47c2",
-          "subject": "docs: add comprehensive GitHub issues closure summary",
-          "matched_keywords": [
-            "drift",
-            "predictor"
-          ],
-          "has_closure_verb": true,
-          "confidence": "high"
-        },
-        {
-          "commit": "da42f189440e26e9c68d86a6a6b27f8fdeb9f279",
-          "subject": "refactor: migrate PMO agents to separate repositories",
-          "matched_keywords": [
-            "drift",
-            "predictor"
-          ],
-          "has_closure_verb": true,
-          "confidence": "high"
-        }
-      ]
-    },
-    {
-      "number": 61,
-      "title": "PMO Agent Migration: Separate Repos for Independent Development",
-      "url": "https://github.com/kushin77/ollama/issues/61",
-      "labels": [
-        "needs-evidence",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/06",
-        "wave/6"
-      ],
-      "updated_at": "2026-04-18T03:25:41Z",
-      "evidence_commits": [
-        {
-          "commit": "97d63fce51f98266092fbba5f06c86ff6fcd47c2",
-          "subject": "docs: add comprehensive GitHub issues closure summary",
-          "matched_keywords": [
-            "repos",
-            "independent"
-          ],
-          "has_closure_verb": true,
-          "confidence": "high"
-        },
-        {
-          "commit": "ab132fc131d28d14c2e68c264998df99d9ffb490",
-          "subject": "docs: add final delivery report for PMO agent migration",
-          "matched_keywords": [
-            "separate",
-            "repos"
-          ],
-          "has_closure_verb": true,
-          "confidence": "high"
-        },
-        {
-          "commit": "da42f189440e26e9c68d86a6a6b27f8fdeb9f279",
-          "subject": "refactor: migrate PMO agents to separate repositories",
-          "matched_keywords": [
-            "separate",
-            "repos",
-            "independent",
-            "development"
-          ],
-          "has_closure_verb": true,
-          "confidence": "high"
-        }
-      ]
-    }
-  ],
+  "close_candidates": [],
   "needs_evidence": [
     {
       "number": 379,
@@ -4869,43 +4784,6 @@
       "evidence_commits": []
     },
     {
-      "number": 63,
-      "title": "Migrate DriftPredictor to pmo-agent-drift-predictor repo",
-      "url": "https://github.com/kushin77/ollama/issues/63",
-      "labels": [
-        "documentation",
-        "needs-evidence",
-        "priority/medium",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/05",
-        "wave/5"
-      ],
-      "updated_at": "2026-04-18T03:25:42Z",
-      "evidence_commits": [
-        {
-          "commit": "97d63fce51f98266092fbba5f06c86ff6fcd47c2",
-          "subject": "docs: add comprehensive GitHub issues closure summary",
-          "matched_keywords": [
-            "drift",
-            "predictor"
-          ],
-          "has_closure_verb": true,
-          "confidence": "high"
-        },
-        {
-          "commit": "da42f189440e26e9c68d86a6a6b27f8fdeb9f279",
-          "subject": "refactor: migrate PMO agents to separate repositories",
-          "matched_keywords": [
-            "drift",
-            "predictor"
-          ],
-          "has_closure_verb": true,
-          "confidence": "high"
-        }
-      ]
-    },
-    {
       "number": 62,
       "title": "Migrate RemediationEngine to pmo-agent-remediation repo",
       "url": "https://github.com/kushin77/ollama/issues/62",
@@ -4918,53 +4796,6 @@
       ],
       "updated_at": "2026-04-18T03:25:42Z",
       "evidence_commits": []
-    },
-    {
-      "number": 61,
-      "title": "PMO Agent Migration: Separate Repos for Independent Development",
-      "url": "https://github.com/kushin77/ollama/issues/61",
-      "labels": [
-        "needs-evidence",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/06",
-        "wave/6"
-      ],
-      "updated_at": "2026-04-18T03:25:41Z",
-      "evidence_commits": [
-        {
-          "commit": "97d63fce51f98266092fbba5f06c86ff6fcd47c2",
-          "subject": "docs: add comprehensive GitHub issues closure summary",
-          "matched_keywords": [
-            "repos",
-            "independent"
-          ],
-          "has_closure_verb": true,
-          "confidence": "high"
-        },
-        {
-          "commit": "ab132fc131d28d14c2e68c264998df99d9ffb490",
-          "subject": "docs: add final delivery report for PMO agent migration",
-          "matched_keywords": [
-            "separate",
-            "repos"
-          ],
-          "has_closure_verb": true,
-          "confidence": "high"
-        },
-        {
-          "commit": "da42f189440e26e9c68d86a6a6b27f8fdeb9f279",
-          "subject": "refactor: migrate PMO agents to separate repositories",
-          "matched_keywords": [
-            "separate",
-            "repos",
-            "independent",
-            "development"
-          ],
-          "has_closure_verb": true,
-          "confidence": "high"
-        }
-      ]
     },
     {
       "number": 60,
