@@ -1,101 +1,10 @@
 {
-  "generated_at_utc": "2026-04-18T03:57:14.847281+00:00",
+  "generated_at_utc": "2026-04-18T03:57:50.102068+00:00",
   "repository": "kushin77/ollama",
-  "source_report": ".github/wave_assignment_report_20260418T035656Z.json",
+  "source_report": ".github/wave_assignment_report_20260418T035736Z.json",
   "rate_limit_blocked": false,
-  "deferred_count": 18,
-  "deferred_issues": [
-    {
-      "issue": 102,
-      "wave": 1,
-      "reason": "budget_or_rate_limit"
-    },
-    {
-      "issue": 105,
-      "wave": 1,
-      "reason": "budget_or_rate_limit"
-    },
-    {
-      "issue": 106,
-      "wave": 2,
-      "reason": "budget_or_rate_limit"
-    },
-    {
-      "issue": 107,
-      "wave": 2,
-      "reason": "budget_or_rate_limit"
-    },
-    {
-      "issue": 108,
-      "wave": 2,
-      "reason": "budget_or_rate_limit"
-    },
-    {
-      "issue": 109,
-      "wave": 2,
-      "reason": "budget_or_rate_limit"
-    },
-    {
-      "issue": 110,
-      "wave": 2,
-      "reason": "budget_or_rate_limit"
-    },
-    {
-      "issue": 111,
-      "wave": 2,
-      "reason": "budget_or_rate_limit"
-    },
-    {
-      "issue": 112,
-      "wave": 2,
-      "reason": "budget_or_rate_limit"
-    },
-    {
-      "issue": 113,
-      "wave": 2,
-      "reason": "budget_or_rate_limit"
-    },
-    {
-      "issue": 114,
-      "wave": 2,
-      "reason": "budget_or_rate_limit"
-    },
-    {
-      "issue": 115,
-      "wave": 2,
-      "reason": "budget_or_rate_limit"
-    },
-    {
-      "issue": 116,
-      "wave": 2,
-      "reason": "budget_or_rate_limit"
-    },
-    {
-      "issue": 117,
-      "wave": 2,
-      "reason": "budget_or_rate_limit"
-    },
-    {
-      "issue": 118,
-      "wave": 2,
-      "reason": "budget_or_rate_limit"
-    },
-    {
-      "issue": 119,
-      "wave": 2,
-      "reason": "budget_or_rate_limit"
-    },
-    {
-      "issue": 120,
-      "wave": 2,
-      "reason": "budget_or_rate_limit"
-    },
-    {
-      "issue": 121,
-      "wave": 2,
-      "reason": "budget_or_rate_limit"
-    }
-  ],
+  "deferred_count": 0,
+  "deferred_issues": [],
   "retry_instructions": [
     "rerun scripts/run_autonomous_issue_cycle.py --config .github/autonomous_cycle.iac.json",
     "commit the updated wave_assignment_report_*.json and deferred queue after each pass",
