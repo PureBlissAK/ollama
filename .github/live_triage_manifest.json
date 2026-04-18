@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-18T04:42:35.439605+00:00",
+  "generated_at": "2026-04-18T04:44:27.565324+00:00",
   "open_issue_count": 294,
   "agent_ready_count": 10,
   "needs_evidence_count": 284,
@@ -31,15 +31,15 @@
   },
   "top_labels": [
     [
+      "agent-ready",
+      294
+    ],
+    [
       "status/triaged",
       294
     ],
     [
       "status/planned-wave",
-      294
-    ],
-    [
-      "agent-ready",
       294
     ],
     [
@@ -107,15 +107,11 @@
       25
     ],
     [
-      "wave/03",
-      25
-    ],
-    [
       "wave/3",
       25
     ],
     [
-      "wave/09",
+      "wave/03",
       25
     ],
     [
@@ -123,11 +119,15 @@
       25
     ],
     [
-      "wave/02",
+      "wave/09",
       25
     ],
     [
       "wave/2",
+      25
+    ],
+    [
+      "wave/02",
       25
     ]
   ],
