@@ -1,3 +1,62 @@
+
+// ListServices returns all services for models.
+func (sm *ServiceManager) ListServices(ctx context.Context) ([]*corev1.Service, error) {
+	services, err := sm.provider.clientset.CoreV1().Services(sm.provider.namespace).List(ctx, metav1.ListOptions{
+		LabelSelector: "app=ollama",
+	})
+	if err != nil {
+		return nil, NewKubernetesError(
+			ErrTypeDeploymentFailed,
+			"failed to list services",
+			err,
+		)
+	}
+
+	result := make([]*corev1.Service, len(services.Items))
+	for i := range services.Items {
+		result[i] = &services.Items[i]
+	}
+	return result, nil
+}
+
+// generateServiceManifest creates a Kubernetes Service manifest.
+func (sm *ServiceManager) generateServiceManifest(spec *ServiceSpec) *corev1.Service {
+	svcType := corev1.ServiceTypeClusterIP
+	if spec.Type != "" {
+		svcType = spec.Type
+	}
+
+	service := &corev1.Service{
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      spec.Name,
+			Namespace: sm.provider.namespace,
+			Labels: map[string]string{
+				"app":   "ollama",
+				"model": spec.ModelName,
+			},
+		},
+		Spec: corev1.ServiceSpec{
+			Type:     svcType,
+			Selector: spec.Selector,
+			Ports: []corev1.ServicePort{
+				{
+					Name:       "api",
+					Port:       spec.Port,
+					TargetPort: intstr.FromInt(int(spec.Port)),
+					Protocol:   corev1.ProtocolTCP,
+				},
+			},
+		},
+	}
+
+	return service
+}
+
+// createContext returns a context for service manager operations.
+// This is a helper to ensure consistent context handling.
+func (sm *ServiceManager) createContext() context.Context {
+	return context.Background()
+}
 package kubernetes
 
 import (
@@ -6,6 +65,7 @@ import (
 
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/util/intstr"
 )
 
 // ServiceManager handles Kubernetes service creation and management.
@@ -56,12 +116,27 @@ func (sm *ServiceManager) CreateService(ctx context.Context, spec *ServiceSpec) 
 		).WithDetails("port", spec.Port)
 	}
 
-	// TODO: Implement service creation
-	// 1. Validate input
-	// 2. Build Service manifest
-	// 3. Create Service via API
-	// 4. Return Service object
-	return nil, fmt.Errorf("not implemented")
+	// Build Service manifest
+	service := sm.generateServiceManifest(spec)
+	if service == nil {
+		return nil, NewKubernetesError(
+			ErrTypeInvalidConfig,
+			"failed to generate service manifest",
+			fmt.Errorf("generated manifest is nil"),
+		)
+	}
+
+	// Create Service via API
+	created, err := sm.provider.clientset.CoreV1().Services(sm.provider.namespace).Create(sm.createContext(), service, metav1.CreateOptions{})
+	if err != nil {
+		return nil, NewKubernetesError(
+			ErrTypeDeploymentFailed,
+			fmt.Sprintf("failed to create service %s", spec.Name),
+			err,
+		).WithDetails("service", spec.Name)
+	}
+
+	return created, nil
 }
 
 // UpdateService updates an existing service.
@@ -84,9 +159,16 @@ func (sm *ServiceManager) DeleteService(ctx context.Context, name string) error 
 		)
 	}
 
-	// TODO: Implement service deletion
-	// 1. Delete Service by name
-	// 2. Verify deletion
+	// Delete Service by name
+	err := sm.provider.clientset.CoreV1().Services(sm.provider.namespace).Delete(sm.createContext(), name, metav1.DeleteOptions{})
+	if err != nil {
+		return NewKubernetesError(
+			ErrTypeDeploymentFailed,
+			fmt.Sprintf("failed to delete service %s", name),
+			err,
+		).WithDetails("service", name)
+	}
+	
 	return nil
 }
 
@@ -111,24 +193,17 @@ func (sm *ServiceManager) GetEndpoints(ctx context.Context, name string) (*corev
 		)
 	}
 
-	// TODO: Implement endpoint retrieval
-	// 1. Get Endpoints by Service name
-	// 2. Extract pod IPs and ports
-	// 3. Return Endpoints object
-	return nil, fmt.Errorf("not implemented")
+	// Get Endpoints by Service name
+	endpoints, err := sm.provider.clientset.CoreV1().Endpoints(sm.provider.namespace).Get(sm.createContext(), name, metav1.GetOptions{})
+	if err != nil {
+		return nil, NewKubernetesError(
+			ErrTypeNotFound,
+			fmt.Sprintf("endpoints not found for service %s", name),
+			err,
+		).WithDetails("service", name)
+	}
+	
+	return endpoints, nil
 }
 
-// ListServices returns all services for models.
-func (sm *ServiceManager) ListServices(ctx context.Context) ([]*corev1.Service, error) {
-	// TODO: Implement service listing
-	// 1. List all Services with model labels
-	// 2. Filter by app=ollama
-	// 3. Return list
-	return nil, fmt.Errorf("not implemented")
-}
 
-// generateServiceManifest creates a Kubernetes Service manifest.
-func (sm *ServiceManager) generateServiceManifest(spec *ServiceSpec) *corev1.Service {
-	// TODO: Implement manifest generation
-	return nil
-}
