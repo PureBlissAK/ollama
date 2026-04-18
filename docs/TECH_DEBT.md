@@ -28,7 +28,7 @@
 **Remediation Plan**:
 ```
 Week 1-2: Design spoke cluster topology
-Week 3-4: Implement CAPI controller setup  
+Week 3-4: Implement CAPI controller setup
 Week 5-6: Deploy pilot spoke clusters (5)
 Week 7-8: Production spoke rollout
 ```
@@ -292,6 +292,6 @@ Projected Completion: Q3 2027
 
 ---
 
-**Last Updated**: 2026-04-18  
-**Maintained By**: @architecture-team  
+**Last Updated**: 2026-04-18
+**Maintained By**: @architecture-team
 **Review Cycle**: Monthly

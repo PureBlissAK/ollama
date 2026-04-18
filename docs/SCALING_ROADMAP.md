@@ -487,8 +487,8 @@ Timeline: 12-60 months (3-5 years total)
 
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: 2026-04-18  
-**Owner**: @architecture-team  
-**Approval**: @engineering-director  
+**Document Version**: 1.0
+**Last Updated**: 2026-04-18
+**Owner**: @architecture-team
+**Approval**: @engineering-director
 **Review Cycle**: Monthly

@@ -15,8 +15,8 @@
 
 ## ADR-001: Microservices Architecture
 
-**Status:** ACCEPTED  
-**Date:** 2026-04-18  
+**Status:** ACCEPTED
+**Date:** 2026-04-18
 **Participants:** Architecture Team, DevOps
 
 ### Context
@@ -63,8 +63,8 @@ API Gateway (Edge)
 
 ## ADR-002: Kubernetes Deployment Strategy
 
-**Status:** ACCEPTED  
-**Date:** 2026-04-18  
+**Status:** ACCEPTED
+**Date:** 2026-04-18
 **Participants:** DevOps, Site Reliability
 
 ### Context
@@ -131,8 +131,8 @@ clusters/
 
 ## ADR-003: Event-Driven Model Loading
 
-**Status:** ACCEPTED  
-**Date:** 2026-04-18  
+**Status:** ACCEPTED
+**Date:** 2026-04-18
 **Participants:** Architecture, ML Ops
 
 ### Context
@@ -182,8 +182,8 @@ API Requests
 
 ## ADR-004: Multi-Region Failover
 
-**Status:** ACCEPTED  
-**Date:** 2026-04-18  
+**Status:** ACCEPTED
+**Date:** 2026-04-18
 **Participants:** Site Reliability, Architecture
 
 ### Context
@@ -236,8 +236,8 @@ Each region:
 
 ## ADR-005: Observability & Monitoring Stack
 
-**Status:** ACCEPTED  
-**Date:** 2026-04-18  
+**Status:** ACCEPTED
+**Date:** 2026-04-18
 **Participants:** DevOps, SRE, Platform
 
 ### Context
@@ -259,8 +259,8 @@ Plus **centralized alerting** (Alertmanager) and **visualization** (Grafana).
 ```
 Data Sources                Collectors          Storage              Visualization
 ├── Application Metrics  → Prometheus Agent →  Prometheus/Cortex → Grafana Dashboards
-├── Container Metrics    → cAdvisor           
-├── Cluster Metrics      → kubelet            
+├── Container Metrics    → cAdvisor
+├── Cluster Metrics      → kubelet
 ├── Application Logs     → Fluent-Bit       → Loki              → Grafana Logs
 ├── System Logs          → Logstash          → ELK               → ELK Kibana
 └── Traces               → OpenTelemetry    → Jaeger/Tempo      → Jaeger UI
@@ -291,8 +291,8 @@ Service Level Objectives (SLOs):
 
 ## ADR-006: API Versioning Strategy
 
-**Status:** ACCEPTED  
-**Date:** 2026-04-18  
+**Status:** ACCEPTED
+**Date:** 2026-04-18
 **Participants:** API Team, Architects
 
 ### Context
@@ -316,9 +316,9 @@ v0/  |######### (deprecated: full support)
 v0/  |        |######## (deprecated: maintenance only)
       ↓
 v0/  |                 | SHUTDOWN
-      
+
 v1/  |#################### (current: full support)
-      
+
 v2/  |                     |#################### (next generation)
 ```
 
@@ -345,8 +345,8 @@ Use this template for new ADRs:
 ```markdown
 ## ADR-NNN: Title
 
-**Status:** PROPOSED|ACCEPTED|SUPERSEDED|DEPRECATED  
-**Date:** YYYY-MM-DD  
+**Status:** PROPOSED|ACCEPTED|SUPERSEDED|DEPRECATED
+**Date:** YYYY-MM-DD
 **Participants:** Names
 
 ### Context
