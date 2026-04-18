@@ -1,0 +1,391 @@
+{
+  "generated_at_utc": "2026-04-18T02:39:16.726686+00:00",
+  "repository": "kushin77/ollama",
+  "selection_policy": "severity_then_issue_number",
+  "open_issue_count": 319,
+  "next_wave_size": 25,
+  "next_wave_issues": [
+    {
+      "number": 389,
+      "title": "[Monorepo Epic] Repository topology and tooling migration",
+      "labels": [
+        "tracking",
+        "status/triaged",
+        "priority/low",
+        "monorepo",
+        "architecture",
+        "critical-path"
+      ],
+      "severity": "critical",
+      "updated_at": "2026-04-18T02:28:48Z",
+      "url": "https://github.com/kushin77/ollama/issues/389"
+    },
+    {
+      "number": 391,
+      "title": "[Monorepo] Introduce apps-packages-infra structure with compatibility shims",
+      "labels": [
+        "bug",
+        "python",
+        "status/triaged",
+        "priority/low",
+        "monorepo",
+        "architecture",
+        "critical-path"
+      ],
+      "severity": "critical",
+      "updated_at": "2026-04-18T02:28:47Z",
+      "url": "https://github.com/kushin77/ollama/issues/391"
+    },
+    {
+      "number": 395,
+      "title": "[Monorepo] Implement path-based CI workflows and cache strategy",
+      "labels": [
+        "documentation",
+        "ci-cd",
+        "status/triaged",
+        "priority/low",
+        "monorepo",
+        "critical-path"
+      ],
+      "severity": "critical",
+      "updated_at": "2026-04-18T02:28:45Z",
+      "url": "https://github.com/kushin77/ollama/issues/395"
+    },
+    {
+      "number": 67,
+      "title": "Vscode/workspace integration",
+      "labels": [
+        "bug",
+        "status/triaged",
+        "priority/medium",
+        "needs-evidence"
+      ],
+      "severity": "high",
+      "updated_at": "2026-04-18T02:36:38Z",
+      "url": "https://github.com/kushin77/ollama/issues/67"
+    },
+    {
+      "number": 82,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence"
+      ],
+      "severity": "high",
+      "updated_at": "2026-04-18T02:36:35Z",
+      "url": "https://github.com/kushin77/ollama/issues/82"
+    },
+    {
+      "number": 83,
+      "title": "\ud83d\udcb0 Monthly Cost Report - February 2026",
+      "labels": [
+        "bug",
+        "pmo",
+        "automated",
+        "cost-tracking",
+        "monthly-report",
+        "status/triaged",
+        "priority/medium",
+        "needs-evidence"
+      ],
+      "severity": "high",
+      "updated_at": "2026-04-18T02:36:34Z",
+      "url": "https://github.com/kushin77/ollama/issues/83"
+    },
+    {
+      "number": 84,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence"
+      ],
+      "severity": "high",
+      "updated_at": "2026-04-18T02:36:33Z",
+      "url": "https://github.com/kushin77/ollama/issues/84"
+    },
+    {
+      "number": 86,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence"
+      ],
+      "severity": "high",
+      "updated_at": "2026-04-18T02:36:32Z",
+      "url": "https://github.com/kushin77/ollama/issues/86"
+    },
+    {
+      "number": 87,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence"
+      ],
+      "severity": "high",
+      "updated_at": "2026-04-18T02:36:31Z",
+      "url": "https://github.com/kushin77/ollama/issues/87"
+    },
+    {
+      "number": 88,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence"
+      ],
+      "severity": "high",
+      "updated_at": "2026-04-18T02:36:29Z",
+      "url": "https://github.com/kushin77/ollama/issues/88"
+    },
+    {
+      "number": 89,
+      "title": "EOD: lint/mypy failures \u2014 cleanup required",
+      "labels": [
+        "bug",
+        "status/triaged",
+        "priority/medium",
+        "needs-evidence"
+      ],
+      "severity": "high",
+      "updated_at": "2026-04-18T02:36:28Z",
+      "url": "https://github.com/kushin77/ollama/issues/89"
+    },
+    {
+      "number": 90,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence"
+      ],
+      "severity": "high",
+      "updated_at": "2026-04-18T02:36:28Z",
+      "url": "https://github.com/kushin77/ollama/issues/90"
+    },
+    {
+      "number": 91,
+      "title": "\ud83d\udcb0 Monthly Cost Report - March 2026",
+      "labels": [
+        "bug",
+        "pmo",
+        "automated",
+        "cost-tracking",
+        "monthly-report",
+        "status/triaged",
+        "priority/medium",
+        "needs-evidence"
+      ],
+      "severity": "high",
+      "updated_at": "2026-04-18T02:36:27Z",
+      "url": "https://github.com/kushin77/ollama/issues/91"
+    },
+    {
+      "number": 92,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence"
+      ],
+      "severity": "high",
+      "updated_at": "2026-04-18T02:36:26Z",
+      "url": "https://github.com/kushin77/ollama/issues/92"
+    },
+    {
+      "number": 93,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence"
+      ],
+      "severity": "high",
+      "updated_at": "2026-04-18T02:36:25Z",
+      "url": "https://github.com/kushin77/ollama/issues/93"
+    },
+    {
+      "number": 94,
+      "title": "\ud83d\udcb0 Monthly Cost Report - April 2026",
+      "labels": [
+        "bug",
+        "pmo",
+        "automated",
+        "cost-tracking",
+        "monthly-report",
+        "status/triaged",
+        "priority/medium",
+        "needs-evidence"
+      ],
+      "severity": "high",
+      "updated_at": "2026-04-18T02:36:24Z",
+      "url": "https://github.com/kushin77/ollama/issues/94"
+    },
+    {
+      "number": 95,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence"
+      ],
+      "severity": "high",
+      "updated_at": "2026-04-18T02:36:23Z",
+      "url": "https://github.com/kushin77/ollama/issues/95"
+    },
+    {
+      "number": 96,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence"
+      ],
+      "severity": "high",
+      "updated_at": "2026-04-18T02:36:22Z",
+      "url": "https://github.com/kushin77/ollama/issues/96"
+    },
+    {
+      "number": 97,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence"
+      ],
+      "severity": "high",
+      "updated_at": "2026-04-18T02:36:21Z",
+      "url": "https://github.com/kushin77/ollama/issues/97"
+    },
+    {
+      "number": 98,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence"
+      ],
+      "severity": "high",
+      "updated_at": "2026-04-18T02:36:20Z",
+      "url": "https://github.com/kushin77/ollama/issues/98"
+    },
+    {
+      "number": 99,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence"
+      ],
+      "severity": "high",
+      "updated_at": "2026-04-18T02:36:19Z",
+      "url": "https://github.com/kushin77/ollama/issues/99"
+    },
+    {
+      "number": 100,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence"
+      ],
+      "severity": "high",
+      "updated_at": "2026-04-18T02:36:18Z",
+      "url": "https://github.com/kushin77/ollama/issues/100"
+    },
+    {
+      "number": 101,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence"
+      ],
+      "severity": "high",
+      "updated_at": "2026-04-18T02:36:17Z",
+      "url": "https://github.com/kushin77/ollama/issues/101"
+    },
+    {
+      "number": 102,
+      "title": "\ud83d\udea8 Security Vulnerabilities Detected",
+      "labels": [
+        "security",
+        "priority-p0",
+        "automated",
+        "type-bug",
+        "status/triaged",
+        "needs-evidence"
+      ],
+      "severity": "high",
+      "updated_at": "2026-04-18T02:36:15Z",
+      "url": "https://github.com/kushin77/ollama/issues/102"
+    },
+    {
+      "number": 105,
+      "title": "Monthly Cost Report - April 2026 [from ollama#94]",
+      "labels": [
+        "bug",
+        "status/triaged",
+        "priority/medium",
+        "needs-evidence"
+      ],
+      "severity": "high",
+      "updated_at": "2026-04-18T02:36:14Z",
+      "url": "https://github.com/kushin77/ollama/issues/105"
+    }
+  ],
+  "execution_rules": [
+    "implement issue with code/docs/tests as appropriate",
+    "post commit evidence comment before closure",
+    "close only after verification evidence",
+    "commit all generated reports/artifacts"
+  ]
+}
