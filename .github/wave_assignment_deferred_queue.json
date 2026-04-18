@@ -1,56 +1,10 @@
 {
-  "generated_at_utc": "2026-04-18T03:27:18.694653+00:00",
+  "generated_at_utc": "2026-04-18T03:55:41.700996+00:00",
   "repository": "kushin77/ollama",
-  "source_report": ".github/wave_assignment_report_20260418T032659Z.json",
+  "source_report": ".github/wave_assignment_report_20260418T035533Z.json",
   "rate_limit_blocked": false,
-  "deferred_count": 9,
-  "deferred_issues": [
-    {
-      "issue": 148,
-      "wave": 7,
-      "reason": "budget_or_rate_limit"
-    },
-    {
-      "issue": 149,
-      "wave": 7,
-      "reason": "budget_or_rate_limit"
-    },
-    {
-      "issue": 150,
-      "wave": 7,
-      "reason": "budget_or_rate_limit"
-    },
-    {
-      "issue": 151,
-      "wave": 7,
-      "reason": "budget_or_rate_limit"
-    },
-    {
-      "issue": 152,
-      "wave": 7,
-      "reason": "budget_or_rate_limit"
-    },
-    {
-      "issue": 153,
-      "wave": 7,
-      "reason": "budget_or_rate_limit"
-    },
-    {
-      "issue": 154,
-      "wave": 7,
-      "reason": "budget_or_rate_limit"
-    },
-    {
-      "issue": 155,
-      "wave": 7,
-      "reason": "budget_or_rate_limit"
-    },
-    {
-      "issue": 156,
-      "wave": 7,
-      "reason": "budget_or_rate_limit"
-    }
-  ],
+  "deferred_count": 0,
+  "deferred_issues": [],
   "retry_instructions": [
     "rerun scripts/run_autonomous_issue_cycle.py --config .github/autonomous_cycle.iac.json",
     "commit the updated wave_assignment_report_*.json and deferred queue after each pass",
