@@ -91,6 +91,18 @@ View issues from a different repository:
 go run cmd/github-issues/main.go -owner golang -repo go
 ```
 
+Fetch every page and write JSON to a file:
+
+```bash
+go run cmd/github-issues/main.go -all-pages -output json -out-file issues.json
+```
+
+Watch for changes every 30 seconds and print only deltas:
+
+```bash
+go run cmd/github-issues/main.go -watch 30s -diff -output table
+```
+
 ## Output Format
 
 The tool displays issues in a table format:
@@ -117,12 +129,16 @@ Each issue shows:
 
 ## Implementation
 
-The tool uses the GitHub client from `internal/secrets/github.go`, which provides:
+The CLI is self-contained in `cmd/github-issues/main.go` and uses the GitHub REST API directly via `net/http`.
 
-- `ListIssues()` - Retrieve a list of issues with filtering/sorting
-- `GetIssue()` - Retrieve a single issue by number
-- `GetAuthenticatedUser()` - Get information about the authenticated user
-- `GetRepository()` - Get repository information
+Implementation guarantees:
+
+- Default 30 second HTTP timeout to avoid hanging requests
+- Tunable client options via `NewClientWithOptions`
+- `NewClientWithURL` for tests and alternate API endpoints
+- Pagination support for full repository scans
+- Table, JSON, and CSV output modes
+- Watch mode with diff-only output for dashboards and automation
 
 ## Troubleshooting
 
