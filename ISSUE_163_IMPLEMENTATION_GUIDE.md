@@ -1,8 +1,8 @@
 # Issue #163: Secret Scanning - Detect & Redact Secrets Implementation Guide
 
-**Priority**: CRITICAL - Security  
-**Complexity**: High  
-**Effort**: 35 hours  
+**Priority**: CRITICAL - Security
+**Complexity**: High
+**Effort**: 35 hours
 **Status**: Ready for Implementation
 
 ## Problem Statement
@@ -39,31 +39,31 @@ func NewSecretDetector() *SecretDetector {
         patterns: map[string]*regexp.Regexp{
             // AWS Keys: AKIA + 16 alphanumeric
             "aws_access_key": regexp.MustCompile(`AKIA[0-9A-Z]{16}`),
-            
+
             // AWS Secret Key: 40 character base64-like
             "aws_secret_key": regexp.MustCompile(`(?i)aws_secret_access_key['\"]?\s*[:=]\s*['\"]?([A-Za-z0-9/+=]{40})`),
-            
+
             // GitHub Personal Access Token
             "github_pat": regexp.MustCompile(`ghp_[A-Za-z0-9_]{36,255}`),
-            
+
             // GitHub OAuth Token
             "github_oauth": regexp.MustCompile(`gho_[A-Za-z0-9_]{36,255}`),
-            
+
             // GitHub App Token
             "github_app_token": regexp.MustCompile(`ghu_[A-Za-z0-9_]{36,255}`),
-            
+
             // Private SSH Key (begin/end markers)
             "ssh_private_key": regexp.MustCompile(`-----BEGIN (?:RSA|DSA|EC|PGP)? ?PRIVATE KEY`),
-            
+
             // Generic password patterns (e.g., password=value)
             "password": regexp.MustCompile(`(?i)password['\"]?\s*[:=]\s*['\"]?([^\s'\"]+)['\"]?`),
-            
+
             // JWT tokens (consist of 3 base64url parts)
             "jwt_token": regexp.MustCompile(`eyJ[A-Za-z0-9_\-]+\.eyJ[A-Za-z0-9_\-]+\.([A-Za-z0-9_\-/+=]+)?`),
-            
+
             // API Keys (generic: "api_key" = "...")
             "api_key": regexp.MustCompile(`(?i)api[_-]?key['\"]?\s*[:=]\s*['\"]?([A-Za-z0-9\-_]{20,})['\"]?`),
-            
+
             // Database URLs with credentials
             "db_url": regexp.MustCompile(`(postgres|mysql|mongodb)://[^:]+:[^@]+@[^\s]+`),
         },
@@ -73,7 +73,7 @@ func NewSecretDetector() *SecretDetector {
 // DetectSecrets scans text and returns locations of detected secrets
 func (d *SecretDetector) DetectSecrets(text string) []Secret {
     var detected []Secret
-    
+
     for secretType, pattern := range d.patterns {
         matches := pattern.FindAllStringIndex(text, -1)
         for _, match := range matches {
@@ -86,21 +86,21 @@ func (d *SecretDetector) DetectSecrets(text string) []Secret {
             })
         }
     }
-    
+
     return detected
 }
 
 // RedactSecrets replaces detected secrets with [REDACTED]
 func (d *SecretDetector) RedactSecrets(text string) (string, []Secret) {
     secrets := d.DetectSecrets(text)
-    
+
     // Replace from end to start to preserve indices
     result := text
     for i := len(secrets) - 1; i >= 0; i-- {
         secret := secrets[i]
         result = result[:secret.Start] + "[REDACTED]" + result[secret.End:]
     }
-    
+
     return result, secrets
 }
 
@@ -134,7 +134,7 @@ package middleware
 import (
     "log"
     "net/http"
-    
+
     "ollama/server/secrets"
 )
 
@@ -158,31 +158,31 @@ func (m *SecretScannerMiddleware) ScanGenerateRequests(next http.Handler) http.H
             next.ServeHTTP(w, r)
             return
         }
-        
+
         // Parse request body
         var req struct {
             Prompt string `json:"prompt"`
             Model  string `json:"model"`
         }
-        
+
         if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
             next.ServeHTTP(w, r)
             return
         }
-        
+
         // Detect secrets
         detected := m.detector.DetectSecrets(req.Prompt)
-        
+
         if len(detected) > 0 {
             // Log security event
             m.logger.Printf("SECURITY: Secrets detected in prompt from %s", r.RemoteAddr)
             for _, secret := range detected {
                 m.logger.Printf("  - %s (severity: %s)", secret.Type, secret.Severity)
             }
-            
+
             // Redact secrets before processing
             req.Prompt, _ = m.detector.RedactSecrets(req.Prompt)
-            
+
             // Optionally: reject request if critical secrets found
             for _, secret := range detected {
                 if secret.Severity == "critical" {
@@ -191,11 +191,11 @@ func (m *SecretScannerMiddleware) ScanGenerateRequests(next http.Handler) http.H
                 }
             }
         }
-        
+
         // Continue with processed request
         newBody, _ := json.Marshal(req)
         r.Body = io.NopCloser(bytes.NewReader(newBody))
-        
+
         next.ServeHTTP(w, r)
     })
 }
@@ -207,15 +207,15 @@ func (m *SecretScannerMiddleware) ScanChatRequests(next http.Handler) http.Handl
             next.ServeHTTP(w, r)
             return
         }
-        
+
         var req struct {
             Messages []struct {
                 Content string `json:"content"`
             } `json:"messages"`
         }
-        
+
         json.NewDecoder(r.Body).Decode(&req)
-        
+
         // Scan all messages
         for i, msg := range req.Messages {
             if detected := m.detector.DetectSecrets(msg.Content); len(detected) > 0 {
@@ -223,11 +223,11 @@ func (m *SecretScannerMiddleware) ScanChatRequests(next http.Handler) http.Handl
                 req.Messages[i].Content, _ = m.detector.RedactSecrets(msg.Content)
             }
         }
-        
+
         // Update request
         newBody, _ := json.Marshal(req)
         r.Body = io.NopCloser(bytes.NewReader(newBody))
-        
+
         next.ServeHTTP(w, r)
     })
 }
@@ -240,13 +240,13 @@ func (m *SecretScannerMiddleware) ScanChatRequests(next http.Handler) http.Handl
 secrets:
   scanning:
     enabled: true
-    
+
     # Actions to take when secrets detected
     actions:
       redact: true                    # Redact before processing
       block_critical: true            # Block if critical secret found
       log_event: true                 # Log security event
-    
+
     # Secret patterns (can be customized per environment)
     patterns:
       - type: "aws_key"
@@ -255,7 +255,7 @@ secrets:
         enabled: true
       - type: "jwt_token"
         enabled: true
-    
+
     # Audit configuration
     audit:
       log_file: "/var/log/ollama/secrets_audit.log"

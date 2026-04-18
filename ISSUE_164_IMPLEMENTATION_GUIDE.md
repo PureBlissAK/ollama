@@ -1,8 +1,8 @@
 # Issue #164: Output Sanitization - XSS & Injection Prevention Implementation Guide
 
-**Priority**: CRITICAL - Security  
-**Complexity**: High  
-**Effort**: 30 hours  
+**Priority**: CRITICAL - Security
+**Complexity**: High
+**Effort**: 30 hours
 **Status**: Ready for Implementation
 
 ## Problem Statement
@@ -66,12 +66,12 @@ func (s *OutputSanitizer) SanitizeForWeb(output string) string {
     } else if s.config.EscapeHTML {
         output = html.EscapeString(output)
     }
-    
+
     // Check size limit
     if s.config.MaxOutputSize > 0 && len(output) > s.config.MaxOutputSize {
         output = output[:s.config.MaxOutputSize] + "\n[OUTPUT TRUNCATED]"
     }
-    
+
     return output
 }
 
@@ -145,7 +145,7 @@ func (s *OutputSanitizer) detectSQLInjection(output string) bool {
         *regexp.MustCompile(`(?i)'; drop table`),
         *regexp.MustCompile(`(?i)or\s+'1'\s*=\s*'1`),
     }
-    
+
     for _, pattern := range dangerous {
         if pattern.MatchString(output) {
             return true
@@ -169,11 +169,11 @@ func (s *OutputSanitizer) escapeShellMetachars(output string) string {
         "\\": "\\\\",
         "\"": "\\\"",
     }
-    
+
     for old, new := range replacements {
         output = strings.ReplaceAll(output, old, new)
     }
-    
+
     return output
 }
 
@@ -194,7 +194,7 @@ import (
     "io"
     "log"
     "net/http"
-    
+
     "ollama/server/sanitize"
 )
 
@@ -210,7 +210,7 @@ func NewOutputSanitizerMiddleware(logger *log.Logger) *OutputSanitizerMiddleware
         RejectSuspiciousPatterns: false,
         MaxOutputSize:       1024 * 1024, // 1MB
     }
-    
+
     return &OutputSanitizerMiddleware{
         sanitizer: sanitize.NewOutputSanitizer(config),
         logger:    logger,
@@ -226,7 +226,7 @@ func (m *OutputSanitizerMiddleware) SanitizeGenerateResponse(next http.Handler) 
             sanitizer:      m.sanitizer,
             logger:         m.logger,
         }
-        
+
         next.ServeHTTP(wrapped, r)
     })
 }
@@ -244,21 +244,21 @@ func (w *responseWriter) Write(b []byte) (int, error) {
         Response string `json:"response"`
         Done     bool   `json:"done"`
     }
-    
+
     if err := json.Unmarshal(b, &response); err != nil {
         // Not JSON, pass through
         return w.ResponseWriter.Write(b)
     }
-    
+
     // Sanitize response text
     sanitized := w.sanitizer.SanitizeForWeb(response.Response)
-    
+
     // Log if sanitization changed output
     if sanitized != response.Response {
         w.logger.Printf("OUTPUT_SANITIZED: Removed %d suspicious characters",
             len(response.Response)-len(sanitized))
     }
-    
+
     // Marshal and write
     response.Response = sanitized
     clean, _ := json.Marshal(response)
@@ -291,18 +291,18 @@ import "net/http"
 func ContentSecurityPolicyMiddleware(next http.Handler) http.Handler {
     return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
         // Strict CSP to prevent XSS
-        w.Header().Set("Content-Security-Policy", 
+        w.Header().Set("Content-Security-Policy",
             "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'")
-        
+
         // Prevent clickjacking
         w.Header().Set("X-Frame-Options", "DENY")
-        
+
         // Prevent MIME sniffing
         w.Header().Set("X-Content-Type-Options", "nosniff")
-        
+
         // Enable XSS protection
         w.Header().Set("X-XSS-Protection", "1; mode=block")
-        
+
         next.ServeHTTP(w, r)
     })
 }

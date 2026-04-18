@@ -1,8 +1,8 @@
 # Issue #151: JSON Mode - GBNF Grammar-Constrained Output Implementation Guide
 
-**Priority**: HIGH - Feature Enhancement  
-**Complexity**: High  
-**Effort**: 25 hours  
+**Priority**: HIGH - Feature Enhancement
+**Complexity**: High
+**Effort**: 25 hours
 **Status**: Ready for Implementation
 
 ## Problem Statement
@@ -85,7 +85,7 @@ type JSONSchemaConstraint struct {
 func NewJSONSchemaConstraint(schema interface{}) (*JSONSchemaConstraint, error) {
     // Convert JSON schema to GBNF
     grammar := generateGrammarFromSchema(schema)
-    
+
     return &JSONSchemaConstraint{
         Schema: schema,
         Grammar: grammar,
@@ -98,10 +98,10 @@ func generateGrammarFromSchema(schema interface{}) string {
     if !ok {
         return JSONGrammarTemplate
     }
-    
+
     var buf bytes.Buffer
     buf.WriteString("root := ")
-    
+
     schemaType, _ := schemaMap["type"].(string)
     switch schemaType {
     case "object":
@@ -111,10 +111,10 @@ func generateGrammarFromSchema(schema interface{}) string {
     default:
         buf.WriteString("value")
     }
-    
+
     buf.WriteString("\n")
     buf.WriteString(JSONGrammarTemplate)
-    
+
     return buf.String()
 }
 
@@ -123,21 +123,21 @@ func generateObjectGrammar(schema map[string]interface{}) string {
     if !ok {
         return "object"
     }
-    
+
     required, _ := schema["required"].([]interface{})
-    
+
     var buf bytes.Buffer
     buf.WriteString("{")
-    
+
     for i, propName := range required {
         if i > 0 {
             buf.WriteString(", ")
         }
         buf.WriteString(fmt.Sprintf(`"%s": `, propName))
-        
+
         propSchema, _ := properties[propName].(map[string]interface{})
         propType, _ := propSchema["type"].(string)
-        
+
         switch propType {
         case "string":
             buf.WriteString("string")
@@ -153,7 +153,7 @@ func generateObjectGrammar(schema map[string]interface{}) string {
             buf.WriteString("value")
         }
     }
-    
+
     buf.WriteString("}")
     return buf.String()
 }
@@ -194,7 +194,7 @@ func NewTokenFilter(grammar string, logger *log.Logger) (*TokenFilter, error) {
     if err != nil {
         return nil, err
     }
-    
+
     return &TokenFilter{
         validator: validator,
         state: &ParsingState{
@@ -208,14 +208,14 @@ func NewTokenFilter(grammar string, logger *log.Logger) (*TokenFilter, error) {
 func (tf *TokenFilter) FilterTokens(vocab []string, nextTokenLogits []float32) ([]float32, error) {
     filtered := make([]float32, len(nextTokenLogits))
     copy(filtered, nextTokenLogits)
-    
+
     for i, token := range vocab {
         if !tf.isValidNextToken(token) {
             // Zero out invalid tokens (set logit to -inf)
             filtered[i] = -1e10
         }
     }
-    
+
     return filtered, nil
 }
 
@@ -248,18 +248,18 @@ func (tf *TokenFilter) isValidChar(char byte) bool {
             }
             return validEscapes[char]
         }
-        
+
         if char == '"' {
             return true // End of string
         }
         if char == '\\' {
             return true // Start of escape
         }
-        
+
         // Disallow control characters in strings
         return char >= 0x20
     }
-    
+
     // Outside strings: whitespace, brackets, colons, commas valid
     validChars := map[byte]bool{
         ' ':  true,
@@ -287,11 +287,11 @@ func (tf *TokenFilter) isValidChar(char byte) bool {
         's':  true,
         'n':  true,
     }
-    
+
     if validChars[char] {
         return true
     }
-    
+
     // Digits are always valid
     return char >= '0' && char <= '9'
 }
@@ -301,7 +301,7 @@ func (tf *TokenFilter) updateState(char byte) {
         tf.state.EscapeNext = false
         return
     }
-    
+
     if tf.state.InString {
         if char == '\\' {
             tf.state.EscapeNext = true
@@ -325,7 +325,7 @@ func (tf *TokenFilter) updateState(char byte) {
             }
         }
     }
-    
+
     tf.state.LastChar = char
 }
 
@@ -344,7 +344,7 @@ package server
 import (
     "context"
     "log"
-    
+
     "ollama/llm/grammar"
 )
 
@@ -359,7 +359,7 @@ type GenerateWithGrammarRequest struct {
 func (s *Server) GenerateWithGrammar(ctx context.Context, req *GenerateWithGrammarRequest) error {
     // Determine grammar to use
     var grammarStr string
-    
+
     if req.JSONSchema != nil {
         constraint, err := grammar.NewJSONSchemaConstraint(req.JSONSchema)
         if err != nil {
@@ -372,30 +372,30 @@ func (s *Server) GenerateWithGrammar(ctx context.Context, req *GenerateWithGramm
         // Default to JSON grammar
         grammarStr = grammar.JSONGrammarTemplate
     }
-    
+
     // Create token filter
     tokenFilter, err := grammar.NewTokenFilter(grammarStr, s.logger)
     if err != nil {
         return err
     }
-    
+
     // Load model
     model, err := s.modelManager.Load(ctx, req.Model)
     if err != nil {
         return err
     }
-    
+
     // Generate with grammar constraints
     output, err := model.GenerateWithFilter(ctx, req.Prompt, tokenFilter)
     if err != nil {
         return err
     }
-    
+
     // Verify output matches grammar
     if !tokenFilter.IsComplete() {
         s.logger.Printf("WARNING: Output incomplete according to grammar")
     }
-    
+
     s.logger.Printf("Generated JSON-constrained output: %s", output)
     return nil
 }

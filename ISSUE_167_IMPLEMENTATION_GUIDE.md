@@ -1,8 +1,8 @@
 # Issue #167: Vault Integration - Secrets Management Implementation Guide
 
-**Priority**: CRITICAL - Security  
-**Complexity**: High  
-**Effort**: 32 hours  
+**Priority**: CRITICAL - Security
+**Complexity**: High
+**Effort**: 32 hours
 **Status**: Ready for Implementation
 
 ## Problem Statement
@@ -40,7 +40,7 @@ package config
 import (
     "fmt"
     "os"
-    
+
     "github.com/hashicorp/vault/api"
 )
 
@@ -61,25 +61,25 @@ func NewVaultClient(config *VaultConfig) (*VaultClient, error) {
     // Initialize Vault client
     vaultConfig := api.DefaultConfig()
     vaultConfig.Address = config.Address
-    
+
     // Use TLS if configured
     if config.TLS != nil {
         vaultConfig.HttpClient.Transport.(*http.Transport).TLSClientConfig = config.TLS
     }
-    
+
     client, err := api.NewClient(vaultConfig)
     if err != nil {
         return nil, fmt.Errorf("failed to create vault client: %w", err)
     }
-    
+
     // Set token
     client.SetToken(config.Token)
-    
+
     // Set namespace if provided
     if config.Namespace != "" {
         client.SetNamespace(config.Namespace)
     }
-    
+
     return &VaultClient{
         client: client,
         config: config,
@@ -92,11 +92,11 @@ func (vc *VaultClient) GetSecret(path string) (map[string]interface{}, error) {
     if err != nil {
         return nil, fmt.Errorf("failed to read secret %s: %w", path, err)
     }
-    
+
     if secret == nil {
         return nil, fmt.Errorf("secret not found: %s", path)
     }
-    
+
     return secret.Data, nil
 }
 
@@ -107,10 +107,10 @@ func (vc *VaultClient) GetDatabaseCredentials(role string) (string, string, erro
     if err != nil {
         return "", "", fmt.Errorf("failed to generate DB credentials: %w", err)
     }
-    
+
     username := secret.Data["username"].(string)
     password := secret.Data["password"].(string)
-    
+
     return username, password, nil
 }
 
@@ -121,11 +121,11 @@ func (vc *VaultClient) GetAWSCredentials(role string) (string, string, string, e
     if err != nil {
         return "", "", "", fmt.Errorf("failed to generate AWS credentials: %w", err)
     }
-    
+
     accessKey := secret.Data["access_key"].(string)
     secretKey := secret.Data["secret_access_key"].(string)
     ttl := secret.LeaseDuration
-    
+
     return accessKey, secretKey, fmt.Sprintf("%d", ttl), nil
 }
 
@@ -173,10 +173,10 @@ func NewSecretsManager(vault *VaultClient, logger *log.Logger) *SecretsManager {
         cache:  make(map[string]*CachedSecret),
         logger: logger,
     }
-    
+
     // Start background refresh goroutine
     go sm.refreshLoop()
-    
+
     return sm
 }
 
@@ -185,18 +185,18 @@ func (sm *SecretsManager) Get(ctx context.Context, path string) (map[string]inte
     sm.mu.RLock()
     cached, exists := sm.cache[path]
     sm.mu.RUnlock()
-    
+
     // Return cached secret if valid
     if exists && time.Now().Before(cached.RefreshAt) {
         return cached.Value, nil
     }
-    
+
     // Fetch fresh secret from Vault
     secret, err := sm.vault.GetSecret(path)
     if err != nil {
         return nil, err
     }
-    
+
     // Cache with refresh window (refresh at 75% of TTL)
     sm.mu.Lock()
     sm.cache[path] = &CachedSecret{
@@ -205,7 +205,7 @@ func (sm *SecretsManager) Get(ctx context.Context, path string) (map[string]inte
         RefreshAt: time.Now().Add(18 * time.Hour), // 75% of 24h
     }
     sm.mu.Unlock()
-    
+
     return secret, nil
 }
 
@@ -215,12 +215,12 @@ func (sm *SecretsManager) GetString(ctx context.Context, path, key string) (stri
     if err != nil {
         return "", err
     }
-    
+
     value, ok := secret[key].(string)
     if !ok {
         return "", fmt.Errorf("secret key %s not found or not a string", key)
     }
-    
+
     return value, nil
 }
 
@@ -228,7 +228,7 @@ func (sm *SecretsManager) GetString(ctx context.Context, path, key string) (stri
 func (sm *SecretsManager) refreshLoop() {
     ticker := time.NewTicker(1 * time.Hour)
     defer ticker.Stop()
-    
+
     for range ticker.C {
         sm.mu.RLock()
         paths := make([]string, 0, len(sm.cache))
@@ -236,7 +236,7 @@ func (sm *SecretsManager) refreshLoop() {
             paths = append(paths, path)
         }
         sm.mu.RUnlock()
-        
+
         for _, path := range paths {
             cached := sm.cache[path]
             if time.Now().After(cached.RefreshAt) {
@@ -307,30 +307,30 @@ func LoadConfigFromVault(vaultAddr, token string) (*AppConfig, error) {
         Address: vaultAddr,
         Token:   token,
     }
-    
+
     vaultClient, err := NewVaultClient(vaultCfg)
     if err != nil {
         return nil, fmt.Errorf("failed to initialize vault: %w", err)
     }
-    
+
     secretsManager := NewSecretsManager(vaultClient, log.Default())
     ctx := context.Background()
-    
+
     // Load secrets from Vault paths
     config := &AppConfig{}
-    
+
     // Server config (usually from env, but can be in Vault)
     config.Server = &ServerConfig{
         Host: getEnvOrVault(ctx, secretsManager, "SERVER_HOST", "config/server/host", "0.0.0.0"),
         Port: getEnvIntOrVault(ctx, secretsManager, "SERVER_PORT", "config/server/port", 8000),
     }
-    
+
     // Database credentials from Vault
     dbCreds, err := vaultClient.GetDatabaseCredentials("ollama-app")
     if err != nil {
         return nil, fmt.Errorf("failed to get DB credentials: %w", err)
     }
-    
+
     config.Database = &DatabaseConfig{
         Username: dbCreds[0],
         Password: dbCreds[1],
@@ -338,18 +338,18 @@ func LoadConfigFromVault(vaultAddr, token string) (*AppConfig, error) {
         Port:     getEnvIntOrVault(ctx, secretsManager, "DB_PORT", "config/database/port", 5432),
         Database: getEnvOrVault(ctx, secretsManager, "DB_NAME", "config/database/name", "ollama"),
     }
-    
+
     // Auth secrets from Vault
     jwtSecret, _ := secretsManager.GetString(ctx, "secret/data/auth", "jwt_secret")
     oauthSecret, _ := secretsManager.GetString(ctx, "secret/data/auth", "oauth_secret")
     githubToken, _ := secretsManager.GetString(ctx, "secret/data/auth", "github_token")
-    
+
     config.Auth = &AuthConfig{
         JWTSecret:   jwtSecret,
         OAuthSecret: oauthSecret,
         GitHubToken: githubToken,
     }
-    
+
     return config, nil
 }
 
@@ -357,11 +357,11 @@ func getEnvOrVault(ctx context.Context, sm *SecretsManager, envKey, vaultPath, d
     if val := os.Getenv(envKey); val != "" {
         return val
     }
-    
+
     if val, err := sm.GetString(ctx, vaultPath, "value"); err == nil {
         return val
     }
-    
+
     return defaultValue
 }
 
@@ -371,13 +371,13 @@ func getEnvIntOrVault(ctx context.Context, sm *SecretsManager, envKey, vaultPath
         fmt.Sscanf(val, "%d", &intVal)
         return intVal
     }
-    
+
     if val, err := sm.GetString(ctx, vaultPath, "value"); err == nil {
         var intVal int
         fmt.Sscanf(val, "%d", &intVal)
         return intVal
     }
-    
+
     return defaultValue
 }
 ```

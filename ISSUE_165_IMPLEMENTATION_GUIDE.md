@@ -1,8 +1,8 @@
 # Issue #165: Immutable Audit Log - SHA-256 Hash Chain Implementation Guide
 
-**Priority**: CRITICAL - Security & Compliance  
-**Complexity**: High  
-**Effort**: 28 hours  
+**Priority**: CRITICAL - Security & Compliance
+**Complexity**: High
+**Effort**: 28 hours
 **Status**: Ready for Implementation
 
 ## Problem Statement
@@ -50,7 +50,7 @@ type AuditEntry struct {
     Payload         json.RawMessage `json:"payload"`     // Event-specific data
     Result          string    `json:"result"`            // success, failure, partial
     ErrorMessage    string    `json:"error_message"`
-    
+
     // Hash chain fields
     PreviousHash    string    `json:"previous_hash"`     // Hash of previous entry
     CurrentHash     string    `json:"current_hash"`      // Hash of this entry
@@ -80,7 +80,7 @@ func (e *AuditEntry) CalculateHash() string {
         Result:      e.Result,
         PreviousHash: e.PreviousHash,
     }
-    
+
     data, _ := json.Marshal(hashInput)
     hash := sha256.Sum256(data)
     return hex.EncodeToString(hash[:])
@@ -102,12 +102,12 @@ func NewAuditLog(dbPath string, logger *log.Logger) (*AuditLog, error) {
     if err != nil {
         return nil, err
     }
-    
+
     al := &AuditLog{db: db, logger: logger}
     if err := al.initDatabase(); err != nil {
         return nil, err
     }
-    
+
     return al, nil
 }
 
@@ -127,16 +127,16 @@ func (al *AuditLog) initDatabase() error {
         previous_hash TEXT,
         current_hash TEXT NOT NULL UNIQUE,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        
+
         -- Enforce immutability: no updates allowed
         CHECK (created_at = CURRENT_TIMESTAMP)
     );
-    
+
     -- Index for efficient querying
     CREATE INDEX IF NOT EXISTS idx_audit_timestamp ON audit_log(timestamp);
     CREATE INDEX IF NOT EXISTS idx_audit_event_type ON audit_log(event_type);
     CREATE INDEX IF NOT EXISTS idx_audit_user ON audit_log(user);
-    
+
     -- Merkle tree snapshots (periodic roots for verification)
     CREATE TABLE IF NOT EXISTS audit_snapshots (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -147,10 +147,10 @@ func (al *AuditLog) initDatabase() error {
         verified BOOLEAN DEFAULT 0,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
-    
+
     CREATE INDEX IF NOT EXISTS idx_snapshots_time ON audit_snapshots(snapshot_time);
     `
-    
+
     _, err := al.db.Exec(schema)
     return err
 }
@@ -162,15 +162,15 @@ func (al *AuditLog) Log(entry *AuditEntry) error {
     err := al.db.QueryRow(
         "SELECT current_hash FROM audit_log ORDER BY id DESC LIMIT 1",
     ).Scan(&prevHash)
-    
+
     if err != nil && err != sql.ErrNoRows {
         return err
     }
-    
+
     entry.PreviousHash = prevHash
     entry.Timestamp = time.Now()
     entry.CurrentHash = entry.CalculateHash()
-    
+
     // Insert (will fail if hash collision - cryptographically secure)
     _, err = al.db.Exec(`
         INSERT INTO audit_log (
@@ -189,7 +189,7 @@ func (al *AuditLog) Log(entry *AuditEntry) error {
         entry.PreviousHash,
         entry.CurrentHash,
     )
-    
+
     return err
 }
 
@@ -204,26 +204,26 @@ func (al *AuditLog) VerifyIntegrity() (bool, []int64, error) {
         return false, nil, err
     }
     defer rows.Close()
-    
+
     var tamperedIDs []int64
     var prevHash string
-    
+
     for rows.Next() {
         var id int64
         var currentHash, expectedPrevHash string
-        
+
         if err := rows.Scan(&id, &currentHash, &expectedPrevHash); err != nil {
             return false, nil, err
         }
-        
+
         // Verify hash chain continuity
         if expectedPrevHash != prevHash && id > 1 {
             tamperedIDs = append(tamperedIDs, id)
         }
-        
+
         prevHash = currentHash
     }
-    
+
     return len(tamperedIDs) == 0, tamperedIDs, nil
 }
 
@@ -233,30 +233,30 @@ func (al *AuditLog) CreateSnapshot() (string, error) {
     if err := al.db.QueryRow("SELECT COUNT(*) FROM audit_log").Scan(&count); err != nil {
         return "", err
     }
-    
+
     // Get all hashes and build Merkle tree
     rows, err := al.db.Query("SELECT current_hash FROM audit_log ORDER BY id ASC")
     if err != nil {
         return "", err
     }
     defer rows.Close()
-    
+
     var hashes []string
     for rows.Next() {
         var hash string
         rows.Scan(&hash)
         hashes = append(hashes, hash)
     }
-    
+
     // Compute Merkle root
     root := al.computeMerkleRoot(hashes)
-    
+
     // Store snapshot
     _, err = al.db.Exec(`
         INSERT INTO audit_snapshots (snapshot_time, entry_count, merkle_root, verified)
         VALUES (?, ?, ?, 1)
     `, time.Now(), count, root)
-    
+
     return root, err
 }
 
@@ -265,7 +265,7 @@ func (al *AuditLog) computeMerkleRoot(hashes []string) string {
     if len(hashes) == 0 {
         return hex.EncodeToString(sha256.Sum256([]byte{})[:])
     }
-    
+
     for len(hashes) > 1 {
         var nextLevel []string
         for i := 0; i < len(hashes); i += 2 {
@@ -275,26 +275,26 @@ func (al *AuditLog) computeMerkleRoot(hashes []string) string {
             } else {
                 combined = hashes[i] + hashes[i]
             }
-            
+
             hash := sha256.Sum256([]byte(combined))
             nextLevel = append(nextLevel, hex.EncodeToString(hash[:]))
         }
         hashes = nextLevel
     }
-    
+
     return hashes[0]
 }
 
 // QueryEntries retrieves audit entries with proof of integrity
 func (al *AuditLog) QueryEntries(eventType string, limit int) ([]AuditEntry, error) {
     query := "SELECT id, timestamp, event_type, user, remote_addr, request_path, payload, result, error_message, previous_hash, current_hash FROM audit_log"
-    
+
     if eventType != "" {
         query += " WHERE event_type = ?"
     }
-    
+
     query += " ORDER BY id DESC LIMIT ?"
-    
+
     var entries []AuditEntry
     // ... execute query and scan results
     return entries, nil
@@ -312,7 +312,7 @@ import (
     "log"
     "net/http"
     "time"
-    
+
     "ollama/server/audit"
 )
 
@@ -336,14 +336,14 @@ func (m *AuditMiddleware) AuditHandler(next http.Handler) http.Handler {
             next.ServeHTTP(w, r)
             return
         }
-        
+
         // Capture response status
         wrapped := &statusCaptureWriter{ResponseWriter: w, statusCode: http.StatusOK}
-        
+
         start := time.Now()
         next.ServeHTTP(wrapped, r)
         duration := time.Since(start)
-        
+
         // Log audit entry
         entry := &audit.AuditEntry{
             Timestamp:   time.Now(),
@@ -353,7 +353,7 @@ func (m *AuditMiddleware) AuditHandler(next http.Handler) http.Handler {
             RequestPath: r.URL.Path,
             Result:      m.getResultFromStatus(wrapped.statusCode),
         }
-        
+
         if err := m.auditLog.Log(entry); err != nil {
             m.logger.Printf("AUDIT_LOG_ERROR: Failed to log entry: %v", err)
         }
@@ -392,37 +392,37 @@ import (
     "flag"
     "fmt"
     "log"
-    
+
     "ollama/server/audit"
 )
 
 func main() {
     dbPath := flag.String("db", "audit.db", "Audit log database path")
     flag.Parse()
-    
+
     auditLog, err := audit.NewAuditLog(*dbPath, log.Default())
     if err != nil {
         log.Fatal(err)
     }
-    
+
     // Verify integrity
     valid, tamperedIDs, err := auditLog.VerifyIntegrity()
     if err != nil {
         log.Fatal(err)
     }
-    
+
     if valid {
         fmt.Println("✓ Audit log integrity verified")
     } else {
         fmt.Printf("✗ Tampering detected in entries: %v\n", tamperedIDs)
     }
-    
+
     // Create snapshot
     root, err := auditLog.CreateSnapshot()
     if err != nil {
         log.Fatal(err)
     }
-    
+
     fmt.Printf("Merkle root snapshot created: %s\n", root)
 }
 ```

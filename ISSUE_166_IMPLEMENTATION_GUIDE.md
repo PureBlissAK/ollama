@@ -1,8 +1,8 @@
 # Issue #166: Network Segmentation & mTLS Implementation Guide
 
-**Priority**: CRITICAL - Security  
-**Complexity**: High  
-**Effort**: 40 hours  
+**Priority**: CRITICAL - Security
+**Complexity**: High
+**Effort**: 40 hours
 **Status**: Ready for Implementation
 
 ## Problem Statement
@@ -31,14 +31,14 @@ type ServerConfig struct {
     // Network binding
     Host string // default: "127.0.0.1"
     Port int    // default: 8000
-    
+
     // TLS/mTLS
     TLSEnabled    bool
     TLSCertFile   string
     TLSKeyFile    string
     TLSClientAuth bool // require client certificates
     CACertFile    string // CA cert for client validation
-    
+
     // Vault integration
     VaultAddr      string
     VaultToken     string
@@ -66,7 +66,7 @@ package server
 import (
     "crypto/tls"
     "fmt"
-    
+
     "github.com/hashicorp/vault/api"
 )
 
@@ -78,14 +78,14 @@ type VaultPKI struct {
 func NewVaultPKI(vaultAddr, token, path string) (*VaultPKI, error) {
     config := api.DefaultConfig()
     config.Address = vaultAddr
-    
+
     client, err := api.NewClient(config)
     if err != nil {
         return nil, fmt.Errorf("vault client init failed: %w", err)
     }
-    
+
     client.SetToken(token)
-    
+
     return &VaultPKI{
         client: client,
         path:   path,
@@ -99,21 +99,21 @@ func (v *VaultPKI) IssueCertificate(commonName string, ttl string) (*tls.Certifi
         "common_name": commonName,
         "ttl":         ttl, // e.g., "8760h" for 1 year
     })
-    
+
     if err != nil {
         return nil, fmt.Errorf("vault certificate issue failed: %w", err)
     }
-    
+
     // Parse certificate and key
     certData := secret.Data["certificate"].(string)
     keyData := secret.Data["private_key"].(string)
-    
+
     // Load into tls.Certificate
     cert, err := tls.X509KeyPair(
         []byte(certData),
         []byte(keyData),
     )
-    
+
     return &cert, err
 }
 
@@ -129,7 +129,7 @@ func (v *VaultPKI) RotateCertificate(oldCert *tls.Certificate, commonName string
 // server/server.go
 func (s *Server) ListenAndServeTLS(config ServerConfig) error {
     var tlsConfig *tls.Config
-    
+
     if config.TLSEnabled {
         var err error
         tlsConfig, err = s.buildTLSConfig(config)
@@ -137,7 +137,7 @@ func (s *Server) ListenAndServeTLS(config ServerConfig) error {
             return fmt.Errorf("TLS config build failed: %w", err)
         }
     }
-    
+
     // Create HTTP server
     srv := &http.Server{
         Addr:      fmt.Sprintf("%s:%d", config.Host, config.Port),
@@ -148,14 +148,14 @@ func (s *Server) ListenAndServeTLS(config ServerConfig) error {
         WriteTimeout: 30 * time.Second,
         IdleTimeout:  120 * time.Second,
     }
-    
+
     if config.TLSEnabled {
         return srv.ListenAndServeTLS(
             config.TLSCertFile,
             config.TLSKeyFile,
         )
     }
-    
+
     return srv.ListenAndServe()
 }
 
@@ -167,23 +167,23 @@ func (s *Server) buildTLSConfig(config ServerConfig) (*tls.Config, error) {
             tls.TLS_CHACHA20_POLY1305_SHA256,
         },
     }
-    
+
     // If mTLS required, configure client certificate validation
     if config.TLSClientAuth {
         caCert, err := os.ReadFile(config.CACertFile)
         if err != nil {
             return nil, fmt.Errorf("CA cert read failed: %w", err)
         }
-        
+
         caCertPool := x509.NewCertPool()
         if !caCertPool.AppendCertsFromPEM(caCert) {
             return nil, fmt.Errorf("failed to parse CA certificate")
         }
-        
+
         tlsConfig.ClientAuth = tls.RequireAndVerifyClientCert
         tlsConfig.ClientCAs = caCertPool
     }
-    
+
     return tlsConfig, nil
 }
 ```

@@ -1,8 +1,8 @@
 # Issue #152: Function Calling - Native Tool Integration Implementation Guide
 
-**Priority**: HIGH - Feature Enhancement  
-**Complexity**: Very High  
-**Effort**: 40 hours  
+**Priority**: HIGH - Feature Enhancement
+**Complexity**: Very High
+**Effort**: 40 hours
 **Status**: Ready for Implementation
 
 ## Problem Statement
@@ -89,7 +89,7 @@ func (fr *FunctionRegistry) Register(cf *CallableFunction) error {
     if cf.Signature.Name == "" {
         return fmt.Errorf("function name required")
     }
-    
+
     fr.functions[cf.Signature.Name] = cf
     return nil
 }
@@ -109,17 +109,17 @@ func (fr *FunctionRegistry) Call(ctx context.Context, name string, args map[stri
     if !exists {
         return nil, fmt.Errorf("function not found: %s", name)
     }
-    
+
     // Validate arguments against signature
     if err := fr.validateArgs(args, fn.Signature); err != nil {
         return nil, err
     }
-    
+
     // Check permissions
     if !fn.Permissions.AllowExecute {
         return nil, fmt.Errorf("function execution not allowed: %s", name)
     }
-    
+
     return fn.Handler(ctx, args)
 }
 
@@ -132,7 +132,7 @@ func (fr *FunctionRegistry) validateArgs(args map[string]interface{}, sig Functi
             }
             continue
         }
-        
+
         // Type validation
         if err := validateType(arg, paramDef.Type); err != nil {
             return fmt.Errorf("invalid type for parameter %s: %w", paramName, err)
@@ -192,7 +192,7 @@ import (
 // CreateBuiltinFunctions registers standard system functions
 func CreateBuiltinFunctions() *FunctionRegistry {
     registry := NewFunctionRegistry()
-    
+
     // Execute shell command
     registry.Register(&CallableFunction{
         Signature: FunctionSignature{
@@ -218,7 +218,7 @@ func CreateBuiltinFunctions() *FunctionRegistry {
             MaxMemoryMB:  256,
         },
     })
-    
+
     // Read file
     registry.Register(&CallableFunction{
         Signature: FunctionSignature{
@@ -243,7 +243,7 @@ func CreateBuiltinFunctions() *FunctionRegistry {
             AllowedPaths: []string{"/home", "/tmp"},
         },
     })
-    
+
     // Write file
     registry.Register(&CallableFunction{
         Signature: FunctionSignature{
@@ -272,7 +272,7 @@ func CreateBuiltinFunctions() *FunctionRegistry {
             AllowedPaths: []string{"/tmp"},
         },
     })
-    
+
     // Query Kubernetes
     registry.Register(&CallableFunction{
         Signature: FunctionSignature{
@@ -298,21 +298,21 @@ func CreateBuiltinFunctions() *FunctionRegistry {
             TimeoutMs:    10000,
         },
     })
-    
+
     return registry
 }
 
 func executeCommand(ctx context.Context, args map[string]interface{}) (interface{}, error) {
     command, _ := args["command"].(string)
     timeoutSec := 30
-    
+
     if to, ok := args["timeout_seconds"].(float64); ok {
         timeoutSec = int(to)
         if timeoutSec > 60 {
             timeoutSec = 60
         }
     }
-    
+
     // Security: whitelist safe commands
     allowedCommands := map[string]bool{
         "ls":  true,
@@ -321,20 +321,20 @@ func executeCommand(ctx context.Context, args map[string]interface{}) (interface
         "grep": true,
         "wc": true,
     }
-    
+
     // Parse command
     parts := splitCommand(command)
     if len(parts) == 0 {
         return nil, fmt.Errorf("invalid command")
     }
-    
+
     if !allowedCommands[parts[0]] {
         return nil, fmt.Errorf("command not allowed: %s", parts[0])
     }
-    
+
     // Execute with timeout
     cmd := exec.CommandContext(ctx, parts[0], parts[1:]...)
-    
+
     output, err := cmd.CombinedOutput()
     if err != nil {
         return map[string]interface{}{
@@ -342,7 +342,7 @@ func executeCommand(ctx context.Context, args map[string]interface{}) (interface
             "error":     err.Error(),
         }, nil
     }
-    
+
     return map[string]interface{}{
         "output": string(output),
         "exit_code": 0,
@@ -351,23 +351,23 @@ func executeCommand(ctx context.Context, args map[string]interface{}) (interface
 
 func readFile(ctx context.Context, args map[string]interface{}) (interface{}, error) {
     path, _ := args["path"].(string)
-    
+
     // Validate path
     absPath, err := filepath.Abs(path)
     if err != nil {
         return nil, err
     }
-    
+
     // Only allow safe directories
     if !isAllowedPath(absPath, []string{"/home", "/tmp"}) {
         return nil, fmt.Errorf("access denied: %s", path)
     }
-    
+
     content, err := ioutil.ReadFile(absPath)
     if err != nil {
         return nil, err
     }
-    
+
     return map[string]interface{}{
         "content": string(content),
         "size":    len(content),
@@ -377,17 +377,17 @@ func readFile(ctx context.Context, args map[string]interface{}) (interface{}, er
 func writeFile(ctx context.Context, args map[string]interface{}) (interface{}, error) {
     path, _ := args["path"].(string)
     content, _ := args["content"].(string)
-    
+
     // Only allow writing to /tmp
     if !isAllowedPath(path, []string{"/tmp"}) {
         return nil, fmt.Errorf("write access denied: %s", path)
     }
-    
+
     err := ioutil.WriteFile(path, []byte(content), 0644)
     if err != nil {
         return nil, err
     }
-    
+
     return map[string]interface{}{
         "success": true,
         "path":    path,
@@ -398,20 +398,20 @@ func writeFile(ctx context.Context, args map[string]interface{}) (interface{}, e
 func kubectlGet(ctx context.Context, args map[string]interface{}) (interface{}, error) {
     resource, _ := args["resource"].(string)
     namespace, _ := args["namespace"].(string)
-    
+
     cmd := exec.CommandContext(ctx, "kubectl", "get", resource, "-o", "json")
     if namespace != "" {
         cmd.Args = append(cmd.Args, "-n", namespace)
     }
-    
+
     output, err := cmd.Output()
     if err != nil {
         return nil, err
     }
-    
+
     var result interface{}
     json.Unmarshal(output, &result)
-    
+
     return result, nil
 }
 
@@ -439,7 +439,7 @@ package server
 import (
     "encoding/json"
     "fmt"
-    
+
     "ollama/server/functions"
 )
 
@@ -459,7 +459,7 @@ type FunctionCall struct {
 func (s *Server) GenerateWithFunctions(ctx context.Context, req *GenerateWithFunctionsRequest) (string, error) {
     funcRegistry := functions.CreateBuiltinFunctions()
     allSignatures := funcRegistry.GetSignatures()
-    
+
     // Filter to requested functions
     var enabledSignatures []functions.FunctionSignature
     for _, sig := range allSignatures {
@@ -470,10 +470,10 @@ func (s *Server) GenerateWithFunctions(ctx context.Context, req *GenerateWithFun
             }
         }
     }
-    
+
     // Build system prompt with function definitions
     systemPrompt := s.buildFunctionPrompt(enabledSignatures)
-    
+
     conversationHistory := []struct {
         Role    string `json:"role"`
         Content string `json:"content"`
@@ -481,26 +481,26 @@ func (s *Server) GenerateWithFunctions(ctx context.Context, req *GenerateWithFun
         {Role: "system", Content: systemPrompt},
         {Role: "user", Content: req.Prompt},
     }
-    
+
     // Multi-turn generation loop
     maxIterations := 10
     for i := 0; i < maxIterations; i++ {
         // Generate next response
         model, _ := s.modelManager.Load(ctx, req.Model)
-        
+
         lastMessage := conversationHistory[len(conversationHistory)-1].Content
         response, _ := model.Generate(ctx, lastMessage)
-        
+
         // Check if response contains function call
         functionCall, err := s.parseFunction CallFromResponse(response)
         if err != nil {
             // No function call, return final response
             return response, nil
         }
-        
+
         // Execute function
         result, execErr := funcRegistry.Call(ctx, functionCall.Name, functionCall.Args)
-        
+
         // Add to conversation
         conversationHistory = append(conversationHistory,
             struct {
@@ -513,22 +513,22 @@ func (s *Server) GenerateWithFunctions(ctx context.Context, req *GenerateWithFun
             }{Role: "function", Content: fmt.Sprintf("%s: %v", functionCall.Name, result)},
         )
     }
-    
+
     return "Max iterations reached without final response", nil
 }
 
 func (s *Server) buildFunctionPrompt(sigs []functions.FunctionSignature) string {
     template := `You are an AI assistant with access to the following functions.
-    
+
 Available functions:
 `
-    
+
     for _, sig := range sigs {
         template += fmt.Sprintf(`
 - **%s**: %s
   Parameters:
 `, sig.Name, sig.Description)
-        
+
         for paramName, paramDef := range sig.Parameters {
             template += fmt.Sprintf(`  - %s (%s): %s%s
 `, paramName, paramDef.Type, paramDef.Description,
@@ -540,7 +540,7 @@ Available functions:
                 }())
         }
     }
-    
+
     template += `
 
 To call a function, respond with:
@@ -557,7 +557,7 @@ To call a function, respond with:
 
 After executing, provide the final answer.
 `
-    
+
     return template
 }
 
@@ -565,13 +565,13 @@ func (s *Server) parseFunctionCallFromResponse(response string) (*functions.Func
     // Look for function call JSON
     start := strings.Index(response, "{")
     end := strings.LastIndex(response, "}")
-    
+
     if start == -1 || end == -1 {
         return nil, fmt.Errorf("no function call found")
     }
-    
+
     jsonStr := response[start : end+1]
-    
+
     var callWrapper struct {
         Type     string `json:"type"`
         Function struct {
@@ -579,11 +579,11 @@ func (s *Server) parseFunctionCallFromResponse(response string) (*functions.Func
             Arguments map[string]interface{} `json:"arguments"`
         } `json:"function"`
     }
-    
+
     if err := json.Unmarshal([]byte(jsonStr), &callWrapper); err != nil {
         return nil, err
     }
-    
+
     return &functions.FunctionCall{
         Name: callWrapper.Function.Name,
         Args: callWrapper.Function.Arguments,
