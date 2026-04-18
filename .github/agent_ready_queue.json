@@ -12680,15 +12680,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
-        "name": "shard/1",
-        "description": "Deterministic autonomous execution shard 1",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
+        "name": "shard/3",
+        "description": "Deterministic autonomous execution shard 3",
         "color": "0e8a16"
       }
     ],
     "number": 305,
     "title": "[BROWSER-CHAT][ASSIMILATION] Repo inventory crawler for kushin77 user+org",
-    "updatedAt": "2026-04-18T04:11:41Z",
+    "updatedAt": "2026-04-18T04:14:33Z",
     "url": "https://github.com/kushin77/ollama/issues/305"
   },
   {
@@ -13410,15 +13410,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
-        "name": "shard/2",
-        "description": "Deterministic autonomous execution shard 2",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
+        "name": "shard/4",
+        "description": "Deterministic autonomous execution shard 4",
         "color": "0e8a16"
       }
     ],
     "number": 316,
     "title": "[SENTIMENT][ENHANCEMENT-08] Citation confidence heatmap",
-    "updatedAt": "2026-04-18T04:11:41Z",
+    "updatedAt": "2026-04-18T04:14:36Z",
     "url": "https://github.com/kushin77/ollama/issues/316"
   },
   {
@@ -13466,15 +13466,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
-        "name": "shard/3",
-        "description": "Deterministic autonomous execution shard 3",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
+        "name": "shard/1",
+        "description": "Deterministic autonomous execution shard 1",
         "color": "0e8a16"
       }
     ],
     "number": 317,
     "title": "[SENTIMENT][ENHANCEMENT-09] Uncertainty expression modes",
-    "updatedAt": "2026-04-18T04:11:42Z",
+    "updatedAt": "2026-04-18T04:14:37Z",
     "url": "https://github.com/kushin77/ollama/issues/317"
   },
   {
@@ -13522,15 +13522,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
-        "name": "shard/4",
-        "description": "Deterministic autonomous execution shard 4",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
+        "name": "shard/2",
+        "description": "Deterministic autonomous execution shard 2",
         "color": "0e8a16"
       }
     ],
     "number": 318,
     "title": "[SENTIMENT][ENHANCEMENT-10] Follow-up question suggestion engine",
-    "updatedAt": "2026-04-18T04:11:42Z",
+    "updatedAt": "2026-04-18T04:14:39Z",
     "url": "https://github.com/kushin77/ollama/issues/318"
   },
   {
@@ -13578,15 +13578,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
-        "name": "shard/1",
-        "description": "Deterministic autonomous execution shard 1",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
+        "name": "shard/3",
+        "description": "Deterministic autonomous execution shard 3",
         "color": "0e8a16"
       }
     ],
     "number": 319,
     "title": "[SENTIMENT][ENHANCEMENT-11] Configurable verbosity profiles",
-    "updatedAt": "2026-04-18T04:11:42Z",
+    "updatedAt": "2026-04-18T04:14:40Z",
     "url": "https://github.com/kushin77/ollama/issues/319"
   },
   {
@@ -13634,15 +13634,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
-        "name": "shard/2",
-        "description": "Deterministic autonomous execution shard 2",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
+        "name": "shard/4",
+        "description": "Deterministic autonomous execution shard 4",
         "color": "0e8a16"
       }
     ],
     "number": 320,
     "title": "[SENTIMENT][ENHANCEMENT-12] Persona and tone presets",
-    "updatedAt": "2026-04-18T04:11:43Z",
+    "updatedAt": "2026-04-18T04:14:41Z",
     "url": "https://github.com/kushin77/ollama/issues/320"
   },
   {
@@ -13690,15 +13690,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
-        "name": "shard/3",
-        "description": "Deterministic autonomous execution shard 3",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
+        "name": "shard/1",
+        "description": "Deterministic autonomous execution shard 1",
         "color": "0e8a16"
       }
     ],
     "number": 321,
     "title": "[SENTIMENT][ENHANCEMENT-13] Model behavior changelog panel",
-    "updatedAt": "2026-04-18T04:11:43Z",
+    "updatedAt": "2026-04-18T04:14:42Z",
     "url": "https://github.com/kushin77/ollama/issues/321"
   },
   {
@@ -13746,15 +13746,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
-        "name": "shard/4",
-        "description": "Deterministic autonomous execution shard 4",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
+        "name": "shard/2",
+        "description": "Deterministic autonomous execution shard 2",
         "color": "0e8a16"
       }
     ],
     "number": 322,
     "title": "[SENTIMENT][ENHANCEMENT-14] Conversation objective summary card",
-    "updatedAt": "2026-04-18T04:11:44Z",
+    "updatedAt": "2026-04-18T04:14:43Z",
     "url": "https://github.com/kushin77/ollama/issues/322"
   },
   {
@@ -13802,15 +13802,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
-        "name": "shard/1",
-        "description": "Deterministic autonomous execution shard 1",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
+        "name": "shard/3",
+        "description": "Deterministic autonomous execution shard 3",
         "color": "0e8a16"
       }
     ],
     "number": 323,
     "title": "[SENTIMENT][ENHANCEMENT-15] Decision log capture from chat",
-    "updatedAt": "2026-04-18T04:11:44Z",
+    "updatedAt": "2026-04-18T04:14:45Z",
     "url": "https://github.com/kushin77/ollama/issues/323"
   },
   {
@@ -13858,15 +13858,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
-        "name": "shard/2",
-        "description": "Deterministic autonomous execution shard 2",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
+        "name": "shard/4",
+        "description": "Deterministic autonomous execution shard 4",
         "color": "0e8a16"
       }
     ],
     "number": 324,
     "title": "[SENTIMENT][ENHANCEMENT-16] Prompt linting and anti-pattern detector",
-    "updatedAt": "2026-04-18T04:11:44Z",
+    "updatedAt": "2026-04-18T04:14:46Z",
     "url": "https://github.com/kushin77/ollama/issues/324"
   },
   {
@@ -13914,15 +13914,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
-        "name": "shard/3",
-        "description": "Deterministic autonomous execution shard 3",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
+        "name": "shard/1",
+        "description": "Deterministic autonomous execution shard 1",
         "color": "0e8a16"
       }
     ],
     "number": 325,
     "title": "[SENTIMENT][ENHANCEMENT-17] Reusable prompt blocks library",
-    "updatedAt": "2026-04-18T04:11:45Z",
+    "updatedAt": "2026-04-18T04:14:47Z",
     "url": "https://github.com/kushin77/ollama/issues/325"
   },
   {
@@ -13970,15 +13970,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
-        "name": "shard/4",
-        "description": "Deterministic autonomous execution shard 4",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
+        "name": "shard/2",
+        "description": "Deterministic autonomous execution shard 2",
         "color": "0e8a16"
       }
     ],
     "number": 326,
     "title": "[SENTIMENT][ENHANCEMENT-18] Response rubric scoring view",
-    "updatedAt": "2026-04-18T04:11:45Z",
+    "updatedAt": "2026-04-18T04:14:48Z",
     "url": "https://github.com/kushin77/ollama/issues/326"
   },
   {
@@ -14026,15 +14026,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
-        "name": "shard/1",
-        "description": "Deterministic autonomous execution shard 1",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
+        "name": "shard/3",
+        "description": "Deterministic autonomous execution shard 3",
         "color": "0e8a16"
       }
     ],
     "number": 327,
     "title": "[SENTIMENT][ENHANCEMENT-19] Side-by-side response compare workspace",
-    "updatedAt": "2026-04-18T04:11:46Z",
+    "updatedAt": "2026-04-18T04:14:49Z",
     "url": "https://github.com/kushin77/ollama/issues/327"
   },
   {
@@ -14082,15 +14082,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
-        "name": "shard/2",
-        "description": "Deterministic autonomous execution shard 2",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
+        "name": "shard/4",
+        "description": "Deterministic autonomous execution shard 4",
         "color": "0e8a16"
       }
     ],
     "number": 328,
     "title": "[SENTIMENT][ENHANCEMENT-20] Safe guidance mode for novice users",
-    "updatedAt": "2026-04-18T04:11:46Z",
+    "updatedAt": "2026-04-18T04:14:51Z",
     "url": "https://github.com/kushin77/ollama/issues/328"
   },
   {
@@ -14138,15 +14138,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
-        "name": "shard/3",
-        "description": "Deterministic autonomous execution shard 3",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
+        "name": "shard/1",
+        "description": "Deterministic autonomous execution shard 1",
         "color": "0e8a16"
       }
     ],
     "number": 329,
     "title": "[SENTIMENT][ENHANCEMENT-21] Assumption extraction panel",
-    "updatedAt": "2026-04-18T04:11:46Z",
+    "updatedAt": "2026-04-18T04:14:52Z",
     "url": "https://github.com/kushin77/ollama/issues/329"
   },
   {
@@ -14194,15 +14194,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
-        "name": "shard/4",
-        "description": "Deterministic autonomous execution shard 4",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
+        "name": "shard/2",
+        "description": "Deterministic autonomous execution shard 2",
         "color": "0e8a16"
       }
     ],
     "number": 330,
     "title": "[SENTIMENT][ENHANCEMENT-22] Contradiction checker across thread",
-    "updatedAt": "2026-04-18T04:11:47Z",
+    "updatedAt": "2026-04-18T04:14:53Z",
     "url": "https://github.com/kushin77/ollama/issues/330"
   },
   {
@@ -14250,15 +14250,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
-        "name": "shard/1",
-        "description": "Deterministic autonomous execution shard 1",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
+        "name": "shard/3",
+        "description": "Deterministic autonomous execution shard 3",
         "color": "0e8a16"
       }
     ],
     "number": 331,
     "title": "[SENTIMENT][ENHANCEMENT-23] Missing-information detector",
-    "updatedAt": "2026-04-18T04:11:47Z",
+    "updatedAt": "2026-04-18T04:14:54Z",
     "url": "https://github.com/kushin77/ollama/issues/331"
   },
   {
@@ -14306,15 +14306,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
-        "name": "shard/2",
-        "description": "Deterministic autonomous execution shard 2",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
+        "name": "shard/4",
+        "description": "Deterministic autonomous execution shard 4",
         "color": "0e8a16"
       }
     ],
     "number": 332,
     "title": "[SENTIMENT][ENHANCEMENT-24] Requirements capture form-to-chat bridge",
-    "updatedAt": "2026-04-18T04:11:48Z",
+    "updatedAt": "2026-04-18T04:14:56Z",
     "url": "https://github.com/kushin77/ollama/issues/332"
   },
   {
@@ -14362,15 +14362,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
-        "name": "shard/3",
-        "description": "Deterministic autonomous execution shard 3",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
+        "name": "shard/1",
+        "description": "Deterministic autonomous execution shard 1",
         "color": "0e8a16"
       }
     ],
     "number": 333,
     "title": "[SENTIMENT][ENHANCEMENT-25] Meeting notes to structured output templates",
-    "updatedAt": "2026-04-18T04:11:41Z",
+    "updatedAt": "2026-04-18T04:14:57Z",
     "url": "https://github.com/kushin77/ollama/issues/333"
   },
   {
@@ -14418,15 +14418,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
-        "name": "shard/4",
-        "description": "Deterministic autonomous execution shard 4",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
+        "name": "shard/2",
+        "description": "Deterministic autonomous execution shard 2",
         "color": "0e8a16"
       }
     ],
     "number": 334,
     "title": "[SENTIMENT][ENHANCEMENT-26] Action item extraction with owner/date",
-    "updatedAt": "2026-04-18T04:11:48Z",
+    "updatedAt": "2026-04-18T04:14:58Z",
     "url": "https://github.com/kushin77/ollama/issues/334"
   },
   {
@@ -14474,15 +14474,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
-        "name": "shard/1",
-        "description": "Deterministic autonomous execution shard 1",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
+        "name": "shard/3",
+        "description": "Deterministic autonomous execution shard 3",
         "color": "0e8a16"
       }
     ],
     "number": 335,
     "title": "[SENTIMENT][ENHANCEMENT-27] Checklist synthesis from conversation",
-    "updatedAt": "2026-04-18T04:11:48Z",
+    "updatedAt": "2026-04-18T04:14:59Z",
     "url": "https://github.com/kushin77/ollama/issues/335"
   },
   {
@@ -14530,15 +14530,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
-        "name": "shard/2",
-        "description": "Deterministic autonomous execution shard 2",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
+        "name": "shard/4",
+        "description": "Deterministic autonomous execution shard 4",
         "color": "0e8a16"
       }
     ],
     "number": 336,
     "title": "[SENTIMENT][ENHANCEMENT-28] Timeline view for conversation milestones",
-    "updatedAt": "2026-04-18T04:11:49Z",
+    "updatedAt": "2026-04-18T04:15:00Z",
     "url": "https://github.com/kushin77/ollama/issues/336"
   },
   {
@@ -14586,15 +14586,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
-        "name": "shard/3",
-        "description": "Deterministic autonomous execution shard 3",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
+        "name": "shard/1",
+        "description": "Deterministic autonomous execution shard 1",
         "color": "0e8a16"
       }
     ],
     "number": 337,
     "title": "[SENTIMENT][ENHANCEMENT-29] Pinned artifact board in chat",
-    "updatedAt": "2026-04-18T04:11:49Z",
+    "updatedAt": "2026-04-18T04:15:02Z",
     "url": "https://github.com/kushin77/ollama/issues/337"
   },
   {
@@ -14642,15 +14642,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
-        "name": "shard/4",
-        "description": "Deterministic autonomous execution shard 4",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
+        "name": "shard/2",
+        "description": "Deterministic autonomous execution shard 2",
         "color": "0e8a16"
       }
     ],
     "number": 338,
     "title": "[SENTIMENT][ENHANCEMENT-30] Conversation export bundles (MD/JSON/PDF)",
-    "updatedAt": "2026-04-18T04:11:49Z",
+    "updatedAt": "2026-04-18T04:15:03Z",
     "url": "https://github.com/kushin77/ollama/issues/338"
   },
   {
@@ -14698,15 +14698,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
-        "name": "shard/1",
-        "description": "Deterministic autonomous execution shard 1",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
+        "name": "shard/3",
+        "description": "Deterministic autonomous execution shard 3",
         "color": "0e8a16"
       }
     ],
     "number": 339,
     "title": "[SENTIMENT][ENHANCEMENT-31] Inline glossary for domain jargon",
-    "updatedAt": "2026-04-18T04:11:50Z",
+    "updatedAt": "2026-04-18T04:15:04Z",
     "url": "https://github.com/kushin77/ollama/issues/339"
   },
   {
@@ -14754,15 +14754,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
-        "name": "shard/2",
-        "description": "Deterministic autonomous execution shard 2",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
+        "name": "shard/4",
+        "description": "Deterministic autonomous execution shard 4",
         "color": "0e8a16"
       }
     ],
     "number": 340,
     "title": "[SENTIMENT][ENHANCEMENT-32] Acronym expansion toggle",
-    "updatedAt": "2026-04-18T04:11:50Z",
+    "updatedAt": "2026-04-18T04:15:05Z",
     "url": "https://github.com/kushin77/ollama/issues/340"
   },
   {
@@ -14810,15 +14810,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
-        "name": "shard/3",
-        "description": "Deterministic autonomous execution shard 3",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
+        "name": "shard/1",
+        "description": "Deterministic autonomous execution shard 1",
         "color": "0e8a16"
       }
     ],
     "number": 341,
     "title": "[SENTIMENT][ENHANCEMENT-33] Localization and cultural tone profiles",
-    "updatedAt": "2026-04-18T04:11:50Z",
+    "updatedAt": "2026-04-18T04:15:07Z",
     "url": "https://github.com/kushin77/ollama/issues/341"
   },
   {
@@ -14866,15 +14866,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
-        "name": "shard/4",
-        "description": "Deterministic autonomous execution shard 4",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
+        "name": "shard/2",
+        "description": "Deterministic autonomous execution shard 2",
         "color": "0e8a16"
       }
     ],
     "number": 342,
     "title": "[SENTIMENT][ENHANCEMENT-34] Accessibility readability mode",
-    "updatedAt": "2026-04-18T04:11:51Z",
+    "updatedAt": "2026-04-18T04:15:08Z",
     "url": "https://github.com/kushin77/ollama/issues/342"
   },
   {
@@ -14922,15 +14922,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
-        "name": "shard/1",
-        "description": "Deterministic autonomous execution shard 1",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
+        "name": "shard/3",
+        "description": "Deterministic autonomous execution shard 3",
         "color": "0e8a16"
       }
     ],
     "number": 343,
     "title": "[SENTIMENT][ENHANCEMENT-35] Keyboard-first command palette",
-    "updatedAt": "2026-04-18T04:11:51Z",
+    "updatedAt": "2026-04-18T04:15:09Z",
     "url": "https://github.com/kushin77/ollama/issues/343"
   },
   {
@@ -14978,15 +14978,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
-        "name": "shard/2",
-        "description": "Deterministic autonomous execution shard 2",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
+        "name": "shard/4",
+        "description": "Deterministic autonomous execution shard 4",
         "color": "0e8a16"
       }
     ],
     "number": 344,
     "title": "[SENTIMENT][ENHANCEMENT-36] Offline drafting and deferred send mode",
-    "updatedAt": "2026-04-18T04:11:52Z",
+    "updatedAt": "2026-04-18T04:15:10Z",
     "url": "https://github.com/kushin77/ollama/issues/344"
   },
   {
@@ -15034,15 +15034,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
-        "name": "shard/3",
-        "description": "Deterministic autonomous execution shard 3",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
+        "name": "shard/1",
+        "description": "Deterministic autonomous execution shard 1",
         "color": "0e8a16"
       }
     ],
     "number": 345,
     "title": "[SENTIMENT][ENHANCEMENT-37] Conflict-free response edit history",
-    "updatedAt": "2026-04-18T04:11:52Z",
+    "updatedAt": "2026-04-18T04:15:12Z",
     "url": "https://github.com/kushin77/ollama/issues/345"
   },
   {
@@ -15090,15 +15090,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
-        "name": "shard/4",
-        "description": "Deterministic autonomous execution shard 4",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
+        "name": "shard/2",
+        "description": "Deterministic autonomous execution shard 2",
         "color": "0e8a16"
       }
     ],
     "number": 346,
     "title": "[SENTIMENT][ENHANCEMENT-38] Conversation branch and merge workflow",
-    "updatedAt": "2026-04-18T04:11:52Z",
+    "updatedAt": "2026-04-18T04:15:13Z",
     "url": "https://github.com/kushin77/ollama/issues/346"
   },
   {
@@ -15146,15 +15146,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
-        "name": "shard/1",
-        "description": "Deterministic autonomous execution shard 1",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
+        "name": "shard/3",
+        "description": "Deterministic autonomous execution shard 3",
         "color": "0e8a16"
       }
     ],
     "number": 347,
     "title": "[SENTIMENT][ENHANCEMENT-39] Source trust badges and provenance tags",
-    "updatedAt": "2026-04-18T04:11:17Z",
+    "updatedAt": "2026-04-18T04:15:14Z",
     "url": "https://github.com/kushin77/ollama/issues/347"
   },
   {
@@ -15202,15 +15202,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
-        "name": "shard/2",
-        "description": "Deterministic autonomous execution shard 2",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
+        "name": "shard/4",
+        "description": "Deterministic autonomous execution shard 4",
         "color": "0e8a16"
       }
     ],
     "number": 348,
     "title": "[SENTIMENT][ENHANCEMENT-40] Outdated-claim warning system",
-    "updatedAt": "2026-04-18T04:11:18Z",
+    "updatedAt": "2026-04-18T04:15:15Z",
     "url": "https://github.com/kushin77/ollama/issues/348"
   },
   {
@@ -15258,15 +15258,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
-        "name": "shard/3",
-        "description": "Deterministic autonomous execution shard 3",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
+        "name": "shard/1",
+        "description": "Deterministic autonomous execution shard 1",
         "color": "0e8a16"
       }
     ],
     "number": 349,
     "title": "[SENTIMENT][ENHANCEMENT-41] Quote exactness verifier",
-    "updatedAt": "2026-04-18T04:11:18Z",
+    "updatedAt": "2026-04-18T04:15:17Z",
     "url": "https://github.com/kushin77/ollama/issues/349"
   },
   {
@@ -15314,15 +15314,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
-        "name": "shard/4",
-        "description": "Deterministic autonomous execution shard 4",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
+        "name": "shard/2",
+        "description": "Deterministic autonomous execution shard 2",
         "color": "0e8a16"
       }
     ],
     "number": 350,
     "title": "[SENTIMENT][ENHANCEMENT-42] Claim-to-evidence trace map",
-    "updatedAt": "2026-04-18T04:11:19Z",
+    "updatedAt": "2026-04-18T04:15:18Z",
     "url": "https://github.com/kushin77/ollama/issues/350"
   },
   {
@@ -15370,15 +15370,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
-        "name": "shard/1",
-        "description": "Deterministic autonomous execution shard 1",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
+        "name": "shard/3",
+        "description": "Deterministic autonomous execution shard 3",
         "color": "0e8a16"
       }
     ],
     "number": 351,
     "title": "[SENTIMENT][ENHANCEMENT-43] Policy explanation cards",
-    "updatedAt": "2026-04-18T04:11:20Z",
+    "updatedAt": "2026-04-18T04:15:19Z",
     "url": "https://github.com/kushin77/ollama/issues/351"
   },
   {
@@ -15426,15 +15426,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
-        "name": "shard/2",
-        "description": "Deterministic autonomous execution shard 2",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
+        "name": "shard/4",
+        "description": "Deterministic autonomous execution shard 4",
         "color": "0e8a16"
       }
     ],
     "number": 352,
     "title": "[SENTIMENT][ENHANCEMENT-44] Guardrail override request workflow",
-    "updatedAt": "2026-04-18T04:11:20Z",
+    "updatedAt": "2026-04-18T04:15:20Z",
     "url": "https://github.com/kushin77/ollama/issues/352"
   },
   {
@@ -15482,15 +15482,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
-        "name": "shard/3",
-        "description": "Deterministic autonomous execution shard 3",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
+        "name": "shard/1",
+        "description": "Deterministic autonomous execution shard 1",
         "color": "0e8a16"
       }
     ],
     "number": 353,
     "title": "[SENTIMENT][ENHANCEMENT-45] Sandboxed what-if scenario simulator",
-    "updatedAt": "2026-04-18T04:11:21Z",
+    "updatedAt": "2026-04-18T04:15:21Z",
     "url": "https://github.com/kushin77/ollama/issues/353"
   },
   {
@@ -15538,15 +15538,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
-        "name": "shard/4",
-        "description": "Deterministic autonomous execution shard 4",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
+        "name": "shard/2",
+        "description": "Deterministic autonomous execution shard 2",
         "color": "0e8a16"
       }
     ],
     "number": 354,
     "title": "[SENTIMENT][ENHANCEMENT-46] Plan rollback assistant",
-    "updatedAt": "2026-04-18T04:11:22Z",
+    "updatedAt": "2026-04-18T04:15:23Z",
     "url": "https://github.com/kushin77/ollama/issues/354"
   },
   {
@@ -15594,15 +15594,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
-        "name": "shard/1",
-        "description": "Deterministic autonomous execution shard 1",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
+        "name": "shard/3",
+        "description": "Deterministic autonomous execution shard 3",
         "color": "0e8a16"
       }
     ],
     "number": 355,
     "title": "[SENTIMENT][ENHANCEMENT-47] Incident response copiloting mode",
-    "updatedAt": "2026-04-18T04:11:22Z",
+    "updatedAt": "2026-04-18T04:15:24Z",
     "url": "https://github.com/kushin77/ollama/issues/355"
   },
   {
@@ -15650,15 +15650,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
-        "name": "shard/2",
-        "description": "Deterministic autonomous execution shard 2",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
+        "name": "shard/4",
+        "description": "Deterministic autonomous execution shard 4",
         "color": "0e8a16"
       }
     ],
     "number": 356,
     "title": "[SENTIMENT][ENHANCEMENT-48] Compliance evidence pack generator",
-    "updatedAt": "2026-04-18T04:11:23Z",
+    "updatedAt": "2026-04-18T04:15:25Z",
     "url": "https://github.com/kushin77/ollama/issues/356"
   },
   {
@@ -15706,15 +15706,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
-        "name": "shard/3",
-        "description": "Deterministic autonomous execution shard 3",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
+        "name": "shard/1",
+        "description": "Deterministic autonomous execution shard 1",
         "color": "0e8a16"
       }
     ],
     "number": 357,
     "title": "[SENTIMENT][ENHANCEMENT-49] Stakeholder summary generator",
-    "updatedAt": "2026-04-18T04:11:24Z",
+    "updatedAt": "2026-04-18T04:15:26Z",
     "url": "https://github.com/kushin77/ollama/issues/357"
   },
   {
@@ -15762,15 +15762,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
-        "name": "shard/4",
-        "description": "Deterministic autonomous execution shard 4",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
+        "name": "shard/2",
+        "description": "Deterministic autonomous execution shard 2",
         "color": "0e8a16"
       }
     ],
     "number": 358,
     "title": "[SENTIMENT][ENHANCEMENT-50] Executive brief response mode",
-    "updatedAt": "2026-04-18T04:11:24Z",
+    "updatedAt": "2026-04-18T04:15:28Z",
     "url": "https://github.com/kushin77/ollama/issues/358"
   },
   {
@@ -15818,15 +15818,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
-        "name": "shard/1",
-        "description": "Deterministic autonomous execution shard 1",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
+        "name": "shard/3",
+        "description": "Deterministic autonomous execution shard 3",
         "color": "0e8a16"
       }
     ],
     "number": 359,
     "title": "[SENTIMENT][ENHANCEMENT-51] Engineer deep-dive response mode",
-    "updatedAt": "2026-04-18T04:11:25Z",
+    "updatedAt": "2026-04-18T04:15:29Z",
     "url": "https://github.com/kushin77/ollama/issues/359"
   },
   {
@@ -15874,15 +15874,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
-        "name": "shard/2",
-        "description": "Deterministic autonomous execution shard 2",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
+        "name": "shard/4",
+        "description": "Deterministic autonomous execution shard 4",
         "color": "0e8a16"
       }
     ],
     "number": 360,
     "title": "[SENTIMENT][ENHANCEMENT-52] Learner coaching progression mode",
-    "updatedAt": "2026-04-18T04:11:26Z",
+    "updatedAt": "2026-04-18T04:15:30Z",
     "url": "https://github.com/kushin77/ollama/issues/360"
   },
   {
@@ -15930,15 +15930,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
-        "name": "shard/3",
-        "description": "Deterministic autonomous execution shard 3",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
+        "name": "shard/1",
+        "description": "Deterministic autonomous execution shard 1",
         "color": "0e8a16"
       }
     ],
     "number": 361,
     "title": "[SENTIMENT][ENHANCEMENT-53] Socratic tutor interaction mode",
-    "updatedAt": "2026-04-18T04:11:27Z",
+    "updatedAt": "2026-04-18T04:15:31Z",
     "url": "https://github.com/kushin77/ollama/issues/361"
   },
   {
@@ -15986,128 +15986,16 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
-        "name": "shard/4",
-        "description": "Deterministic autonomous execution shard 4",
-        "color": "0e8a16"
-      }
-    ],
-    "number": 362,
-    "title": "[SENTIMENT][ENHANCEMENT-54] Debate mode with pros/cons framing",
-    "updatedAt": "2026-04-18T04:11:27Z",
-    "url": "https://github.com/kushin77/ollama/issues/362"
-  },
-  {
-    "labels": [
-      {
-        "id": "LA_kwDOQ4ec1M8AAAACUuNGtQ",
-        "name": "enhancement",
-        "description": "New feature or request",
-        "color": "a2eeef"
-      },
-      {
-        "id": "LA_kwDOQ4ec1M8AAAACfx2sFw",
-        "name": "status/triaged",
-        "description": "",
-        "color": "ededed"
-      },
-      {
-        "id": "LA_kwDOQ4ec1M8AAAACfx2tKQ",
-        "name": "priority/low",
-        "description": "",
-        "color": "ededed"
-      },
-      {
-        "id": "LA_kwDOQ4ec1M8AAAACfyN75A",
-        "name": "needs-evidence",
-        "description": "",
-        "color": "ededed"
-      },
-      {
-        "id": "LA_kwDOQ4ec1M8AAAACfywt5w",
-        "name": "status/planned-wave",
-        "description": "Assigned to a deterministic autonomous execution wave",
-        "color": "5319e7"
-      },
-      {
-        "id": "LA_kwDOQ4ec1M8AAAACfyyaIQ",
-        "name": "wave/13",
-        "description": "Autonomous execution wave 13",
-        "color": "0e8a16"
-      },
-      {
-        "id": "LA_kwDOQ4ec1M8AAAACfy6lxw",
-        "name": "agent-ready",
-        "description": "",
-        "color": "ededed"
-      },
-      {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
-        "name": "shard/1",
-        "description": "Deterministic autonomous execution shard 1",
-        "color": "0e8a16"
-      }
-    ],
-    "number": 363,
-    "title": "[SENTIMENT][ENHANCEMENT-55] Hypothesis test planning assistant",
-    "updatedAt": "2026-04-18T04:11:28Z",
-    "url": "https://github.com/kushin77/ollama/issues/363"
-  },
-  {
-    "labels": [
-      {
-        "id": "LA_kwDOQ4ec1M8AAAACUuNGtQ",
-        "name": "enhancement",
-        "description": "New feature or request",
-        "color": "a2eeef"
-      },
-      {
-        "id": "LA_kwDOQ4ec1M8AAAACfx2sFw",
-        "name": "status/triaged",
-        "description": "",
-        "color": "ededed"
-      },
-      {
-        "id": "LA_kwDOQ4ec1M8AAAACfx2tKQ",
-        "name": "priority/low",
-        "description": "",
-        "color": "ededed"
-      },
-      {
-        "id": "LA_kwDOQ4ec1M8AAAACfyN75A",
-        "name": "needs-evidence",
-        "description": "",
-        "color": "ededed"
-      },
-      {
-        "id": "LA_kwDOQ4ec1M8AAAACfywt5w",
-        "name": "status/planned-wave",
-        "description": "Assigned to a deterministic autonomous execution wave",
-        "color": "5319e7"
-      },
-      {
-        "id": "LA_kwDOQ4ec1M8AAAACfyyaIQ",
-        "name": "wave/13",
-        "description": "Autonomous execution wave 13",
-        "color": "0e8a16"
-      },
-      {
-        "id": "LA_kwDOQ4ec1M8AAAACfy6lxw",
-        "name": "agent-ready",
-        "description": "",
-        "color": "ededed"
-      },
-      {
         "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
         "name": "shard/2",
         "description": "Deterministic autonomous execution shard 2",
         "color": "0e8a16"
       }
     ],
-    "number": 364,
-    "title": "[SENTIMENT][ENHANCEMENT-56] Experiment logbook integration",
-    "updatedAt": "2026-04-18T04:11:29Z",
-    "url": "https://github.com/kushin77/ollama/issues/364"
+    "number": 362,
+    "title": "[SENTIMENT][ENHANCEMENT-54] Debate mode with pros/cons framing",
+    "updatedAt": "2026-04-18T04:15:33Z",
+    "url": "https://github.com/kushin77/ollama/issues/362"
   },
   {
     "labels": [
@@ -16160,10 +16048,10 @@
         "color": "0e8a16"
       }
     ],
-    "number": 365,
-    "title": "[SENTIMENT][ENHANCEMENT-57] Task effort estimation assistant",
-    "updatedAt": "2026-04-18T04:11:29Z",
-    "url": "https://github.com/kushin77/ollama/issues/365"
+    "number": 363,
+    "title": "[SENTIMENT][ENHANCEMENT-55] Hypothesis test planning assistant",
+    "updatedAt": "2026-04-18T04:15:34Z",
+    "url": "https://github.com/kushin77/ollama/issues/363"
   },
   {
     "labels": [
@@ -16216,10 +16104,10 @@
         "color": "0e8a16"
       }
     ],
-    "number": 366,
-    "title": "[SENTIMENT][ENHANCEMENT-58] Risk register generation from thread",
-    "updatedAt": "2026-04-18T04:11:30Z",
-    "url": "https://github.com/kushin77/ollama/issues/366"
+    "number": 364,
+    "title": "[SENTIMENT][ENHANCEMENT-56] Experiment logbook integration",
+    "updatedAt": "2026-04-18T04:15:35Z",
+    "url": "https://github.com/kushin77/ollama/issues/364"
   },
   {
     "labels": [
@@ -16272,10 +16160,10 @@
         "color": "0e8a16"
       }
     ],
-    "number": 367,
-    "title": "[SENTIMENT][ENHANCEMENT-59] Dependency map generation for plans",
-    "updatedAt": "2026-04-18T04:11:31Z",
-    "url": "https://github.com/kushin77/ollama/issues/367"
+    "number": 365,
+    "title": "[SENTIMENT][ENHANCEMENT-57] Task effort estimation assistant",
+    "updatedAt": "2026-04-18T04:15:36Z",
+    "url": "https://github.com/kushin77/ollama/issues/365"
   },
   {
     "labels": [
@@ -16328,9 +16216,121 @@
         "color": "0e8a16"
       }
     ],
+    "number": 366,
+    "title": "[SENTIMENT][ENHANCEMENT-58] Risk register generation from thread",
+    "updatedAt": "2026-04-18T04:15:37Z",
+    "url": "https://github.com/kushin77/ollama/issues/366"
+  },
+  {
+    "labels": [
+      {
+        "id": "LA_kwDOQ4ec1M8AAAACUuNGtQ",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "LA_kwDOQ4ec1M8AAAACfx2sFw",
+        "name": "status/triaged",
+        "description": "",
+        "color": "ededed"
+      },
+      {
+        "id": "LA_kwDOQ4ec1M8AAAACfx2tKQ",
+        "name": "priority/low",
+        "description": "",
+        "color": "ededed"
+      },
+      {
+        "id": "LA_kwDOQ4ec1M8AAAACfyN75A",
+        "name": "needs-evidence",
+        "description": "",
+        "color": "ededed"
+      },
+      {
+        "id": "LA_kwDOQ4ec1M8AAAACfywt5w",
+        "name": "status/planned-wave",
+        "description": "Assigned to a deterministic autonomous execution wave",
+        "color": "5319e7"
+      },
+      {
+        "id": "LA_kwDOQ4ec1M8AAAACfyyaIQ",
+        "name": "wave/13",
+        "description": "Autonomous execution wave 13",
+        "color": "0e8a16"
+      },
+      {
+        "id": "LA_kwDOQ4ec1M8AAAACfy6lxw",
+        "name": "agent-ready",
+        "description": "",
+        "color": "ededed"
+      },
+      {
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
+        "name": "shard/3",
+        "description": "Deterministic autonomous execution shard 3",
+        "color": "0e8a16"
+      }
+    ],
+    "number": 367,
+    "title": "[SENTIMENT][ENHANCEMENT-59] Dependency map generation for plans",
+    "updatedAt": "2026-04-18T04:15:39Z",
+    "url": "https://github.com/kushin77/ollama/issues/367"
+  },
+  {
+    "labels": [
+      {
+        "id": "LA_kwDOQ4ec1M8AAAACUuNGtQ",
+        "name": "enhancement",
+        "description": "New feature or request",
+        "color": "a2eeef"
+      },
+      {
+        "id": "LA_kwDOQ4ec1M8AAAACfx2sFw",
+        "name": "status/triaged",
+        "description": "",
+        "color": "ededed"
+      },
+      {
+        "id": "LA_kwDOQ4ec1M8AAAACfx2tKQ",
+        "name": "priority/low",
+        "description": "",
+        "color": "ededed"
+      },
+      {
+        "id": "LA_kwDOQ4ec1M8AAAACfyN75A",
+        "name": "needs-evidence",
+        "description": "",
+        "color": "ededed"
+      },
+      {
+        "id": "LA_kwDOQ4ec1M8AAAACfywt5w",
+        "name": "status/planned-wave",
+        "description": "Assigned to a deterministic autonomous execution wave",
+        "color": "5319e7"
+      },
+      {
+        "id": "LA_kwDOQ4ec1M8AAAACfyyaIQ",
+        "name": "wave/13",
+        "description": "Autonomous execution wave 13",
+        "color": "0e8a16"
+      },
+      {
+        "id": "LA_kwDOQ4ec1M8AAAACfy6lxw",
+        "name": "agent-ready",
+        "description": "",
+        "color": "ededed"
+      },
+      {
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
+        "name": "shard/4",
+        "description": "Deterministic autonomous execution shard 4",
+        "color": "0e8a16"
+      }
+    ],
     "number": 368,
     "title": "[SENTIMENT][ENHANCEMENT-60] Launch readiness checklist synthesizer",
-    "updatedAt": "2026-04-18T04:11:31Z",
+    "updatedAt": "2026-04-18T04:15:40Z",
     "url": "https://github.com/kushin77/ollama/issues/368"
   },
   {
@@ -16570,15 +16570,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
-        "name": "shard/3",
-        "description": "Deterministic autonomous execution shard 3",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
+        "name": "shard/1",
+        "description": "Deterministic autonomous execution shard 1",
         "color": "0e8a16"
       }
     ],
     "number": 372,
     "title": "[Cross-Repo] Publish Enterprise Integration Bundle for code-server (Contract, GPU Profile, Eval Artifacts)",
-    "updatedAt": "2026-04-18T04:11:33Z",
+    "updatedAt": "2026-04-18T04:15:42Z",
     "url": "https://github.com/kushin77/ollama/issues/372"
   },
   {
@@ -16892,15 +16892,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
-        "name": "shard/4",
-        "description": "Deterministic autonomous execution shard 4",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
+        "name": "shard/2",
+        "description": "Deterministic autonomous execution shard 2",
         "color": "0e8a16"
       }
     ],
     "number": 378,
     "title": "feat(observability): Replace hand-rolled Prometheus text with prometheus/client_golang",
-    "updatedAt": "2026-04-18T04:11:38Z",
+    "updatedAt": "2026-04-18T04:15:44Z",
     "url": "https://github.com/kushin77/ollama/issues/378"
   },
   {
@@ -16954,15 +16954,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
-        "name": "shard/1",
-        "description": "Deterministic autonomous execution shard 1",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
+        "name": "shard/3",
+        "description": "Deterministic autonomous execution shard 3",
         "color": "0e8a16"
       }
     ],
     "number": 379,
     "title": "feat(observability): Add W3C TraceContext propagation (traceparent/tracestate headers)",
-    "updatedAt": "2026-04-18T04:11:39Z",
+    "updatedAt": "2026-04-18T04:15:45Z",
     "url": "https://github.com/kushin77/ollama/issues/379"
   },
   {
@@ -17090,15 +17090,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
-        "name": "shard/2",
-        "description": "Deterministic autonomous execution shard 2",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
+        "name": "shard/4",
+        "description": "Deterministic autonomous execution shard 4",
         "color": "0e8a16"
       }
     ],
     "number": 390,
     "title": "[ADR] Monorepo topology and pnpm adoption decision",
-    "updatedAt": "2026-04-18T04:11:40Z",
+    "updatedAt": "2026-04-18T04:15:46Z",
     "url": "https://github.com/kushin77/ollama/issues/390"
   },
   {
@@ -17226,15 +17226,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEAw",
-        "name": "shard/3",
-        "description": "Deterministic autonomous execution shard 3",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD3w",
+        "name": "shard/1",
+        "description": "Deterministic autonomous execution shard 1",
         "color": "0e8a16"
       }
     ],
     "number": 392,
     "title": "[Monorepo] Resolve frontend lifecycle state and documentation drift",
-    "updatedAt": "2026-04-18T04:11:41Z",
+    "updatedAt": "2026-04-18T04:15:48Z",
     "url": "https://github.com/kushin77/ollama/issues/392"
   },
   {
@@ -17622,15 +17622,15 @@
         "color": "ededed"
       },
       {
-        "id": "LA_kwDOQ4ec1M8AAAACfzBEEw",
-        "name": "shard/4",
-        "description": "Deterministic autonomous execution shard 4",
+        "id": "LA_kwDOQ4ec1M8AAAACfzBD8g",
+        "name": "shard/2",
+        "description": "Deterministic autonomous execution shard 2",
         "color": "0e8a16"
       }
     ],
     "number": 398,
     "title": "[Monorepo] Publish migration runbook and validate rollback procedure",
-    "updatedAt": "2026-04-18T04:11:47Z",
+    "updatedAt": "2026-04-18T04:15:50Z",
     "url": "https://github.com/kushin77/ollama/issues/398"
   }
 ]

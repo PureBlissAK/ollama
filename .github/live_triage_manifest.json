@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-18T04:20:37.964168+00:00",
+  "generated_at": "2026-04-18T04:22:05.441471+00:00",
   "open_issue_count": 294,
   "agent_ready_count": 10,
   "needs_evidence_count": 284,
@@ -31,7 +31,7 @@
   },
   "top_labels": [
     [
-      "status/triaged",
+      "agent-ready",
       294
     ],
     [
@@ -39,7 +39,7 @@
       294
     ],
     [
-      "agent-ready",
+      "status/triaged",
       294
     ],
     [
@@ -95,11 +95,11 @@
       25
     ],
     [
-      "wave/04",
+      "wave/4",
       25
     ],
     [
-      "wave/4",
+      "wave/04",
       25
     ],
     [
@@ -107,11 +107,11 @@
       25
     ],
     [
-      "wave/03",
+      "wave/3",
       25
     ],
     [
-      "wave/3",
+      "wave/03",
       25
     ],
     [
@@ -123,11 +123,11 @@
       25
     ],
     [
-      "wave/02",
+      "wave/2",
       25
     ],
     [
-      "wave/2",
+      "wave/02",
       25
     ]
   ],
