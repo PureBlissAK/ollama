@@ -61,11 +61,11 @@ Ollama is a sophisticated full-stack AI platform designed for engineers who dema
 - 🧪 [Testing Guide](docs/testing/TEST_COVERAGE_CONFIG.md) - Test strategy and coverage
 
 **Operations**:
-- 🚢 [Deployment Guide](docs/DEPLOYMENT.md) - Production deployment procedures
+- 🧭 [On-Prem Execution Index](docs/operations/ON_PREM_EXECUTION_INDEX.md) - Primary target-server-local navigation
+- 🏠 [On-Prem Deployment Model](docs/operations/ON_PREM_DEPLOYMENT_MODEL.md) - Canonical host inventories and immutable execution rules
+- 🚢 [Deployment Guide](docs/DEPLOYMENT.md) - Production deployment procedures (reference)
 - 🧭 [Shared Documentation Navigation](docs/shared/README.md) - Canonical shared navigation layer
 - 📚 [Documentation SSOT](docs/meta/README.md) - Canonical docs map and ownership rules
-- 🏠 [On-Prem Deployment Model](docs/operations/ON_PREM_DEPLOYMENT_MODEL.md) - Target-server-local execution and host inventories
-- 🧭 [On-Prem Execution Index](docs/operations/ON_PREM_EXECUTION_INDEX.md) - Target-server-local operations navigation
 - 📐 [Repository Rules](docs/repo-rules/README.md) - Canonical repo rules and naming constraints
 - 🧱 [Documentation Meta](docs/meta/README.md) - documentation layers and ownership
 - 🔤 [Standard Naming Convention](docs/snc/README.md) - canonical naming rules

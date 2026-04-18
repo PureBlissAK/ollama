@@ -5,15 +5,15 @@ This file defines the canonical documentation map for the repository.
 ## Canonical Documents
 
 - [README.md](../README.md) - project overview and primary entry point
-- [docs/DEPLOYMENT.md](../DEPLOYMENT.md) - canonical deployment procedures
+- [docs/operations/ON_PREM_EXECUTION_INDEX.md](../operations/ON_PREM_EXECUTION_INDEX.md) - shared target-server-local operational navigation
 - [docs/operations/ON_PREM_DEPLOYMENT_MODEL.md](../operations/ON_PREM_DEPLOYMENT_MODEL.md) - target-server-local execution model
 - [docs/shared/README.md](../shared/README.md) - shared navigation layer
+- [docs/DEPLOYMENT.md](../DEPLOYMENT.md) - canonical deployment procedures
 - [docs/indexed/README.md](../indexed/README.md) - legacy compatibility index hub
 - [docs/repo-rules/README.md](../repo-rules/README.md) - canonical repository rules
 - [docs/structure/README.md](../structure/README.md) - repository layout and structure reference
 - [docs/instructions/README.md](../instructions/README.md) - instruction file registry
 - [docs/snc/README.md](../snc/README.md) - standard naming convention
-- [docs/operations/ON_PREM_EXECUTION_INDEX.md](../operations/ON_PREM_EXECUTION_INDEX.md) - shared target-server-local operational navigation
 - [docs/reports/HOST_PROFILE_IDEMPOTENCY.md](../reports/HOST_PROFILE_IDEMPOTENCY.md) - rerun evidence and failure taxonomy
 - [scripts/host-profile.sh](../../scripts/host-profile.sh) - host inventory loader
 - [scripts/host-profile-matrix.sh](../../scripts/host-profile-matrix.sh) - deterministic rerun harness
