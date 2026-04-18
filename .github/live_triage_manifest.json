@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-04-18T04:04:10.189032+00:00",
-  "open_issue_count": 310,
+  "generated_at": "2026-04-18T04:09:00.282796+00:00",
+  "open_issue_count": 294,
   "agent_ready_count": 10,
-  "needs_evidence_count": 300,
+  "needs_evidence_count": 284,
   "close_candidate_count": 0,
   "blocked_count": 0,
   "wave_counts": {
@@ -10,61 +10,61 @@
     "wave/02": 25,
     "wave/03": 25,
     "wave/04": 25,
-    "wave/05": 22,
+    "wave/05": 18,
     "wave/06": 22,
     "wave/07": 25,
-    "wave/08": 25,
+    "wave/08": 24,
     "wave/09": 25,
     "wave/1": 22,
-    "wave/10": 25,
-    "wave/11": 25,
+    "wave/10": 20,
+    "wave/11": 19,
     "wave/12": 25,
     "wave/13": 16,
     "wave/2": 25,
     "wave/3": 25,
     "wave/4": 25,
-    "wave/5": 18,
+    "wave/5": 14,
     "wave/6": 20,
     "wave/7": 25,
-    "wave/8": 25,
+    "wave/8": 24,
     "wave/9": 25
   },
   "top_labels": [
     [
       "status/triaged",
-      310
-    ],
-    [
-      "status/planned-wave",
-      310
+      294
     ],
     [
       "agent-ready",
-      310
+      294
+    ],
+    [
+      "status/planned-wave",
+      294
     ],
     [
       "needs-evidence",
-      300
+      284
     ],
     [
       "enhancement",
-      202
+      186
     ],
     [
       "priority/low",
-      88
+      82
     ],
     [
       "priority/high",
       50
     ],
     [
-      "priority/medium",
+      "security",
       44
     ],
     [
-      "security",
-      44
+      "priority/medium",
+      40
     ],
     [
       "bug",
@@ -75,11 +75,23 @@
       36
     ],
     [
-      "wave/01",
-      25
+      "shard/1",
+      28
     ],
     [
-      "wave/04",
+      "shard/2",
+      28
+    ],
+    [
+      "shard/3",
+      27
+    ],
+    [
+      "shard/4",
+      27
+    ],
+    [
+      "wave/01",
       25
     ],
     [
@@ -87,15 +99,11 @@
       25
     ],
     [
+      "wave/04",
+      25
+    ],
+    [
       "wave/12",
-      25
-    ],
-    [
-      "wave/11",
-      25
-    ],
-    [
-      "wave/3",
       25
     ],
     [
@@ -103,7 +111,7 @@
       25
     ],
     [
-      "wave/10",
+      "wave/3",
       25
     ],
     [
@@ -120,14 +128,6 @@
     ],
     [
       "wave/2",
-      25
-    ],
-    [
-      "wave/08",
-      25
-    ],
-    [
-      "wave/8",
       25
     ]
   ],
@@ -1704,102 +1704,6 @@
       "evidence_commits": []
     },
     {
-      "number": 286,
-      "title": "[BROWSER-CHAT][EPIC] Local Hardware Acceleration Strategy for Faster Chat",
-      "url": "https://github.com/kushin77/ollama/issues/286",
-      "labels": [
-        "agent-ready",
-        "enhancement",
-        "needs-evidence",
-        "priority/low",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/11"
-      ],
-      "updated_at": "2026-04-18T03:52:37Z",
-      "evidence_commits": []
-    },
-    {
-      "number": 285,
-      "title": "[BROWSER-CHAT][EPIC] Sentiment Intelligence Program (Love/Hate Signal to Backlog)",
-      "url": "https://github.com/kushin77/ollama/issues/285",
-      "labels": [
-        "agent-ready",
-        "enhancement",
-        "needs-evidence",
-        "priority/low",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/11"
-      ],
-      "updated_at": "2026-04-18T03:52:36Z",
-      "evidence_commits": []
-    },
-    {
-      "number": 284,
-      "title": "[BROWSER-CHAT][EPIC] Cross-Repo Assimilation from kushin77 AI/Ollama Repositories",
-      "url": "https://github.com/kushin77/ollama/issues/284",
-      "labels": [
-        "agent-ready",
-        "enhancement",
-        "needs-evidence",
-        "priority/low",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/11"
-      ],
-      "updated_at": "2026-04-18T03:52:35Z",
-      "evidence_commits": []
-    },
-    {
-      "number": 283,
-      "title": "[BROWSER-CHAT][EPIC] Claude-Like Browser Copilot with Live Host Task Assistance",
-      "url": "https://github.com/kushin77/ollama/issues/283",
-      "labels": [
-        "agent-ready",
-        "enhancement",
-        "needs-evidence",
-        "priority/low",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/11"
-      ],
-      "updated_at": "2026-04-18T03:52:34Z",
-      "evidence_commits": []
-    },
-    {
-      "number": 282,
-      "title": "[BROWSER-CHAT][EPIC] Knowledge Hub for Curated Links and YouTube Learning Sources",
-      "url": "https://github.com/kushin77/ollama/issues/282",
-      "labels": [
-        "agent-ready",
-        "enhancement",
-        "needs-evidence",
-        "priority/low",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/11"
-      ],
-      "updated_at": "2026-04-18T03:52:33Z",
-      "evidence_commits": []
-    },
-    {
-      "number": 281,
-      "title": "[BROWSER-CHAT][EPIC] Agent Fleet Management for Multi-Agent Suites and Farms",
-      "url": "https://github.com/kushin77/ollama/issues/281",
-      "labels": [
-        "agent-ready",
-        "enhancement",
-        "needs-evidence",
-        "priority/low",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/11"
-      ],
-      "updated_at": "2026-04-18T03:52:32Z",
-      "evidence_commits": []
-    },
-    {
       "number": 280,
       "title": "[SENTIMENT][ENHANCEMENT-07] Hallucination risk indicator",
       "url": "https://github.com/kushin77/ollama/issues/280",
@@ -2248,149 +2152,6 @@
         "wave/3"
       ],
       "updated_at": "2026-04-18T03:53:11Z",
-      "evidence_commits": []
-    },
-    {
-      "number": 252,
-      "title": "[P2][ONPREM-FAANG] Developer Experience Acceleration (Slash Commands + Prompt Packs + Task Automation)",
-      "url": "https://github.com/kushin77/ollama/issues/252",
-      "labels": [
-        "agent-ready",
-        "enhancement",
-        "needs-evidence",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/10"
-      ],
-      "updated_at": "2026-04-18T03:52:13Z",
-      "evidence_commits": []
-    },
-    {
-      "number": 251,
-      "title": "[P2][ONPREM-FAANG] Multimodal Document Pipeline (Vision + PDF/DOCX + Unified Retrieval)",
-      "url": "https://github.com/kushin77/ollama/issues/251",
-      "labels": [
-        "agent-ready",
-        "enhancement",
-        "needs-evidence",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/10"
-      ],
-      "updated_at": "2026-04-18T03:52:12Z",
-      "evidence_commits": []
-    },
-    {
-      "number": 250,
-      "title": "[P2][ONPREM-FAANG] Agentic Tool Execution Layer (Controlled On-Prem Actions)",
-      "url": "https://github.com/kushin77/ollama/issues/250",
-      "labels": [
-        "agent-ready",
-        "enhancement",
-        "needs-evidence",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/10"
-      ],
-      "updated_at": "2026-04-18T03:52:11Z",
-      "evidence_commits": []
-    },
-    {
-      "number": 249,
-      "title": "[P2][ONPREM-FAANG] Domain Adapters (LoRA) + Safe Rollout Controls",
-      "url": "https://github.com/kushin77/ollama/issues/249",
-      "labels": [
-        "agent-ready",
-        "enhancement",
-        "needs-evidence",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/10"
-      ],
-      "updated_at": "2026-04-18T03:52:10Z",
-      "evidence_commits": []
-    },
-    {
-      "number": 248,
-      "title": "[P2][ONPREM-FAANG] Multi-Turn Memory Architecture (Session + Semantic + Summarization)",
-      "url": "https://github.com/kushin77/ollama/issues/248",
-      "labels": [
-        "agent-ready",
-        "enhancement",
-        "needs-evidence",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/10"
-      ],
-      "updated_at": "2026-04-18T03:52:09Z",
-      "evidence_commits": []
-    },
-    {
-      "number": 247,
-      "title": "[P1][ONPREM-FAANG] Reliability Hardening (Backpressure, Circuit Breakers, Graceful Degradation)",
-      "url": "https://github.com/kushin77/ollama/issues/247",
-      "labels": [
-        "agent-ready",
-        "enhancement",
-        "needs-evidence",
-        "priority/medium",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/05",
-        "wave/5"
-      ],
-      "updated_at": "2026-04-18T03:52:08Z",
-      "evidence_commits": []
-    },
-    {
-      "number": 246,
-      "title": "[P1][ONPREM-FAANG] Continuous Evaluation Harness (Regression + Release Gates)",
-      "url": "https://github.com/kushin77/ollama/issues/246",
-      "labels": [
-        "agent-ready",
-        "enhancement",
-        "needs-evidence",
-        "priority/medium",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/05",
-        "wave/5"
-      ],
-      "updated_at": "2026-04-18T03:52:07Z",
-      "evidence_commits": []
-    },
-    {
-      "number": 245,
-      "title": "[P1][ONPREM-FAANG] Safety and Policy Enforcement Engine",
-      "url": "https://github.com/kushin77/ollama/issues/245",
-      "labels": [
-        "agent-ready",
-        "enhancement",
-        "needs-evidence",
-        "priority/medium",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/05",
-        "wave/5"
-      ],
-      "updated_at": "2026-04-18T03:58:15Z",
-      "evidence_commits": []
-    },
-    {
-      "number": 244,
-      "title": "[P1][ONPREM-FAANG] Ensemble + Judge Pipeline for High-Stakes Responses",
-      "url": "https://github.com/kushin77/ollama/issues/244",
-      "labels": [
-        "agent-ready",
-        "enhancement",
-        "needs-evidence",
-        "priority/medium",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/05",
-        "wave/5"
-      ],
-      "updated_at": "2026-04-18T03:58:15Z",
       "evidence_commits": []
     },
     {
@@ -3360,22 +3121,6 @@
       "evidence_commits": []
     },
     {
-      "number": 182,
-      "title": "[LLM/T5-43] Hybrid Dense+BM25 Search \u0393\u00c7\u00f6 Semantic + Keyword RAG for Technical Accuracy",
-      "url": "https://github.com/kushin77/ollama/issues/182",
-      "labels": [
-        "agent-ready",
-        "enhancement",
-        "needs-evidence",
-        "status/planned-wave",
-        "status/triaged",
-        "wave/08",
-        "wave/8"
-      ],
-      "updated_at": "2026-04-18T03:50:59Z",
-      "evidence_commits": []
-    },
-    {
       "number": 181,
       "title": "[LLM/T5-44] User Preference Memory \u0393\u00c7\u00f6 Persistent Preferences Auto-Injected into Every Request",
       "url": "https://github.com/kushin77/ollama/issues/181",
@@ -4273,12 +4018,13 @@
       "labels": [
         "agent-ready",
         "needs-evidence",
+        "shard/4",
         "status/planned-wave",
         "status/triaged",
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:49:49Z",
+      "updated_at": "2026-04-18T04:08:41Z",
       "evidence_commits": []
     },
     {
@@ -4293,12 +4039,13 @@
         "needs-evidence",
         "phase-6",
         "priority/medium",
+        "shard/2",
         "status/planned-wave",
         "status/triaged",
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:58:13Z",
+      "updated_at": "2026-04-18T04:08:40Z",
       "evidence_commits": []
     },
     {
@@ -4311,12 +4058,13 @@
         "needs-evidence",
         "optimization",
         "phase-7",
+        "shard/3",
         "status/planned-wave",
         "status/triaged",
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:49:46Z",
+      "updated_at": "2026-04-18T04:08:39Z",
       "evidence_commits": []
     },
     {
@@ -4328,12 +4076,13 @@
         "documentation",
         "needs-evidence",
         "priority/medium",
+        "shard/1",
         "status/planned-wave",
         "status/triaged",
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:58:12Z",
+      "updated_at": "2026-04-18T04:08:39Z",
       "evidence_commits": []
     },
     {
@@ -4345,12 +4094,13 @@
         "bug",
         "needs-evidence",
         "priority/medium",
+        "shard/1",
         "status/planned-wave",
         "status/triaged",
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:58:10Z",
+      "updated_at": "2026-04-18T04:08:38Z",
       "evidence_commits": []
     },
     {
@@ -4361,12 +4111,13 @@
         "agent-ready",
         "needs-evidence",
         "security",
+        "shard/4",
         "status/planned-wave",
         "status/triaged",
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:57:49Z",
+      "updated_at": "2026-04-18T04:08:37Z",
       "evidence_commits": []
     },
     {
@@ -4377,12 +4128,13 @@
         "agent-ready",
         "needs-evidence",
         "security",
+        "shard/3",
         "status/planned-wave",
         "status/triaged",
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:57:48Z",
+      "updated_at": "2026-04-18T04:08:36Z",
       "evidence_commits": []
     },
     {
@@ -4393,12 +4145,13 @@
         "agent-ready",
         "needs-evidence",
         "security",
+        "shard/2",
         "status/planned-wave",
         "status/triaged",
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:57:48Z",
+      "updated_at": "2026-04-18T04:08:36Z",
       "evidence_commits": []
     },
     {
@@ -4409,12 +4162,13 @@
         "agent-ready",
         "needs-evidence",
         "security",
+        "shard/1",
         "status/planned-wave",
         "status/triaged",
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:57:47Z",
+      "updated_at": "2026-04-18T04:08:35Z",
       "evidence_commits": []
     },
     {
@@ -4425,12 +4179,13 @@
         "agent-ready",
         "needs-evidence",
         "security",
+        "shard/4",
         "status/planned-wave",
         "status/triaged",
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:57:46Z",
+      "updated_at": "2026-04-18T04:08:34Z",
       "evidence_commits": []
     },
     {
@@ -4441,12 +4196,13 @@
         "agent-ready",
         "needs-evidence",
         "security",
+        "shard/3",
         "status/planned-wave",
         "status/triaged",
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:57:46Z",
+      "updated_at": "2026-04-18T04:08:34Z",
       "evidence_commits": []
     },
     {
@@ -4457,12 +4213,13 @@
         "agent-ready",
         "needs-evidence",
         "security",
+        "shard/2",
         "status/planned-wave",
         "status/triaged",
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:57:45Z",
+      "updated_at": "2026-04-18T04:08:33Z",
       "evidence_commits": []
     },
     {
@@ -4473,12 +4230,13 @@
         "agent-ready",
         "needs-evidence",
         "security",
+        "shard/1",
         "status/planned-wave",
         "status/triaged",
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:57:44Z",
+      "updated_at": "2026-04-18T04:08:32Z",
       "evidence_commits": []
     },
     {
@@ -4489,12 +4247,13 @@
         "agent-ready",
         "needs-evidence",
         "security",
+        "shard/4",
         "status/planned-wave",
         "status/triaged",
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:57:44Z",
+      "updated_at": "2026-04-18T04:08:32Z",
       "evidence_commits": []
     },
     {
@@ -4505,12 +4264,13 @@
         "agent-ready",
         "needs-evidence",
         "security",
+        "shard/3",
         "status/planned-wave",
         "status/triaged",
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:57:43Z",
+      "updated_at": "2026-04-18T04:08:31Z",
       "evidence_commits": []
     },
     {
@@ -4521,12 +4281,13 @@
         "agent-ready",
         "needs-evidence",
         "security",
+        "shard/2",
         "status/planned-wave",
         "status/triaged",
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:57:43Z",
+      "updated_at": "2026-04-18T04:08:30Z",
       "evidence_commits": []
     },
     {
@@ -4537,12 +4298,13 @@
         "agent-ready",
         "needs-evidence",
         "security",
+        "shard/1",
         "status/planned-wave",
         "status/triaged",
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:57:42Z",
+      "updated_at": "2026-04-18T04:08:29Z",
       "evidence_commits": []
     },
     {
@@ -4553,12 +4315,13 @@
         "agent-ready",
         "needs-evidence",
         "security",
+        "shard/4",
         "status/planned-wave",
         "status/triaged",
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:57:42Z",
+      "updated_at": "2026-04-18T04:08:29Z",
       "evidence_commits": []
     },
     {
@@ -4569,12 +4332,13 @@
         "agent-ready",
         "needs-evidence",
         "security",
+        "shard/3",
         "status/planned-wave",
         "status/triaged",
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:57:41Z",
+      "updated_at": "2026-04-18T04:08:28Z",
       "evidence_commits": []
     },
     {
@@ -4586,12 +4350,13 @@
         "bug",
         "needs-evidence",
         "priority/medium",
+        "shard/2",
         "status/planned-wave",
         "status/triaged",
         "wave/02",
         "wave/2"
       ],
-      "updated_at": "2026-04-18T03:58:10Z",
+      "updated_at": "2026-04-18T04:08:27Z",
       "evidence_commits": []
     },
     {
@@ -4963,12 +4728,13 @@
         "documentation",
         "needs-evidence",
         "priority/medium",
+        "shard/4",
         "status/planned-wave",
         "status/triaged",
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:58:12Z",
+      "updated_at": "2026-04-18T04:08:23Z",
       "evidence_commits": []
     },
     {
@@ -5042,12 +4808,13 @@
         "needs-evidence",
         "performance",
         "priority/medium",
+        "shard/3",
         "status/planned-wave",
         "status/triaged",
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:58:12Z",
+      "updated_at": "2026-04-18T04:08:22Z",
       "evidence_commits": []
     },
     {
@@ -5059,12 +4826,13 @@
         "automation",
         "ci",
         "needs-evidence",
+        "shard/2",
         "status/planned-wave",
         "status/triaged",
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:49:23Z",
+      "updated_at": "2026-04-18T04:08:21Z",
       "evidence_commits": []
     },
     {
@@ -5077,12 +4845,13 @@
         "needs-evidence",
         "onboarding",
         "priority/medium",
+        "shard/2",
         "status/planned-wave",
         "status/triaged",
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:58:11Z",
+      "updated_at": "2026-04-18T04:08:21Z",
       "evidence_commits": []
     },
     {
@@ -5110,12 +4879,13 @@
       "labels": [
         "agent-ready",
         "needs-evidence",
+        "shard/1",
         "status/planned-wave",
         "status/triaged",
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:49:20Z",
+      "updated_at": "2026-04-18T04:08:20Z",
       "evidence_commits": []
     },
     {
@@ -5127,12 +4897,13 @@
         "documentation",
         "needs-evidence",
         "priority/medium",
+        "shard/1",
         "status/planned-wave",
         "status/triaged",
         "wave/05",
         "wave/5"
       ],
-      "updated_at": "2026-04-18T03:58:11Z",
+      "updated_at": "2026-04-18T04:08:19Z",
       "evidence_commits": []
     },
     {
@@ -5142,12 +4913,13 @@
       "labels": [
         "agent-ready",
         "needs-evidence",
+        "shard/4",
         "status/planned-wave",
         "status/triaged",
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:49:18Z",
+      "updated_at": "2026-04-18T04:08:18Z",
       "evidence_commits": []
     },
     {
@@ -5157,12 +4929,13 @@
       "labels": [
         "agent-ready",
         "needs-evidence",
+        "shard/3",
         "status/planned-wave",
         "status/triaged",
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:49:17Z",
+      "updated_at": "2026-04-18T04:08:18Z",
       "evidence_commits": []
     },
     {
@@ -5172,12 +4945,13 @@
       "labels": [
         "agent-ready",
         "needs-evidence",
+        "shard/2",
         "status/planned-wave",
         "status/triaged",
         "wave/06",
         "wave/6"
       ],
-      "updated_at": "2026-04-18T03:49:16Z",
+      "updated_at": "2026-04-18T04:08:17Z",
       "evidence_commits": []
     }
   ],
