@@ -158,7 +158,7 @@ go test -bench=. -benchmem ./cmd/bench
 func TestModelLoad_InferenceCompletes(t *testing.T) {
     m, err := LoadModel("llama")
     require.NoError(t, err)
-    
+
     resp, err := m.Generate(ctx, prompt)
     require.NoError(t, err)
     assert.NotEmpty(t, resp.Text)

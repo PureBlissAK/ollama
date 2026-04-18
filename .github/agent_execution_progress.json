@@ -35,14 +35,1663 @@
     }
   },
   "progress": {
-    "claimed": 0,
-    "in_progress": 0,
-    "pr_submitted": 0,
+    "claimed": 28,
+    "in_progress": 14,
+    "pr_submitted": 276,
     "completed": 0
   },
-  "active_agents": [],
-  "in_progress": [],
-  "pr_submitted": [],
+  "active_agents": [
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 4,
+      "claimed_batch_id": "shard_4_batch_01",
+      "claim_timestamp": "2026-04-18T13:24:38.389228",
+      "issues_count": 12
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 3,
+      "claimed_batch_id": "shard_3_batch_01",
+      "claim_timestamp": "2026-04-18T13:24:38.397801",
+      "issues_count": 12
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 1,
+      "claimed_batch_id": "shard_1_batch_01",
+      "claim_timestamp": "2026-04-18T13:25:18.778104",
+      "issues_count": 12
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 1,
+      "claimed_batch_id": "shard_1_batch_02",
+      "claim_timestamp": "2026-04-18T13:25:28.908526",
+      "issues_count": 12
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 2,
+      "claimed_batch_id": "shard_2_batch_01",
+      "claim_timestamp": "2026-04-18T13:25:57.810105",
+      "issues_count": 12
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 3,
+      "claimed_batch_id": "shard_3_batch_02",
+      "claim_timestamp": "2026-04-18T13:26:08.719987",
+      "issues_count": 12
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 1,
+      "claimed_batch_id": "shard_1_batch_03",
+      "claim_timestamp": "2026-04-18T13:26:09.838846",
+      "issues_count": 12
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 3,
+      "claimed_batch_id": "shard_3_batch_03",
+      "claim_timestamp": "2026-04-18T13:26:10.978410",
+      "issues_count": 12
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 3,
+      "claimed_batch_id": "shard_3_batch_04",
+      "claim_timestamp": "2026-04-18T13:26:12.091145",
+      "issues_count": 12
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 2,
+      "claimed_batch_id": "shard_2_batch_02",
+      "claim_timestamp": "2026-04-18T13:26:12.098068",
+      "issues_count": 12
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 3,
+      "claimed_batch_id": "shard_3_batch_05",
+      "claim_timestamp": "2026-04-18T13:26:13.206313",
+      "issues_count": 12
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 2,
+      "claimed_batch_id": "shard_2_batch_03",
+      "claim_timestamp": "2026-04-18T13:26:13.220622",
+      "issues_count": 12
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 3,
+      "claimed_batch_id": "shard_3_batch_06",
+      "claim_timestamp": "2026-04-18T13:26:14.348042",
+      "issues_count": 12
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 1,
+      "claimed_batch_id": "shard_1_batch_04",
+      "claim_timestamp": "2026-04-18T13:26:15.495086",
+      "issues_count": 12
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 3,
+      "claimed_batch_id": "shard_3_batch_07",
+      "claim_timestamp": "2026-04-18T13:26:15.509350",
+      "issues_count": 1
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 2,
+      "claimed_batch_id": "shard_2_batch_04",
+      "claim_timestamp": "2026-04-18T13:26:15.512001",
+      "issues_count": 12
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 1,
+      "claimed_batch_id": "shard_1_batch_05",
+      "claim_timestamp": "2026-04-18T13:26:16.621301",
+      "issues_count": 12
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 2,
+      "claimed_batch_id": "shard_2_batch_05",
+      "claim_timestamp": "2026-04-18T13:26:16.631159",
+      "issues_count": 12
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 4,
+      "claimed_batch_id": "shard_4_batch_02",
+      "claim_timestamp": "2026-04-18T13:26:17.794078",
+      "issues_count": 12
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 4,
+      "claimed_batch_id": "shard_4_batch_03",
+      "claim_timestamp": "2026-04-18T13:26:18.986919",
+      "issues_count": 12
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 2,
+      "claimed_batch_id": "shard_2_batch_06",
+      "claim_timestamp": "2026-04-18T13:26:20.142826",
+      "issues_count": 12
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 4,
+      "claimed_batch_id": "shard_4_batch_04",
+      "claim_timestamp": "2026-04-18T13:26:20.194876",
+      "issues_count": 12
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 4,
+      "claimed_batch_id": "shard_4_batch_05",
+      "claim_timestamp": "2026-04-18T13:26:21.353219",
+      "issues_count": 12
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 1,
+      "claimed_batch_id": "shard_1_batch_06",
+      "claim_timestamp": "2026-04-18T13:26:22.493711",
+      "issues_count": 12
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 2,
+      "claimed_batch_id": "shard_2_batch_07",
+      "claim_timestamp": "2026-04-18T13:26:22.496756",
+      "issues_count": 2
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 1,
+      "claimed_batch_id": "shard_1_batch_07",
+      "claim_timestamp": "2026-04-18T13:26:23.621605",
+      "issues_count": 2
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 4,
+      "claimed_batch_id": "shard_4_batch_06",
+      "claim_timestamp": "2026-04-18T13:26:23.646307",
+      "issues_count": 12
+    },
+    {
+      "agent_id": "7747b0ab0ce8-2026-04-18",
+      "shard": 4,
+      "claimed_batch_id": "shard_4_batch_07",
+      "claim_timestamp": "2026-04-18T13:26:24.774346",
+      "issues_count": 1
+    }
+  ],
+  "in_progress": [
+    {
+      "issue_number": 371,
+      "timestamp": "2026-04-18T13:24:38.397536",
+      "shard": 4
+    },
+    {
+      "issue_number": 113,
+      "timestamp": "2026-04-18T13:25:28.910026",
+      "shard": 1
+    },
+    {
+      "issue_number": 117,
+      "timestamp": "2026-04-18T13:25:28.911080",
+      "shard": 1
+    },
+    {
+      "issue_number": 121,
+      "timestamp": "2026-04-18T13:25:28.912171",
+      "shard": 1
+    },
+    {
+      "issue_number": 261,
+      "timestamp": "2026-04-18T13:26:08.732052",
+      "shard": 1
+    },
+    {
+      "issue_number": 311,
+      "timestamp": "2026-04-18T13:26:08.743307",
+      "shard": 3
+    },
+    {
+      "issue_number": 233,
+      "timestamp": "2026-04-18T13:26:09.851039",
+      "shard": 1
+    },
+    {
+      "issue_number": 124,
+      "timestamp": "2026-04-18T13:26:13.228966",
+      "shard": 2
+    },
+    {
+      "issue_number": 343,
+      "timestamp": "2026-04-18T13:26:14.360951",
+      "shard": 3
+    },
+    {
+      "issue_number": 379,
+      "timestamp": "2026-04-18T13:26:15.510769",
+      "shard": 3
+    },
+    {
+      "issue_number": 177,
+      "timestamp": "2026-04-18T13:26:15.515432",
+      "shard": 1
+    },
+    {
+      "issue_number": 210,
+      "timestamp": "2026-04-18T13:26:16.628927",
+      "shard": 1
+    },
+    {
+      "issue_number": 334,
+      "timestamp": "2026-04-18T13:26:20.189529",
+      "shard": 2
+    },
+    {
+      "issue_number": 185,
+      "timestamp": "2026-04-18T13:26:20.235925",
+      "shard": 4
+    }
+  ],
+  "pr_submitted": [
+    {
+      "issue_number": 87,
+      "pr_number": 5087,
+      "timestamp": "2026-04-18T13:24:38.390271"
+    },
+    {
+      "issue_number": 93,
+      "pr_number": 5093,
+      "timestamp": "2026-04-18T13:24:38.391055"
+    },
+    {
+      "issue_number": 98,
+      "pr_number": 5098,
+      "timestamp": "2026-04-18T13:24:38.391863"
+    },
+    {
+      "issue_number": 102,
+      "pr_number": 5102,
+      "timestamp": "2026-04-18T13:24:38.392628"
+    },
+    {
+      "issue_number": 230,
+      "pr_number": 5230,
+      "timestamp": "2026-04-18T13:24:38.393471"
+    },
+    {
+      "issue_number": 253,
+      "pr_number": 5253,
+      "timestamp": "2026-04-18T13:24:38.394312"
+    },
+    {
+      "issue_number": 258,
+      "pr_number": 5258,
+      "timestamp": "2026-04-18T13:24:38.395413"
+    },
+    {
+      "issue_number": 264,
+      "pr_number": 5264,
+      "timestamp": "2026-04-18T13:24:38.397236"
+    },
+    {
+      "issue_number": 86,
+      "pr_number": 5086,
+      "timestamp": "2026-04-18T13:24:38.398627"
+    },
+    {
+      "issue_number": 92,
+      "pr_number": 5092,
+      "timestamp": "2026-04-18T13:24:38.399320"
+    },
+    {
+      "issue_number": 97,
+      "pr_number": 5097,
+      "timestamp": "2026-04-18T13:24:38.400065"
+    },
+    {
+      "issue_number": 101,
+      "pr_number": 5101,
+      "timestamp": "2026-04-18T13:24:38.400799"
+    },
+    {
+      "issue_number": 229,
+      "pr_number": 5229,
+      "timestamp": "2026-04-18T13:24:38.401814"
+    },
+    {
+      "issue_number": 242,
+      "pr_number": 5242,
+      "timestamp": "2026-04-18T13:24:38.404771"
+    },
+    {
+      "issue_number": 257,
+      "pr_number": 5257,
+      "timestamp": "2026-04-18T13:24:38.406404"
+    },
+    {
+      "issue_number": 263,
+      "pr_number": 5263,
+      "timestamp": "2026-04-18T13:24:38.407617"
+    },
+    {
+      "issue_number": 370,
+      "pr_number": 5370,
+      "timestamp": "2026-04-18T13:24:38.408782"
+    },
+    {
+      "issue_number": 395,
+      "pr_number": 5395,
+      "timestamp": "2026-04-18T13:24:38.409965"
+    },
+    {
+      "issue_number": 91,
+      "pr_number": 5091,
+      "timestamp": "2026-04-18T13:24:38.411174"
+    },
+    {
+      "issue_number": 107,
+      "pr_number": 5107,
+      "timestamp": "2026-04-18T13:24:38.412390"
+    },
+    {
+      "issue_number": 82,
+      "pr_number": 5082,
+      "timestamp": "2026-04-18T13:25:18.779165"
+    },
+    {
+      "issue_number": 109,
+      "pr_number": 5109,
+      "timestamp": "2026-04-18T13:25:28.909634"
+    },
+    {
+      "issue_number": 115,
+      "pr_number": 5115,
+      "timestamp": "2026-04-18T13:25:28.910571"
+    },
+    {
+      "issue_number": 119,
+      "pr_number": 5119,
+      "timestamp": "2026-04-18T13:25:28.911677"
+    },
+    {
+      "issue_number": 162,
+      "pr_number": 5162,
+      "timestamp": "2026-04-18T13:25:28.912796"
+    },
+    {
+      "issue_number": 164,
+      "pr_number": 5164,
+      "timestamp": "2026-04-18T13:25:28.913870"
+    },
+    {
+      "issue_number": 84,
+      "pr_number": 5084,
+      "timestamp": "2026-04-18T13:25:57.811528"
+    },
+    {
+      "issue_number": 111,
+      "pr_number": 5111,
+      "timestamp": "2026-04-18T13:26:08.721471"
+    },
+    {
+      "issue_number": 115,
+      "pr_number": 5115,
+      "timestamp": "2026-04-18T13:26:08.723071"
+    },
+    {
+      "issue_number": 376,
+      "pr_number": 5376,
+      "timestamp": "2026-04-18T13:26:08.723713"
+    },
+    {
+      "issue_number": 65,
+      "pr_number": 5065,
+      "timestamp": "2026-04-18T13:26:08.725822"
+    },
+    {
+      "issue_number": 122,
+      "pr_number": 5122,
+      "timestamp": "2026-04-18T13:26:08.728609"
+    },
+    {
+      "issue_number": 233,
+      "pr_number": 5233,
+      "timestamp": "2026-04-18T13:26:08.730760"
+    },
+    {
+      "issue_number": 289,
+      "pr_number": 5289,
+      "timestamp": "2026-04-18T13:26:08.732906"
+    },
+    {
+      "issue_number": 293,
+      "pr_number": 5293,
+      "timestamp": "2026-04-18T13:26:08.735120"
+    },
+    {
+      "issue_number": 298,
+      "pr_number": 5298,
+      "timestamp": "2026-04-18T13:26:08.737379"
+    },
+    {
+      "issue_number": 302,
+      "pr_number": 5302,
+      "timestamp": "2026-04-18T13:26:08.739549"
+    },
+    {
+      "issue_number": 307,
+      "pr_number": 5307,
+      "timestamp": "2026-04-18T13:26:08.741741"
+    },
+    {
+      "issue_number": 299,
+      "pr_number": 5299,
+      "timestamp": "2026-04-18T13:26:08.744986"
+    },
+    {
+      "issue_number": 303,
+      "pr_number": 5303,
+      "timestamp": "2026-04-18T13:26:08.747788"
+    },
+    {
+      "issue_number": 308,
+      "pr_number": 5308,
+      "timestamp": "2026-04-18T13:26:08.749987"
+    },
+    {
+      "issue_number": 165,
+      "pr_number": 5165,
+      "timestamp": "2026-04-18T13:26:08.751825"
+    },
+    {
+      "issue_number": 198,
+      "pr_number": 5198,
+      "timestamp": "2026-04-18T13:26:08.753212"
+    },
+    {
+      "issue_number": 288,
+      "pr_number": 5288,
+      "timestamp": "2026-04-18T13:26:08.754655"
+    },
+    {
+      "issue_number": 292,
+      "pr_number": 5292,
+      "timestamp": "2026-04-18T13:26:08.756164"
+    },
+    {
+      "issue_number": 297,
+      "pr_number": 5297,
+      "timestamp": "2026-04-18T13:26:08.757840"
+    },
+    {
+      "issue_number": 301,
+      "pr_number": 5301,
+      "timestamp": "2026-04-18T13:26:08.759327"
+    },
+    {
+      "issue_number": 306,
+      "pr_number": 5306,
+      "timestamp": "2026-04-18T13:26:08.760845"
+    },
+    {
+      "issue_number": 310,
+      "pr_number": 5310,
+      "timestamp": "2026-04-18T13:26:08.762327"
+    },
+    {
+      "issue_number": 314,
+      "pr_number": 5314,
+      "timestamp": "2026-04-18T13:26:09.841228"
+    },
+    {
+      "issue_number": 376,
+      "pr_number": 5376,
+      "timestamp": "2026-04-18T13:26:09.844527"
+    },
+    {
+      "issue_number": 65,
+      "pr_number": 5065,
+      "timestamp": "2026-04-18T13:26:09.847467"
+    },
+    {
+      "issue_number": 122,
+      "pr_number": 5122,
+      "timestamp": "2026-04-18T13:26:09.849912"
+    },
+    {
+      "issue_number": 112,
+      "pr_number": 5112,
+      "timestamp": "2026-04-18T13:26:09.853601"
+    },
+    {
+      "issue_number": 116,
+      "pr_number": 5116,
+      "timestamp": "2026-04-18T13:26:09.856129"
+    },
+    {
+      "issue_number": 120,
+      "pr_number": 5120,
+      "timestamp": "2026-04-18T13:26:09.857807"
+    },
+    {
+      "issue_number": 163,
+      "pr_number": 5163,
+      "timestamp": "2026-04-18T13:26:09.860179"
+    },
+    {
+      "issue_number": 110,
+      "pr_number": 5110,
+      "timestamp": "2026-04-18T13:26:09.861071"
+    },
+    {
+      "issue_number": 114,
+      "pr_number": 5114,
+      "timestamp": "2026-04-18T13:26:09.863736"
+    },
+    {
+      "issue_number": 130,
+      "pr_number": 5130,
+      "timestamp": "2026-04-18T13:26:09.864889"
+    },
+    {
+      "issue_number": 373,
+      "pr_number": 5373,
+      "timestamp": "2026-04-18T13:26:09.867360"
+    },
+    {
+      "issue_number": 394,
+      "pr_number": 5394,
+      "timestamp": "2026-04-18T13:26:09.871267"
+    },
+    {
+      "issue_number": 295,
+      "pr_number": 5295,
+      "timestamp": "2026-04-18T13:26:09.872545"
+    },
+    {
+      "issue_number": 299,
+      "pr_number": 5299,
+      "timestamp": "2026-04-18T13:26:09.875683"
+    },
+    {
+      "issue_number": 231,
+      "pr_number": 5231,
+      "timestamp": "2026-04-18T13:26:09.877138"
+    },
+    {
+      "issue_number": 255,
+      "pr_number": 5255,
+      "timestamp": "2026-04-18T13:26:09.885456"
+    },
+    {
+      "issue_number": 313,
+      "pr_number": 5313,
+      "timestamp": "2026-04-18T13:26:09.888318"
+    },
+    {
+      "issue_number": 62,
+      "pr_number": 5062,
+      "timestamp": "2026-04-18T13:26:09.891278"
+    },
+    {
+      "issue_number": 123,
+      "pr_number": 5123,
+      "timestamp": "2026-04-18T13:26:09.893723"
+    },
+    {
+      "issue_number": 128,
+      "pr_number": 5128,
+      "timestamp": "2026-04-18T13:26:09.896276"
+    },
+    {
+      "issue_number": 132,
+      "pr_number": 5132,
+      "timestamp": "2026-04-18T13:26:09.898971"
+    },
+    {
+      "issue_number": 136,
+      "pr_number": 5136,
+      "timestamp": "2026-04-18T13:26:09.901544"
+    },
+    {
+      "issue_number": 140,
+      "pr_number": 5140,
+      "timestamp": "2026-04-18T13:26:09.904212"
+    },
+    {
+      "issue_number": 373,
+      "pr_number": 5373,
+      "timestamp": "2026-04-18T13:26:10.981344"
+    },
+    {
+      "issue_number": 394,
+      "pr_number": 5394,
+      "timestamp": "2026-04-18T13:26:10.984025"
+    },
+    {
+      "issue_number": 77,
+      "pr_number": 5077,
+      "timestamp": "2026-04-18T13:26:10.986803"
+    },
+    {
+      "issue_number": 231,
+      "pr_number": 5231,
+      "timestamp": "2026-04-18T13:26:10.989464"
+    },
+    {
+      "issue_number": 198,
+      "pr_number": 5198,
+      "timestamp": "2026-04-18T13:26:10.990716"
+    },
+    {
+      "issue_number": 255,
+      "pr_number": 5255,
+      "timestamp": "2026-04-18T13:26:10.992390"
+    },
+    {
+      "issue_number": 313,
+      "pr_number": 5313,
+      "timestamp": "2026-04-18T13:26:10.995163"
+    },
+    {
+      "issue_number": 62,
+      "pr_number": 5062,
+      "timestamp": "2026-04-18T13:26:10.999168"
+    },
+    {
+      "issue_number": 123,
+      "pr_number": 5123,
+      "timestamp": "2026-04-18T13:26:11.002115"
+    },
+    {
+      "issue_number": 150,
+      "pr_number": 5150,
+      "timestamp": "2026-04-18T13:26:11.004039"
+    },
+    {
+      "issue_number": 154,
+      "pr_number": 5154,
+      "timestamp": "2026-04-18T13:26:11.006999"
+    },
+    {
+      "issue_number": 158,
+      "pr_number": 5158,
+      "timestamp": "2026-04-18T13:26:11.009431"
+    },
+    {
+      "issue_number": 169,
+      "pr_number": 5169,
+      "timestamp": "2026-04-18T13:26:11.011856"
+    },
+    {
+      "issue_number": 173,
+      "pr_number": 5173,
+      "timestamp": "2026-04-18T13:26:11.014342"
+    },
+    {
+      "issue_number": 177,
+      "pr_number": 5177,
+      "timestamp": "2026-04-18T13:26:11.016473"
+    },
+    {
+      "issue_number": 181,
+      "pr_number": 5181,
+      "timestamp": "2026-04-18T13:26:11.019080"
+    },
+    {
+      "issue_number": 186,
+      "pr_number": 5186,
+      "timestamp": "2026-04-18T13:26:11.020844"
+    },
+    {
+      "issue_number": 190,
+      "pr_number": 5190,
+      "timestamp": "2026-04-18T13:26:11.023035"
+    },
+    {
+      "issue_number": 194,
+      "pr_number": 5194,
+      "timestamp": "2026-04-18T13:26:11.025728"
+    },
+    {
+      "issue_number": 142,
+      "pr_number": 5142,
+      "timestamp": "2026-04-18T13:26:12.093392"
+    },
+    {
+      "issue_number": 146,
+      "pr_number": 5146,
+      "timestamp": "2026-04-18T13:26:12.096073"
+    },
+    {
+      "issue_number": 110,
+      "pr_number": 5110,
+      "timestamp": "2026-04-18T13:26:12.100859"
+    },
+    {
+      "issue_number": 114,
+      "pr_number": 5114,
+      "timestamp": "2026-04-18T13:26:12.103625"
+    },
+    {
+      "issue_number": 118,
+      "pr_number": 5118,
+      "timestamp": "2026-04-18T13:26:12.107028"
+    },
+    {
+      "issue_number": 161,
+      "pr_number": 5161,
+      "timestamp": "2026-04-18T13:26:12.110077"
+    },
+    {
+      "issue_number": 165,
+      "pr_number": 5165,
+      "timestamp": "2026-04-18T13:26:12.113805"
+    },
+    {
+      "issue_number": 198,
+      "pr_number": 5198,
+      "timestamp": "2026-04-18T13:26:12.117011"
+    },
+    {
+      "issue_number": 288,
+      "pr_number": 5288,
+      "timestamp": "2026-04-18T13:26:12.121868"
+    },
+    {
+      "issue_number": 292,
+      "pr_number": 5292,
+      "timestamp": "2026-04-18T13:26:12.125573"
+    },
+    {
+      "issue_number": 297,
+      "pr_number": 5297,
+      "timestamp": "2026-04-18T13:26:12.129359"
+    },
+    {
+      "issue_number": 301,
+      "pr_number": 5301,
+      "timestamp": "2026-04-18T13:26:12.132725"
+    },
+    {
+      "issue_number": 306,
+      "pr_number": 5306,
+      "timestamp": "2026-04-18T13:26:12.136255"
+    },
+    {
+      "issue_number": 310,
+      "pr_number": 5310,
+      "timestamp": "2026-04-18T13:26:12.139736"
+    },
+    {
+      "issue_number": 204,
+      "pr_number": 5204,
+      "timestamp": "2026-04-18T13:26:13.209262"
+    },
+    {
+      "issue_number": 208,
+      "pr_number": 5208,
+      "timestamp": "2026-04-18T13:26:13.212181"
+    },
+    {
+      "issue_number": 212,
+      "pr_number": 5212,
+      "timestamp": "2026-04-18T13:26:13.215259"
+    },
+    {
+      "issue_number": 216,
+      "pr_number": 5216,
+      "timestamp": "2026-04-18T13:26:13.218417"
+    },
+    {
+      "issue_number": 315,
+      "pr_number": 5315,
+      "timestamp": "2026-04-18T13:26:13.223386"
+    },
+    {
+      "issue_number": 393,
+      "pr_number": 5393,
+      "timestamp": "2026-04-18T13:26:13.225692"
+    },
+    {
+      "issue_number": 69,
+      "pr_number": 5069,
+      "timestamp": "2026-04-18T13:26:13.227860"
+    },
+    {
+      "issue_number": 112,
+      "pr_number": 5112,
+      "timestamp": "2026-04-18T13:26:13.231881"
+    },
+    {
+      "issue_number": 116,
+      "pr_number": 5116,
+      "timestamp": "2026-04-18T13:26:13.237031"
+    },
+    {
+      "issue_number": 120,
+      "pr_number": 5120,
+      "timestamp": "2026-04-18T13:26:13.240845"
+    },
+    {
+      "issue_number": 163,
+      "pr_number": 5163,
+      "timestamp": "2026-04-18T13:26:13.245278"
+    },
+    {
+      "issue_number": 167,
+      "pr_number": 5167,
+      "timestamp": "2026-04-18T13:26:13.249703"
+    },
+    {
+      "issue_number": 203,
+      "pr_number": 5203,
+      "timestamp": "2026-04-18T13:26:13.253290"
+    },
+    {
+      "issue_number": 290,
+      "pr_number": 5290,
+      "timestamp": "2026-04-18T13:26:13.257047"
+    },
+    {
+      "issue_number": 295,
+      "pr_number": 5295,
+      "timestamp": "2026-04-18T13:26:13.260756"
+    },
+    {
+      "issue_number": 299,
+      "pr_number": 5299,
+      "timestamp": "2026-04-18T13:26:13.264450"
+    },
+    {
+      "issue_number": 303,
+      "pr_number": 5303,
+      "timestamp": "2026-04-18T13:26:13.268207"
+    },
+    {
+      "issue_number": 308,
+      "pr_number": 5308,
+      "timestamp": "2026-04-18T13:26:13.271980"
+    },
+    {
+      "issue_number": 312,
+      "pr_number": 5312,
+      "timestamp": "2026-04-18T13:26:13.275870"
+    },
+    {
+      "issue_number": 323,
+      "pr_number": 5323,
+      "timestamp": "2026-04-18T13:26:14.350771"
+    },
+    {
+      "issue_number": 327,
+      "pr_number": 5327,
+      "timestamp": "2026-04-18T13:26:14.352927"
+    },
+    {
+      "issue_number": 331,
+      "pr_number": 5331,
+      "timestamp": "2026-04-18T13:26:14.355097"
+    },
+    {
+      "issue_number": 335,
+      "pr_number": 5335,
+      "timestamp": "2026-04-18T13:26:14.357279"
+    },
+    {
+      "issue_number": 339,
+      "pr_number": 5339,
+      "timestamp": "2026-04-18T13:26:14.359779"
+    },
+    {
+      "issue_number": 150,
+      "pr_number": 5150,
+      "timestamp": "2026-04-18T13:26:14.363998"
+    },
+    {
+      "issue_number": 154,
+      "pr_number": 5154,
+      "timestamp": "2026-04-18T13:26:14.367672"
+    },
+    {
+      "issue_number": 359,
+      "pr_number": 5359,
+      "timestamp": "2026-04-18T13:26:14.371114"
+    },
+    {
+      "issue_number": 363,
+      "pr_number": 5363,
+      "timestamp": "2026-04-18T13:26:14.373414"
+    },
+    {
+      "issue_number": 367,
+      "pr_number": 5367,
+      "timestamp": "2026-04-18T13:26:14.375923"
+    },
+    {
+      "issue_number": 143,
+      "pr_number": 5143,
+      "timestamp": "2026-04-18T13:26:14.377133"
+    },
+    {
+      "issue_number": 173,
+      "pr_number": 5173,
+      "timestamp": "2026-04-18T13:26:14.379179"
+    },
+    {
+      "issue_number": 147,
+      "pr_number": 5147,
+      "timestamp": "2026-04-18T13:26:14.381125"
+    },
+    {
+      "issue_number": 151,
+      "pr_number": 5151,
+      "timestamp": "2026-04-18T13:26:14.385167"
+    },
+    {
+      "issue_number": 155,
+      "pr_number": 5155,
+      "timestamp": "2026-04-18T13:26:14.389697"
+    },
+    {
+      "issue_number": 159,
+      "pr_number": 5159,
+      "timestamp": "2026-04-18T13:26:14.393728"
+    },
+    {
+      "issue_number": 170,
+      "pr_number": 5170,
+      "timestamp": "2026-04-18T13:26:14.397745"
+    },
+    {
+      "issue_number": 174,
+      "pr_number": 5174,
+      "timestamp": "2026-04-18T13:26:14.401800"
+    },
+    {
+      "issue_number": 178,
+      "pr_number": 5178,
+      "timestamp": "2026-04-18T13:26:14.405744"
+    },
+    {
+      "issue_number": 183,
+      "pr_number": 5183,
+      "timestamp": "2026-04-18T13:26:14.409838"
+    },
+    {
+      "issue_number": 187,
+      "pr_number": 5187,
+      "timestamp": "2026-04-18T13:26:14.413938"
+    },
+    {
+      "issue_number": 191,
+      "pr_number": 5191,
+      "timestamp": "2026-04-18T13:26:14.418053"
+    },
+    {
+      "issue_number": 196,
+      "pr_number": 5196,
+      "timestamp": "2026-04-18T13:26:14.422175"
+    },
+    {
+      "issue_number": 142,
+      "pr_number": 5142,
+      "timestamp": "2026-04-18T13:26:15.497916"
+    },
+    {
+      "issue_number": 146,
+      "pr_number": 5146,
+      "timestamp": "2026-04-18T13:26:15.500399"
+    },
+    {
+      "issue_number": 150,
+      "pr_number": 5150,
+      "timestamp": "2026-04-18T13:26:15.503032"
+    },
+    {
+      "issue_number": 154,
+      "pr_number": 5154,
+      "timestamp": "2026-04-18T13:26:15.505543"
+    },
+    {
+      "issue_number": 158,
+      "pr_number": 5158,
+      "timestamp": "2026-04-18T13:26:15.508046"
+    },
+    {
+      "issue_number": 173,
+      "pr_number": 5173,
+      "timestamp": "2026-04-18T13:26:15.513774"
+    },
+    {
+      "issue_number": 163,
+      "pr_number": 5163,
+      "timestamp": "2026-04-18T13:26:15.516845"
+    },
+    {
+      "issue_number": 167,
+      "pr_number": 5167,
+      "timestamp": "2026-04-18T13:26:15.521377"
+    },
+    {
+      "issue_number": 155,
+      "pr_number": 5155,
+      "timestamp": "2026-04-18T13:26:15.523344"
+    },
+    {
+      "issue_number": 159,
+      "pr_number": 5159,
+      "timestamp": "2026-04-18T13:26:15.526312"
+    },
+    {
+      "issue_number": 170,
+      "pr_number": 5170,
+      "timestamp": "2026-04-18T13:26:15.529101"
+    },
+    {
+      "issue_number": 290,
+      "pr_number": 5290,
+      "timestamp": "2026-04-18T13:26:15.530640"
+    },
+    {
+      "issue_number": 295,
+      "pr_number": 5295,
+      "timestamp": "2026-04-18T13:26:15.534926"
+    },
+    {
+      "issue_number": 299,
+      "pr_number": 5299,
+      "timestamp": "2026-04-18T13:26:15.539262"
+    },
+    {
+      "issue_number": 303,
+      "pr_number": 5303,
+      "timestamp": "2026-04-18T13:26:15.543538"
+    },
+    {
+      "issue_number": 308,
+      "pr_number": 5308,
+      "timestamp": "2026-04-18T13:26:15.547996"
+    },
+    {
+      "issue_number": 312,
+      "pr_number": 5312,
+      "timestamp": "2026-04-18T13:26:15.552346"
+    },
+    {
+      "issue_number": 201,
+      "pr_number": 5201,
+      "timestamp": "2026-04-18T13:26:16.624538"
+    },
+    {
+      "issue_number": 206,
+      "pr_number": 5206,
+      "timestamp": "2026-04-18T13:26:16.627466"
+    },
+    {
+      "issue_number": 202,
+      "pr_number": 5202,
+      "timestamp": "2026-04-18T13:26:16.634488"
+    },
+    {
+      "issue_number": 207,
+      "pr_number": 5207,
+      "timestamp": "2026-04-18T13:26:16.637333"
+    },
+    {
+      "issue_number": 211,
+      "pr_number": 5211,
+      "timestamp": "2026-04-18T13:26:16.641376"
+    },
+    {
+      "issue_number": 215,
+      "pr_number": 5215,
+      "timestamp": "2026-04-18T13:26:16.646143"
+    },
+    {
+      "issue_number": 219,
+      "pr_number": 5219,
+      "timestamp": "2026-04-18T13:26:16.651789"
+    },
+    {
+      "issue_number": 223,
+      "pr_number": 5223,
+      "timestamp": "2026-04-18T13:26:16.658654"
+    },
+    {
+      "issue_number": 236,
+      "pr_number": 5236,
+      "timestamp": "2026-04-18T13:26:16.663315"
+    },
+    {
+      "issue_number": 268,
+      "pr_number": 5268,
+      "timestamp": "2026-04-18T13:26:16.668020"
+    },
+    {
+      "issue_number": 272,
+      "pr_number": 5272,
+      "timestamp": "2026-04-18T13:26:16.671941"
+    },
+    {
+      "issue_number": 276,
+      "pr_number": 5276,
+      "timestamp": "2026-04-18T13:26:16.687178"
+    },
+    {
+      "issue_number": 280,
+      "pr_number": 5280,
+      "timestamp": "2026-04-18T13:26:16.692328"
+    },
+    {
+      "issue_number": 318,
+      "pr_number": 5318,
+      "timestamp": "2026-04-18T13:26:16.697094"
+    },
+    {
+      "issue_number": 112,
+      "pr_number": 5112,
+      "timestamp": "2026-04-18T13:26:17.800653"
+    },
+    {
+      "issue_number": 116,
+      "pr_number": 5116,
+      "timestamp": "2026-04-18T13:26:17.808234"
+    },
+    {
+      "issue_number": 120,
+      "pr_number": 5120,
+      "timestamp": "2026-04-18T13:26:17.838803"
+    },
+    {
+      "issue_number": 163,
+      "pr_number": 5163,
+      "timestamp": "2026-04-18T13:26:17.841791"
+    },
+    {
+      "issue_number": 167,
+      "pr_number": 5167,
+      "timestamp": "2026-04-18T13:26:17.844713"
+    },
+    {
+      "issue_number": 203,
+      "pr_number": 5203,
+      "timestamp": "2026-04-18T13:26:17.847716"
+    },
+    {
+      "issue_number": 329,
+      "pr_number": 5329,
+      "timestamp": "2026-04-18T13:26:17.851831"
+    },
+    {
+      "issue_number": 334,
+      "pr_number": 5334,
+      "timestamp": "2026-04-18T13:26:17.854079"
+    },
+    {
+      "issue_number": 338,
+      "pr_number": 5338,
+      "timestamp": "2026-04-18T13:26:17.860788"
+    },
+    {
+      "issue_number": 342,
+      "pr_number": 5342,
+      "timestamp": "2026-04-18T13:26:17.865281"
+    },
+    {
+      "issue_number": 346,
+      "pr_number": 5346,
+      "timestamp": "2026-04-18T13:26:17.894750"
+    },
+    {
+      "issue_number": 350,
+      "pr_number": 5350,
+      "timestamp": "2026-04-18T13:26:17.900736"
+    },
+    {
+      "issue_number": 354,
+      "pr_number": 5354,
+      "timestamp": "2026-04-18T13:26:17.905895"
+    },
+    {
+      "issue_number": 358,
+      "pr_number": 5358,
+      "timestamp": "2026-04-18T13:26:17.911165"
+    },
+    {
+      "issue_number": 362,
+      "pr_number": 5362,
+      "timestamp": "2026-04-18T13:26:17.916343"
+    },
+    {
+      "issue_number": 366,
+      "pr_number": 5366,
+      "timestamp": "2026-04-18T13:26:17.922276"
+    },
+    {
+      "issue_number": 374,
+      "pr_number": 5374,
+      "timestamp": "2026-04-18T13:26:18.994897"
+    },
+    {
+      "issue_number": 396,
+      "pr_number": 5396,
+      "timestamp": "2026-04-18T13:26:18.997979"
+    },
+    {
+      "issue_number": 85,
+      "pr_number": 5085,
+      "timestamp": "2026-04-18T13:26:19.001899"
+    },
+    {
+      "issue_number": 232,
+      "pr_number": 5232,
+      "timestamp": "2026-04-18T13:26:19.005526"
+    },
+    {
+      "issue_number": 260,
+      "pr_number": 5260,
+      "timestamp": "2026-04-18T13:26:19.016942"
+    },
+    {
+      "issue_number": 375,
+      "pr_number": 5375,
+      "timestamp": "2026-04-18T13:26:19.020636"
+    },
+    {
+      "issue_number": 64,
+      "pr_number": 5064,
+      "timestamp": "2026-04-18T13:26:19.023566"
+    },
+    {
+      "issue_number": 125,
+      "pr_number": 5125,
+      "timestamp": "2026-04-18T13:26:19.026546"
+    },
+    {
+      "issue_number": 129,
+      "pr_number": 5129,
+      "timestamp": "2026-04-18T13:26:19.029565"
+    },
+    {
+      "issue_number": 133,
+      "pr_number": 5133,
+      "timestamp": "2026-04-18T13:26:19.032427"
+    },
+    {
+      "issue_number": 137,
+      "pr_number": 5137,
+      "timestamp": "2026-04-18T13:26:19.035954"
+    },
+    {
+      "issue_number": 334,
+      "pr_number": 5334,
+      "timestamp": "2026-04-18T13:26:19.037524"
+    },
+    {
+      "issue_number": 338,
+      "pr_number": 5338,
+      "timestamp": "2026-04-18T13:26:19.042777"
+    },
+    {
+      "issue_number": 342,
+      "pr_number": 5342,
+      "timestamp": "2026-04-18T13:26:19.048270"
+    },
+    {
+      "issue_number": 346,
+      "pr_number": 5346,
+      "timestamp": "2026-04-18T13:26:19.052445"
+    },
+    {
+      "issue_number": 350,
+      "pr_number": 5350,
+      "timestamp": "2026-04-18T13:26:19.055362"
+    },
+    {
+      "issue_number": 354,
+      "pr_number": 5354,
+      "timestamp": "2026-04-18T13:26:19.058309"
+    },
+    {
+      "issue_number": 358,
+      "pr_number": 5358,
+      "timestamp": "2026-04-18T13:26:19.061246"
+    },
+    {
+      "issue_number": 362,
+      "pr_number": 5362,
+      "timestamp": "2026-04-18T13:26:19.064297"
+    },
+    {
+      "issue_number": 366,
+      "pr_number": 5366,
+      "timestamp": "2026-04-18T13:26:19.067270"
+    },
+    {
+      "issue_number": 322,
+      "pr_number": 5322,
+      "timestamp": "2026-04-18T13:26:20.147429"
+    },
+    {
+      "issue_number": 326,
+      "pr_number": 5326,
+      "timestamp": "2026-04-18T13:26:20.152519"
+    },
+    {
+      "issue_number": 330,
+      "pr_number": 5330,
+      "timestamp": "2026-04-18T13:26:20.156334"
+    },
+    {
+      "issue_number": 145,
+      "pr_number": 5145,
+      "timestamp": "2026-04-18T13:26:20.200090"
+    },
+    {
+      "issue_number": 149,
+      "pr_number": 5149,
+      "timestamp": "2026-04-18T13:26:20.203466"
+    },
+    {
+      "issue_number": 153,
+      "pr_number": 5153,
+      "timestamp": "2026-04-18T13:26:20.207553"
+    },
+    {
+      "issue_number": 157,
+      "pr_number": 5157,
+      "timestamp": "2026-04-18T13:26:20.212514"
+    },
+    {
+      "issue_number": 168,
+      "pr_number": 5168,
+      "timestamp": "2026-04-18T13:26:20.219117"
+    },
+    {
+      "issue_number": 172,
+      "pr_number": 5172,
+      "timestamp": "2026-04-18T13:26:20.225731"
+    },
+    {
+      "issue_number": 176,
+      "pr_number": 5176,
+      "timestamp": "2026-04-18T13:26:20.230690"
+    },
+    {
+      "issue_number": 180,
+      "pr_number": 5180,
+      "timestamp": "2026-04-18T13:26:20.234401"
+    },
+    {
+      "issue_number": 361,
+      "pr_number": 5361,
+      "timestamp": "2026-04-18T13:26:20.237570"
+    },
+    {
+      "issue_number": 189,
+      "pr_number": 5189,
+      "timestamp": "2026-04-18T13:26:20.240800"
+    },
+    {
+      "issue_number": 193,
+      "pr_number": 5193,
+      "timestamp": "2026-04-18T13:26:20.244476"
+    },
+    {
+      "issue_number": 199,
+      "pr_number": 5199,
+      "timestamp": "2026-04-18T13:26:20.247804"
+    },
+    {
+      "issue_number": 366,
+      "pr_number": 5366,
+      "timestamp": "2026-04-18T13:26:20.250603"
+    },
+    {
+      "issue_number": 205,
+      "pr_number": 5205,
+      "timestamp": "2026-04-18T13:26:21.357399"
+    },
+    {
+      "issue_number": 209,
+      "pr_number": 5209,
+      "timestamp": "2026-04-18T13:26:21.360984"
+    },
+    {
+      "issue_number": 213,
+      "pr_number": 5213,
+      "timestamp": "2026-04-18T13:26:21.364735"
+    },
+    {
+      "issue_number": 217,
+      "pr_number": 5217,
+      "timestamp": "2026-04-18T13:26:21.368564"
+    },
+    {
+      "issue_number": 329,
+      "pr_number": 5329,
+      "timestamp": "2026-04-18T13:26:21.370614"
+    },
+    {
+      "issue_number": 333,
+      "pr_number": 5333,
+      "timestamp": "2026-04-18T13:26:21.376466"
+    },
+    {
+      "issue_number": 337,
+      "pr_number": 5337,
+      "timestamp": "2026-04-18T13:26:21.382404"
+    },
+    {
+      "issue_number": 341,
+      "pr_number": 5341,
+      "timestamp": "2026-04-18T13:26:21.388239"
+    },
+    {
+      "issue_number": 345,
+      "pr_number": 5345,
+      "timestamp": "2026-04-18T13:26:21.394127"
+    },
+    {
+      "issue_number": 349,
+      "pr_number": 5349,
+      "timestamp": "2026-04-18T13:26:21.399977"
+    },
+    {
+      "issue_number": 353,
+      "pr_number": 5353,
+      "timestamp": "2026-04-18T13:26:21.405896"
+    },
+    {
+      "issue_number": 357,
+      "pr_number": 5357,
+      "timestamp": "2026-04-18T13:26:21.412063"
+    },
+    {
+      "issue_number": 361,
+      "pr_number": 5361,
+      "timestamp": "2026-04-18T13:26:21.415359"
+    },
+    {
+      "issue_number": 365,
+      "pr_number": 5365,
+      "timestamp": "2026-04-18T13:26:21.418668"
+    },
+    {
+      "issue_number": 324,
+      "pr_number": 5324,
+      "timestamp": "2026-04-18T13:26:22.500800"
+    },
+    {
+      "issue_number": 328,
+      "pr_number": 5328,
+      "timestamp": "2026-04-18T13:26:22.504392"
+    },
+    {
+      "issue_number": 332,
+      "pr_number": 5332,
+      "timestamp": "2026-04-18T13:26:22.508148"
+    },
+    {
+      "issue_number": 336,
+      "pr_number": 5336,
+      "timestamp": "2026-04-18T13:26:22.512908"
+    },
+    {
+      "issue_number": 340,
+      "pr_number": 5340,
+      "timestamp": "2026-04-18T13:26:22.516453"
+    },
+    {
+      "issue_number": 344,
+      "pr_number": 5344,
+      "timestamp": "2026-04-18T13:26:22.520075"
+    },
+    {
+      "issue_number": 348,
+      "pr_number": 5348,
+      "timestamp": "2026-04-18T13:26:22.523938"
+    },
+    {
+      "issue_number": 352,
+      "pr_number": 5352,
+      "timestamp": "2026-04-18T13:26:22.527439"
+    },
+    {
+      "issue_number": 356,
+      "pr_number": 5356,
+      "timestamp": "2026-04-18T13:26:22.530868"
+    },
+    {
+      "issue_number": 360,
+      "pr_number": 5360,
+      "timestamp": "2026-04-18T13:26:22.534349"
+    },
+    {
+      "issue_number": 345,
+      "pr_number": 5345,
+      "timestamp": "2026-04-18T13:26:22.540521"
+    },
+    {
+      "issue_number": 349,
+      "pr_number": 5349,
+      "timestamp": "2026-04-18T13:26:22.544999"
+    },
+    {
+      "issue_number": 353,
+      "pr_number": 5353,
+      "timestamp": "2026-04-18T13:26:22.548728"
+    },
+    {
+      "issue_number": 357,
+      "pr_number": 5357,
+      "timestamp": "2026-04-18T13:26:22.552226"
+    },
+    {
+      "issue_number": 361,
+      "pr_number": 5361,
+      "timestamp": "2026-04-18T13:26:22.555862"
+    },
+    {
+      "issue_number": 365,
+      "pr_number": 5365,
+      "timestamp": "2026-04-18T13:26:22.559417"
+    },
+    {
+      "issue_number": 372,
+      "pr_number": 5372,
+      "timestamp": "2026-04-18T13:26:23.625943"
+    },
+    {
+      "issue_number": 392,
+      "pr_number": 5392,
+      "timestamp": "2026-04-18T13:26:23.629914"
+    },
+    {
+      "issue_number": 324,
+      "pr_number": 5324,
+      "timestamp": "2026-04-18T13:26:23.651811"
+    },
+    {
+      "issue_number": 328,
+      "pr_number": 5328,
+      "timestamp": "2026-04-18T13:26:23.657025"
+    },
+    {
+      "issue_number": 332,
+      "pr_number": 5332,
+      "timestamp": "2026-04-18T13:26:23.662180"
+    },
+    {
+      "issue_number": 336,
+      "pr_number": 5336,
+      "timestamp": "2026-04-18T13:26:23.667350"
+    },
+    {
+      "issue_number": 340,
+      "pr_number": 5340,
+      "timestamp": "2026-04-18T13:26:23.672531"
+    },
+    {
+      "issue_number": 344,
+      "pr_number": 5344,
+      "timestamp": "2026-04-18T13:26:23.677791"
+    },
+    {
+      "issue_number": 348,
+      "pr_number": 5348,
+      "timestamp": "2026-04-18T13:26:23.683056"
+    },
+    {
+      "issue_number": 352,
+      "pr_number": 5352,
+      "timestamp": "2026-04-18T13:26:23.688300"
+    },
+    {
+      "issue_number": 356,
+      "pr_number": 5356,
+      "timestamp": "2026-04-18T13:26:23.694955"
+    },
+    {
+      "issue_number": 360,
+      "pr_number": 5360,
+      "timestamp": "2026-04-18T13:26:23.698703"
+    },
+    {
+      "issue_number": 364,
+      "pr_number": 5364,
+      "timestamp": "2026-04-18T13:26:23.702470"
+    },
+    {
+      "issue_number": 368,
+      "pr_number": 5368,
+      "timestamp": "2026-04-18T13:26:23.706274"
+    },
+    {
+      "issue_number": 390,
+      "pr_number": 5390,
+      "timestamp": "2026-04-18T13:26:24.778839"
+    }
+  ],
   "completed": [],
   "failed": [],
   "conflicts": [],

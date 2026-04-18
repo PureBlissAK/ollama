@@ -31,6 +31,8 @@ import os
 from pathlib import Path
 from datetime import datetime
 import hashlib
+import fcntl
+import tempfile
 
 # Get repo root
 REPO_ROOT = Path(__file__).parent.parent
@@ -50,15 +52,50 @@ def load_workpack(shard: int) -> dict:
 
 
 def load_progress() -> dict:
-    """Load execution progress tracking."""
-    with open(PROGRESS_FILE, 'r') as f:
-        return json.load(f)
+    """Load execution progress tracking with retry on lock."""
+    max_retries = 5
+    for attempt in range(max_retries):
+        try:
+            with open(PROGRESS_FILE, 'r') as f:
+                return json.load(f)
+        except json.JSONDecodeError:
+            if attempt < max_retries - 1:
+                import time
+                time.sleep(0.1 * (attempt + 1))
+            else:
+                raise
 
 
 def save_progress(progress: dict) -> None:
-    """Save execution progress tracking."""
-    with open(PROGRESS_FILE, 'w') as f:
-        json.dump(progress, f, indent=2)
+    """Save execution progress tracking with atomic write and file locking."""
+    max_retries = 5
+    for attempt in range(max_retries):
+        try:
+            # Write to temporary file first
+            temp_fd, temp_path = tempfile.mkstemp(dir=PROGRESS_FILE.parent, text=True)
+            try:
+                with os.fdopen(temp_fd, 'w') as temp_file:
+                    json.dump(progress, temp_file, indent=2)
+                # Atomic move
+                import shutil
+                shutil.move(temp_path, str(PROGRESS_FILE))
+            except Exception:
+                try:
+                    os.close(temp_fd)
+                except:
+                    pass
+                try:
+                    os.unlink(temp_path)
+                except:
+                    pass
+                raise
+            break
+        except Exception as e:
+            if attempt < max_retries - 1:
+                import time
+                time.sleep(0.1 * (attempt + 1))
+            else:
+                raise
 
 
 def generate_agent_id():

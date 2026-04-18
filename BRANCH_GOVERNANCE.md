@@ -51,7 +51,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
+
       - name: Cleanup stale branches
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -60,7 +60,7 @@ jobs:
             --age-days 180 \
             --exclude-patterns main,release \
             --report-file .github/branch_hygiene_report.json
-      
+
       - name: Report results
         if: always()
         run: cat .github/branch_hygiene_report.json | python3 -m json.tool

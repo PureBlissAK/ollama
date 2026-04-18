@@ -15,20 +15,20 @@ import subprocess
 
 class LocalOllamaTriageWorker:
     """Worker thread for parallel Ollama-based issue classification."""
-    
+
     def __init__(self, queue_file: Path, model: str = "mistral:7b", batch_size: int = 20):
         self.queue_file = queue_file
         self.model = model
         self.batch_size = batch_size
         self.results = []
         self.error = None
-    
+
     def run(self):
         """Execute Ollama classification in parallel."""
         try:
             import_script = Path(__file__).parent / "ollama_local_classifier.py"
             output = Path(".github") / f"ollama_local_triage_{datetime.utcnow().strftime('%Y%m%dT%H%M%SZ')}.json"
-            
+
             cmd = [
                 "python3",
                 str(import_script),
@@ -37,9 +37,9 @@ class LocalOllamaTriageWorker:
                 "--model", self.model,
                 "--limit", str(self.batch_size),
             ]
-            
+
             result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
-            
+
             if result.returncode == 0:
                 print("\n✓ Ollama classification complete")
                 print(result.stdout)
@@ -48,7 +48,7 @@ class LocalOllamaTriageWorker:
             else:
                 self.error = result.stderr
                 print(f"✗ Ollama classification failed: {result.stderr}")
-        
+
         except Exception as e:
             self.error = str(e)
             print(f"✗ Worker error: {e}")
@@ -57,10 +57,10 @@ class LocalOllamaTriageWorker:
 def run_parallel_triage(queue_file: Path, model: str = "mistral:7b", batch_size: int = 20):
     """
     Run Ollama classification in parallel with other triage work.
-    
+
     Returns tuple of (results, errors) from Ollama worker thread.
     """
-    
+
     print("=" * 70)
     print("PARALLEL TRIAGE MODE: Local Ollama + Copilot GitHub API")
     print("=" * 70)
@@ -69,13 +69,13 @@ def run_parallel_triage(queue_file: Path, model: str = "mistral:7b", batch_size:
     print(f"  Ollama model: {model}")
     print(f"  Batch size: {batch_size}")
     print(f"  Host: 192.168.168.42:11434")
-    
+
     # Start Ollama worker thread
     print(f"\n🚀 Starting Ollama classification worker (non-blocking)...")
     worker = LocalOllamaTriageWorker(queue_file, model, batch_size)
     thread = threading.Thread(target=worker.run, daemon=False)
     thread.start()
-    
+
     print("   Worker thread started in background")
     print("\n💡 While Ollama processes issues in parallel,")
     print("   you can run other triage operations:")
@@ -88,19 +88,19 @@ def run_parallel_triage(queue_file: Path, model: str = "mistral:7b", batch_size:
     print()
     print("   # Or continue with your workflow...")
     print()
-    
+
     # Wait for worker to complete
     print(f"⏳ Waiting for Ollama worker to complete...")
     thread.join(timeout=600)  # 10 minute timeout
-    
+
     if thread.is_alive():
         print("⚠️  Timeout: Worker still running after 10 minutes")
         return None, "Worker timeout"
-    
+
     if worker.error:
         print(f"❌ Worker failed: {worker.error}")
         return None, worker.error
-    
+
     print(f"\n✅ Parallel triage complete!")
     return worker.results, None
 
@@ -110,20 +110,20 @@ def create_unified_report(github_report: Path, ollama_results: dict, output: Pat
     Merge GitHub triage report and Ollama classification results
     into a unified intelligence report.
     """
-    
+
     try:
         with open(github_report) as f:
             github_data = json.load(f)
     except FileNotFoundError:
         github_data = {}
-    
+
     # Map Ollama classifications by issue number
     ollama_map = {}
     if ollama_results and ollama_results.get("classifications"):
         for item in ollama_results["classifications"]:
             if item.get("success"):
                 ollama_map[item["issue"]] = item.get("classification", {})
-    
+
     # Enrich with Ollama insights
     unified = {
         "timestamp": datetime.utcnow().isoformat() + "Z",
@@ -139,7 +139,7 @@ def create_unified_report(github_report: Path, ollama_results: dict, output: Pat
         },
         "merged_insights": [],
     }
-    
+
     # Merge insights
     if github_data and github_data.get("issues"):
         for issue in github_data["issues"]:
@@ -150,10 +150,10 @@ def create_unified_report(github_report: Path, ollama_results: dict, output: Pat
                 "ollama_classification": ollama_map.get(num),
             }
             unified["merged_insights"].append(insight)
-    
+
     with open(output, "w") as f:
         json.dump(unified, f, indent=2)
-    
+
     print(f"\n📄 Unified report: {output}")
     print(f"   - GitHub insights: {len(github_data.get('issues', []))} issues")
     print(f"   - Ollama classifications: {len(ollama_map)} issues")
@@ -190,15 +190,15 @@ def main():
         type=Path,
         help="GitHub triage report to merge with Ollama results",
     )
-    
+
     args = parser.parse_args()
-    
+
     # Run parallel classification
     results, error = run_parallel_triage(args.queue, args.model, args.batch)
-    
+
     if error:
         sys.exit(1)
-    
+
     # Optionally merge with GitHub report
     if args.merge_report and results:
         output = Path(".github") / f"unified_triage_report_{datetime.utcnow().strftime('%Y%m%dT%H%M%SZ')}.json"

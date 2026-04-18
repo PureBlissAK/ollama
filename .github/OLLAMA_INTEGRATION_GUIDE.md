@@ -69,7 +69,7 @@ Each issue receives a JSON classification:
 
 **Ollama Classification Speed (192.168.168.42):**
 - Mistral 7B: ~15-20 issues/minute
-- Llama3 8B: ~10-15 issues/minute  
+- Llama3 8B: ~10-15 issues/minute
 - Phi3 3.8B: ~25-30 issues/minute
 
 **Parallel Advantage:**
@@ -213,6 +213,6 @@ python3 scripts/parallel_triage_with_ollama.py --batch 100
 
 ---
 
-**Status:** ✅ Ready for parallel execution  
-**Models Available:** 4 (Mistral, Llama3, Phi3 variants)  
+**Status:** ✅ Ready for parallel execution
+**Models Available:** 4 (Mistral, Llama3, Phi3 variants)
 **Recommended:** Start with Mistral 7B for balance of speed and quality

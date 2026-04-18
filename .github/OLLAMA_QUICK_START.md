@@ -243,5 +243,5 @@ python3 scripts/ollama_local_classifier.py --limit 50 --model mistral:7b
 
 ---
 
-**Latest commit:** 2a6edf7da  
+**Latest commit:** 2a6edf7da
 **Status:** ✅ Ready to accelerate your triage
