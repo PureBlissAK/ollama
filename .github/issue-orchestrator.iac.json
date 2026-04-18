@@ -9,8 +9,13 @@
   "execution": {
     "all_severities": true,
     "max_issues": 100,
-    "execute": true,
-    "auto_close_labels": ["duplicate", "invalid", "wontfix"],
+    "execute": false,
+    "auto_close_labels": [],
+    "close_policy": {
+      "enabled": false,
+      "requires_linked_implementation": true,
+      "requires_verification_evidence": true
+    },
     "output": ".github/orchestrator_report_autonomous.json"
   },
   "auth": {
