@@ -43,6 +43,23 @@ func NewDeploymentController(provider *Provider) *DeploymentController {
 
 // Deploy creates a new model deployment in Kubernetes.
 func (dc *DeploymentController) Deploy(ctx context.Context, modelName, version string, replicas int32) error {
+	// Validate inputs
+	if modelName == "" {
+		return NewKubernetesError(
+			ErrTypeInvalidConfig,
+			"model name cannot be empty",
+			fmt.Errorf("modelName is required"),
+		)
+	}
+
+	if replicas <= 0 {
+		return NewKubernetesError(
+			ErrTypeInvalidConfig,
+			"replicas must be greater than zero",
+			fmt.Errorf("replicas=%d", replicas),
+		).WithDetails("replicas", replicas)
+	}
+
 	// TODO: Implement model deployment
 	// 1. Create PersistentVolumeClaim for model storage
 	// 2. Generate Deployment manifest
@@ -53,6 +70,15 @@ func (dc *DeploymentController) Deploy(ctx context.Context, modelName, version s
 
 // Undeploy removes a model deployment from Kubernetes.
 func (dc *DeploymentController) Undeploy(ctx context.Context, modelName string) error {
+	// Validate inputs
+	if modelName == "" {
+		return NewKubernetesError(
+			ErrTypeInvalidConfig,
+			"model name cannot be empty",
+			fmt.Errorf("modelName is required"),
+		)
+	}
+
 	// TODO: Implement deployment removal
 	// 1. Delete Service
 	// 2. Delete PVC
@@ -73,6 +99,23 @@ func (dc *DeploymentController) GetStatus(ctx context.Context, modelName string)
 
 // Scale changes the number of replicas for a model deployment.
 func (dc *DeploymentController) Scale(ctx context.Context, modelName string, replicas int32) error {
+	// Validate inputs
+	if modelName == "" {
+		return NewKubernetesError(
+			ErrTypeInvalidConfig,
+			"model name cannot be empty",
+			fmt.Errorf("modelName is required"),
+		)
+	}
+
+	if replicas <= 0 {
+		return NewKubernetesError(
+			ErrTypeInvalidConfig,
+			"replicas must be greater than zero",
+			fmt.Errorf("replicas=%d", replicas),
+		).WithDetails("replicas", replicas)
+	}
+
 	// TODO: Implement scaling
 	// 1. Get current Deployment
 	// 2. Update replica count

@@ -31,6 +31,31 @@ type PVCSpec struct {
 
 // CreatePVC creates a PersistentVolumeClaim for model storage.
 func (sm *StorageManager) CreatePVC(ctx context.Context, spec *PVCSpec) (*corev1.PersistentVolumeClaim, error) {
+	// Validate inputs
+	if spec == nil {
+		return nil, NewKubernetesError(
+			ErrTypeInvalidConfig,
+			"PVC spec cannot be nil",
+			fmt.Errorf("spec is required"),
+		)
+	}
+
+	if spec.Name == "" {
+		return nil, NewKubernetesError(
+			ErrTypeInvalidConfig,
+			"PVC name cannot be empty",
+			fmt.Errorf("spec.Name is required"),
+		)
+	}
+
+	if spec.Size == "" {
+		return nil, NewKubernetesError(
+			ErrTypeInvalidConfig,
+			"PVC size cannot be empty",
+			fmt.Errorf("spec.Size is required"),
+		)
+	}
+
 	// TODO: Implement PVC creation
 	// 1. Parse size specification
 	// 2. Build PVC manifest
@@ -41,6 +66,15 @@ func (sm *StorageManager) CreatePVC(ctx context.Context, spec *PVCSpec) (*corev1
 
 // DeletePVC removes a PersistentVolumeClaim.
 func (sm *StorageManager) DeletePVC(ctx context.Context, name string) error {
+	// Validate inputs
+	if name == "" {
+		return NewKubernetesError(
+			ErrTypeInvalidConfig,
+			"PVC name cannot be empty",
+			fmt.Errorf("name is required"),
+		)
+	}
+
 	// TODO: Implement PVC deletion
 	// 1. Delete PVC by name
 	// 2. Handle PV retention policy

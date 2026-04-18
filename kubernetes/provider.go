@@ -39,20 +39,43 @@ func NewProvider(kubeconfig, namespace, storageClass string) (*Provider, error) 
 
 // Connect verifies connectivity to the Kubernetes cluster.
 func (p *Provider) Connect(ctx context.Context) error {
-	// TODO: Implement cluster connectivity check
+	if p.clientset == nil {
+		return NewKubernetesError(
+			ErrTypeAuthFailed,
+			"kubernetes client not initialized",
+			fmt.Errorf("clientset is nil"),
+		)
+	}
+
+	// Verify connectivity by querying server version
+	_, err := p.clientset.Discovery().ServerVersion()
+	if err != nil {
+		return NewKubernetesError(
+			ErrTypeClusterUnavailable,
+			"failed to connect to kubernetes cluster",
+			err,
+		).WithDetails("endpoint", p.config.Host)
+	}
+
 	return nil
 }
 
 // Disconnect performs cleanup operations.
 func (p *Provider) Disconnect() error {
-	// TODO: Implement cleanup
+	// No explicit cleanup needed for client-go
+	// Resources are cleaned up by Go's garbage collector
 	return nil
 }
 
 // IsAvailable returns true if the Kubernetes cluster is available.
 func (p *Provider) IsAvailable(ctx context.Context) bool {
-	// TODO: Implement availability check
-	return true
+	if p.clientset == nil {
+		return false
+	}
+
+	// Quick health check using discovery client
+	_, err := p.clientset.Discovery().ServerVersion()
+	return err == nil
 }
 
 // getKubeConfig loads the kubeconfig file.

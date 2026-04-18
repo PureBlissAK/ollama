@@ -31,6 +31,31 @@ type ServiceSpec struct {
 
 // CreateService creates a new Kubernetes service for a model.
 func (sm *ServiceManager) CreateService(ctx context.Context, spec *ServiceSpec) (*corev1.Service, error) {
+	// Validate inputs
+	if spec == nil {
+		return nil, NewKubernetesError(
+			ErrTypeInvalidConfig,
+			"service spec cannot be nil",
+			fmt.Errorf("spec is required"),
+		)
+	}
+
+	if spec.Name == "" {
+		return nil, NewKubernetesError(
+			ErrTypeInvalidConfig,
+			"service name cannot be empty",
+			fmt.Errorf("spec.Name is required"),
+		)
+	}
+
+	if spec.Port <= 0 {
+		return nil, NewKubernetesError(
+			ErrTypeInvalidConfig,
+			"service port must be greater than zero",
+			fmt.Errorf("port=%d", spec.Port),
+		).WithDetails("port", spec.Port)
+	}
+
 	// TODO: Implement service creation
 	// 1. Validate input
 	// 2. Build Service manifest
@@ -50,6 +75,15 @@ func (sm *ServiceManager) UpdateService(ctx context.Context, name string, servic
 
 // DeleteService removes a service from Kubernetes.
 func (sm *ServiceManager) DeleteService(ctx context.Context, name string) error {
+	// Validate inputs
+	if name == "" {
+		return NewKubernetesError(
+			ErrTypeInvalidConfig,
+			"service name cannot be empty",
+			fmt.Errorf("name is required"),
+		)
+	}
+
 	// TODO: Implement service deletion
 	// 1. Delete Service by name
 	// 2. Verify deletion
@@ -68,6 +102,15 @@ func (sm *ServiceManager) GetService(ctx context.Context, name string) (*corev1.
 
 // GetEndpoints retrieves the endpoints for a service.
 func (sm *ServiceManager) GetEndpoints(ctx context.Context, name string) (*corev1.Endpoints, error) {
+	// Validate inputs
+	if name == "" {
+		return nil, NewKubernetesError(
+			ErrTypeInvalidConfig,
+			"service name cannot be empty",
+			fmt.Errorf("name is required"),
+		)
+	}
+
 	// TODO: Implement endpoint retrieval
 	// 1. Get Endpoints by Service name
 	// 2. Extract pod IPs and ports
