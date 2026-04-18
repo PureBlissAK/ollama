@@ -1,8 +1,8 @@
 {
-  "generated_at_utc": "2026-04-18T03:25:35.888296+00:00",
+  "generated_at_utc": "2026-04-18T03:26:59.794057+00:00",
   "repository": "kushin77/ollama",
   "source_snapshot": ".github/open_issues_snapshot.json",
-  "open_issue_count": 315,
+  "open_issue_count": 312,
   "wave_size": 25,
   "wave_count": 13,
   "selection_policy": "severity_then_issue_number",
@@ -349,9 +349,10 @@
             "architecture",
             "critical-path",
             "status/planned-wave",
-            "wave/01"
+            "wave/01",
+            "agent-ready"
           ],
-          "updated_at": "2026-04-18T02:46:05Z",
+          "updated_at": "2026-04-18T03:26:45Z",
           "url": "https://github.com/kushin77/ollama/issues/389",
           "severity": "critical"
         },
@@ -367,9 +368,10 @@
             "architecture",
             "critical-path",
             "status/planned-wave",
-            "wave/01"
+            "wave/01",
+            "agent-ready"
           ],
-          "updated_at": "2026-04-18T02:46:07Z",
+          "updated_at": "2026-04-18T03:26:44Z",
           "url": "https://github.com/kushin77/ollama/issues/391",
           "severity": "critical"
         },
@@ -384,9 +386,10 @@
             "monorepo",
             "critical-path",
             "status/planned-wave",
-            "wave/01"
+            "wave/01",
+            "agent-ready"
           ],
-          "updated_at": "2026-04-18T02:46:08Z",
+          "updated_at": "2026-04-18T03:26:42Z",
           "url": "https://github.com/kushin77/ollama/issues/395",
           "severity": "critical"
         },
@@ -1849,8 +1852,6 @@
         393,
         394,
         396,
-        55,
-        56,
         63,
         65,
         69,
@@ -1869,7 +1870,9 @@
         255,
         260,
         261,
-        294
+        294,
+        313,
+        375
       ],
       "issues": [
         {
@@ -1899,9 +1902,10 @@
             "frontend",
             "decision-record",
             "status/planned-wave",
-            "wave/05"
+            "wave/05",
+            "agent-ready"
           ],
-          "updated_at": "2026-04-18T02:48:05Z",
+          "updated_at": "2026-04-18T03:26:43Z",
           "url": "https://github.com/kushin77/ollama/issues/393",
           "severity": "high"
         },
@@ -1916,9 +1920,10 @@
             "developer-experience",
             "api",
             "status/planned-wave",
-            "wave/05"
+            "wave/05",
+            "agent-ready"
           ],
-          "updated_at": "2026-04-18T02:48:06Z",
+          "updated_at": "2026-04-18T03:26:42Z",
           "url": "https://github.com/kushin77/ollama/issues/394",
           "severity": "high"
         },
@@ -1933,43 +1938,12 @@
             "monorepo",
             "developer-experience",
             "status/planned-wave",
-            "wave/05"
+            "wave/05",
+            "agent-ready"
           ],
-          "updated_at": "2026-04-18T02:48:07Z",
+          "updated_at": "2026-04-18T03:26:41Z",
           "url": "https://github.com/kushin77/ollama/issues/396",
           "severity": "high"
-        },
-        {
-          "number": 55,
-          "title": "\u26a1 [Phase 3 Issue #38]: Load Testing Baseline",
-          "labels": [
-            "status/triaged",
-            "priority/medium",
-            "performance",
-            "needs-evidence",
-            "status/planned-wave",
-            "wave/05",
-            "wave/5"
-          ],
-          "updated_at": "2026-04-18T03:09:07Z",
-          "url": "https://github.com/kushin77/ollama/issues/55",
-          "severity": "medium"
-        },
-        {
-          "number": 56,
-          "title": "\ud83d\uddfa\ufe0f [Phase 3 Issue #39]: Scaling Roadmap & Tech Debt",
-          "labels": [
-            "documentation",
-            "status/triaged",
-            "priority/medium",
-            "needs-evidence",
-            "status/planned-wave",
-            "wave/05",
-            "wave/5"
-          ],
-          "updated_at": "2026-04-18T03:09:08Z",
-          "url": "https://github.com/kushin77/ollama/issues/56",
-          "severity": "medium"
         },
         {
           "number": 63,
@@ -1983,7 +1957,7 @@
             "wave/05",
             "wave/5"
           ],
-          "updated_at": "2026-04-18T03:09:12Z",
+          "updated_at": "2026-04-18T03:25:42Z",
           "url": "https://github.com/kushin77/ollama/issues/63",
           "severity": "medium"
         },
@@ -1999,7 +1973,7 @@
             "wave/05",
             "wave/5"
           ],
-          "updated_at": "2026-04-18T03:09:13Z",
+          "updated_at": "2026-04-18T03:25:43Z",
           "url": "https://github.com/kushin77/ollama/issues/65",
           "severity": "medium"
         },
@@ -2016,7 +1990,7 @@
             "wave/05",
             "wave/5"
           ],
-          "updated_at": "2026-04-18T03:09:15Z",
+          "updated_at": "2026-04-18T03:25:44Z",
           "url": "https://github.com/kushin77/ollama/issues/69",
           "severity": "medium"
         },
@@ -2032,7 +2006,7 @@
             "wave/05",
             "wave/5"
           ],
-          "updated_at": "2026-04-18T03:09:16Z",
+          "updated_at": "2026-04-18T03:25:45Z",
           "url": "https://github.com/kushin77/ollama/issues/77",
           "severity": "medium"
         },
@@ -2048,7 +2022,7 @@
             "wave/05",
             "wave/5"
           ],
-          "updated_at": "2026-04-18T03:09:19Z",
+          "updated_at": "2026-04-18T03:25:46Z",
           "url": "https://github.com/kushin77/ollama/issues/85",
           "severity": "medium"
         },
@@ -2064,7 +2038,7 @@
             "wave/05",
             "wave/5"
           ],
-          "updated_at": "2026-04-18T03:09:42Z",
+          "updated_at": "2026-04-18T03:25:47Z",
           "url": "https://github.com/kushin77/ollama/issues/122",
           "severity": "medium"
         },
@@ -2083,7 +2057,7 @@
             "wave/05",
             "wave/5"
           ],
-          "updated_at": "2026-04-18T03:09:43Z",
+          "updated_at": "2026-04-18T03:25:48Z",
           "url": "https://github.com/kushin77/ollama/issues/124",
           "severity": "medium"
         },
@@ -2279,46 +2253,7 @@
           "updated_at": "2026-04-18T03:11:34Z",
           "url": "https://github.com/kushin77/ollama/issues/294",
           "severity": "medium"
-        }
-      ]
-    },
-    {
-      "wave": 6,
-      "size": 25,
-      "severity_counts": {
-        "critical": 0,
-        "high": 0,
-        "medium": 3,
-        "low": 22
-      },
-      "issue_numbers": [
-        313,
-        375,
-        397,
-        57,
-        60,
-        61,
-        62,
-        64,
-        66,
-        71,
-        123,
-        125,
-        126,
-        127,
-        128,
-        129,
-        130,
-        131,
-        132,
-        133,
-        134,
-        135,
-        136,
-        137,
-        138
-      ],
-      "issues": [
+        },
         {
           "number": 313,
           "title": "[BROWSER-CHAT][HARDWARE] Benchmark harness and publish pipeline",
@@ -2350,7 +2285,46 @@
           "updated_at": "2026-04-18T02:48:39Z",
           "url": "https://github.com/kushin77/ollama/issues/375",
           "severity": "medium"
-        },
+        }
+      ]
+    },
+    {
+      "wave": 6,
+      "size": 25,
+      "severity_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 1,
+        "low": 24
+      },
+      "issue_numbers": [
+        397,
+        60,
+        61,
+        62,
+        64,
+        66,
+        71,
+        123,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141
+      ],
+      "issues": [
         {
           "number": 397,
           "title": "[Monorepo] Define CODEOWNERS and review policy by domain",
@@ -2362,25 +2336,12 @@
             "monorepo",
             "developer-experience",
             "status/planned-wave",
-            "wave/06"
+            "wave/06",
+            "agent-ready"
           ],
-          "updated_at": "2026-04-18T02:48:41Z",
+          "updated_at": "2026-04-18T03:26:41Z",
           "url": "https://github.com/kushin77/ollama/issues/397",
           "severity": "medium"
-        },
-        {
-          "number": 57,
-          "title": "\ud83e\uddea [Phase 3 Issue #40]: Comprehensive Test Coverage",
-          "labels": [
-            "status/triaged",
-            "needs-evidence",
-            "status/planned-wave",
-            "wave/06",
-            "wave/6"
-          ],
-          "updated_at": "2026-04-18T03:09:09Z",
-          "url": "https://github.com/kushin77/ollama/issues/57",
-          "severity": "low"
         },
         {
           "number": 60,
@@ -2392,7 +2353,7 @@
             "wave/06",
             "wave/6"
           ],
-          "updated_at": "2026-04-18T03:09:10Z",
+          "updated_at": "2026-04-18T03:25:40Z",
           "url": "https://github.com/kushin77/ollama/issues/60",
           "severity": "low"
         },
@@ -2406,7 +2367,7 @@
             "wave/06",
             "wave/6"
           ],
-          "updated_at": "2026-04-18T03:09:11Z",
+          "updated_at": "2026-04-18T03:25:41Z",
           "url": "https://github.com/kushin77/ollama/issues/61",
           "severity": "low"
         },
@@ -2420,7 +2381,7 @@
             "wave/06",
             "wave/6"
           ],
-          "updated_at": "2026-04-18T03:09:11Z",
+          "updated_at": "2026-04-18T03:25:42Z",
           "url": "https://github.com/kushin77/ollama/issues/62",
           "severity": "low"
         },
@@ -2434,7 +2395,7 @@
             "wave/06",
             "wave/6"
           ],
-          "updated_at": "2026-04-18T03:09:13Z",
+          "updated_at": "2026-04-18T03:25:43Z",
           "url": "https://github.com/kushin77/ollama/issues/64",
           "severity": "low"
         },
@@ -2448,7 +2409,7 @@
             "wave/06",
             "wave/6"
           ],
-          "updated_at": "2026-04-18T03:09:14Z",
+          "updated_at": "2026-04-18T03:25:44Z",
           "url": "https://github.com/kushin77/ollama/issues/66",
           "severity": "low"
         },
@@ -2464,7 +2425,7 @@
             "wave/06",
             "wave/6"
           ],
-          "updated_at": "2026-04-18T03:09:16Z",
+          "updated_at": "2026-04-18T03:25:45Z",
           "url": "https://github.com/kushin77/ollama/issues/71",
           "severity": "low"
         },
@@ -2481,7 +2442,7 @@
             "wave/06",
             "wave/6"
           ],
-          "updated_at": "2026-04-18T03:09:43Z",
+          "updated_at": "2026-04-18T03:25:47Z",
           "url": "https://github.com/kushin77/ollama/issues/123",
           "severity": "low"
         },
@@ -2495,7 +2456,7 @@
             "wave/06",
             "wave/6"
           ],
-          "updated_at": "2026-04-18T03:09:44Z",
+          "updated_at": "2026-04-18T03:25:48Z",
           "url": "https://github.com/kushin77/ollama/issues/125",
           "severity": "low"
         },
@@ -2509,7 +2470,7 @@
             "wave/06",
             "wave/6"
           ],
-          "updated_at": "2026-04-18T03:09:45Z",
+          "updated_at": "2026-04-18T03:25:49Z",
           "url": "https://github.com/kushin77/ollama/issues/126",
           "severity": "low"
         },
@@ -2523,7 +2484,7 @@
             "wave/06",
             "wave/6"
           ],
-          "updated_at": "2026-04-18T03:09:45Z",
+          "updated_at": "2026-04-18T03:25:50Z",
           "url": "https://github.com/kushin77/ollama/issues/127",
           "severity": "low"
         },
@@ -2683,46 +2644,7 @@
           "updated_at": "2026-04-18T03:09:52Z",
           "url": "https://github.com/kushin77/ollama/issues/138",
           "severity": "low"
-        }
-      ]
-    },
-    {
-      "wave": 7,
-      "size": 25,
-      "severity_counts": {
-        "critical": 0,
-        "high": 0,
-        "medium": 0,
-        "low": 25
-      },
-      "issue_numbers": [
-        139,
-        140,
-        141,
-        142,
-        143,
-        144,
-        145,
-        146,
-        147,
-        148,
-        149,
-        150,
-        151,
-        152,
-        153,
-        154,
-        155,
-        156,
-        157,
-        158,
-        159,
-        160,
-        168,
-        169,
-        170
-      ],
-      "issues": [
+        },
         {
           "number": 139,
           "title": "[LLM/T10-97] DSPy Prompt Optimizer \u0393\u00c7\u00f6 Automated System Prompt Optimization via MIPROv2 Algorithm",
@@ -2767,7 +2689,46 @@
           "updated_at": "2026-04-18T03:09:54Z",
           "url": "https://github.com/kushin77/ollama/issues/141",
           "severity": "low"
-        },
+        }
+      ]
+    },
+    {
+      "wave": 7,
+      "size": 25,
+      "severity_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 25
+      },
+      "issue_numbers": [
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        158,
+        159,
+        160,
+        168,
+        169,
+        170,
+        171,
+        172,
+        173
+      ],
+      "issues": [
         {
           "number": 142,
           "title": "[LLM/T10-94] Domain-Aware Model Routing \u0393\u00c7\u00f6 Auto-Route code/security/architecture/quick to Optimal Model",
@@ -3095,46 +3056,7 @@
           "updated_at": "2026-04-18T03:10:17Z",
           "url": "https://github.com/kushin77/ollama/issues/170",
           "severity": "low"
-        }
-      ]
-    },
-    {
-      "wave": 8,
-      "size": 25,
-      "severity_counts": {
-        "critical": 0,
-        "high": 0,
-        "medium": 0,
-        "low": 25
-      },
-      "issue_numbers": [
-        171,
-        172,
-        173,
-        174,
-        175,
-        176,
-        177,
-        178,
-        179,
-        180,
-        181,
-        182,
-        183,
-        184,
-        185,
-        186,
-        187,
-        188,
-        189,
-        190,
-        191,
-        192,
-        193,
-        194,
-        196
-      ],
-      "issues": [
+        },
         {
           "number": 171,
           "title": "[LLM/T6-55] A/B Testing Framework \u0393\u00c7\u00f6 10% Traffic Split for Prompt Experiments with Auto-Promotion",
@@ -3179,7 +3101,46 @@
           "updated_at": "2026-04-18T03:10:19Z",
           "url": "https://github.com/kushin77/ollama/issues/173",
           "severity": "low"
-        },
+        }
+      ]
+    },
+    {
+      "wave": 8,
+      "size": 25,
+      "severity_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 25
+      },
+      "issue_numbers": [
+        174,
+        175,
+        176,
+        177,
+        178,
+        179,
+        180,
+        181,
+        182,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188,
+        189,
+        190,
+        191,
+        192,
+        193,
+        194,
+        196,
+        197,
+        199,
+        201
+      ],
+      "issues": [
         {
           "number": 174,
           "title": "[LLM/T5-43] Hybrid Dense+BM25 Search \u0393\u00c7\u00f6 Semantic + Keyword RAG for Technical Accuracy",
@@ -3509,46 +3470,7 @@
           "updated_at": "2026-04-18T03:10:35Z",
           "url": "https://github.com/kushin77/ollama/issues/196",
           "severity": "low"
-        }
-      ]
-    },
-    {
-      "wave": 9,
-      "size": 25,
-      "severity_counts": {
-        "critical": 0,
-        "high": 0,
-        "medium": 0,
-        "low": 25
-      },
-      "issue_numbers": [
-        197,
-        199,
-        201,
-        202,
-        204,
-        205,
-        206,
-        207,
-        208,
-        209,
-        210,
-        211,
-        212,
-        213,
-        214,
-        215,
-        216,
-        217,
-        218,
-        219,
-        220,
-        221,
-        222,
-        223,
-        224
-      ],
-      "issues": [
+        },
         {
           "number": 197,
           "title": "[LLM/T3-28] Health Checks and Streaming SSE Normalization \u0393\u00c7\u00f6 Reliable Token Delivery",
@@ -3593,7 +3515,46 @@
           "updated_at": "2026-04-18T03:10:38Z",
           "url": "https://github.com/kushin77/ollama/issues/201",
           "severity": "low"
-        },
+        }
+      ]
+    },
+    {
+      "wave": 9,
+      "size": 25,
+      "severity_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 25
+      },
+      "issue_numbers": [
+        202,
+        204,
+        205,
+        206,
+        207,
+        208,
+        209,
+        210,
+        211,
+        212,
+        213,
+        214,
+        215,
+        216,
+        217,
+        218,
+        219,
+        220,
+        221,
+        222,
+        223,
+        224,
+        226,
+        235,
+        236
+      ],
+      "issues": [
         {
           "number": 202,
           "title": "[LLM/T3-23] Semantic Response Caching \u0393\u00c7\u00f6 GPTCache + Milvus for Paraphrase-Aware Cache Hits",
@@ -3922,46 +3883,7 @@
           "updated_at": "2026-04-18T03:10:54Z",
           "url": "https://github.com/kushin77/ollama/issues/224",
           "severity": "low"
-        }
-      ]
-    },
-    {
-      "wave": 10,
-      "size": 25,
-      "severity_counts": {
-        "critical": 0,
-        "high": 0,
-        "medium": 0,
-        "low": 25
-      },
-      "issue_numbers": [
-        226,
-        235,
-        236,
-        237,
-        238,
-        239,
-        248,
-        249,
-        250,
-        251,
-        252,
-        268,
-        269,
-        270,
-        271,
-        272,
-        273,
-        274,
-        275,
-        276,
-        277,
-        278,
-        279,
-        280,
-        281
-      ],
-      "issues": [
+        },
         {
           "number": 226,
           "title": "[EPIC][ONPREM-FAANG] 90-Day On-Prem AI Capability Uplift (Grok/Claude/Gemini Benchmark)",
@@ -4003,7 +3925,46 @@
           "updated_at": "2026-04-18T03:11:01Z",
           "url": "https://github.com/kushin77/ollama/issues/236",
           "severity": "low"
-        },
+        }
+      ]
+    },
+    {
+      "wave": 10,
+      "size": 25,
+      "severity_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 25
+      },
+      "issue_numbers": [
+        237,
+        238,
+        239,
+        248,
+        249,
+        250,
+        251,
+        252,
+        268,
+        269,
+        270,
+        271,
+        272,
+        273,
+        274,
+        275,
+        276,
+        277,
+        278,
+        279,
+        280,
+        281,
+        282,
+        283,
+        284
+      ],
+      "issues": [
         {
           "number": 237,
           "title": "[P2][ONPREM-FAANG] Agentic Tool Execution Layer (Controlled On-Prem Actions)",
@@ -4320,46 +4281,7 @@
           "updated_at": "2026-04-18T03:11:26Z",
           "url": "https://github.com/kushin77/ollama/issues/281",
           "severity": "low"
-        }
-      ]
-    },
-    {
-      "wave": 11,
-      "size": 25,
-      "severity_counts": {
-        "critical": 0,
-        "high": 0,
-        "medium": 0,
-        "low": 25
-      },
-      "issue_numbers": [
-        282,
-        283,
-        284,
-        285,
-        286,
-        305,
-        316,
-        317,
-        318,
-        319,
-        320,
-        321,
-        322,
-        323,
-        324,
-        325,
-        326,
-        327,
-        328,
-        329,
-        330,
-        331,
-        332,
-        333,
-        334
-      ],
-      "issues": [
+        },
         {
           "number": 282,
           "title": "[BROWSER-CHAT][EPIC] Knowledge Hub for Curated Links and YouTube Learning Sources",
@@ -4404,7 +4326,46 @@
           "updated_at": "2026-04-18T03:11:27Z",
           "url": "https://github.com/kushin77/ollama/issues/284",
           "severity": "low"
-        },
+        }
+      ]
+    },
+    {
+      "wave": 11,
+      "size": 25,
+      "severity_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 25
+      },
+      "issue_numbers": [
+        285,
+        286,
+        305,
+        316,
+        317,
+        318,
+        319,
+        320,
+        321,
+        322,
+        323,
+        324,
+        325,
+        326,
+        327,
+        328,
+        329,
+        330,
+        331,
+        332,
+        333,
+        334,
+        335,
+        336,
+        337
+      ],
+      "issues": [
         {
           "number": 285,
           "title": "[BROWSER-CHAT][EPIC] Sentiment Intelligence Program (Love/Hate Signal to Backlog)",
@@ -4734,46 +4695,7 @@
           "updated_at": "2026-04-18T03:11:57Z",
           "url": "https://github.com/kushin77/ollama/issues/334",
           "severity": "low"
-        }
-      ]
-    },
-    {
-      "wave": 12,
-      "size": 25,
-      "severity_counts": {
-        "critical": 0,
-        "high": 0,
-        "medium": 0,
-        "low": 25
-      },
-      "issue_numbers": [
-        335,
-        336,
-        337,
-        338,
-        339,
-        340,
-        341,
-        342,
-        343,
-        344,
-        345,
-        346,
-        347,
-        348,
-        349,
-        350,
-        351,
-        352,
-        353,
-        354,
-        355,
-        356,
-        357,
-        358,
-        359
-      ],
-      "issues": [
+        },
         {
           "number": 335,
           "title": "[SENTIMENT][ENHANCEMENT-27] Checklist synthesis from conversation",
@@ -4818,7 +4740,46 @@
           "updated_at": "2026-04-18T03:11:59Z",
           "url": "https://github.com/kushin77/ollama/issues/337",
           "severity": "low"
-        },
+        }
+      ]
+    },
+    {
+      "wave": 12,
+      "size": 25,
+      "severity_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 25
+      },
+      "issue_numbers": [
+        338,
+        339,
+        340,
+        341,
+        342,
+        343,
+        344,
+        345,
+        346,
+        347,
+        348,
+        349,
+        350,
+        351,
+        352,
+        353,
+        354,
+        355,
+        356,
+        357,
+        358,
+        359,
+        360,
+        361,
+        362
+      ],
+      "issues": [
         {
           "number": 338,
           "title": "[SENTIMENT][ENHANCEMENT-30] Conversation export bundles (MD/JSON/PDF)",
@@ -5148,36 +5109,7 @@
           "updated_at": "2026-04-18T03:12:10Z",
           "url": "https://github.com/kushin77/ollama/issues/359",
           "severity": "low"
-        }
-      ]
-    },
-    {
-      "wave": 13,
-      "size": 15,
-      "severity_counts": {
-        "critical": 0,
-        "high": 0,
-        "medium": 0,
-        "low": 15
-      },
-      "issue_numbers": [
-        360,
-        361,
-        362,
-        363,
-        364,
-        365,
-        366,
-        367,
-        368,
-        372,
-        378,
-        379,
-        390,
-        392,
-        398
-      ],
-      "issues": [
+        },
         {
           "number": 360,
           "title": "[SENTIMENT][ENHANCEMENT-52] Learner coaching progression mode",
@@ -5222,7 +5154,33 @@
           "updated_at": "2026-04-18T03:12:12Z",
           "url": "https://github.com/kushin77/ollama/issues/362",
           "severity": "low"
-        },
+        }
+      ]
+    },
+    {
+      "wave": 13,
+      "size": 12,
+      "severity_counts": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 12
+      },
+      "issue_numbers": [
+        363,
+        364,
+        365,
+        366,
+        367,
+        368,
+        372,
+        378,
+        379,
+        390,
+        392,
+        398
+      ],
+      "issues": [
         {
           "number": 363,
           "title": "[SENTIMENT][ENHANCEMENT-55] Hypothesis test planning assistant",
@@ -5371,9 +5329,10 @@
             "architecture",
             "decision-record",
             "status/planned-wave",
-            "wave/13"
+            "wave/13",
+            "agent-ready"
           ],
-          "updated_at": "2026-04-18T02:53:13Z",
+          "updated_at": "2026-04-18T03:26:44Z",
           "url": "https://github.com/kushin77/ollama/issues/390",
           "severity": "low"
         },
@@ -5387,9 +5346,10 @@
             "architecture",
             "frontend",
             "status/planned-wave",
-            "wave/13"
+            "wave/13",
+            "agent-ready"
           ],
-          "updated_at": "2026-04-18T02:53:14Z",
+          "updated_at": "2026-04-18T03:26:43Z",
           "url": "https://github.com/kushin77/ollama/issues/392",
           "severity": "low"
         },
@@ -5402,9 +5362,10 @@
             "status/triaged",
             "monorepo",
             "status/planned-wave",
-            "wave/13"
+            "wave/13",
+            "agent-ready"
           ],
-          "updated_at": "2026-04-18T02:53:16Z",
+          "updated_at": "2026-04-18T03:26:40Z",
           "url": "https://github.com/kushin77/ollama/issues/398",
           "severity": "low"
         }
