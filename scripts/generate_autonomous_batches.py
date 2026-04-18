@@ -42,6 +42,10 @@ def main():
         help="Path to committed open issues snapshot JSON",
     )
     parser.add_argument(
+        "--input",
+        help="Backward-compatible alias for --snapshot",
+    )
+    parser.add_argument(
         "--output",
         default=".github/autonomous_execution_batches.json",
         help="Path for generated batches manifest",
@@ -54,24 +58,45 @@ def main():
     )
     args = parser.parse_args()
 
-    snapshot_path = Path(args.snapshot)
+    snapshot_arg = args.input or args.snapshot
+    snapshot_path = Path(snapshot_arg)
     output_path = Path(args.output)
 
     with snapshot_path.open("r", encoding="utf-8") as handle:
         snapshot = json.load(handle)
 
-    issues = snapshot.get("open_issues", [])
+    if isinstance(snapshot, list):
+        issues = snapshot
+        repository = None
+    else:
+        issues = snapshot.get("open_issues") or snapshot.get("issues") or []
+        repository = snapshot.get("repository")
+
     normalized = []
     for issue in issues:
-        labels = issue.get("labels", [])
+        if not isinstance(issue, dict):
+            continue
+
+        raw_labels = issue.get("labels", [])
+        labels = []
+        for label in raw_labels:
+            if isinstance(label, dict):
+                labels.append(label.get("name", ""))
+            elif isinstance(label, str):
+                labels.append(label)
+
+        number = issue.get("number")
+        if number is None:
+            continue
+
         severity = issue.get("severity") or infer_severity(labels)
         normalized.append(
             {
-                "number": issue["number"],
+                "number": number,
                 "title": issue.get("title", ""),
                 "labels": labels,
                 "updated_at": issue.get("updated_at"),
-                "url": issue.get("url"),
+                "url": issue.get("url") or issue.get("html_url"),
                 "severity": severity,
             }
         )
@@ -96,7 +121,7 @@ def main():
 
     manifest = {
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
-        "repository": snapshot.get("repository"),
+        "repository": repository,
         "source_snapshot": str(snapshot_path),
         "open_issue_count": len(normalized),
         "wave_size": args.wave_size,

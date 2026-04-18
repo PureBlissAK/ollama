@@ -127,16 +127,17 @@ def main() -> None:
     if args.max_issues > 0:
         issue_numbers = issue_numbers[:args.max_issues]
 
-    # Ensure label set exists before assignment.
-    max_wave = max(issue_to_wave.values()) if issue_to_wave else 0
-    for wave_num in range(1, max_wave + 1):
-        ensure_label(
-            base,
-            headers,
-            f"wave/{wave_num}",
-            "5319e7",
-            f"Autonomous execution batch {wave_num}",
-        )
+    # Ensure label set exists before assignment only when labels are being mutated.
+    if not args.comments_only:
+        max_wave = max(issue_to_wave.values()) if issue_to_wave else 0
+        for wave_num in range(1, max_wave + 1):
+            ensure_label(
+                base,
+                headers,
+                f"wave/{wave_num}",
+                "5319e7",
+                f"Autonomous execution batch {wave_num}",
+            )
 
     report = {
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),

@@ -19,16 +19,49 @@ def severity_from_labels(labels):
 
 def load_issues(path):
     with open(path, "r", encoding="utf-8") as handle:
-        issues = json.load(handle)
+        raw = json.load(handle)
+
+    if isinstance(raw, list):
+        issues = raw
+    elif isinstance(raw, dict):
+        if isinstance(raw.get("open_issues"), list):
+            issues = raw["open_issues"]
+        elif isinstance(raw.get("issues"), list):
+            issues = raw["issues"]
+        elif isinstance(raw.get("agent_ready"), list) or isinstance(raw.get("needs_evidence"), list):
+            issues = []
+            if isinstance(raw.get("agent_ready"), list):
+                issues.extend(raw["agent_ready"])
+            if isinstance(raw.get("needs_evidence"), list):
+                issues.extend(raw["needs_evidence"])
+        else:
+            issues = []
+    else:
+        issues = []
+
     normalized = []
     for issue in issues:
-        labels = [label.get("name", "") for label in issue.get("labels", []) if isinstance(label, dict)]
+        if not isinstance(issue, dict):
+            continue
+
+        raw_labels = issue.get("labels", [])
+        labels = []
+        for label in raw_labels:
+            if isinstance(label, dict):
+                labels.append(label.get("name", ""))
+            elif isinstance(label, str):
+                labels.append(label)
+
+        number = issue.get("number")
+        if number is None:
+            continue
+
         normalized.append(
             {
-                "number": int(issue["number"]),
+                "number": int(number),
                 "title": issue.get("title", ""),
                 "labels": labels,
-                "url": issue.get("url"),
+                "url": issue.get("url") or issue.get("html_url"),
                 "updated_at": issue.get("updatedAt") or issue.get("updated_at"),
                 "severity": severity_from_labels(labels),
             }
