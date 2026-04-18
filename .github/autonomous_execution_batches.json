@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-04-18T02:42:30.357155+00:00",
+  "generated_at_utc": "2026-04-18T03:16:44.430567+00:00",
   "repository": "kushin77/ollama",
   "source_snapshot": ".github/open_issues_snapshot.json",
   "open_issue_count": 319,
@@ -59,9 +59,12 @@
             "automated",
             "type-bug",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1"
           ],
-          "updated_at": "2026-04-18T02:36:35Z",
+          "updated_at": "2026-04-18T03:09:17Z",
           "url": "https://github.com/kushin77/ollama/issues/82",
           "severity": "critical"
         },
@@ -74,9 +77,12 @@
             "automated",
             "type-bug",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1"
           ],
-          "updated_at": "2026-04-18T02:36:33Z",
+          "updated_at": "2026-04-18T03:09:18Z",
           "url": "https://github.com/kushin77/ollama/issues/84",
           "severity": "critical"
         },
@@ -89,9 +95,12 @@
             "automated",
             "type-bug",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1"
           ],
-          "updated_at": "2026-04-18T02:36:32Z",
+          "updated_at": "2026-04-18T03:09:20Z",
           "url": "https://github.com/kushin77/ollama/issues/86",
           "severity": "critical"
         },
@@ -104,9 +113,12 @@
             "automated",
             "type-bug",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1"
           ],
-          "updated_at": "2026-04-18T02:36:31Z",
+          "updated_at": "2026-04-18T03:09:20Z",
           "url": "https://github.com/kushin77/ollama/issues/87",
           "severity": "critical"
         },
@@ -119,9 +131,12 @@
             "automated",
             "type-bug",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1"
           ],
-          "updated_at": "2026-04-18T02:36:29Z",
+          "updated_at": "2026-04-18T03:09:21Z",
           "url": "https://github.com/kushin77/ollama/issues/88",
           "severity": "critical"
         },
@@ -134,9 +149,12 @@
             "automated",
             "type-bug",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1"
           ],
-          "updated_at": "2026-04-18T02:36:28Z",
+          "updated_at": "2026-04-18T03:09:22Z",
           "url": "https://github.com/kushin77/ollama/issues/90",
           "severity": "critical"
         },
@@ -149,9 +167,12 @@
             "automated",
             "type-bug",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1"
           ],
-          "updated_at": "2026-04-18T02:36:26Z",
+          "updated_at": "2026-04-18T03:09:23Z",
           "url": "https://github.com/kushin77/ollama/issues/92",
           "severity": "critical"
         },
@@ -164,9 +185,12 @@
             "automated",
             "type-bug",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1"
           ],
-          "updated_at": "2026-04-18T02:36:25Z",
+          "updated_at": "2026-04-18T03:09:24Z",
           "url": "https://github.com/kushin77/ollama/issues/93",
           "severity": "critical"
         },
@@ -179,9 +203,12 @@
             "automated",
             "type-bug",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1"
           ],
-          "updated_at": "2026-04-18T02:36:23Z",
+          "updated_at": "2026-04-18T03:09:25Z",
           "url": "https://github.com/kushin77/ollama/issues/95",
           "severity": "critical"
         },
@@ -194,9 +221,12 @@
             "automated",
             "type-bug",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1"
           ],
-          "updated_at": "2026-04-18T02:36:22Z",
+          "updated_at": "2026-04-18T03:09:26Z",
           "url": "https://github.com/kushin77/ollama/issues/96",
           "severity": "critical"
         },
@@ -209,9 +239,12 @@
             "automated",
             "type-bug",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1"
           ],
-          "updated_at": "2026-04-18T02:36:21Z",
+          "updated_at": "2026-04-18T03:09:26Z",
           "url": "https://github.com/kushin77/ollama/issues/97",
           "severity": "critical"
         },
@@ -224,9 +257,12 @@
             "automated",
             "type-bug",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1"
           ],
-          "updated_at": "2026-04-18T02:36:20Z",
+          "updated_at": "2026-04-18T03:09:27Z",
           "url": "https://github.com/kushin77/ollama/issues/98",
           "severity": "critical"
         },
@@ -239,9 +275,12 @@
             "automated",
             "type-bug",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1"
           ],
-          "updated_at": "2026-04-18T02:36:19Z",
+          "updated_at": "2026-04-18T03:09:27Z",
           "url": "https://github.com/kushin77/ollama/issues/99",
           "severity": "critical"
         },
@@ -254,9 +293,12 @@
             "automated",
             "type-bug",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1"
           ],
-          "updated_at": "2026-04-18T02:36:18Z",
+          "updated_at": "2026-04-18T03:09:28Z",
           "url": "https://github.com/kushin77/ollama/issues/100",
           "severity": "critical"
         },
@@ -269,9 +311,12 @@
             "automated",
             "type-bug",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1"
           ],
-          "updated_at": "2026-04-18T02:36:17Z",
+          "updated_at": "2026-04-18T03:09:29Z",
           "url": "https://github.com/kushin77/ollama/issues/101",
           "severity": "critical"
         },
@@ -284,9 +329,12 @@
             "automated",
             "type-bug",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1"
           ],
-          "updated_at": "2026-04-18T02:36:15Z",
+          "updated_at": "2026-04-18T03:09:29Z",
           "url": "https://github.com/kushin77/ollama/issues/102",
           "severity": "critical"
         },
@@ -299,9 +347,11 @@
             "priority/low",
             "monorepo",
             "architecture",
-            "critical-path"
+            "critical-path",
+            "status/planned-wave",
+            "wave/01"
           ],
-          "updated_at": "2026-04-18T02:28:48Z",
+          "updated_at": "2026-04-18T02:46:05Z",
           "url": "https://github.com/kushin77/ollama/issues/389",
           "severity": "critical"
         },
@@ -315,9 +365,11 @@
             "priority/low",
             "monorepo",
             "architecture",
-            "critical-path"
+            "critical-path",
+            "status/planned-wave",
+            "wave/01"
           ],
-          "updated_at": "2026-04-18T02:28:47Z",
+          "updated_at": "2026-04-18T02:46:07Z",
           "url": "https://github.com/kushin77/ollama/issues/391",
           "severity": "critical"
         },
@@ -330,9 +382,11 @@
             "status/triaged",
             "priority/low",
             "monorepo",
-            "critical-path"
+            "critical-path",
+            "status/planned-wave",
+            "wave/01"
           ],
-          "updated_at": "2026-04-18T02:28:45Z",
+          "updated_at": "2026-04-18T02:46:08Z",
           "url": "https://github.com/kushin77/ollama/issues/395",
           "severity": "critical"
         },
@@ -343,9 +397,12 @@
             "bug",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1"
           ],
-          "updated_at": "2026-04-18T02:36:38Z",
+          "updated_at": "2026-04-18T03:09:14Z",
           "url": "https://github.com/kushin77/ollama/issues/67",
           "severity": "high"
         },
@@ -360,9 +417,12 @@
             "monthly-report",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1"
           ],
-          "updated_at": "2026-04-18T02:36:34Z",
+          "updated_at": "2026-04-18T03:09:18Z",
           "url": "https://github.com/kushin77/ollama/issues/83",
           "severity": "high"
         },
@@ -373,9 +433,12 @@
             "bug",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1"
           ],
-          "updated_at": "2026-04-18T02:36:28Z",
+          "updated_at": "2026-04-18T03:09:21Z",
           "url": "https://github.com/kushin77/ollama/issues/89",
           "severity": "high"
         },
@@ -390,9 +453,12 @@
             "monthly-report",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1"
           ],
-          "updated_at": "2026-04-18T02:36:27Z",
+          "updated_at": "2026-04-18T03:09:23Z",
           "url": "https://github.com/kushin77/ollama/issues/91",
           "severity": "high"
         },
@@ -407,9 +473,12 @@
             "monthly-report",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1"
           ],
-          "updated_at": "2026-04-18T02:36:24Z",
+          "updated_at": "2026-04-18T03:09:24Z",
           "url": "https://github.com/kushin77/ollama/issues/94",
           "severity": "high"
         },
@@ -420,9 +489,12 @@
             "bug",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/01",
+            "wave/1"
           ],
-          "updated_at": "2026-04-18T02:36:14Z",
+          "updated_at": "2026-04-18T03:09:30Z",
           "url": "https://github.com/kushin77/ollama/issues/105",
           "severity": "high"
         }
@@ -472,9 +544,12 @@
             "bug",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/02",
+            "wave/2"
           ],
-          "updated_at": "2026-04-18T02:36:14Z",
+          "updated_at": "2026-04-18T03:09:31Z",
           "url": "https://github.com/kushin77/ollama/issues/106",
           "severity": "high"
         },
@@ -484,9 +559,12 @@
           "labels": [
             "security",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/02",
+            "wave/2"
           ],
-          "updated_at": "2026-04-18T02:36:13Z",
+          "updated_at": "2026-04-18T03:09:31Z",
           "url": "https://github.com/kushin77/ollama/issues/107",
           "severity": "high"
         },
@@ -496,9 +574,12 @@
           "labels": [
             "security",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/02",
+            "wave/2"
           ],
-          "updated_at": "2026-04-18T02:36:12Z",
+          "updated_at": "2026-04-18T03:09:32Z",
           "url": "https://github.com/kushin77/ollama/issues/108",
           "severity": "high"
         },
@@ -508,9 +589,12 @@
           "labels": [
             "security",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/02",
+            "wave/2"
           ],
-          "updated_at": "2026-04-18T02:36:11Z",
+          "updated_at": "2026-04-18T03:09:33Z",
           "url": "https://github.com/kushin77/ollama/issues/109",
           "severity": "high"
         },
@@ -520,9 +604,12 @@
           "labels": [
             "security",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/02",
+            "wave/2"
           ],
-          "updated_at": "2026-04-18T02:36:10Z",
+          "updated_at": "2026-04-18T03:09:34Z",
           "url": "https://github.com/kushin77/ollama/issues/110",
           "severity": "high"
         },
@@ -532,9 +619,12 @@
           "labels": [
             "security",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/02",
+            "wave/2"
           ],
-          "updated_at": "2026-04-18T02:36:08Z",
+          "updated_at": "2026-04-18T03:09:35Z",
           "url": "https://github.com/kushin77/ollama/issues/111",
           "severity": "high"
         },
@@ -544,9 +634,12 @@
           "labels": [
             "security",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/02",
+            "wave/2"
           ],
-          "updated_at": "2026-04-18T02:36:07Z",
+          "updated_at": "2026-04-18T03:09:35Z",
           "url": "https://github.com/kushin77/ollama/issues/112",
           "severity": "high"
         },
@@ -556,9 +649,12 @@
           "labels": [
             "security",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/02",
+            "wave/2"
           ],
-          "updated_at": "2026-04-18T02:36:06Z",
+          "updated_at": "2026-04-18T03:09:36Z",
           "url": "https://github.com/kushin77/ollama/issues/113",
           "severity": "high"
         },
@@ -568,9 +664,12 @@
           "labels": [
             "security",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/02",
+            "wave/2"
           ],
-          "updated_at": "2026-04-18T02:36:05Z",
+          "updated_at": "2026-04-18T03:09:37Z",
           "url": "https://github.com/kushin77/ollama/issues/114",
           "severity": "high"
         },
@@ -580,9 +679,12 @@
           "labels": [
             "security",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/02",
+            "wave/2"
           ],
-          "updated_at": "2026-04-18T02:36:04Z",
+          "updated_at": "2026-04-18T03:09:37Z",
           "url": "https://github.com/kushin77/ollama/issues/115",
           "severity": "high"
         },
@@ -592,9 +694,12 @@
           "labels": [
             "security",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/02",
+            "wave/2"
           ],
-          "updated_at": "2026-04-18T02:36:02Z",
+          "updated_at": "2026-04-18T03:09:38Z",
           "url": "https://github.com/kushin77/ollama/issues/116",
           "severity": "high"
         },
@@ -604,9 +709,12 @@
           "labels": [
             "security",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/02",
+            "wave/2"
           ],
-          "updated_at": "2026-04-18T02:36:01Z",
+          "updated_at": "2026-04-18T03:09:39Z",
           "url": "https://github.com/kushin77/ollama/issues/117",
           "severity": "high"
         },
@@ -616,9 +724,12 @@
           "labels": [
             "security",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/02",
+            "wave/2"
           ],
-          "updated_at": "2026-04-18T02:36:00Z",
+          "updated_at": "2026-04-18T03:09:39Z",
           "url": "https://github.com/kushin77/ollama/issues/118",
           "severity": "high"
         },
@@ -628,9 +739,12 @@
           "labels": [
             "security",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/02",
+            "wave/2"
           ],
-          "updated_at": "2026-04-18T02:35:59Z",
+          "updated_at": "2026-04-18T03:09:40Z",
           "url": "https://github.com/kushin77/ollama/issues/119",
           "severity": "high"
         },
@@ -640,9 +754,12 @@
           "labels": [
             "security",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/02",
+            "wave/2"
           ],
-          "updated_at": "2026-04-18T02:35:58Z",
+          "updated_at": "2026-04-18T03:09:41Z",
           "url": "https://github.com/kushin77/ollama/issues/120",
           "severity": "high"
         },
@@ -653,9 +770,12 @@
             "bug",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/02",
+            "wave/2"
           ],
-          "updated_at": "2026-04-18T02:35:57Z",
+          "updated_at": "2026-04-18T03:09:41Z",
           "url": "https://github.com/kushin77/ollama/issues/121",
           "severity": "high"
         },
@@ -666,9 +786,12 @@
             "enhancement",
             "security",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/02",
+            "wave/2"
           ],
-          "updated_at": "2026-04-18T02:35:12Z",
+          "updated_at": "2026-04-18T03:10:10Z",
           "url": "https://github.com/kushin77/ollama/issues/161",
           "severity": "high"
         },
@@ -679,9 +802,12 @@
             "enhancement",
             "security",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/02",
+            "wave/2"
           ],
-          "updated_at": "2026-04-18T02:35:11Z",
+          "updated_at": "2026-04-18T03:10:11Z",
           "url": "https://github.com/kushin77/ollama/issues/162",
           "severity": "high"
         },
@@ -692,9 +818,12 @@
             "enhancement",
             "security",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/02",
+            "wave/2"
           ],
-          "updated_at": "2026-04-18T02:35:10Z",
+          "updated_at": "2026-04-18T03:10:12Z",
           "url": "https://github.com/kushin77/ollama/issues/163",
           "severity": "high"
         },
@@ -705,9 +834,12 @@
             "enhancement",
             "security",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/02",
+            "wave/2"
           ],
-          "updated_at": "2026-04-18T02:35:09Z",
+          "updated_at": "2026-04-18T03:10:12Z",
           "url": "https://github.com/kushin77/ollama/issues/164",
           "severity": "high"
         },
@@ -718,9 +850,12 @@
             "enhancement",
             "security",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/02",
+            "wave/2"
           ],
-          "updated_at": "2026-04-18T02:35:07Z",
+          "updated_at": "2026-04-18T03:10:13Z",
           "url": "https://github.com/kushin77/ollama/issues/165",
           "severity": "high"
         },
@@ -731,9 +866,12 @@
             "enhancement",
             "security",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/02",
+            "wave/2"
           ],
-          "updated_at": "2026-04-18T02:35:06Z",
+          "updated_at": "2026-04-18T03:10:14Z",
           "url": "https://github.com/kushin77/ollama/issues/166",
           "severity": "high"
         },
@@ -744,9 +882,12 @@
             "enhancement",
             "security",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/02",
+            "wave/2"
           ],
-          "updated_at": "2026-04-18T02:35:05Z",
+          "updated_at": "2026-04-18T03:10:15Z",
           "url": "https://github.com/kushin77/ollama/issues/167",
           "severity": "high"
         },
@@ -757,9 +898,12 @@
             "enhancement",
             "security",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/02",
+            "wave/2"
           ],
-          "updated_at": "2026-04-18T02:34:41Z",
+          "updated_at": "2026-04-18T03:10:34Z",
           "url": "https://github.com/kushin77/ollama/issues/195",
           "severity": "high"
         },
@@ -770,9 +914,12 @@
             "enhancement",
             "security",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/02",
+            "wave/2"
           ],
-          "updated_at": "2026-04-18T02:34:39Z",
+          "updated_at": "2026-04-18T03:10:36Z",
           "url": "https://github.com/kushin77/ollama/issues/198",
           "severity": "high"
         }
@@ -822,9 +969,12 @@
             "enhancement",
             "security",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3"
           ],
-          "updated_at": "2026-04-18T02:34:38Z",
+          "updated_at": "2026-04-18T03:10:37Z",
           "url": "https://github.com/kushin77/ollama/issues/200",
           "severity": "high"
         },
@@ -835,9 +985,12 @@
             "enhancement",
             "security",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3"
           ],
-          "updated_at": "2026-04-18T02:34:36Z",
+          "updated_at": "2026-04-18T03:10:39Z",
           "url": "https://github.com/kushin77/ollama/issues/203",
           "severity": "high"
         },
@@ -848,9 +1001,12 @@
             "enhancement",
             "priority/high",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3"
           ],
-          "updated_at": "2026-04-18T02:34:21Z",
+          "updated_at": "2026-04-18T03:10:55Z",
           "url": "https://github.com/kushin77/ollama/issues/227",
           "severity": "high"
         },
@@ -861,9 +1017,12 @@
             "enhancement",
             "priority/high",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3"
           ],
-          "updated_at": "2026-04-18T02:34:21Z",
+          "updated_at": "2026-04-18T03:10:56Z",
           "url": "https://github.com/kushin77/ollama/issues/228",
           "severity": "high"
         },
@@ -874,9 +1033,12 @@
             "enhancement",
             "priority/high",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3"
           ],
-          "updated_at": "2026-04-18T02:34:20Z",
+          "updated_at": "2026-04-18T03:10:56Z",
           "url": "https://github.com/kushin77/ollama/issues/229",
           "severity": "high"
         },
@@ -887,9 +1049,12 @@
             "enhancement",
             "priority/high",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3"
           ],
-          "updated_at": "2026-04-18T02:34:20Z",
+          "updated_at": "2026-04-18T03:10:57Z",
           "url": "https://github.com/kushin77/ollama/issues/230",
           "severity": "high"
         },
@@ -900,9 +1065,12 @@
             "enhancement",
             "priority/high",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3"
           ],
-          "updated_at": "2026-04-18T02:34:14Z",
+          "updated_at": "2026-04-18T03:11:03Z",
           "url": "https://github.com/kushin77/ollama/issues/240",
           "severity": "high"
         },
@@ -913,9 +1081,12 @@
             "enhancement",
             "priority/high",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3"
           ],
-          "updated_at": "2026-04-18T02:34:13Z",
+          "updated_at": "2026-04-18T03:11:04Z",
           "url": "https://github.com/kushin77/ollama/issues/241",
           "severity": "high"
         },
@@ -926,9 +1097,12 @@
             "enhancement",
             "priority/high",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3"
           ],
-          "updated_at": "2026-04-18T02:34:12Z",
+          "updated_at": "2026-04-18T03:11:04Z",
           "url": "https://github.com/kushin77/ollama/issues/242",
           "severity": "high"
         },
@@ -940,9 +1114,12 @@
             "iac-immutable",
             "priority/high",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3"
           ],
-          "updated_at": "2026-04-18T02:30:07Z",
+          "updated_at": "2026-04-18T03:11:10Z",
           "url": "https://github.com/kushin77/ollama/issues/253",
           "severity": "high"
         },
@@ -954,9 +1131,12 @@
             "idempotency",
             "priority/high",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3"
           ],
-          "updated_at": "2026-04-18T02:30:07Z",
+          "updated_at": "2026-04-18T03:11:11Z",
           "url": "https://github.com/kushin77/ollama/issues/254",
           "severity": "high"
         },
@@ -967,9 +1147,12 @@
             "enhancement",
             "priority/high",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3"
           ],
-          "updated_at": "2026-04-18T02:30:05Z",
+          "updated_at": "2026-04-18T03:11:12Z",
           "url": "https://github.com/kushin77/ollama/issues/256",
           "severity": "high"
         },
@@ -980,9 +1163,12 @@
             "enhancement",
             "priority/high",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3"
           ],
-          "updated_at": "2026-04-18T02:30:05Z",
+          "updated_at": "2026-04-18T03:11:13Z",
           "url": "https://github.com/kushin77/ollama/issues/257",
           "severity": "high"
         },
@@ -993,9 +1179,12 @@
             "enhancement",
             "priority/high",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3"
           ],
-          "updated_at": "2026-04-18T02:30:04Z",
+          "updated_at": "2026-04-18T03:11:13Z",
           "url": "https://github.com/kushin77/ollama/issues/258",
           "severity": "high"
         },
@@ -1006,9 +1195,12 @@
             "enhancement",
             "priority/high",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3"
           ],
-          "updated_at": "2026-04-18T02:30:04Z",
+          "updated_at": "2026-04-18T03:11:14Z",
           "url": "https://github.com/kushin77/ollama/issues/259",
           "severity": "high"
         },
@@ -1020,9 +1212,12 @@
             "iac-immutable",
             "priority/high",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3"
           ],
-          "updated_at": "2026-04-18T02:30:02Z",
+          "updated_at": "2026-04-18T03:11:16Z",
           "url": "https://github.com/kushin77/ollama/issues/262",
           "severity": "high"
         },
@@ -1034,9 +1229,12 @@
             "iac-immutable",
             "priority/high",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3"
           ],
-          "updated_at": "2026-04-18T02:30:01Z",
+          "updated_at": "2026-04-18T03:11:16Z",
           "url": "https://github.com/kushin77/ollama/issues/263",
           "severity": "high"
         },
@@ -1048,9 +1246,12 @@
             "idempotency",
             "priority/high",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3"
           ],
-          "updated_at": "2026-04-18T02:30:01Z",
+          "updated_at": "2026-04-18T03:11:17Z",
           "url": "https://github.com/kushin77/ollama/issues/264",
           "severity": "high"
         },
@@ -1062,9 +1263,12 @@
             "idempotency",
             "priority/high",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3"
           ],
-          "updated_at": "2026-04-18T02:30:00Z",
+          "updated_at": "2026-04-18T03:11:18Z",
           "url": "https://github.com/kushin77/ollama/issues/265",
           "severity": "high"
         },
@@ -1076,9 +1280,12 @@
             "priority/high",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3"
           ],
-          "updated_at": "2026-04-18T02:29:46Z",
+          "updated_at": "2026-04-18T03:11:29Z",
           "url": "https://github.com/kushin77/ollama/issues/287",
           "severity": "high"
         },
@@ -1090,9 +1297,12 @@
             "priority/high",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3"
           ],
-          "updated_at": "2026-04-18T02:29:45Z",
+          "updated_at": "2026-04-18T03:11:30Z",
           "url": "https://github.com/kushin77/ollama/issues/288",
           "severity": "high"
         },
@@ -1104,9 +1314,12 @@
             "priority/high",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3"
           ],
-          "updated_at": "2026-04-18T02:29:45Z",
+          "updated_at": "2026-04-18T03:11:30Z",
           "url": "https://github.com/kushin77/ollama/issues/289",
           "severity": "high"
         },
@@ -1118,9 +1331,12 @@
             "priority/high",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3"
           ],
-          "updated_at": "2026-04-18T02:29:44Z",
+          "updated_at": "2026-04-18T03:11:31Z",
           "url": "https://github.com/kushin77/ollama/issues/290",
           "severity": "high"
         },
@@ -1132,9 +1348,12 @@
             "priority/high",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3"
           ],
-          "updated_at": "2026-04-18T02:29:44Z",
+          "updated_at": "2026-04-18T03:11:32Z",
           "url": "https://github.com/kushin77/ollama/issues/291",
           "severity": "high"
         },
@@ -1146,9 +1365,12 @@
             "priority/high",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/03",
+            "wave/3"
           ],
-          "updated_at": "2026-04-18T02:29:43Z",
+          "updated_at": "2026-04-18T03:11:32Z",
           "url": "https://github.com/kushin77/ollama/issues/292",
           "severity": "high"
         }
@@ -1199,9 +1421,12 @@
             "priority/high",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4"
           ],
-          "updated_at": "2026-04-18T02:29:42Z",
+          "updated_at": "2026-04-18T03:11:33Z",
           "url": "https://github.com/kushin77/ollama/issues/293",
           "severity": "high"
         },
@@ -1213,9 +1438,12 @@
             "priority/high",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4"
           ],
-          "updated_at": "2026-04-18T02:29:41Z",
+          "updated_at": "2026-04-18T03:11:34Z",
           "url": "https://github.com/kushin77/ollama/issues/295",
           "severity": "high"
         },
@@ -1227,9 +1455,12 @@
             "priority/high",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4"
           ],
-          "updated_at": "2026-04-18T02:29:40Z",
+          "updated_at": "2026-04-18T03:11:35Z",
           "url": "https://github.com/kushin77/ollama/issues/296",
           "severity": "high"
         },
@@ -1241,9 +1472,12 @@
             "priority/high",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4"
           ],
-          "updated_at": "2026-04-18T02:29:40Z",
+          "updated_at": "2026-04-18T03:11:36Z",
           "url": "https://github.com/kushin77/ollama/issues/297",
           "severity": "high"
         },
@@ -1255,9 +1489,12 @@
             "priority/high",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4"
           ],
-          "updated_at": "2026-04-18T02:29:39Z",
+          "updated_at": "2026-04-18T03:11:37Z",
           "url": "https://github.com/kushin77/ollama/issues/298",
           "severity": "high"
         },
@@ -1269,9 +1506,12 @@
             "priority/high",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4"
           ],
-          "updated_at": "2026-04-18T02:29:39Z",
+          "updated_at": "2026-04-18T03:11:37Z",
           "url": "https://github.com/kushin77/ollama/issues/299",
           "severity": "high"
         },
@@ -1283,9 +1523,12 @@
             "priority/high",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4"
           ],
-          "updated_at": "2026-04-18T02:29:38Z",
+          "updated_at": "2026-04-18T03:11:38Z",
           "url": "https://github.com/kushin77/ollama/issues/300",
           "severity": "high"
         },
@@ -1297,9 +1540,12 @@
             "priority/high",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4"
           ],
-          "updated_at": "2026-04-18T02:29:37Z",
+          "updated_at": "2026-04-18T03:11:39Z",
           "url": "https://github.com/kushin77/ollama/issues/301",
           "severity": "high"
         },
@@ -1311,9 +1557,12 @@
             "priority/high",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4"
           ],
-          "updated_at": "2026-04-18T02:29:37Z",
+          "updated_at": "2026-04-18T03:11:39Z",
           "url": "https://github.com/kushin77/ollama/issues/302",
           "severity": "high"
         },
@@ -1325,9 +1574,12 @@
             "priority/high",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4"
           ],
-          "updated_at": "2026-04-18T02:29:36Z",
+          "updated_at": "2026-04-18T03:11:40Z",
           "url": "https://github.com/kushin77/ollama/issues/303",
           "severity": "high"
         },
@@ -1339,9 +1591,12 @@
             "priority/high",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4"
           ],
-          "updated_at": "2026-04-18T02:29:36Z",
+          "updated_at": "2026-04-18T03:11:41Z",
           "url": "https://github.com/kushin77/ollama/issues/304",
           "severity": "high"
         },
@@ -1353,9 +1608,12 @@
             "priority/high",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4"
           ],
-          "updated_at": "2026-04-18T02:29:34Z",
+          "updated_at": "2026-04-18T03:11:42Z",
           "url": "https://github.com/kushin77/ollama/issues/306",
           "severity": "high"
         },
@@ -1367,9 +1625,12 @@
             "priority/high",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4"
           ],
-          "updated_at": "2026-04-18T02:29:33Z",
+          "updated_at": "2026-04-18T03:11:42Z",
           "url": "https://github.com/kushin77/ollama/issues/307",
           "severity": "high"
         },
@@ -1381,9 +1642,12 @@
             "priority/high",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4"
           ],
-          "updated_at": "2026-04-18T02:29:33Z",
+          "updated_at": "2026-04-18T03:11:43Z",
           "url": "https://github.com/kushin77/ollama/issues/308",
           "severity": "high"
         },
@@ -1395,9 +1659,12 @@
             "priority/high",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4"
           ],
-          "updated_at": "2026-04-18T02:29:32Z",
+          "updated_at": "2026-04-18T03:11:44Z",
           "url": "https://github.com/kushin77/ollama/issues/309",
           "severity": "high"
         },
@@ -1409,9 +1676,12 @@
             "priority/high",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4"
           ],
-          "updated_at": "2026-04-18T02:29:31Z",
+          "updated_at": "2026-04-18T03:11:44Z",
           "url": "https://github.com/kushin77/ollama/issues/310",
           "severity": "high"
         },
@@ -1423,9 +1693,12 @@
             "priority/high",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4"
           ],
-          "updated_at": "2026-04-18T02:29:31Z",
+          "updated_at": "2026-04-18T03:11:45Z",
           "url": "https://github.com/kushin77/ollama/issues/311",
           "severity": "high"
         },
@@ -1437,9 +1710,12 @@
             "priority/high",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4"
           ],
-          "updated_at": "2026-04-18T02:29:30Z",
+          "updated_at": "2026-04-18T03:11:46Z",
           "url": "https://github.com/kushin77/ollama/issues/312",
           "severity": "high"
         },
@@ -1451,9 +1727,12 @@
             "priority/high",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4"
           ],
-          "updated_at": "2026-04-18T02:29:29Z",
+          "updated_at": "2026-04-18T03:11:47Z",
           "url": "https://github.com/kushin77/ollama/issues/314",
           "severity": "high"
         },
@@ -1465,9 +1744,12 @@
             "priority/high",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4"
           ],
-          "updated_at": "2026-04-18T02:29:28Z",
+          "updated_at": "2026-04-18T03:11:48Z",
           "url": "https://github.com/kushin77/ollama/issues/315",
           "severity": "high"
         },
@@ -1477,9 +1759,12 @@
           "labels": [
             "priority/high",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4"
           ],
-          "updated_at": "2026-04-18T02:28:56Z",
+          "updated_at": "2026-04-18T03:12:15Z",
           "url": "https://github.com/kushin77/ollama/issues/369",
           "severity": "high"
         },
@@ -1489,9 +1774,12 @@
           "labels": [
             "priority/high",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4"
           ],
-          "updated_at": "2026-04-18T02:28:56Z",
+          "updated_at": "2026-04-18T03:12:16Z",
           "url": "https://github.com/kushin77/ollama/issues/370",
           "severity": "high"
         },
@@ -1502,9 +1790,12 @@
             "documentation",
             "priority/high",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4"
           ],
-          "updated_at": "2026-04-18T02:28:55Z",
+          "updated_at": "2026-04-18T03:12:17Z",
           "url": "https://github.com/kushin77/ollama/issues/371",
           "severity": "high"
         },
@@ -1516,9 +1807,12 @@
             "security",
             "priority/high",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4"
           ],
-          "updated_at": "2026-04-18T02:28:54Z",
+          "updated_at": "2026-04-18T03:12:18Z",
           "url": "https://github.com/kushin77/ollama/issues/373",
           "severity": "high"
         },
@@ -1530,9 +1824,12 @@
             "security",
             "priority/high",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/04",
+            "wave/4"
           ],
-          "updated_at": "2026-04-18T02:28:53Z",
+          "updated_at": "2026-04-18T03:12:18Z",
           "url": "https://github.com/kushin77/ollama/issues/374",
           "severity": "high"
         }
@@ -1583,9 +1880,11 @@
             "security",
             "priority/high",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/05"
           ],
-          "updated_at": "2026-04-18T02:28:52Z",
+          "updated_at": "2026-04-18T02:48:04Z",
           "url": "https://github.com/kushin77/ollama/issues/376",
           "severity": "high"
         },
@@ -1598,9 +1897,11 @@
             "monorepo",
             "developer-experience",
             "frontend",
-            "decision-record"
+            "decision-record",
+            "status/planned-wave",
+            "wave/05"
           ],
-          "updated_at": "2026-04-18T02:28:46Z",
+          "updated_at": "2026-04-18T02:48:05Z",
           "url": "https://github.com/kushin77/ollama/issues/393",
           "severity": "high"
         },
@@ -1613,9 +1914,11 @@
             "priority/medium",
             "monorepo",
             "developer-experience",
-            "api"
+            "api",
+            "status/planned-wave",
+            "wave/05"
           ],
-          "updated_at": "2026-04-18T02:28:45Z",
+          "updated_at": "2026-04-18T02:48:06Z",
           "url": "https://github.com/kushin77/ollama/issues/394",
           "severity": "high"
         },
@@ -1628,9 +1931,11 @@
             "status/triaged",
             "priority/medium",
             "monorepo",
-            "developer-experience"
+            "developer-experience",
+            "status/planned-wave",
+            "wave/05"
           ],
-          "updated_at": "2026-04-18T02:28:44Z",
+          "updated_at": "2026-04-18T02:48:07Z",
           "url": "https://github.com/kushin77/ollama/issues/396",
           "severity": "high"
         },
@@ -1641,9 +1946,12 @@
             "status/triaged",
             "priority/medium",
             "performance",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/05",
+            "wave/5"
           ],
-          "updated_at": "2026-04-18T02:36:48Z",
+          "updated_at": "2026-04-18T03:09:07Z",
           "url": "https://github.com/kushin77/ollama/issues/55",
           "severity": "medium"
         },
@@ -1654,9 +1962,12 @@
             "documentation",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/05",
+            "wave/5"
           ],
-          "updated_at": "2026-04-18T02:36:48Z",
+          "updated_at": "2026-04-18T03:09:08Z",
           "url": "https://github.com/kushin77/ollama/issues/56",
           "severity": "medium"
         },
@@ -1667,9 +1978,12 @@
             "documentation",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/05",
+            "wave/5"
           ],
-          "updated_at": "2026-04-18T02:36:41Z",
+          "updated_at": "2026-04-18T03:09:12Z",
           "url": "https://github.com/kushin77/ollama/issues/63",
           "severity": "medium"
         },
@@ -1680,9 +1994,12 @@
             "documentation",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/05",
+            "wave/5"
           ],
-          "updated_at": "2026-04-18T02:36:40Z",
+          "updated_at": "2026-04-18T03:09:13Z",
           "url": "https://github.com/kushin77/ollama/issues/65",
           "severity": "medium"
         },
@@ -1694,9 +2011,12 @@
             "onboarding",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/05",
+            "wave/5"
           ],
-          "updated_at": "2026-04-18T02:36:38Z",
+          "updated_at": "2026-04-18T03:09:15Z",
           "url": "https://github.com/kushin77/ollama/issues/69",
           "severity": "medium"
         },
@@ -1707,9 +2027,12 @@
             "status/triaged",
             "priority/medium",
             "performance",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/05",
+            "wave/5"
           ],
-          "updated_at": "2026-04-18T02:36:36Z",
+          "updated_at": "2026-04-18T03:09:16Z",
           "url": "https://github.com/kushin77/ollama/issues/77",
           "severity": "medium"
         },
@@ -1720,9 +2043,12 @@
             "documentation",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/05",
+            "wave/5"
           ],
-          "updated_at": "2026-04-18T02:36:32Z",
+          "updated_at": "2026-04-18T03:09:19Z",
           "url": "https://github.com/kushin77/ollama/issues/85",
           "severity": "medium"
         },
@@ -1733,9 +2059,12 @@
             "documentation",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/05",
+            "wave/5"
           ],
-          "updated_at": "2026-04-18T02:35:56Z",
+          "updated_at": "2026-04-18T03:09:42Z",
           "url": "https://github.com/kushin77/ollama/issues/122",
           "severity": "medium"
         },
@@ -1749,9 +2078,12 @@
             "canary",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/05",
+            "wave/5"
           ],
-          "updated_at": "2026-04-18T02:35:55Z",
+          "updated_at": "2026-04-18T03:09:43Z",
           "url": "https://github.com/kushin77/ollama/issues/124",
           "severity": "medium"
         },
@@ -1762,9 +2094,12 @@
             "enhancement",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/05",
+            "wave/5"
           ],
-          "updated_at": "2026-04-18T02:34:19Z",
+          "updated_at": "2026-04-18T03:10:58Z",
           "url": "https://github.com/kushin77/ollama/issues/231",
           "severity": "medium"
         },
@@ -1775,9 +2110,12 @@
             "enhancement",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/05",
+            "wave/5"
           ],
-          "updated_at": "2026-04-18T02:34:18Z",
+          "updated_at": "2026-04-18T03:10:58Z",
           "url": "https://github.com/kushin77/ollama/issues/232",
           "severity": "medium"
         },
@@ -1788,9 +2126,12 @@
             "enhancement",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/05",
+            "wave/5"
           ],
-          "updated_at": "2026-04-18T02:34:18Z",
+          "updated_at": "2026-04-18T03:10:59Z",
           "url": "https://github.com/kushin77/ollama/issues/233",
           "severity": "medium"
         },
@@ -1801,9 +2142,12 @@
             "enhancement",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/05",
+            "wave/5"
           ],
-          "updated_at": "2026-04-18T02:34:17Z",
+          "updated_at": "2026-04-18T03:11:00Z",
           "url": "https://github.com/kushin77/ollama/issues/234",
           "severity": "medium"
         },
@@ -1814,9 +2158,12 @@
             "enhancement",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/05",
+            "wave/5"
           ],
-          "updated_at": "2026-04-18T02:34:12Z",
+          "updated_at": "2026-04-18T03:11:05Z",
           "url": "https://github.com/kushin77/ollama/issues/244",
           "severity": "medium"
         },
@@ -1827,9 +2174,12 @@
             "enhancement",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/05",
+            "wave/5"
           ],
-          "updated_at": "2026-04-18T02:34:11Z",
+          "updated_at": "2026-04-18T03:11:05Z",
           "url": "https://github.com/kushin77/ollama/issues/245",
           "severity": "medium"
         },
@@ -1840,9 +2190,12 @@
             "enhancement",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/05",
+            "wave/5"
           ],
-          "updated_at": "2026-04-18T02:34:11Z",
+          "updated_at": "2026-04-18T03:11:06Z",
           "url": "https://github.com/kushin77/ollama/issues/246",
           "severity": "medium"
         },
@@ -1853,9 +2206,12 @@
             "enhancement",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/05",
+            "wave/5"
           ],
-          "updated_at": "2026-04-18T02:34:10Z",
+          "updated_at": "2026-04-18T03:11:07Z",
           "url": "https://github.com/kushin77/ollama/issues/247",
           "severity": "medium"
         },
@@ -1867,9 +2223,12 @@
             "drift-control",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/05",
+            "wave/5"
           ],
-          "updated_at": "2026-04-18T02:30:06Z",
+          "updated_at": "2026-04-18T03:11:11Z",
           "url": "https://github.com/kushin77/ollama/issues/255",
           "severity": "medium"
         },
@@ -1880,9 +2239,12 @@
             "enhancement",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/05",
+            "wave/5"
           ],
-          "updated_at": "2026-04-18T02:30:03Z",
+          "updated_at": "2026-04-18T03:11:15Z",
           "url": "https://github.com/kushin77/ollama/issues/260",
           "severity": "medium"
         },
@@ -1893,9 +2255,12 @@
             "enhancement",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/05",
+            "wave/5"
           ],
-          "updated_at": "2026-04-18T02:30:02Z",
+          "updated_at": "2026-04-18T03:11:15Z",
           "url": "https://github.com/kushin77/ollama/issues/261",
           "severity": "medium"
         },
@@ -1906,9 +2271,12 @@
             "documentation",
             "status/triaged",
             "priority/medium",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/05",
+            "wave/5"
           ],
-          "updated_at": "2026-04-18T02:29:42Z",
+          "updated_at": "2026-04-18T03:11:34Z",
           "url": "https://github.com/kushin77/ollama/issues/294",
           "severity": "medium"
         }
@@ -1958,9 +2326,12 @@
             "status/triaged",
             "priority/medium",
             "performance",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/06",
+            "wave/6"
           ],
-          "updated_at": "2026-04-18T02:29:30Z",
+          "updated_at": "2026-04-18T03:11:46Z",
           "url": "https://github.com/kushin77/ollama/issues/313",
           "severity": "medium"
         },
@@ -1972,9 +2343,11 @@
             "status/triaged",
             "priority/low",
             "performance",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/06"
           ],
-          "updated_at": "2026-04-18T02:28:52Z",
+          "updated_at": "2026-04-18T02:48:39Z",
           "url": "https://github.com/kushin77/ollama/issues/375",
           "severity": "medium"
         },
@@ -1987,9 +2360,11 @@
             "status/triaged",
             "priority/medium",
             "monorepo",
-            "developer-experience"
+            "developer-experience",
+            "status/planned-wave",
+            "wave/06"
           ],
-          "updated_at": "2026-04-18T02:28:43Z",
+          "updated_at": "2026-04-18T02:48:41Z",
           "url": "https://github.com/kushin77/ollama/issues/397",
           "severity": "medium"
         },
@@ -1998,9 +2373,12 @@
           "title": "\ud83e\uddea [Phase 3 Issue #40]: Comprehensive Test Coverage",
           "labels": [
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/06",
+            "wave/6"
           ],
-          "updated_at": "2026-04-18T02:36:47Z",
+          "updated_at": "2026-04-18T03:09:09Z",
           "url": "https://github.com/kushin77/ollama/issues/57",
           "severity": "low"
         },
@@ -2009,9 +2387,12 @@
           "title": "copilot instructions",
           "labels": [
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/06",
+            "wave/6"
           ],
-          "updated_at": "2026-04-18T02:36:46Z",
+          "updated_at": "2026-04-18T03:09:09Z",
           "url": "https://github.com/kushin77/ollama/issues/58",
           "severity": "low"
         },
@@ -2020,9 +2401,12 @@
           "title": "Pilot: Invitation \u2014 validate Investigation Canvas prototype",
           "labels": [
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/06",
+            "wave/6"
           ],
-          "updated_at": "2026-04-18T02:36:45Z",
+          "updated_at": "2026-04-18T03:09:10Z",
           "url": "https://github.com/kushin77/ollama/issues/60",
           "severity": "low"
         },
@@ -2031,9 +2415,12 @@
           "title": "PMO Agent Migration: Separate Repos for Independent Development",
           "labels": [
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/06",
+            "wave/6"
           ],
-          "updated_at": "2026-04-18T02:36:44Z",
+          "updated_at": "2026-04-18T03:09:11Z",
           "url": "https://github.com/kushin77/ollama/issues/61",
           "severity": "low"
         },
@@ -2042,9 +2429,12 @@
           "title": "Migrate RemediationEngine to pmo-agent-remediation repo",
           "labels": [
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/06",
+            "wave/6"
           ],
-          "updated_at": "2026-04-18T02:36:42Z",
+          "updated_at": "2026-04-18T03:09:11Z",
           "url": "https://github.com/kushin77/ollama/issues/62",
           "severity": "low"
         },
@@ -2053,9 +2443,12 @@
           "title": "Migrate SchedulerEngine to pmo-agent-scheduler repo",
           "labels": [
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/06",
+            "wave/6"
           ],
-          "updated_at": "2026-04-18T02:36:41Z",
+          "updated_at": "2026-04-18T03:09:13Z",
           "url": "https://github.com/kushin77/ollama/issues/64",
           "severity": "low"
         },
@@ -2064,9 +2457,12 @@
           "title": "Pilot Invitation: Investigation Canvas",
           "labels": [
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/06",
+            "wave/6"
           ],
-          "updated_at": "2026-04-18T02:36:39Z",
+          "updated_at": "2026-04-18T03:09:14Z",
           "url": "https://github.com/kushin77/ollama/issues/66",
           "severity": "low"
         },
@@ -2077,9 +2473,12 @@
             "automation",
             "ci",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/06",
+            "wave/6"
           ],
-          "updated_at": "2026-04-18T02:36:37Z",
+          "updated_at": "2026-04-18T03:09:16Z",
           "url": "https://github.com/kushin77/ollama/issues/71",
           "severity": "low"
         },
@@ -2091,9 +2490,12 @@
             "optimization",
             "phase-7",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/06",
+            "wave/6"
           ],
-          "updated_at": "2026-04-18T02:35:56Z",
+          "updated_at": "2026-04-18T03:09:43Z",
           "url": "https://github.com/kushin77/ollama/issues/123",
           "severity": "low"
         },
@@ -2102,9 +2504,12 @@
           "title": "Enhancement: Ollama Multi-Model Orchestration Platform",
           "labels": [
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/06",
+            "wave/6"
           ],
-          "updated_at": "2026-04-18T02:35:54Z",
+          "updated_at": "2026-04-18T03:09:44Z",
           "url": "https://github.com/kushin77/ollama/issues/125",
           "severity": "low"
         },
@@ -2113,9 +2518,12 @@
           "title": "Enhancement: Ollama Advanced Safety and Content Filtering",
           "labels": [
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/06",
+            "wave/6"
           ],
-          "updated_at": "2026-04-18T02:35:53Z",
+          "updated_at": "2026-04-18T03:09:45Z",
           "url": "https://github.com/kushin77/ollama/issues/126",
           "severity": "low"
         },
@@ -2124,9 +2532,12 @@
           "title": "Enhancement: Ollama Context Window Optimization",
           "labels": [
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/06",
+            "wave/6"
           ],
-          "updated_at": "2026-04-18T02:35:52Z",
+          "updated_at": "2026-04-18T03:09:45Z",
           "url": "https://github.com/kushin77/ollama/issues/127",
           "severity": "low"
         },
@@ -2135,9 +2546,12 @@
           "title": "Enhancement: Ollama Fine-tuning and Adaptation Framework",
           "labels": [
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/06",
+            "wave/6"
           ],
-          "updated_at": "2026-04-18T02:35:51Z",
+          "updated_at": "2026-04-18T03:09:46Z",
           "url": "https://github.com/kushin77/ollama/issues/128",
           "severity": "low"
         },
@@ -2146,9 +2560,12 @@
           "title": "Enhancement: Ollama Advanced Prompt Engineering Framework",
           "labels": [
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/06",
+            "wave/6"
           ],
-          "updated_at": "2026-04-18T02:35:50Z",
+          "updated_at": "2026-04-18T03:09:47Z",
           "url": "https://github.com/kushin77/ollama/issues/129",
           "severity": "low"
         },
@@ -2157,9 +2574,12 @@
           "title": "Enhancement: Ollama Batch Processing Optimization",
           "labels": [
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/06",
+            "wave/6"
           ],
-          "updated_at": "2026-04-18T02:35:49Z",
+          "updated_at": "2026-04-18T03:09:47Z",
           "url": "https://github.com/kushin77/ollama/issues/130",
           "severity": "low"
         },
@@ -2168,9 +2588,12 @@
           "title": "Enhancement: Ollama Real-time Performance Monitoring Dashboard",
           "labels": [
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/06",
+            "wave/6"
           ],
-          "updated_at": "2026-04-18T02:35:47Z",
+          "updated_at": "2026-04-18T03:09:48Z",
           "url": "https://github.com/kushin77/ollama/issues/131",
           "severity": "low"
         },
@@ -2179,9 +2602,12 @@
           "title": "Enhancement: Ollama Multi-GPU Load Balancing",
           "labels": [
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/06",
+            "wave/6"
           ],
-          "updated_at": "2026-04-18T02:35:46Z",
+          "updated_at": "2026-04-18T03:09:49Z",
           "url": "https://github.com/kushin77/ollama/issues/132",
           "severity": "low"
         },
@@ -2190,9 +2616,12 @@
           "title": "Enhancement: Ollama Advanced Quantization Support",
           "labels": [
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/06",
+            "wave/6"
           ],
-          "updated_at": "2026-04-18T02:35:45Z",
+          "updated_at": "2026-04-18T03:09:49Z",
           "url": "https://github.com/kushin77/ollama/issues/133",
           "severity": "low"
         },
@@ -2201,9 +2630,12 @@
           "title": "Enhancement: Ollama Dynamic Model Loading and Unloading",
           "labels": [
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/06",
+            "wave/6"
           ],
-          "updated_at": "2026-04-18T02:35:44Z",
+          "updated_at": "2026-04-18T03:09:50Z",
           "url": "https://github.com/kushin77/ollama/issues/134",
           "severity": "low"
         },
@@ -2212,9 +2644,12 @@
           "title": "Enhancement: Ollama Advanced Model Caching Strategy",
           "labels": [
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/06",
+            "wave/6"
           ],
-          "updated_at": "2026-04-18T02:35:43Z",
+          "updated_at": "2026-04-18T03:09:50Z",
           "url": "https://github.com/kushin77/ollama/issues/135",
           "severity": "low"
         },
@@ -2224,9 +2659,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/06",
+            "wave/6"
           ],
-          "updated_at": "2026-04-18T02:35:42Z",
+          "updated_at": "2026-04-18T03:09:51Z",
           "url": "https://github.com/kushin77/ollama/issues/136",
           "severity": "low"
         },
@@ -2236,9 +2674,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/06",
+            "wave/6"
           ],
-          "updated_at": "2026-04-18T02:35:41Z",
+          "updated_at": "2026-04-18T03:09:52Z",
           "url": "https://github.com/kushin77/ollama/issues/137",
           "severity": "low"
         }
@@ -2287,9 +2728,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
           ],
-          "updated_at": "2026-04-18T02:35:39Z",
+          "updated_at": "2026-04-18T03:09:52Z",
           "url": "https://github.com/kushin77/ollama/issues/138",
           "severity": "low"
         },
@@ -2299,9 +2743,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
           ],
-          "updated_at": "2026-04-18T02:35:38Z",
+          "updated_at": "2026-04-18T03:09:53Z",
           "url": "https://github.com/kushin77/ollama/issues/139",
           "severity": "low"
         },
@@ -2311,9 +2758,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
           ],
-          "updated_at": "2026-04-18T02:35:37Z",
+          "updated_at": "2026-04-18T03:09:54Z",
           "url": "https://github.com/kushin77/ollama/issues/140",
           "severity": "low"
         },
@@ -2323,9 +2773,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
           ],
-          "updated_at": "2026-04-18T02:35:36Z",
+          "updated_at": "2026-04-18T03:09:54Z",
           "url": "https://github.com/kushin77/ollama/issues/141",
           "severity": "low"
         },
@@ -2335,9 +2788,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
           ],
-          "updated_at": "2026-04-18T02:35:35Z",
+          "updated_at": "2026-04-18T03:09:55Z",
           "url": "https://github.com/kushin77/ollama/issues/142",
           "severity": "low"
         },
@@ -2347,9 +2803,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
           ],
-          "updated_at": "2026-04-18T02:35:34Z",
+          "updated_at": "2026-04-18T03:09:56Z",
           "url": "https://github.com/kushin77/ollama/issues/143",
           "severity": "low"
         },
@@ -2359,9 +2818,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
           ],
-          "updated_at": "2026-04-18T02:35:32Z",
+          "updated_at": "2026-04-18T03:09:57Z",
           "url": "https://github.com/kushin77/ollama/issues/144",
           "severity": "low"
         },
@@ -2371,9 +2833,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
           ],
-          "updated_at": "2026-04-18T02:35:31Z",
+          "updated_at": "2026-04-18T03:09:57Z",
           "url": "https://github.com/kushin77/ollama/issues/145",
           "severity": "low"
         },
@@ -2383,9 +2848,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
           ],
-          "updated_at": "2026-04-18T02:35:30Z",
+          "updated_at": "2026-04-18T03:09:58Z",
           "url": "https://github.com/kushin77/ollama/issues/146",
           "severity": "low"
         },
@@ -2395,9 +2863,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
           ],
-          "updated_at": "2026-04-18T02:35:29Z",
+          "updated_at": "2026-04-18T03:09:58Z",
           "url": "https://github.com/kushin77/ollama/issues/147",
           "severity": "low"
         },
@@ -2407,9 +2878,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
           ],
-          "updated_at": "2026-04-18T02:35:28Z",
+          "updated_at": "2026-04-18T03:09:59Z",
           "url": "https://github.com/kushin77/ollama/issues/148",
           "severity": "low"
         },
@@ -2419,9 +2893,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
           ],
-          "updated_at": "2026-04-18T02:35:27Z",
+          "updated_at": "2026-04-18T03:10:00Z",
           "url": "https://github.com/kushin77/ollama/issues/149",
           "severity": "low"
         },
@@ -2431,9 +2908,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
           ],
-          "updated_at": "2026-04-18T02:35:25Z",
+          "updated_at": "2026-04-18T03:10:01Z",
           "url": "https://github.com/kushin77/ollama/issues/150",
           "severity": "low"
         },
@@ -2443,9 +2923,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
           ],
-          "updated_at": "2026-04-18T02:35:24Z",
+          "updated_at": "2026-04-18T03:10:01Z",
           "url": "https://github.com/kushin77/ollama/issues/151",
           "severity": "low"
         },
@@ -2455,9 +2938,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
           ],
-          "updated_at": "2026-04-18T02:35:23Z",
+          "updated_at": "2026-04-18T03:10:02Z",
           "url": "https://github.com/kushin77/ollama/issues/152",
           "severity": "low"
         },
@@ -2467,9 +2953,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
           ],
-          "updated_at": "2026-04-18T02:35:22Z",
+          "updated_at": "2026-04-18T03:10:03Z",
           "url": "https://github.com/kushin77/ollama/issues/153",
           "severity": "low"
         },
@@ -2479,9 +2968,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
           ],
-          "updated_at": "2026-04-18T02:35:21Z",
+          "updated_at": "2026-04-18T03:10:05Z",
           "url": "https://github.com/kushin77/ollama/issues/154",
           "severity": "low"
         },
@@ -2491,9 +2983,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
           ],
-          "updated_at": "2026-04-18T02:35:19Z",
+          "updated_at": "2026-04-18T03:10:05Z",
           "url": "https://github.com/kushin77/ollama/issues/155",
           "severity": "low"
         },
@@ -2503,9 +2998,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
           ],
-          "updated_at": "2026-04-18T02:35:18Z",
+          "updated_at": "2026-04-18T03:10:06Z",
           "url": "https://github.com/kushin77/ollama/issues/156",
           "severity": "low"
         },
@@ -2514,9 +3012,12 @@
           "title": "[LLM/T8-74] CLI Alias Suite \u0393\u00c7\u00f6 claude, claude-pro, claude-code, think Commands with Pipe Support",
           "labels": [
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
           ],
-          "updated_at": "2026-04-18T02:35:17Z",
+          "updated_at": "2026-04-18T03:10:07Z",
           "url": "https://github.com/kushin77/ollama/issues/157",
           "severity": "low"
         },
@@ -2525,9 +3026,12 @@
           "title": "[LLM/T8-73] Claude-Style Slash Commands \u0393\u00c7\u00f6 /think, /review, /arch, /debug in Continue.dev",
           "labels": [
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
           ],
-          "updated_at": "2026-04-18T02:35:16Z",
+          "updated_at": "2026-04-18T03:10:08Z",
           "url": "https://github.com/kushin77/ollama/issues/158",
           "severity": "low"
         },
@@ -2537,9 +3041,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
           ],
-          "updated_at": "2026-04-18T02:35:15Z",
+          "updated_at": "2026-04-18T03:10:09Z",
           "url": "https://github.com/kushin77/ollama/issues/159",
           "severity": "low"
         },
@@ -2549,9 +3056,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
           ],
-          "updated_at": "2026-04-18T02:35:13Z",
+          "updated_at": "2026-04-18T03:10:09Z",
           "url": "https://github.com/kushin77/ollama/issues/160",
           "severity": "low"
         },
@@ -2561,9 +3071,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
           ],
-          "updated_at": "2026-04-18T02:35:04Z",
+          "updated_at": "2026-04-18T03:10:15Z",
           "url": "https://github.com/kushin77/ollama/issues/168",
           "severity": "low"
         },
@@ -2573,9 +3086,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/07",
+            "wave/7"
           ],
-          "updated_at": "2026-04-18T02:35:03Z",
+          "updated_at": "2026-04-18T03:10:16Z",
           "url": "https://github.com/kushin77/ollama/issues/169",
           "severity": "low"
         }
@@ -2624,9 +3140,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
           ],
-          "updated_at": "2026-04-18T02:35:02Z",
+          "updated_at": "2026-04-18T03:10:17Z",
           "url": "https://github.com/kushin77/ollama/issues/170",
           "severity": "low"
         },
@@ -2636,9 +3155,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
           ],
-          "updated_at": "2026-04-18T02:35:00Z",
+          "updated_at": "2026-04-18T03:10:17Z",
           "url": "https://github.com/kushin77/ollama/issues/171",
           "severity": "low"
         },
@@ -2648,9 +3170,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
           ],
-          "updated_at": "2026-04-18T02:34:59Z",
+          "updated_at": "2026-04-18T03:10:18Z",
           "url": "https://github.com/kushin77/ollama/issues/172",
           "severity": "low"
         },
@@ -2660,9 +3185,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
           ],
-          "updated_at": "2026-04-18T02:34:58Z",
+          "updated_at": "2026-04-18T03:10:19Z",
           "url": "https://github.com/kushin77/ollama/issues/173",
           "severity": "low"
         },
@@ -2672,9 +3200,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
           ],
-          "updated_at": "2026-04-18T02:34:57Z",
+          "updated_at": "2026-04-18T03:10:20Z",
           "url": "https://github.com/kushin77/ollama/issues/174",
           "severity": "low"
         },
@@ -2684,9 +3215,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
           ],
-          "updated_at": "2026-04-18T02:34:56Z",
+          "updated_at": "2026-04-18T03:10:20Z",
           "url": "https://github.com/kushin77/ollama/issues/175",
           "severity": "low"
         },
@@ -2696,9 +3230,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
           ],
-          "updated_at": "2026-04-18T02:34:54Z",
+          "updated_at": "2026-04-18T03:10:21Z",
           "url": "https://github.com/kushin77/ollama/issues/176",
           "severity": "low"
         },
@@ -2708,9 +3245,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
           ],
-          "updated_at": "2026-04-18T02:34:53Z",
+          "updated_at": "2026-04-18T03:10:22Z",
           "url": "https://github.com/kushin77/ollama/issues/177",
           "severity": "low"
         },
@@ -2720,9 +3260,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
           ],
-          "updated_at": "2026-04-18T02:31:12Z",
+          "updated_at": "2026-04-18T03:10:22Z",
           "url": "https://github.com/kushin77/ollama/issues/178",
           "severity": "low"
         },
@@ -2732,9 +3275,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
           ],
-          "updated_at": "2026-04-18T02:34:52Z",
+          "updated_at": "2026-04-18T03:10:23Z",
           "url": "https://github.com/kushin77/ollama/issues/179",
           "severity": "low"
         },
@@ -2744,9 +3290,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
           ],
-          "updated_at": "2026-04-18T02:34:51Z",
+          "updated_at": "2026-04-18T03:10:24Z",
           "url": "https://github.com/kushin77/ollama/issues/180",
           "severity": "low"
         },
@@ -2756,9 +3305,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
           ],
-          "updated_at": "2026-04-18T02:34:51Z",
+          "updated_at": "2026-04-18T03:10:24Z",
           "url": "https://github.com/kushin77/ollama/issues/181",
           "severity": "low"
         },
@@ -2768,9 +3320,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
           ],
-          "updated_at": "2026-04-18T02:34:50Z",
+          "updated_at": "2026-04-18T03:10:25Z",
           "url": "https://github.com/kushin77/ollama/issues/182",
           "severity": "low"
         },
@@ -2780,9 +3335,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
           ],
-          "updated_at": "2026-04-18T02:34:49Z",
+          "updated_at": "2026-04-18T03:10:26Z",
           "url": "https://github.com/kushin77/ollama/issues/183",
           "severity": "low"
         },
@@ -2792,9 +3350,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
           ],
-          "updated_at": "2026-04-18T02:34:48Z",
+          "updated_at": "2026-04-18T03:10:27Z",
           "url": "https://github.com/kushin77/ollama/issues/184",
           "severity": "low"
         },
@@ -2804,9 +3365,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
           ],
-          "updated_at": "2026-04-18T02:34:48Z",
+          "updated_at": "2026-04-18T03:10:27Z",
           "url": "https://github.com/kushin77/ollama/issues/185",
           "severity": "low"
         },
@@ -2816,9 +3380,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
           ],
-          "updated_at": "2026-04-18T02:34:47Z",
+          "updated_at": "2026-04-18T03:10:28Z",
           "url": "https://github.com/kushin77/ollama/issues/186",
           "severity": "low"
         },
@@ -2828,9 +3395,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
           ],
-          "updated_at": "2026-04-18T02:34:46Z",
+          "updated_at": "2026-04-18T03:10:29Z",
           "url": "https://github.com/kushin77/ollama/issues/187",
           "severity": "low"
         },
@@ -2840,9 +3410,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
           ],
-          "updated_at": "2026-04-18T02:34:46Z",
+          "updated_at": "2026-04-18T03:10:29Z",
           "url": "https://github.com/kushin77/ollama/issues/188",
           "severity": "low"
         },
@@ -2852,9 +3425,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
           ],
-          "updated_at": "2026-04-18T02:34:45Z",
+          "updated_at": "2026-04-18T03:10:30Z",
           "url": "https://github.com/kushin77/ollama/issues/189",
           "severity": "low"
         },
@@ -2864,9 +3440,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
           ],
-          "updated_at": "2026-04-18T02:34:45Z",
+          "updated_at": "2026-04-18T03:10:31Z",
           "url": "https://github.com/kushin77/ollama/issues/190",
           "severity": "low"
         },
@@ -2876,9 +3455,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
           ],
-          "updated_at": "2026-04-18T02:34:44Z",
+          "updated_at": "2026-04-18T03:10:31Z",
           "url": "https://github.com/kushin77/ollama/issues/191",
           "severity": "low"
         },
@@ -2888,9 +3470,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
           ],
-          "updated_at": "2026-04-18T02:34:43Z",
+          "updated_at": "2026-04-18T03:10:32Z",
           "url": "https://github.com/kushin77/ollama/issues/192",
           "severity": "low"
         },
@@ -2900,9 +3485,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
           ],
-          "updated_at": "2026-04-18T02:34:43Z",
+          "updated_at": "2026-04-18T03:10:33Z",
           "url": "https://github.com/kushin77/ollama/issues/193",
           "severity": "low"
         },
@@ -2912,9 +3500,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/08",
+            "wave/8"
           ],
-          "updated_at": "2026-04-18T02:34:42Z",
+          "updated_at": "2026-04-18T03:10:33Z",
           "url": "https://github.com/kushin77/ollama/issues/194",
           "severity": "low"
         }
@@ -2963,9 +3554,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
           ],
-          "updated_at": "2026-04-18T02:34:40Z",
+          "updated_at": "2026-04-18T03:10:35Z",
           "url": "https://github.com/kushin77/ollama/issues/196",
           "severity": "low"
         },
@@ -2975,9 +3569,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
           ],
-          "updated_at": "2026-04-18T02:34:40Z",
+          "updated_at": "2026-04-18T03:10:35Z",
           "url": "https://github.com/kushin77/ollama/issues/197",
           "severity": "low"
         },
@@ -2987,9 +3584,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
           ],
-          "updated_at": "2026-04-18T02:34:38Z",
+          "updated_at": "2026-04-18T03:10:37Z",
           "url": "https://github.com/kushin77/ollama/issues/199",
           "severity": "low"
         },
@@ -2999,9 +3599,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
           ],
-          "updated_at": "2026-04-18T02:34:37Z",
+          "updated_at": "2026-04-18T03:10:38Z",
           "url": "https://github.com/kushin77/ollama/issues/201",
           "severity": "low"
         },
@@ -3011,9 +3614,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
           ],
-          "updated_at": "2026-04-18T02:34:36Z",
+          "updated_at": "2026-04-18T03:10:39Z",
           "url": "https://github.com/kushin77/ollama/issues/202",
           "severity": "low"
         },
@@ -3023,9 +3629,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
           ],
-          "updated_at": "2026-04-18T02:34:35Z",
+          "updated_at": "2026-04-18T03:10:40Z",
           "url": "https://github.com/kushin77/ollama/issues/204",
           "severity": "low"
         },
@@ -3035,9 +3644,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
           ],
-          "updated_at": "2026-04-18T02:34:34Z",
+          "updated_at": "2026-04-18T03:10:41Z",
           "url": "https://github.com/kushin77/ollama/issues/205",
           "severity": "low"
         },
@@ -3047,9 +3659,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
           ],
-          "updated_at": "2026-04-18T02:34:34Z",
+          "updated_at": "2026-04-18T03:10:42Z",
           "url": "https://github.com/kushin77/ollama/issues/206",
           "severity": "low"
         },
@@ -3059,9 +3674,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
           ],
-          "updated_at": "2026-04-18T02:34:33Z",
+          "updated_at": "2026-04-18T03:10:42Z",
           "url": "https://github.com/kushin77/ollama/issues/207",
           "severity": "low"
         },
@@ -3071,9 +3689,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
           ],
-          "updated_at": "2026-04-18T02:34:33Z",
+          "updated_at": "2026-04-18T03:10:43Z",
           "url": "https://github.com/kushin77/ollama/issues/208",
           "severity": "low"
         },
@@ -3083,9 +3704,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
           ],
-          "updated_at": "2026-04-18T02:34:32Z",
+          "updated_at": "2026-04-18T03:10:44Z",
           "url": "https://github.com/kushin77/ollama/issues/209",
           "severity": "low"
         },
@@ -3095,9 +3719,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
           ],
-          "updated_at": "2026-04-18T02:34:31Z",
+          "updated_at": "2026-04-18T03:10:45Z",
           "url": "https://github.com/kushin77/ollama/issues/210",
           "severity": "low"
         },
@@ -3107,9 +3734,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
           ],
-          "updated_at": "2026-04-18T02:34:31Z",
+          "updated_at": "2026-04-18T03:10:45Z",
           "url": "https://github.com/kushin77/ollama/issues/211",
           "severity": "low"
         },
@@ -3119,9 +3749,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
           ],
-          "updated_at": "2026-04-18T02:34:30Z",
+          "updated_at": "2026-04-18T03:10:46Z",
           "url": "https://github.com/kushin77/ollama/issues/212",
           "severity": "low"
         },
@@ -3131,9 +3764,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
           ],
-          "updated_at": "2026-04-18T02:34:29Z",
+          "updated_at": "2026-04-18T03:10:47Z",
           "url": "https://github.com/kushin77/ollama/issues/213",
           "severity": "low"
         },
@@ -3143,9 +3779,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
           ],
-          "updated_at": "2026-04-18T02:34:29Z",
+          "updated_at": "2026-04-18T03:10:47Z",
           "url": "https://github.com/kushin77/ollama/issues/214",
           "severity": "low"
         },
@@ -3155,9 +3794,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
           ],
-          "updated_at": "2026-04-18T02:34:28Z",
+          "updated_at": "2026-04-18T03:10:48Z",
           "url": "https://github.com/kushin77/ollama/issues/215",
           "severity": "low"
         },
@@ -3167,9 +3809,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
           ],
-          "updated_at": "2026-04-18T02:34:28Z",
+          "updated_at": "2026-04-18T03:10:48Z",
           "url": "https://github.com/kushin77/ollama/issues/216",
           "severity": "low"
         },
@@ -3179,9 +3824,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
           ],
-          "updated_at": "2026-04-18T02:34:27Z",
+          "updated_at": "2026-04-18T03:10:49Z",
           "url": "https://github.com/kushin77/ollama/issues/217",
           "severity": "low"
         },
@@ -3191,9 +3839,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
           ],
-          "updated_at": "2026-04-18T02:34:26Z",
+          "updated_at": "2026-04-18T03:10:50Z",
           "url": "https://github.com/kushin77/ollama/issues/218",
           "severity": "low"
         },
@@ -3203,9 +3854,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
           ],
-          "updated_at": "2026-04-18T02:34:26Z",
+          "updated_at": "2026-04-18T03:10:51Z",
           "url": "https://github.com/kushin77/ollama/issues/219",
           "severity": "low"
         },
@@ -3215,9 +3869,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
           ],
-          "updated_at": "2026-04-18T02:34:25Z",
+          "updated_at": "2026-04-18T03:10:51Z",
           "url": "https://github.com/kushin77/ollama/issues/220",
           "severity": "low"
         },
@@ -3227,9 +3884,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
           ],
-          "updated_at": "2026-04-18T02:34:24Z",
+          "updated_at": "2026-04-18T03:10:52Z",
           "url": "https://github.com/kushin77/ollama/issues/221",
           "severity": "low"
         },
@@ -3239,9 +3899,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
           ],
-          "updated_at": "2026-04-18T02:34:24Z",
+          "updated_at": "2026-04-18T03:10:53Z",
           "url": "https://github.com/kushin77/ollama/issues/222",
           "severity": "low"
         },
@@ -3251,9 +3914,12 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/09",
+            "wave/9"
           ],
-          "updated_at": "2026-04-18T02:34:23Z",
+          "updated_at": "2026-04-18T03:10:53Z",
           "url": "https://github.com/kushin77/ollama/issues/223",
           "severity": "low"
         }
@@ -3302,9 +3968,11 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
           ],
-          "updated_at": "2026-04-18T02:34:22Z",
+          "updated_at": "2026-04-18T03:10:54Z",
           "url": "https://github.com/kushin77/ollama/issues/224",
           "severity": "low"
         },
@@ -3314,9 +3982,11 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
           ],
-          "updated_at": "2026-04-18T02:34:22Z",
+          "updated_at": "2026-04-18T03:10:55Z",
           "url": "https://github.com/kushin77/ollama/issues/226",
           "severity": "low"
         },
@@ -3326,9 +3996,11 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
           ],
-          "updated_at": "2026-04-18T02:34:17Z",
+          "updated_at": "2026-04-18T03:11:00Z",
           "url": "https://github.com/kushin77/ollama/issues/235",
           "severity": "low"
         },
@@ -3338,9 +4010,11 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
           ],
-          "updated_at": "2026-04-18T02:34:16Z",
+          "updated_at": "2026-04-18T03:11:01Z",
           "url": "https://github.com/kushin77/ollama/issues/236",
           "severity": "low"
         },
@@ -3350,9 +4024,11 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
           ],
-          "updated_at": "2026-04-18T02:34:15Z",
+          "updated_at": "2026-04-18T03:11:01Z",
           "url": "https://github.com/kushin77/ollama/issues/237",
           "severity": "low"
         },
@@ -3362,9 +4038,11 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
           ],
-          "updated_at": "2026-04-18T02:34:15Z",
+          "updated_at": "2026-04-18T03:11:02Z",
           "url": "https://github.com/kushin77/ollama/issues/238",
           "severity": "low"
         },
@@ -3374,9 +4052,11 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
           ],
-          "updated_at": "2026-04-18T02:34:14Z",
+          "updated_at": "2026-04-18T03:11:02Z",
           "url": "https://github.com/kushin77/ollama/issues/239",
           "severity": "low"
         },
@@ -3386,9 +4066,11 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
           ],
-          "updated_at": "2026-04-18T02:34:09Z",
+          "updated_at": "2026-04-18T03:11:07Z",
           "url": "https://github.com/kushin77/ollama/issues/248",
           "severity": "low"
         },
@@ -3398,9 +4080,11 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
           ],
-          "updated_at": "2026-04-18T02:34:09Z",
+          "updated_at": "2026-04-18T03:11:08Z",
           "url": "https://github.com/kushin77/ollama/issues/249",
           "severity": "low"
         },
@@ -3410,9 +4094,11 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
           ],
-          "updated_at": "2026-04-18T02:34:08Z",
+          "updated_at": "2026-04-18T03:11:08Z",
           "url": "https://github.com/kushin77/ollama/issues/250",
           "severity": "low"
         },
@@ -3422,9 +4108,11 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
           ],
-          "updated_at": "2026-04-18T02:30:09Z",
+          "updated_at": "2026-04-18T03:11:09Z",
           "url": "https://github.com/kushin77/ollama/issues/251",
           "severity": "low"
         },
@@ -3434,9 +4122,11 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
           ],
-          "updated_at": "2026-04-18T02:30:08Z",
+          "updated_at": "2026-04-18T03:11:09Z",
           "url": "https://github.com/kushin77/ollama/issues/252",
           "severity": "low"
         },
@@ -3446,9 +4136,11 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
           ],
-          "updated_at": "2026-04-18T02:29:59Z",
+          "updated_at": "2026-04-18T03:11:18Z",
           "url": "https://github.com/kushin77/ollama/issues/268",
           "severity": "low"
         },
@@ -3458,9 +4150,11 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
           ],
-          "updated_at": "2026-04-18T02:29:58Z",
+          "updated_at": "2026-04-18T03:11:19Z",
           "url": "https://github.com/kushin77/ollama/issues/269",
           "severity": "low"
         },
@@ -3470,9 +4164,11 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
           ],
-          "updated_at": "2026-04-18T02:29:57Z",
+          "updated_at": "2026-04-18T03:11:19Z",
           "url": "https://github.com/kushin77/ollama/issues/270",
           "severity": "low"
         },
@@ -3482,9 +4178,11 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
           ],
-          "updated_at": "2026-04-18T02:29:56Z",
+          "updated_at": "2026-04-18T03:11:20Z",
           "url": "https://github.com/kushin77/ollama/issues/271",
           "severity": "low"
         },
@@ -3494,9 +4192,11 @@
           "labels": [
             "enhancement",
             "status/triaged",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
           ],
-          "updated_at": "2026-04-18T02:29:55Z",
+          "updated_at": "2026-04-18T03:11:20Z",
           "url": "https://github.com/kushin77/ollama/issues/272",
           "severity": "low"
         },
@@ -3507,9 +4207,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
           ],
-          "updated_at": "2026-04-18T02:29:54Z",
+          "updated_at": "2026-04-18T03:11:21Z",
           "url": "https://github.com/kushin77/ollama/issues/273",
           "severity": "low"
         },
@@ -3520,9 +4222,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
           ],
-          "updated_at": "2026-04-18T02:29:53Z",
+          "updated_at": "2026-04-18T03:11:22Z",
           "url": "https://github.com/kushin77/ollama/issues/274",
           "severity": "low"
         },
@@ -3533,9 +4237,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
           ],
-          "updated_at": "2026-04-18T02:29:53Z",
+          "updated_at": "2026-04-18T03:11:22Z",
           "url": "https://github.com/kushin77/ollama/issues/275",
           "severity": "low"
         },
@@ -3546,9 +4252,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
           ],
-          "updated_at": "2026-04-18T02:29:52Z",
+          "updated_at": "2026-04-18T03:11:23Z",
           "url": "https://github.com/kushin77/ollama/issues/276",
           "severity": "low"
         },
@@ -3559,9 +4267,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
           ],
-          "updated_at": "2026-04-18T02:29:52Z",
+          "updated_at": "2026-04-18T03:11:23Z",
           "url": "https://github.com/kushin77/ollama/issues/277",
           "severity": "low"
         },
@@ -3572,9 +4282,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
           ],
-          "updated_at": "2026-04-18T02:29:51Z",
+          "updated_at": "2026-04-18T03:11:24Z",
           "url": "https://github.com/kushin77/ollama/issues/278",
           "severity": "low"
         },
@@ -3585,9 +4297,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
           ],
-          "updated_at": "2026-04-18T02:29:51Z",
+          "updated_at": "2026-04-18T03:11:25Z",
           "url": "https://github.com/kushin77/ollama/issues/279",
           "severity": "low"
         },
@@ -3598,9 +4312,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/10"
           ],
-          "updated_at": "2026-04-18T02:29:50Z",
+          "updated_at": "2026-04-18T03:11:25Z",
           "url": "https://github.com/kushin77/ollama/issues/280",
           "severity": "low"
         }
@@ -3650,9 +4366,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
           ],
-          "updated_at": "2026-04-18T02:29:49Z",
+          "updated_at": "2026-04-18T03:11:26Z",
           "url": "https://github.com/kushin77/ollama/issues/281",
           "severity": "low"
         },
@@ -3663,9 +4381,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
           ],
-          "updated_at": "2026-04-18T02:29:49Z",
+          "updated_at": "2026-04-18T03:11:26Z",
           "url": "https://github.com/kushin77/ollama/issues/282",
           "severity": "low"
         },
@@ -3676,9 +4396,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
           ],
-          "updated_at": "2026-04-18T02:29:48Z",
+          "updated_at": "2026-04-18T03:11:27Z",
           "url": "https://github.com/kushin77/ollama/issues/283",
           "severity": "low"
         },
@@ -3689,9 +4411,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
           ],
-          "updated_at": "2026-04-18T02:29:48Z",
+          "updated_at": "2026-04-18T03:11:27Z",
           "url": "https://github.com/kushin77/ollama/issues/284",
           "severity": "low"
         },
@@ -3702,9 +4426,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
           ],
-          "updated_at": "2026-04-18T02:29:47Z",
+          "updated_at": "2026-04-18T03:11:28Z",
           "url": "https://github.com/kushin77/ollama/issues/285",
           "severity": "low"
         },
@@ -3715,9 +4441,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
           ],
-          "updated_at": "2026-04-18T02:29:46Z",
+          "updated_at": "2026-04-18T03:11:28Z",
           "url": "https://github.com/kushin77/ollama/issues/286",
           "severity": "low"
         },
@@ -3728,9 +4456,11 @@
             "documentation",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
           ],
-          "updated_at": "2026-04-18T02:29:35Z",
+          "updated_at": "2026-04-18T03:11:41Z",
           "url": "https://github.com/kushin77/ollama/issues/305",
           "severity": "low"
         },
@@ -3741,9 +4471,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
           ],
-          "updated_at": "2026-04-18T02:29:28Z",
+          "updated_at": "2026-04-18T03:11:48Z",
           "url": "https://github.com/kushin77/ollama/issues/316",
           "severity": "low"
         },
@@ -3754,9 +4486,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
           ],
-          "updated_at": "2026-04-18T02:29:27Z",
+          "updated_at": "2026-04-18T03:11:49Z",
           "url": "https://github.com/kushin77/ollama/issues/317",
           "severity": "low"
         },
@@ -3767,9 +4501,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
           ],
-          "updated_at": "2026-04-18T02:29:27Z",
+          "updated_at": "2026-04-18T03:11:49Z",
           "url": "https://github.com/kushin77/ollama/issues/318",
           "severity": "low"
         },
@@ -3780,9 +4516,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
           ],
-          "updated_at": "2026-04-18T02:29:26Z",
+          "updated_at": "2026-04-18T03:11:50Z",
           "url": "https://github.com/kushin77/ollama/issues/319",
           "severity": "low"
         },
@@ -3793,9 +4531,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
           ],
-          "updated_at": "2026-04-18T02:29:25Z",
+          "updated_at": "2026-04-18T03:11:50Z",
           "url": "https://github.com/kushin77/ollama/issues/320",
           "severity": "low"
         },
@@ -3806,9 +4546,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
           ],
-          "updated_at": "2026-04-18T02:29:25Z",
+          "updated_at": "2026-04-18T03:11:51Z",
           "url": "https://github.com/kushin77/ollama/issues/321",
           "severity": "low"
         },
@@ -3819,9 +4561,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
           ],
-          "updated_at": "2026-04-18T02:29:24Z",
+          "updated_at": "2026-04-18T03:11:51Z",
           "url": "https://github.com/kushin77/ollama/issues/322",
           "severity": "low"
         },
@@ -3832,9 +4576,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
           ],
-          "updated_at": "2026-04-18T02:29:24Z",
+          "updated_at": "2026-04-18T03:11:52Z",
           "url": "https://github.com/kushin77/ollama/issues/323",
           "severity": "low"
         },
@@ -3845,9 +4591,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
           ],
-          "updated_at": "2026-04-18T02:29:23Z",
+          "updated_at": "2026-04-18T03:11:52Z",
           "url": "https://github.com/kushin77/ollama/issues/324",
           "severity": "low"
         },
@@ -3858,9 +4606,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
           ],
-          "updated_at": "2026-04-18T02:29:22Z",
+          "updated_at": "2026-04-18T03:11:53Z",
           "url": "https://github.com/kushin77/ollama/issues/325",
           "severity": "low"
         },
@@ -3871,9 +4621,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
           ],
-          "updated_at": "2026-04-18T02:29:22Z",
+          "updated_at": "2026-04-18T03:11:53Z",
           "url": "https://github.com/kushin77/ollama/issues/326",
           "severity": "low"
         },
@@ -3884,9 +4636,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
           ],
-          "updated_at": "2026-04-18T02:29:21Z",
+          "updated_at": "2026-04-18T03:11:54Z",
           "url": "https://github.com/kushin77/ollama/issues/327",
           "severity": "low"
         },
@@ -3897,9 +4651,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
           ],
-          "updated_at": "2026-04-18T02:29:21Z",
+          "updated_at": "2026-04-18T03:11:54Z",
           "url": "https://github.com/kushin77/ollama/issues/328",
           "severity": "low"
         },
@@ -3910,9 +4666,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
           ],
-          "updated_at": "2026-04-18T02:29:20Z",
+          "updated_at": "2026-04-18T03:11:55Z",
           "url": "https://github.com/kushin77/ollama/issues/329",
           "severity": "low"
         },
@@ -3923,9 +4681,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
           ],
-          "updated_at": "2026-04-18T02:29:19Z",
+          "updated_at": "2026-04-18T03:11:55Z",
           "url": "https://github.com/kushin77/ollama/issues/330",
           "severity": "low"
         },
@@ -3936,9 +4696,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
           ],
-          "updated_at": "2026-04-18T02:29:19Z",
+          "updated_at": "2026-04-18T03:11:56Z",
           "url": "https://github.com/kushin77/ollama/issues/331",
           "severity": "low"
         },
@@ -3949,9 +4711,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
           ],
-          "updated_at": "2026-04-18T02:29:18Z",
+          "updated_at": "2026-04-18T03:11:56Z",
           "url": "https://github.com/kushin77/ollama/issues/332",
           "severity": "low"
         },
@@ -3962,9 +4726,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/11"
           ],
-          "updated_at": "2026-04-18T02:29:18Z",
+          "updated_at": "2026-04-18T03:11:57Z",
           "url": "https://github.com/kushin77/ollama/issues/333",
           "severity": "low"
         }
@@ -4014,9 +4780,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
           ],
-          "updated_at": "2026-04-18T02:29:17Z",
+          "updated_at": "2026-04-18T03:11:57Z",
           "url": "https://github.com/kushin77/ollama/issues/334",
           "severity": "low"
         },
@@ -4027,9 +4795,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
           ],
-          "updated_at": "2026-04-18T02:29:16Z",
+          "updated_at": "2026-04-18T03:11:58Z",
           "url": "https://github.com/kushin77/ollama/issues/335",
           "severity": "low"
         },
@@ -4040,9 +4810,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
           ],
-          "updated_at": "2026-04-18T02:29:16Z",
+          "updated_at": "2026-04-18T03:11:58Z",
           "url": "https://github.com/kushin77/ollama/issues/336",
           "severity": "low"
         },
@@ -4053,9 +4825,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
           ],
-          "updated_at": "2026-04-18T02:29:15Z",
+          "updated_at": "2026-04-18T03:11:59Z",
           "url": "https://github.com/kushin77/ollama/issues/337",
           "severity": "low"
         },
@@ -4066,9 +4840,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
           ],
-          "updated_at": "2026-04-18T02:29:15Z",
+          "updated_at": "2026-04-18T03:11:59Z",
           "url": "https://github.com/kushin77/ollama/issues/338",
           "severity": "low"
         },
@@ -4079,9 +4855,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
           ],
-          "updated_at": "2026-04-18T02:29:14Z",
+          "updated_at": "2026-04-18T03:12:00Z",
           "url": "https://github.com/kushin77/ollama/issues/339",
           "severity": "low"
         },
@@ -4092,9 +4870,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
           ],
-          "updated_at": "2026-04-18T02:29:14Z",
+          "updated_at": "2026-04-18T03:12:00Z",
           "url": "https://github.com/kushin77/ollama/issues/340",
           "severity": "low"
         },
@@ -4105,9 +4885,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
           ],
-          "updated_at": "2026-04-18T02:29:13Z",
+          "updated_at": "2026-04-18T03:12:01Z",
           "url": "https://github.com/kushin77/ollama/issues/341",
           "severity": "low"
         },
@@ -4118,9 +4900,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
           ],
-          "updated_at": "2026-04-18T02:29:12Z",
+          "updated_at": "2026-04-18T03:12:01Z",
           "url": "https://github.com/kushin77/ollama/issues/342",
           "severity": "low"
         },
@@ -4131,9 +4915,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
           ],
-          "updated_at": "2026-04-18T02:29:12Z",
+          "updated_at": "2026-04-18T03:12:02Z",
           "url": "https://github.com/kushin77/ollama/issues/343",
           "severity": "low"
         },
@@ -4144,9 +4930,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
           ],
-          "updated_at": "2026-04-18T02:29:11Z",
+          "updated_at": "2026-04-18T03:12:02Z",
           "url": "https://github.com/kushin77/ollama/issues/344",
           "severity": "low"
         },
@@ -4157,9 +4945,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
           ],
-          "updated_at": "2026-04-18T02:29:11Z",
+          "updated_at": "2026-04-18T03:12:03Z",
           "url": "https://github.com/kushin77/ollama/issues/345",
           "severity": "low"
         },
@@ -4170,9 +4960,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
           ],
-          "updated_at": "2026-04-18T02:29:10Z",
+          "updated_at": "2026-04-18T03:12:03Z",
           "url": "https://github.com/kushin77/ollama/issues/346",
           "severity": "low"
         },
@@ -4183,9 +4975,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
           ],
-          "updated_at": "2026-04-18T02:29:09Z",
+          "updated_at": "2026-04-18T03:12:04Z",
           "url": "https://github.com/kushin77/ollama/issues/347",
           "severity": "low"
         },
@@ -4196,9 +4990,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
           ],
-          "updated_at": "2026-04-18T02:29:09Z",
+          "updated_at": "2026-04-18T03:12:04Z",
           "url": "https://github.com/kushin77/ollama/issues/348",
           "severity": "low"
         },
@@ -4209,9 +5005,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
           ],
-          "updated_at": "2026-04-18T02:29:08Z",
+          "updated_at": "2026-04-18T03:12:05Z",
           "url": "https://github.com/kushin77/ollama/issues/349",
           "severity": "low"
         },
@@ -4222,9 +5020,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
           ],
-          "updated_at": "2026-04-18T02:29:08Z",
+          "updated_at": "2026-04-18T03:12:05Z",
           "url": "https://github.com/kushin77/ollama/issues/350",
           "severity": "low"
         },
@@ -4235,9 +5035,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
           ],
-          "updated_at": "2026-04-18T02:29:07Z",
+          "updated_at": "2026-04-18T03:12:06Z",
           "url": "https://github.com/kushin77/ollama/issues/351",
           "severity": "low"
         },
@@ -4248,9 +5050,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
           ],
-          "updated_at": "2026-04-18T02:29:07Z",
+          "updated_at": "2026-04-18T03:12:06Z",
           "url": "https://github.com/kushin77/ollama/issues/352",
           "severity": "low"
         },
@@ -4261,9 +5065,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
           ],
-          "updated_at": "2026-04-18T02:29:06Z",
+          "updated_at": "2026-04-18T03:12:07Z",
           "url": "https://github.com/kushin77/ollama/issues/353",
           "severity": "low"
         },
@@ -4274,9 +5080,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
           ],
-          "updated_at": "2026-04-18T02:29:05Z",
+          "updated_at": "2026-04-18T03:12:07Z",
           "url": "https://github.com/kushin77/ollama/issues/354",
           "severity": "low"
         },
@@ -4287,9 +5095,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
           ],
-          "updated_at": "2026-04-18T02:29:05Z",
+          "updated_at": "2026-04-18T03:12:08Z",
           "url": "https://github.com/kushin77/ollama/issues/355",
           "severity": "low"
         },
@@ -4300,9 +5110,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
           ],
-          "updated_at": "2026-04-18T02:29:04Z",
+          "updated_at": "2026-04-18T03:12:08Z",
           "url": "https://github.com/kushin77/ollama/issues/356",
           "severity": "low"
         },
@@ -4313,9 +5125,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
           ],
-          "updated_at": "2026-04-18T02:29:04Z",
+          "updated_at": "2026-04-18T03:12:09Z",
           "url": "https://github.com/kushin77/ollama/issues/357",
           "severity": "low"
         },
@@ -4326,9 +5140,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/12"
           ],
-          "updated_at": "2026-04-18T02:29:03Z",
+          "updated_at": "2026-04-18T03:12:09Z",
           "url": "https://github.com/kushin77/ollama/issues/358",
           "severity": "low"
         }
@@ -4372,9 +5188,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/13"
           ],
-          "updated_at": "2026-04-18T02:29:02Z",
+          "updated_at": "2026-04-18T03:12:10Z",
           "url": "https://github.com/kushin77/ollama/issues/359",
           "severity": "low"
         },
@@ -4385,9 +5203,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/13"
           ],
-          "updated_at": "2026-04-18T02:29:02Z",
+          "updated_at": "2026-04-18T03:12:10Z",
           "url": "https://github.com/kushin77/ollama/issues/360",
           "severity": "low"
         },
@@ -4398,9 +5218,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/13"
           ],
-          "updated_at": "2026-04-18T02:29:01Z",
+          "updated_at": "2026-04-18T03:12:11Z",
           "url": "https://github.com/kushin77/ollama/issues/361",
           "severity": "low"
         },
@@ -4411,9 +5233,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/13"
           ],
-          "updated_at": "2026-04-18T02:29:01Z",
+          "updated_at": "2026-04-18T03:12:12Z",
           "url": "https://github.com/kushin77/ollama/issues/362",
           "severity": "low"
         },
@@ -4424,9 +5248,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/13"
           ],
-          "updated_at": "2026-04-18T02:29:00Z",
+          "updated_at": "2026-04-18T03:12:12Z",
           "url": "https://github.com/kushin77/ollama/issues/363",
           "severity": "low"
         },
@@ -4437,9 +5263,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/13"
           ],
-          "updated_at": "2026-04-18T02:28:59Z",
+          "updated_at": "2026-04-18T03:12:13Z",
           "url": "https://github.com/kushin77/ollama/issues/364",
           "severity": "low"
         },
@@ -4450,9 +5278,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/13"
           ],
-          "updated_at": "2026-04-18T02:28:59Z",
+          "updated_at": "2026-04-18T03:12:13Z",
           "url": "https://github.com/kushin77/ollama/issues/365",
           "severity": "low"
         },
@@ -4463,9 +5293,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/13"
           ],
-          "updated_at": "2026-04-18T02:28:58Z",
+          "updated_at": "2026-04-18T03:12:14Z",
           "url": "https://github.com/kushin77/ollama/issues/366",
           "severity": "low"
         },
@@ -4476,9 +5308,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/13"
           ],
-          "updated_at": "2026-04-18T02:28:57Z",
+          "updated_at": "2026-04-18T03:12:14Z",
           "url": "https://github.com/kushin77/ollama/issues/367",
           "severity": "low"
         },
@@ -4489,9 +5323,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/13"
           ],
-          "updated_at": "2026-04-18T02:28:57Z",
+          "updated_at": "2026-04-18T03:12:15Z",
           "url": "https://github.com/kushin77/ollama/issues/368",
           "severity": "low"
         },
@@ -4502,9 +5338,11 @@
             "enhancement",
             "status/triaged",
             "priority/low",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/13"
           ],
-          "updated_at": "2026-04-18T02:28:54Z",
+          "updated_at": "2026-04-18T03:12:17Z",
           "url": "https://github.com/kushin77/ollama/issues/372",
           "severity": "low"
         },
@@ -4516,9 +5354,11 @@
             "status/triaged",
             "priority/low",
             "observability",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/13"
           ],
-          "updated_at": "2026-04-18T02:28:51Z",
+          "updated_at": "2026-04-18T02:53:06Z",
           "url": "https://github.com/kushin77/ollama/issues/378",
           "severity": "low"
         },
@@ -4530,9 +5370,11 @@
             "status/triaged",
             "priority/low",
             "observability",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/13"
           ],
-          "updated_at": "2026-04-18T02:28:51Z",
+          "updated_at": "2026-04-18T02:53:07Z",
           "url": "https://github.com/kushin77/ollama/issues/379",
           "severity": "low"
         },
@@ -4544,9 +5386,11 @@
             "status/triaged",
             "priority/low",
             "cli",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/13"
           ],
-          "updated_at": "2026-04-18T02:28:50Z",
+          "updated_at": "2026-04-18T02:53:09Z",
           "url": "https://github.com/kushin77/ollama/issues/383",
           "severity": "low"
         },
@@ -4558,9 +5402,11 @@
             "status/triaged",
             "priority/low",
             "cli",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/13"
           ],
-          "updated_at": "2026-04-18T02:28:49Z",
+          "updated_at": "2026-04-18T02:53:10Z",
           "url": "https://github.com/kushin77/ollama/issues/384",
           "severity": "low"
         },
@@ -4572,9 +5418,11 @@
             "status/triaged",
             "priority/low",
             "cli",
-            "needs-evidence"
+            "needs-evidence",
+            "status/planned-wave",
+            "wave/13"
           ],
-          "updated_at": "2026-04-18T02:28:49Z",
+          "updated_at": "2026-04-18T02:53:11Z",
           "url": "https://github.com/kushin77/ollama/issues/385",
           "severity": "low"
         },
@@ -4587,9 +5435,11 @@
             "priority/low",
             "monorepo",
             "architecture",
-            "decision-record"
+            "decision-record",
+            "status/planned-wave",
+            "wave/13"
           ],
-          "updated_at": "2026-04-18T02:28:48Z",
+          "updated_at": "2026-04-18T02:53:13Z",
           "url": "https://github.com/kushin77/ollama/issues/390",
           "severity": "low"
         },
@@ -4601,9 +5451,11 @@
             "status/triaged",
             "monorepo",
             "architecture",
-            "frontend"
+            "frontend",
+            "status/planned-wave",
+            "wave/13"
           ],
-          "updated_at": "2026-04-18T02:28:47Z",
+          "updated_at": "2026-04-18T02:53:14Z",
           "url": "https://github.com/kushin77/ollama/issues/392",
           "severity": "low"
         },
@@ -4614,9 +5466,11 @@
             "documentation",
             "operations",
             "status/triaged",
-            "monorepo"
+            "monorepo",
+            "status/planned-wave",
+            "wave/13"
           ],
-          "updated_at": "2026-04-18T02:28:43Z",
+          "updated_at": "2026-04-18T02:53:16Z",
           "url": "https://github.com/kushin77/ollama/issues/398",
           "severity": "low"
         }
