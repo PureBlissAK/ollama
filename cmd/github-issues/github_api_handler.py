@@ -15,11 +15,11 @@ import re
 
 class GitHubAPIHandler:
     """Handles GitHub API operations for issue management"""
-    
+
     def __init__(self, repo: str = "kushin77/ollama", token: str = None):
         """
         Initialize GitHub API handler
-        
+
         Args:
             repo: Repository in format "owner/repo"
             token: GitHub Personal Access Token (defaults to GITHUB_TOKEN env var)
@@ -34,7 +34,7 @@ class GitHubAPIHandler:
         self.base_url = f"https://api.github.com/repos/{repo}"
         self.rate_limit_remaining = None
         self.rate_limit_reset = None
-    
+
     def _make_request(self, method: str, url: str, data: Optional[Dict] = None) -> Tuple[int, Dict]:
         """Make HTTP request using urllib"""
         headers = {
@@ -42,27 +42,27 @@ class GitHubAPIHandler:
             'User-Agent': 'Ollama-Issue-Executor',
             'Content-Type': 'application/json'
         }
-        
+
         if self.token:
             headers['Authorization'] = f'token {self.token}'
-        
+
         request_data = None
         if data:
             request_data = json.dumps(data).encode('utf-8')
-        
+
         req = urllib.request.Request(url, data=request_data, headers=headers, method=method)
-        
+
         try:
             with urllib.request.urlopen(req) as response:
                 status = response.status
                 resp_data = json.loads(response.read().decode('utf-8'))
-                
+
                 # Update rate limit
                 if 'X-RateLimit-Remaining' in response.headers:
                     self.rate_limit_remaining = int(response.headers['X-RateLimit-Remaining'])
                 if 'X-RateLimit-Reset' in response.headers:
                     self.rate_limit_reset = int(response.headers['X-RateLimit-Reset'])
-                
+
                 return status, resp_data
         except urllib.error.HTTPError as e:
             status = e.code
@@ -83,7 +83,7 @@ class GitHubAPIHandler:
             return status, resp_data
         except Exception as e:
             return 500, {'error': str(e)}
-        
+
     def check_repo_access(self) -> Tuple[bool, str]:
         """Check if repository is accessible"""
         try:
@@ -104,30 +104,51 @@ class GitHubAPIHandler:
                 return False, f"Unexpected status: {status}"
         except Exception as e:
             return False, f"Connection error: {str(e)}"
-    
-    def fetch_issues(self, state: str = "open", per_page: int = 50) -> List[Dict]:
+
+    def fetch_issues(self, state: str = "open", per_page: int = 50, max_issues: Optional[int] = None) -> List[Dict]:
         """
         Fetch issues from repository
-        
+
         Args:
             state: "open", "closed", or "all"
             per_page: Number of issues per page (max 100)
-        
+            max_issues: Optional hard cap on total issues returned
+
         Returns:
             List of issue objects
         """
-        url = f"{self.base_url}/issues?state={state}&per_page={per_page}&sort=created&direction=desc"
-        
+        page_size = max(1, min(per_page, 100))
+        page = 1
+        collected: List[Dict] = []
+
         try:
-            status, resp = self._make_request('GET', url)
-            
-            if status == 200:
-                issues = resp if isinstance(resp, list) else []
-                # Filter out pull requests
-                return [i for i in issues if 'pull_request' not in i]
-            else:
-                print(f"⚠️  Failed to fetch issues: {status}")
-                return []
+            while True:
+                url = (
+                    f"{self.base_url}/issues?state={state}&per_page={page_size}"
+                    f"&page={page}&sort=created&direction=desc"
+                )
+                status, resp = self._make_request('GET', url)
+
+                if status != 200:
+                    print(f"⚠️  Failed to fetch issues page {page}: {status}")
+                    break
+
+                page_items = resp if isinstance(resp, list) else []
+                if not page_items:
+                    break
+
+                # Filter out pull requests and append issues.
+                for item in page_items:
+                    if 'pull_request' not in item:
+                        collected.append(item)
+                        if max_issues and len(collected) >= max_issues:
+                            return collected[:max_issues]
+
+                if len(page_items) < page_size:
+                    break
+                page += 1
+
+            return collected
         except Exception as e:
             print(f"❌ Error fetching issues: {e}")
             return []
@@ -164,60 +185,60 @@ class GitHubAPIHandler:
             if isinstance(body, str) and marker in body:
                 return True
         return False
-    
+
     def add_label(self, issue_num: int, labels: List[str]) -> Tuple[bool, str]:
         """
         Add labels to an issue
-        
+
         Args:
             issue_num: Issue number
             labels: List of label names to add
-        
+
         Returns:
             (success, message)
         """
         url = f"{self.base_url}/issues/{issue_num}/labels"
-        
+
         try:
             status, resp = self._make_request('POST', url, labels)
-            
+
             if status == 200:
                 return True, f"✅ Added labels: {', '.join(labels)}"
             else:
                 return False, f"Failed to add labels: {status} - {str(resp)}"
         except Exception as e:
             return False, f"Error adding labels: {str(e)}"
-    
+
     def remove_label(self, issue_num: int, label: str) -> Tuple[bool, str]:
         """Remove a label from an issue"""
         url = f"{self.base_url}/issues/{issue_num}/labels/{label}"
-        
+
         try:
             status, resp = self._make_request('DELETE', url)
-            
+
             if status == 204 or status == 200:
                 return True, f"✅ Removed label: {label}"
             else:
                 return False, f"Failed to remove label: {status}"
         except Exception as e:
             return False, f"Error removing label: {str(e)}"
-    
+
     def add_comment(self, issue_num: int, body: str) -> Tuple[bool, str]:
         """
         Add a comment to an issue
-        
+
         Args:
             issue_num: Issue number
             body: Comment body (markdown supported)
-        
+
         Returns:
             (success, message)
         """
         url = f"{self.base_url}/issues/{issue_num}/comments"
-        
+
         try:
             status, resp = self._make_request('POST', url, {'body': body})
-            
+
             if status == 201:
                 comment_id = resp.get('id', 'unknown')
                 return True, f"✅ Comment added (ID: {comment_id})"
@@ -225,77 +246,77 @@ class GitHubAPIHandler:
                 return False, f"Failed to add comment: {status}"
         except Exception as e:
             return False, f"Error adding comment: {str(e)}"
-    
+
     def update_issue_state(self, issue_num: int, state: str) -> Tuple[bool, str]:
         """
         Update issue state (open/closed)
-        
+
         Args:
             issue_num: Issue number
             state: "open" or "closed"
-        
+
         Returns:
             (success, message)
         """
         url = f"{self.base_url}/issues/{issue_num}"
-        
+
         if state not in ['open', 'closed']:
             return False, f"Invalid state: {state}. Must be 'open' or 'closed'"
-        
+
         try:
             current = self.get_issue(issue_num)
             if current and current.get('state') == state:
                 return True, f"ℹ️ Issue #{issue_num} already in state: {state}"
 
             status, resp = self._make_request('PATCH', url, {'state': state})
-            
+
             if status == 200:
                 return True, f"✅ Issue #{issue_num} state changed to: {state}"
             else:
                 return False, f"Failed to update state: {status}"
         except Exception as e:
             return False, f"Error updating state: {str(e)}"
-    
+
     def close_issue_with_comment(self, issue_num: int, comment: str, labels: List[str] = None) -> Dict:
         """
         Close an issue with a comment and optional labels
-        
+
         Args:
             issue_num: Issue number
             comment: Comment to add before closing
             labels: Optional labels to add
-        
+
         Returns:
             Dict with results of each operation
         """
         results = {'issue': issue_num, 'operations': {}}
-        
+
         # Add labels if provided
         if labels:
             success, msg = self.add_label(issue_num, labels)
             results['operations']['add_labels'] = {'success': success, 'message': msg}
-        
+
         # Add comment
         if comment:
             success, msg = self.add_comment(issue_num, comment)
             results['operations']['add_comment'] = {'success': success, 'message': msg}
-        
+
         # Close issue
         success, msg = self.update_issue_state(issue_num, 'closed')
         results['operations']['close_issue'] = {'success': success, 'message': msg}
-        
+
         results['success'] = all(op.get('success', False) for op in results['operations'].values())
         return results
-    
+
     def create_issue_summary(self, issue_num: int, analysis: Dict, plan: Dict) -> str:
         """
         Create a comprehensive summary comment for an issue based on AI analysis
-        
+
         Args:
             issue_num: Issue number
             analysis: Analysis results from AI
             plan: Implementation plan from AI
-        
+
         Returns:
             Formatted markdown comment
         """
@@ -317,14 +338,14 @@ class GitHubAPIHandler:
             step_num = step.get('step', '?')
             action = step.get('action', 'unknown')
             summary += f"  {step_num}. {action}\n"
-        
+
         summary += "\n*This issue has been triaged and marked for implementation.*"
         return summary
-    
+
     def get_rate_limit_status(self) -> Dict:
         """Get current GitHub API rate limit status"""
         url = "https://api.github.com/rate_limit"
-        
+
         try:
             status, resp = self._make_request('GET', url)
             if status == 200:
@@ -337,7 +358,7 @@ class GitHubAPIHandler:
                 }
         except Exception as e:
             print(f"⚠️  Could not fetch rate limit: {e}")
-        
+
         return {
             'remaining': self.rate_limit_remaining or 'unknown',
             'limit': 'unknown',
@@ -346,25 +367,25 @@ class GitHubAPIHandler:
 
 class IssueExecutionHandler:
     """High-level handler for executing issue resolution"""
-    
+
     def __init__(self, repo: str = "kushin77/ollama", token: str = None):
         self.gh = GitHubAPIHandler(repo, token)
         self.execution_log = []
-    
+
     def execute_on_issue(self, issue_num: int, analysis: Dict, plan: Dict,
                         labels_to_add: List[str] = None,
                         close_issue: bool = False,
                         comment_marker: str = "") -> Dict:
         """
         Execute full resolution workflow on an issue
-        
+
         Args:
             issue_num: Issue number
             analysis: AI analysis results
             plan: AI implementation plan
             labels_to_add: Labels to add to issue
             close_issue: Whether to close the issue
-        
+
         Returns:
             Execution result
         """
@@ -373,7 +394,7 @@ class IssueExecutionHandler:
             'timestamp': datetime.now().isoformat(),
             'actions': []
         }
-        
+
         try:
             # Add labels
             if labels_to_add:
@@ -383,7 +404,7 @@ class IssueExecutionHandler:
                     'success': success,
                     'message': msg
                 })
-            
+
             # Add summary comment only if marker is not already present
             should_add_comment = True
             if comment_marker and self.gh.issue_has_comment_marker(issue_num, comment_marker):
@@ -404,7 +425,7 @@ class IssueExecutionHandler:
                     'success': success,
                     'message': msg
                 })
-            
+
             # Close issue if requested
             if close_issue:
                 success, msg = self.gh.update_issue_state(issue_num, 'closed')
@@ -413,16 +434,16 @@ class IssueExecutionHandler:
                     'success': success,
                     'message': msg
                 })
-            
+
             result['success'] = all(a.get('success', False) for a in result['actions'])
-            
+
         except Exception as e:
             result['success'] = False
             result['error'] = str(e)
-        
+
         self.execution_log.append(result)
         return result
-    
+
     def get_execution_log(self) -> List[Dict]:
         """Get log of all executions"""
         return self.execution_log
