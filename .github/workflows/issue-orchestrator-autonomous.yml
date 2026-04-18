@@ -8,6 +8,8 @@ on:
 permissions:
   contents: write
   issues: write
+  pull-requests: write
+  id-token: write
 
 jobs:
   orchestrate:
@@ -21,6 +23,27 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Resolve GitHub token from GSM
+        id: github-auth
+        env:
+          OLLAMA_GSM_ENABLED: "true"
+          GSM_PROJECT: ${{ secrets.GSM_PROJECT || 'gcp-eiq' }}
+          GSM_SECRET_NAME: ${{ secrets.GSM_SECRET_NAME || 'prod-github-token' }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          TOKEN="$(bash scripts/github-actions-token.sh)"
+          echo "::add-mask::$TOKEN"
+          printf 'token=%s\n' "$TOKEN" >> "$GITHUB_OUTPUT"
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -36,7 +59,6 @@ jobs:
           OLLAMA_GSM_ENABLED: "true"
           GSM_PROJECT: ${{ secrets.GSM_PROJECT || 'gcp-eiq' }}
           GSM_SECRET_NAME: ${{ secrets.GSM_SECRET_NAME || 'prod-github-token' }}
-          OLLAMA_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           chmod +x scripts/run_issue_orchestrator_idempotent.sh
           scripts/run_issue_orchestrator_idempotent.sh .github/issue-orchestrator.iac.json
@@ -44,7 +66,7 @@ jobs:
       - name: Create/update PR with immutable state artifacts
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.github-auth.outputs.token }}
           commit-message: "cmd/github-issues: persist autonomous issue orchestration state"
           branch: "automation/issue-orchestrator-state"
           title: "cmd/github-issues: persist autonomous orchestration state"

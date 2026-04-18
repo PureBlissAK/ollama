@@ -27,7 +27,7 @@ set +e
 # =============================================================================
 # CONFIGURATION
 # =============================================================================
-PROJECT_ROOT="/home/akushnir/ollama"
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PMO_FILE="${PROJECT_ROOT}/pmo.yaml"
 REPORT_FILE="${PROJECT_ROOT}/docs/reports/lz-compliance-report.md"
 TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")

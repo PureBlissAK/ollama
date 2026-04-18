@@ -4,7 +4,7 @@
   "open_issue_count": 294,
   "lane_count": 4,
   "batch_size": 12,
-  "ollama_host": "http://192.168.168.42:11434",
+  "ollama_host": "http://127.0.0.1:11434",
   "available_models": [
     "phi3-fast:latest",
     "llama3:8b",

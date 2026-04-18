@@ -6,6 +6,15 @@
 
 set -e
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+if [ -f "${PROJECT_ROOT}/scripts/host-profile.sh" ]; then
+    # shellcheck source=/dev/null
+    source "${PROJECT_ROOT}/scripts/host-profile.sh"
+    load_host_profile "${PROJECT_ROOT}"
+fi
+
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 YELLOW='\033[1;33m'
@@ -16,6 +25,7 @@ PROJECT_ID="$(gcloud config get-value project)"
 NEG_NAME="ollama-internet-neg"
 BACKEND_SERVICE_NAME="ollama-backend"
 BACKEND_FQDN="elevatediq.ai"  # Use public domain that resolves to your server
+BACKEND_HOST="${BACKEND_HOST:-localhost}"
 BACKEND_PORT="11000"
 
 echo -e "${BLUE}═══════════════════════════════════════════════════════════${NC}"
@@ -24,7 +34,7 @@ echo -e "${BLUE}═════════════════════�
 echo ""
 
 echo -e "${YELLOW}⚠ IMPORTANT:${NC}"
-echo -e "  For GCP Load Balancer to reach your backend at 192.168.168.42:11000,"
+echo -e "  For GCP Load Balancer to reach your backend at ${BACKEND_HOST}:${BACKEND_PORT},"
 echo -e "  you need a publicly accessible endpoint."
 echo -e ""
 echo -e "  ${YELLOW}OPTIONS:${NC}"
@@ -33,7 +43,7 @@ echo -e "  2. Use a public IP with firewall rules"
 echo -e "  3. Deploy the backend on a GCE instance"
 echo -e "  4. Use Cloud Run or other GCP services"
 echo -e ""
-echo -e "${RED}Current limitation:${NC} 192.168.168.42 is a private IP"
+echo -e "${RED}Current limitation:${NC} ${BACKEND_HOST} is not publicly reachable"
 echo -e "${RED}GCP Load Balancer cannot route to private IPs directly${NC}"
 echo -e ""
 
@@ -48,7 +58,7 @@ if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     echo -e "${GREEN}1. Reverse Proxy Setup (Recommended):${NC}"
     echo -e "   - Deploy nginx on a GCE instance"
     echo -e "   - Configure Cloud VPN to connect to your network"
-    echo -e "   - Proxy requests to 192.168.168.42:11000"
+    echo -e "   - Proxy requests to ${BACKEND_HOST}:${BACKEND_PORT}"
     echo ""
     echo -e "${GREEN}2. SSH Tunnel:${NC}"
     echo -e "   - Set up persistent SSH tunnel from GCE to your server"

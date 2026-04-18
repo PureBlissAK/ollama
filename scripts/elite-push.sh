@@ -12,27 +12,28 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # Set Python command
-VENV_PYTHON="/home/akushnir/ollama/venv/bin/python"
-VENV_PYTEST="/home/akushnir/ollama/venv/bin/pytest"
-VENV_MYPY="/home/akushnir/ollama/venv/bin/mypy"
-VENV_RUFF="/home/akushnir/ollama/venv/bin/ruff"
-VENV_PIPAUDIT="/home/akushnir/ollama/venv/bin/pip-audit"
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+VENV_PYTHON="${PROJECT_ROOT}/venv/bin/python"
+VENV_PYTEST="${PROJECT_ROOT}/venv/bin/pytest"
+VENV_MYPY="${PROJECT_ROOT}/venv/bin/mypy"
+VENV_RUFF="${PROJECT_ROOT}/venv/bin/ruff"
+VENV_PIPAUDIT="${PROJECT_ROOT}/venv/bin/pip-audit"
 
 echo -e "${BLUE}🚀 Starting Elite Push process...${NC}"
 
 # 1. Folder Structure Validation
 echo -e "${YELLOW}🔍 Step 1: Validating folder structure...${NC}"
-$VENV_PYTHON scripts/validate_folder_structure.py --strict
+$VENV_PYTHON "$PROJECT_ROOT/scripts/validate_folder_structure.py" --strict
 echo -e "${GREEN}✅ Folder structure is compliant.${NC}"
 
 # 2. Type Checking
 echo -e "${YELLOW}🔍 Step 2: Running type checking (mypy)...${NC}"
-$VENV_MYPY ollama/ --strict
+$VENV_MYPY "$PROJECT_ROOT/ollama/" --strict
 echo -e "${GREEN}✅ Type checking passed.${NC}"
 
 # 3. Linting
 echo -e "${YELLOW}🔍 Step 3: Running linting (ruff)...${NC}"
-$VENV_RUFF check ollama/
+$VENV_RUFF check "$PROJECT_ROOT/ollama/"
 echo -e "${GREEN}✅ Linting passed.${NC}"
 
 # 4. Security Audit
@@ -42,7 +43,7 @@ echo -e "${GREEN}✅ Security audit passed.${NC}"
 
 # 5. Tests and Coverage
 echo -e "${YELLOW}🔍 Step 5: Running tests and checking coverage (pytest)...${NC}"
-$VENV_PYTEST tests/ -v --cov=ollama --cov-report=term-missing --cov-fail-under=90
+$VENV_PYTEST "$PROJECT_ROOT/tests/" -v --cov=ollama --cov-report=term-missing --cov-fail-under=90
 echo -e "${GREEN}✅ All tests passed with >=90% coverage.${NC}"
 
 # 6. Git Status and Staging

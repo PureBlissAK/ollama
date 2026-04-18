@@ -34,6 +34,10 @@ python3 cmd/github-issues/orchestrator_enhanced.py \
 **Do NOT use** `OLLAMA_GSM_PROJECT_ID` with a placeholder value or `github-token`
 as the secret name — the actual secret is `prod-github-token` in project `gcp-eiq`.
 
+GitHub Actions workflows that need the PAT should authenticate to Google Cloud with `WIF_PROVIDER` and `WIF_SERVICE_ACCOUNT`, then resolve the token through `scripts/github-actions-token.sh` with `OLLAMA_GSM_ENABLED=true`, `GSM_PROJECT=gcp-eiq`, and `GSM_SECRET_NAME=prod-github-token`.
+
+The helper script returns the PAT so downstream steps can export it as `GITHUB_TOKEN` or pass it directly to GitHub Actions that need a token input.
+
 ---
 
 ## Google Secret Manager (GSM) Integration

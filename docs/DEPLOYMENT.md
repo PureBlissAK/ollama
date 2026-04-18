@@ -3,6 +3,7 @@
 ## Table of Contents
 - [Local Development](#local-development)
 - [Docker Compose](#docker-compose)
+- [On-Prem Deployment Model](#on-prem-deployment-model)
 - [Production Deployment](#production-deployment)
 - [Environment Variables](#environment-variables)
 - [Database Migrations](#database-migrations)
@@ -86,19 +87,27 @@ cp .env.example .env.prod
 nano .env.prod
 
 # Start production stack
-docker-compose -f docker-compose.prod.yml up -d
+docker-compose -f docker/docker-compose.prod.yml up -d
 
 # Check health
 curl http://localhost:8000/health
 
 # View logs
-docker-compose -f docker-compose.prod.yml logs -f
+docker-compose -f docker/docker-compose.prod.yml logs -f
 
 # Scale API workers
-docker-compose -f docker-compose.prod.yml up -d --scale api=4
+docker-compose -f docker/docker-compose.prod.yml up -d --scale api=4
 ```
 
+## On-Prem Execution Index
+
+Use [On-Prem Execution Index](operations/ON_PREM_EXECUTION_INDEX.md) as the shared entry point for target-server-local workflows. The underlying SSOT remains [On-Prem Deployment Model](operations/ON_PREM_DEPLOYMENT_MODEL.md).
+
+Keep host-specific values in the checked-in inventories and keep runtime state in declared volumes or other IaC-managed storage.
+
 ## Production Deployment
+
+The cloud-oriented examples below are retained for legacy reference. For on-prem bare-metal and development-node runs, prefer the target-server-local flow above.
 
 ### AWS Deployment
 
@@ -136,10 +145,10 @@ cp .env.example .env.prod
 nano .env.prod  # Configure production settings
 
 # Build and start
-docker-compose -f docker-compose.prod.yml up -d --build
+docker-compose -f docker/docker-compose.prod.yml up -d --build
 
 # Check logs
-docker-compose -f docker-compose.prod.yml logs -f api
+docker-compose -f docker/docker-compose.prod.yml logs -f api
 ```
 
 #### 3. Setup SSL with Let's Encrypt
@@ -156,7 +165,7 @@ sudo cp nginx/nginx.conf.example nginx/nginx.conf
 sudo nano nginx/nginx.conf  # Update domain and SSL paths
 
 # Restart services
-docker-compose -f docker-compose.prod.yml restart nginx
+docker-compose -f docker/docker-compose.prod.yml restart nginx
 ```
 
 ### GCP Deployment

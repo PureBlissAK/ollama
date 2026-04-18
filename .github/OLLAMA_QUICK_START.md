@@ -2,7 +2,7 @@
 
 ## What You Now Have
 
-✅ **Local Ollama Instance** (192.168.168.42:11434)
+✅ **Local Ollama Instance** (via `OLLAMA_HOST` or the host profile)
 - 4 models available: Mistral 7B, Llama3 8B, Phi3 Mini, Phi3 Fast
 - Can classify 297 issues in parallel while Copilot works
 - **No rate limits**, **No API costs**, **On-premises**
@@ -24,12 +24,14 @@ cd /home/coder/ollama
 # Classify 50 issues with fast model (1 minute)
 python3 scripts/ollama_local_classifier.py \
   --limit 50 \
-  --model phi3-fast:latest
+  --model phi3-fast:latest \
+  --host "${OLLAMA_HOST:-http://127.0.0.1:11434}"
 
 # Or with best quality (2 minutes)
 python3 scripts/ollama_local_classifier.py \
   --limit 100 \
-  --model mistral:7b
+  --model mistral:7b \
+  --host "${OLLAMA_HOST:-http://127.0.0.1:11434}"
 ```
 
 ### Option B: Full Parallel Execution
@@ -37,7 +39,8 @@ python3 scripts/ollama_local_classifier.py \
 # Terminal 1: Start Ollama worker (background)
 python3 scripts/parallel_triage_with_ollama.py \
   --batch 150 \
-  --model mistral:7b &
+  --model mistral:7b \
+  --ollama-host "${OLLAMA_HOST:-http://127.0.0.1:11434}" &
 
 # Terminal 2: Continue with other triage work
 python3 scripts/run_autonomous_issue_cycle.py --config .github/autonomous_cycle.iac.json
@@ -51,7 +54,7 @@ git add .github/ollama_*.json && git commit -m "triage: ollama classification en
 # Run quick benchmark on each model
 for model in phi3-fast llama3:8b mistral:7b phi3:mini; do
   echo "Testing $model..."
-  time python3 scripts/ollama_local_classifier.py --limit 10 --model "$model"
+  time python3 scripts/ollama_local_classifier.py --limit 10 --model "$model" --host "${OLLAMA_HOST:-http://127.0.0.1:11434}"
   echo ""
 done
 ```
@@ -197,10 +200,10 @@ Latest Commit: 2a6edf7da
 
 ## Troubleshooting
 
-**"Cannot connect to 192.168.168.42"**
+**"Cannot connect to the local Ollama host"**
 ```bash
-curl -s http://192.168.168.42:11434/api/tags | head -20
-# Should show available models; if not, Ollama may be down
+curl -s "${OLLAMA_HOST:-http://127.0.0.1:11434}/api/tags" | head -20
+# Should show available models; if not, Ollama may be down or the host profile may need to be loaded
 ```
 
 **"Too slow, want faster results"**

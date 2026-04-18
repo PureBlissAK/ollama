@@ -7,6 +7,25 @@
 
 set -e
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+COMPOSE_FILE="${PROJECT_ROOT}/docker/docker-compose.elite.yml"
+
+compose_cmd() {
+    if command -v docker-compose &>/dev/null; then
+        echo docker-compose
+        return
+    fi
+
+    if docker compose version &>/dev/null; then
+        echo docker compose
+        return
+    fi
+
+    log_error "Docker Compose not installed"
+    exit 1
+}
+
 # Configuration
 POSTGRES_HOST="${POSTGRES_HOST:-postgres}"
 POSTGRES_PORT="${POSTGRES_PORT:-5432}"
@@ -76,7 +95,8 @@ fi
 # Stop dependent services
 # ============================================================================
 log_info "Stopping dependent services..."
-docker-compose -f docker-compose.elite.yml stop ollama-api grafana
+DOCKER_COMPOSE="$(compose_cmd)"
+$DOCKER_COMPOSE -f "$COMPOSE_FILE" stop ollama-api grafana
 
 # ============================================================================
 # Restore database
@@ -115,7 +135,7 @@ log_info "Tables restored: ${TABLE_COUNT}"
 # Restart services
 # ============================================================================
 log_info "Restarting services..."
-docker-compose -f docker-compose.elite.yml start ollama-api grafana
+$DOCKER_COMPOSE -f "$COMPOSE_FILE" start ollama-api grafana
 
 log_info "Restore completed successfully at $(date)"
 log_info "Restore log: /tmp/restore.log"

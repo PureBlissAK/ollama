@@ -3,6 +3,25 @@
 # Usage: ./scripts/onboard.sh [--dry-run] [--yes]
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+COMPOSE_FILE="${PROJECT_ROOT}/docker/docker-compose.local.yml"
+
+compose_cmd() {
+  if command -v docker-compose &>/dev/null; then
+    echo docker-compose
+    return
+  fi
+
+  if docker compose version &>/dev/null; then
+    echo docker compose
+    return
+  fi
+
+  echo "Docker Compose is not installed"
+  exit 1
+}
+
 DRY_RUN=false
 ASSUME_YES=false
 
@@ -40,6 +59,7 @@ confirm() {
 echo "== Ollama Onboarding Helper =="
 
 # 1) Virtualenv and dependencies
+cd "$PROJECT_ROOT"
 if [ ! -d "venv" ]; then
   run "python3 -m venv venv"
 fi
@@ -63,6 +83,8 @@ if [ -f ".pre-commit-config.yaml" ]; then
 fi
 
 # 3) Env file setup
+cd "$PROJECT_ROOT"
+
 if [ ! -f ".env.dev" ]; then
   run "cp .env.example .env.dev"
   REAL_IP=$(hostname -I | awk '{print $1}')
@@ -72,8 +94,9 @@ fi
 
 # 4) Docker stack (optional)
 if confirm "Start local Docker compose stack (docker-compose.local.yml)?"; then
-  if [ -f "docker-compose.local.yml" ]; then
-    run "docker-compose -f docker-compose.local.yml up -d --remove-orphans --build"
+  if [ -f "$COMPOSE_FILE" ]; then
+    DOCKER_COMPOSE="$(compose_cmd)"
+    run "$DOCKER_COMPOSE -f \"$COMPOSE_FILE\" up -d --remove-orphans --build"
   else
     echo "docker-compose.local.yml not found, skipping"
   fi
@@ -82,7 +105,8 @@ fi
 # 5) DB migrations
 if confirm "Run DB migrations (alembic upgrade head)?"; then
   if [ -f "alembic.ini" ] || [ -d "alembic" ]; then
-    run "docker-compose exec -T api alembic upgrade head || alembic upgrade head"
+    DOCKER_COMPOSE="$(compose_cmd)"
+    run "$DOCKER_COMPOSE -f \"$COMPOSE_FILE\" exec -T api alembic upgrade head || alembic upgrade head"
   else
     echo "No alembic configuration found, skipping migrations"
   fi

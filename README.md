@@ -45,7 +45,8 @@ Ollama is a sophisticated full-stack AI platform designed for engineers who dema
 
 ## Documentation
 
-**📚 Complete Documentation Portal**: [docs/INDEX.md](docs/INDEX.md)
+**📚 Complete Documentation Portal**: [docs/shared/README.md](docs/shared/README.md)
+- 📘 [Repository Instructions](docs/instructions/README.md) - canonical instruction index for `.github/`
 
 ### Quick Links
 
@@ -61,6 +62,13 @@ Ollama is a sophisticated full-stack AI platform designed for engineers who dema
 
 **Operations**:
 - 🚢 [Deployment Guide](docs/DEPLOYMENT.md) - Production deployment procedures
+- 🧭 [Shared Documentation Navigation](docs/shared/README.md) - Canonical shared navigation layer
+- 📚 [Documentation SSOT](docs/meta/README.md) - Canonical docs map and ownership rules
+- 🏠 [On-Prem Deployment Model](docs/operations/ON_PREM_DEPLOYMENT_MODEL.md) - Target-server-local execution and host inventories
+- 🧭 [On-Prem Execution Index](docs/operations/ON_PREM_EXECUTION_INDEX.md) - Target-server-local operations navigation
+- 📐 [Repository Rules](docs/repo-rules/README.md) - Canonical repo rules and naming constraints
+- 🧱 [Documentation Meta](docs/meta/README.md) - documentation layers and ownership
+- 🔤 [Standard Naming Convention](docs/snc/README.md) - canonical naming rules
 - 📊 [Monitoring & Observability](docs/monitoring.md) - Metrics, logs, and alerts
 - 📖 [Operational Runbooks](docs/RUNBOOKS.md) - Incident response procedures
 
@@ -76,7 +84,7 @@ Ollama is a sophisticated full-stack AI platform designed for engineers who dema
 
 ### All Documentation
 
-Browse the complete [Documentation Index](docs/INDEX.md) for all guides organized by category.
+Browse the complete [Shared Documentation Navigation](docs/shared/README.md) for the canonical guide map, or the [Indexed Documentation Hub](docs/indexed/README.md) for legacy compatibility snapshots.
 
 ## Development & Contributing
 
@@ -85,7 +93,7 @@ Browse the complete [Documentation Index](docs/INDEX.md) for all guides organize
 - 📖 [Development Setup Guide](docs/setup/DEVELOPMENT_SETUP.md) - Complete environment setup for developers
 - 🤝 [Contributing Guidelines](docs/CONTRIBUTING.md) - How to contribute
 - 📋 [Standards & Compliance](docs/reports/COPILOT_COMPLIANCE_REPORT.md) - Development standards
-- 🔍 [Documentation Index](docs/INDEX.md) - All documentation organized by topic
+- 🔍 [Shared Documentation Navigation](docs/shared/README.md) - All documentation organized by topic
 - 📝 [Incomplete Tasks](docs/reports/INCOMPLETE_TASKS_CONSOLIDATED.md) - Outstanding work items and roadmap
 
 ### Quality Assurance
@@ -225,7 +233,7 @@ cd ollama
 # Start the stack (development uses real IP, NOT localhost)
 export REAL_IP=$(hostname -I | awk '{print $1}')
 sed -i "s|PUBLIC_API_URL=.*|PUBLIC_API_URL=http://$REAL_IP:8000|" .env.dev
-docker-compose -f docker-compose.local.yml up -d
+docker-compose -f docker/docker-compose.local.yml up -d
 
 # Verify health via real IP
 curl -s http://$REAL_IP:8000/health | jq .
@@ -402,10 +410,10 @@ cp .env.example .env
 nano .env  # Set GPU, RAM, model paths
 
 # Start production stack
-docker-compose -f docker-compose.prod.yml up -d
+docker-compose -f docker/docker-compose.prod.yml up -d
 
 # Verify services
-docker-compose ps
+docker-compose -f docker/docker-compose.prod.yml ps
 curl http://localhost:8000/health
 ```
 

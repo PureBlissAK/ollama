@@ -17,6 +17,22 @@ NC='\033[0m' # No Color
 # Get directory where script is located
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 PROJECT_ROOT="$( cd "$SCRIPT_DIR/.." && pwd )"
+COMPOSE_FILE="${PROJECT_ROOT}/docker/docker-compose.local.yml"
+
+compose_cmd() {
+    if command -v docker-compose &> /dev/null; then
+        echo docker-compose
+        return
+    fi
+
+    if docker compose version &> /dev/null; then
+        echo docker compose
+        return
+    fi
+
+    log_error "Docker Compose is not installed"
+    exit 1
+}
 
 # Functions
 log_info() {
@@ -70,8 +86,12 @@ setup_environment() {
 
     if [ ! -f "$PROJECT_ROOT/.env.local" ]; then
         log_warning ".env.local not found, creating from template..."
-        cp "$PROJECT_ROOT/.env.local" "$PROJECT_ROOT/.env.local.bak" 2>/dev/null || true
-        log_success "Created .env.local"
+        if [ -f "$PROJECT_ROOT/.env.example" ]; then
+            cp "$PROJECT_ROOT/.env.example" "$PROJECT_ROOT/.env.local"
+            log_success "Created .env.local from .env.example"
+        else
+            log_warning ".env.example not found; skipping .env.local creation"
+        fi
     else
         log_success ".env.local exists"
     fi
@@ -84,20 +104,15 @@ start_services() {
 
     cd "$PROJECT_ROOT"
 
-    # Use docker-compose or docker compose
-    if command -v docker-compose &> /dev/null; then
-        DOCKER_COMPOSE="docker-compose"
-    else
-        DOCKER_COMPOSE="docker compose"
-    fi
+    DOCKER_COMPOSE="$(compose_cmd)"
 
     # Build images
     log_info "Building Docker images..."
-    $DOCKER_COMPOSE -f docker-compose.local.yml build --no-cache
+    $DOCKER_COMPOSE -f "$COMPOSE_FILE" build --no-cache
 
     # Start services
     log_info "Starting containers..."
-    $DOCKER_COMPOSE -f docker-compose.local.yml up -d
+    $DOCKER_COMPOSE -f "$COMPOSE_FILE" up -d
 
     # Wait for services to be healthy
     log_info "Waiting for services to be healthy..."
@@ -106,7 +121,7 @@ start_services() {
     local attempt=0
 
     while [ $attempt -lt $max_attempts ]; do
-        if $DOCKER_COMPOSE -f docker-compose.local.yml ps | grep -q "healthy"; then
+        if $DOCKER_COMPOSE -f "$COMPOSE_FILE" ps | grep -q "healthy"; then
             log_success "Services are healthy"
             break
         fi
@@ -119,7 +134,7 @@ start_services() {
     if [ $attempt -eq $max_attempts ]; then
         log_warning "Services took longer than expected"
         log_info "Checking service status..."
-        $DOCKER_COMPOSE -f docker-compose.local.yml ps
+        $DOCKER_COMPOSE -f "$COMPOSE_FILE" ps
     fi
 }
 
@@ -188,7 +203,7 @@ display_status() {
     echo "  3. Check health:  curl http://127.0.0.1:8000/health"
     echo ""
     echo "View logs:"
-    echo "  docker-compose -f docker-compose.local.yml logs -f"
+    echo "  $(compose_cmd) -f ${COMPOSE_FILE} logs -f"
     echo ""
 }
 

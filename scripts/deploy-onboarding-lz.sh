@@ -22,7 +22,7 @@ for arg in "$@"; do
     fi
 done
 
-PROJECT_ROOT="/home/akushnir/ollama"
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PMO_FILE="${PROJECT_ROOT}/pmo.yaml"
 PROJECT_ID=$(gcloud config get-value project 2>/dev/null || echo "gcp-eiq")
 REGION="us-central1"

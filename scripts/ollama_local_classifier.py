@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """
 Local Ollama Model Integration for Issue Classification
-Uses running Ollama instance on 192.168.168.42 to classify issues in parallel.
+Uses a local Ollama instance, configured via OLLAMA_HOST or the host profile,
+to classify issues in parallel.
 Supports: Mistral, Llama3, Phi3 models for efficient triage.
 """
 
 import json
 import argparse
+import os
 import sys
 from pathlib import Path
 from typing import Dict, List
@@ -15,14 +17,14 @@ import urllib.request
 import urllib.error
 import re
 
-OLLAMA_HOST = "http://192.168.168.42:11434"
+DEFAULT_OLLAMA_HOST = os.environ.get("OLLAMA_HOST", "http://127.0.0.1:11434")
 DEFAULT_MODEL = "mistral:7b"  # Fast, good reasoning for classification
 
 
 class OllamaClassifier:
     """Interface to local Ollama instance for issue classification."""
 
-    def __init__(self, host: str = OLLAMA_HOST, model: str = DEFAULT_MODEL):
+    def __init__(self, host: str = DEFAULT_OLLAMA_HOST, model: str = DEFAULT_MODEL):
         self.host = host
         self.model = model
         self.api_url = f"{host}/api/generate"
@@ -163,11 +165,15 @@ Respond with JSON only:
 
 
 def batch_classify_from_queue(
-    queue_file: Path, output_file: Path, model: str = DEFAULT_MODEL, limit: int = 0
+    queue_file: Path,
+    output_file: Path,
+    model: str = DEFAULT_MODEL,
+    limit: int = 0,
+    host: str = DEFAULT_OLLAMA_HOST,
 ) -> None:
     """Classify issues from agent-ready queue using local Ollama."""
 
-    classifier = OllamaClassifier(model=model)
+    classifier = OllamaClassifier(host=host, model=model)
 
     # Check available models
     available = classifier.check_available_models()
@@ -275,6 +281,11 @@ def main():
         help=f"Ollama model to use (default: {DEFAULT_MODEL})",
     )
     parser.add_argument(
+        "--host",
+        default=DEFAULT_OLLAMA_HOST,
+        help="Ollama host URL (default: $OLLAMA_HOST or http://127.0.0.1:11434)",
+    )
+    parser.add_argument(
         "--limit", "-l",
         type=int,
         default=0,
@@ -289,14 +300,14 @@ def main():
     args = parser.parse_args()
 
     if args.check_models:
-        classifier = OllamaClassifier()
+        classifier = OllamaClassifier(host=args.host)
         available = classifier.check_available_models()
         print("Available Ollama models:")
         for model in available:
             print(f"  - {model}")
         return
 
-    batch_classify_from_queue(args.queue, args.output, args.model, args.limit)
+    batch_classify_from_queue(args.queue, args.output, args.model, args.limit, args.host)
 
 
 if __name__ == "__main__":

@@ -29,15 +29,26 @@ log_warning() {
 # Get project root
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 PROJECT_ROOT="$( cd "$SCRIPT_DIR/.." && pwd )"
+COMPOSE_FILE="${PROJECT_ROOT}/docker/docker-compose.local.yml"
+
+compose_cmd() {
+    if command -v docker-compose &> /dev/null; then
+        echo docker-compose
+        return
+    fi
+
+    if docker compose version &> /dev/null; then
+        echo docker compose
+        return
+    fi
+
+    echo "Docker Compose is not installed"
+    exit 1
+}
 
 cd "$PROJECT_ROOT"
 
-# Use docker-compose or docker compose
-if command -v docker-compose &> /dev/null; then
-    DOCKER_COMPOSE="docker-compose"
-else
-    DOCKER_COMPOSE="docker compose"
-fi
+DOCKER_COMPOSE="$(compose_cmd)"
 
 echo ""
 log_info "Stopping local development stack..."
@@ -50,7 +61,7 @@ if [ "$1" == "--cleanup" ] || [ "$1" == "-c" ]; then
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         log_info "Removing containers, networks, and volumes..."
-        $DOCKER_COMPOSE -f docker-compose.local.yml down -v
+        $DOCKER_COMPOSE -f "$COMPOSE_FILE" down -v
         log_success "All services stopped and volumes removed"
     else
         log_info "Cleanup cancelled"
@@ -58,7 +69,7 @@ if [ "$1" == "--cleanup" ] || [ "$1" == "-c" ]; then
     fi
 else
     log_info "Stopping containers (data will be preserved)..."
-    $DOCKER_COMPOSE -f docker-compose.local.yml stop
+    $DOCKER_COMPOSE -f "$COMPOSE_FILE" stop
     log_success "All services stopped"
 fi
 

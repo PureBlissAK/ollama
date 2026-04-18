@@ -2,7 +2,7 @@ version: "3.9"
 
 # ╔══════════════════════════════════════════════════════════════════════════╗
 # ║  OLLAMA ELITE DEPLOYMENT - IMMUTABLE INFRASTRUCTURE                      ║
-# ║  Local Docker Host: 192.168.168.42                                       ║
+# ║  Local Docker Host: target server                                        ║
 # ║  Public Endpoint: https://elevatediq.ai/ollama (GCP Load Balancer)      ║
 # ╠══════════════════════════════════════════════════════════════════════════╣
 # ║  GCP LANDING ZONE COMPLIANCE                                             ║

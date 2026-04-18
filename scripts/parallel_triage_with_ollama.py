@@ -8,18 +8,28 @@ to accelerate issue assessment and categorization.
 import json
 import threading
 import argparse
+import os
 import sys
 from pathlib import Path
 from datetime import datetime
 import subprocess
 
+DEFAULT_OLLAMA_HOST = os.environ.get("OLLAMA_HOST", "http://127.0.0.1:11434")
+
 class LocalOllamaTriageWorker:
     """Worker thread for parallel Ollama-based issue classification."""
 
-    def __init__(self, queue_file: Path, model: str = "mistral:7b", batch_size: int = 20):
+    def __init__(
+        self,
+        queue_file: Path,
+        model: str = "mistral:7b",
+        batch_size: int = 20,
+        host: str = DEFAULT_OLLAMA_HOST,
+    ):
         self.queue_file = queue_file
         self.model = model
         self.batch_size = batch_size
+        self.host = host
         self.results = []
         self.error = None
 
@@ -35,6 +45,7 @@ class LocalOllamaTriageWorker:
                 "--queue", str(self.queue_file),
                 "--output", str(output),
                 "--model", self.model,
+                "--host", self.host,
                 "--limit", str(self.batch_size),
             ]
 
@@ -54,7 +65,12 @@ class LocalOllamaTriageWorker:
             print(f"✗ Worker error: {e}")
 
 
-def run_parallel_triage(queue_file: Path, model: str = "mistral:7b", batch_size: int = 20):
+def run_parallel_triage(
+    queue_file: Path,
+    model: str = "mistral:7b",
+    batch_size: int = 20,
+    host: str = DEFAULT_OLLAMA_HOST,
+):
     """
     Run Ollama classification in parallel with other triage work.
 
@@ -68,11 +84,11 @@ def run_parallel_triage(queue_file: Path, model: str = "mistral:7b", batch_size:
     print(f"  Queue file: {queue_file}")
     print(f"  Ollama model: {model}")
     print(f"  Batch size: {batch_size}")
-    print(f"  Host: 192.168.168.42:11434")
+    print(f"  Host: {host}")
 
     # Start Ollama worker thread
     print(f"\n🚀 Starting Ollama classification worker (non-blocking)...")
-    worker = LocalOllamaTriageWorker(queue_file, model, batch_size)
+    worker = LocalOllamaTriageWorker(queue_file, model, batch_size, host)
     thread = threading.Thread(target=worker.run, daemon=False)
     thread.start()
 
@@ -129,7 +145,7 @@ def create_unified_report(github_report: Path, ollama_results: dict, output: Pat
         "timestamp": datetime.utcnow().isoformat() + "Z",
         "sources": {
             "github_api": str(github_report) if github_report else "none",
-            "ollama_local": "192.168.168.42:11434",
+            "ollama_local": host,
         },
         "github_triage_summary": github_data,
         "ollama_enrichment": {
@@ -181,6 +197,11 @@ def main():
         help="Number of issues to classify (default: 20)",
     )
     parser.add_argument(
+        "--ollama-host",
+        default=DEFAULT_OLLAMA_HOST,
+        help="Ollama host URL (default: $OLLAMA_HOST or http://127.0.0.1:11434)",
+    )
+    parser.add_argument(
         "--wait",
         action="store_true",
         help="Wait for completion instead of returning immediately",
@@ -194,7 +215,7 @@ def main():
     args = parser.parse_args()
 
     # Run parallel classification
-    results, error = run_parallel_triage(args.queue, args.model, args.batch)
+    results, error = run_parallel_triage(args.queue, args.model, args.batch, args.ollama_host)
 
     if error:
         sys.exit(1)

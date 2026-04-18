@@ -6,6 +6,14 @@
 
 set -e
 
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+if [ -f "${PROJECT_ROOT}/scripts/host-profile.sh" ]; then
+    # shellcheck source=/dev/null
+    source "${PROJECT_ROOT}/scripts/host-profile.sh"
+    load_host_profile "${PROJECT_ROOT}"
+fi
+
 # Colors
 GREEN='\033[0;32m'
 RED='\033[0;31m'
@@ -31,7 +39,7 @@ TARGET_PROXY_NAME="ollama-target-proxy"
 FORWARDING_RULE_NAME="ollama-forwarding-rule"
 SSL_CERT_NAME="ollama-ssl-cert"
 DOMAIN="elevatediq.ai"
-BACKEND_IP="192.168.168.42"
+BACKEND_HOST="${BACKEND_HOST:-localhost}"
 BACKEND_PORT="11000"
 
 print_header() {
@@ -338,7 +346,7 @@ if [ -n "$LB_IP" ]; then
     echo -e "${GREEN}✓ Load Balancer Configuration:${NC}"
     echo -e "  Public IP: ${LB_IP}"
     echo -e "  Domain: ollama.${DOMAIN}"
-    echo -e "  Backend: ${BACKEND_IP}:${BACKEND_PORT}"
+    echo -e "  Backend: ${BACKEND_HOST}:${BACKEND_PORT}"
     echo -e "  SSL: Managed certificate (provisioning...)"
     echo -e ""
     echo -e "${YELLOW}⚠ Next Steps:${NC}"
@@ -350,7 +358,7 @@ fi
 
 echo -e ""
 echo -e "${BLUE}To test backup:${NC}"
-echo -e "  cd /home/akushnir/ollama"
+echo -e "  cd ${PROJECT_ROOT}"
 echo -e "  source .env.production"
 echo -e "  ./scripts/sync-to-gcs.sh"
 

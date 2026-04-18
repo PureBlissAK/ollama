@@ -2,7 +2,7 @@
 
 ## 🚀 Quick Summary
 
-You now have **parallel local AI agents** running on 192.168.168.42 that classify issues **while** your Copilot work continues.
+You now have **parallel local AI agents** running via `OLLAMA_HOST` or the target-server host profile that classify issues **while** your Copilot work continues.
 
 ### Performance Achieved
 - **25 issues classified in 10.3 seconds**
@@ -72,7 +72,8 @@ You now have **parallel local AI agents** running on 192.168.168.42 that classif
 # 1. Classify all 297 issues with Ollama (2 minutes)
 python3 scripts/ollama_local_classifier.py \
   --limit 0 \
-  --model phi3-fast:latest
+  --model phi3-fast:latest \
+  --host "${OLLAMA_HOST:-http://127.0.0.1:11434}"
 
 # 2. While waiting, or after:
 # Run autonomous cycles and other triage work
@@ -84,7 +85,8 @@ python3 scripts/run_autonomous_issue_cycle.py --config .github/autonomous_cycle.
 # Terminal 1: Start Ollama worker (background)
 python3 scripts/parallel_triage_with_ollama.py \
   --batch 150 \
-  --model mistral:7b &
+  --model mistral:7b \
+  --ollama-host "${OLLAMA_HOST:-http://127.0.0.1:11434}" &
 
 # Terminal 2: Continue with other work immediately
 python3 scripts/run_autonomous_issue_cycle.py --config .github/autonomous_cycle.iac.json
@@ -143,19 +145,19 @@ Ensure workload is evenly distributed:
 
 ### Classify All Issues (Fast)
 ```bash
-python3 scripts/ollama_local_classifier.py --limit 0 --model phi3-fast:latest
+python3 scripts/ollama_local_classifier.py --limit 0 --model phi3-fast:latest --host "${OLLAMA_HOST:-http://127.0.0.1:11434}"
 # Expected: ~4 minutes for all 297 issues
 ```
 
 ### Classify with Best Quality
 ```bash
-python3 scripts/ollama_local_classifier.py --limit 0 --model llama3:8b
+python3 scripts/ollama_local_classifier.py --limit 0 --model llama3:8b --host "${OLLAMA_HOST:-http://127.0.0.1:11434}"
 # Expected: ~6 minutes for all 297 issues
 ```
 
 ### Run Parallel Triage
 ```bash
-python3 scripts/parallel_triage_with_ollama.py --batch 150 --model mistral:7b
+python3 scripts/parallel_triage_with_ollama.py --batch 150 --model mistral:7b --ollama-host "${OLLAMA_HOST:-http://127.0.0.1:11434}"
 # Ollama runs in background while you continue work
 ```
 
@@ -196,7 +198,7 @@ Each issue will have:
 
 1. **Start parallel classification NOW:**
    ```bash
-   python3 scripts/parallel_triage_with_ollama.py --batch 150 --model mistral:7b &
+   python3 scripts/parallel_triage_with_ollama.py --batch 150 --model mistral:7b --ollama-host "${OLLAMA_HOST:-http://127.0.0.1:11434}" &
    ```
 
 2. **Monitor progress in another terminal:**
@@ -223,7 +225,7 @@ Each issue will have:
 
 **Setup Status**: ✅ Complete
 **Models Available**: ✅ 4 (Mistral, Llama3, Phi3)
-**Connection**: ✅ Verified to 192.168.168.42:11434
+**Connection**: ✅ Verified via host profile
 **Ready to Execute**: ✅ Yes
 
 **Recommendation**: Start with Mistral 7B for balance of speed and quality.

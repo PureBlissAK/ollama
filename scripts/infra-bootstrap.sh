@@ -12,7 +12,7 @@ RED='\033[0;31m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
-PROJECT_ROOT="/home/akushnir/ollama"
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TF_DIR="${PROJECT_ROOT}/docker/terraform/00-bootstrap"
 PMO_FILE="${PROJECT_ROOT}/pmo.yaml"
 

@@ -18,9 +18,10 @@ For current documentation, see:
 - [README.md](../../README.md) - Project overview
 - [.github/copilot-instructions.md](../../.github/copilot-instructions.md) - Elite standards
 - [docs/](../) - Current documentation
+- [Deep Dives](../deep/README.md) - long-form analysis and deep-scan artifacts
 
 ## Historical Context
 
-These reports document the project's evolution and major milestones. They are kept for historical reference but should not be treated as current guidance.
+These reports document the project's evolution and major milestones. Deep-scan artifacts are indexed from [docs/deep/README.md](../deep/README.md). They are kept for historical reference but should not be treated as current guidance.
 
 For current best practices, refer to the main documentation files.

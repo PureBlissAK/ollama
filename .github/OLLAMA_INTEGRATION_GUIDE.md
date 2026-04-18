@@ -2,8 +2,9 @@
 
 ## Overview
 
-Your Ollama instance at **192.168.168.42:11434** is now integrated with the triage system.
+Your local Ollama instance is now integrated with the triage system.
 This accelerates issue classification by running **parallel local models** alongside Copilot GitHub API work.
+The scripts resolve the host from `OLLAMA_HOST` or the checked-in host profile, so the docs stay target-server-local without hard-coded IPs.
 
 ## Available Models
 
@@ -67,7 +68,7 @@ Each issue receives a JSON classification:
 
 ## Performance Metrics
 
-**Ollama Classification Speed (192.168.168.42):**
+**Ollama Classification Speed (local host):**
 - Mistral 7B: ~15-20 issues/minute
 - Llama3 8B: ~10-15 issues/minute
 - Phi3 3.8B: ~25-30 issues/minute
@@ -148,7 +149,7 @@ Create `.github/ollama_config.json`:
 
 ```json
 {
-  "host": "192.168.168.42:11434",
+  "host": "http://127.0.0.1:11434",
   "default_model": "mistral:7b",
   "classification_models": {
     "priority": "llama3:8b",
@@ -165,13 +166,13 @@ Create `.github/ollama_config.json`:
 
 ## Troubleshooting
 
-**Connection Error: Cannot reach 192.168.168.42**
+**Connection Error: Cannot reach the local Ollama host**
 ```bash
 # Check Ollama status
-curl -s http://192.168.168.42:11434/api/tags | python3 -m json.tool
+curl -s "${OLLAMA_HOST:-http://127.0.0.1:11434}/api/tags" | python3 -m json.tool
 
 # Test connectivity
-timeout 5 curl -v http://192.168.168.42:11434/api/tags
+timeout 5 curl -v "${OLLAMA_HOST:-http://127.0.0.1:11434}/api/tags"
 ```
 
 **Model Takes Too Long**
@@ -193,7 +194,7 @@ python3 scripts/parallel_triage_with_ollama.py --batch 100
 
 1. **Run parallel classification now:**
    ```bash
-   python3 scripts/parallel_triage_with_ollama.py --batch 50
+   python3 scripts/parallel_triage_with_ollama.py --batch 50 --ollama-host "${OLLAMA_HOST:-http://127.0.0.1:11434}"
    ```
 
 2. **Monitor progress:**

@@ -1,6 +1,6 @@
 # Production Configuration
 # Architecture: Ollama runs locally on Docker, public access via GCP Load Balancer
-# - Local: Docker containers on 192.168.168.42:8000
+# - Local: Docker containers on the target server's internal interface
 # - Public: https://elevatediq.ai/ollama (GCP LB with TLS termination)
 # - All AI workloads execute locally, GCP provides ONLY the Load Balancer
 
@@ -13,7 +13,7 @@ server:
   log_level: "INFO"
   request_timeout: 300
   keepalive_timeout: 15
-  
+
   # Security headers
   security_headers:
     strict_transport_security: "max-age=31536000; includeSubDomains; preload"
@@ -21,7 +21,7 @@ server:
     x_frame_options: "DENY"
     x_xss_protection: "1; mode=block"
     content_security_policy: "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"
-  
+
   # Rate limiting for public endpoint
   rate_limiting:
     enabled: true
@@ -51,7 +51,7 @@ models:
     gpu_memory_reserved_mb: 10000
     batch_size: 8
     max_concurrent: 2
-    
+
   mistral:
     source: "huggingface"
     model_id: "mistralai/Mistral-7B-Instruct-v0.1"

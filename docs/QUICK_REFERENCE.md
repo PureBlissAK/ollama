@@ -15,7 +15,7 @@ git clone https://github.com/kushin77/ollama.git && cd ollama && ./scripts/boots
 source venv/bin/activate
 
 # Start services
-docker-compose up -d
+docker-compose -f docker/docker-compose.local.yml up -d
 
 # Run API server
 python -m ollama.server
@@ -46,14 +46,14 @@ pip-audit
 
 ```bash
 # Start full stack
-docker-compose -f docker-compose.prod.yml up -d
+docker-compose -f docker/docker-compose.prod.yml up -d
 
 # Check health
 curl http://localhost:8000/health
 curl http://localhost:9090/api/v1/query?query=up
 
 # View logs
-docker-compose -f docker-compose.prod.yml logs -f ollama-api
+docker-compose -f docker/docker-compose.prod.yml logs -f ollama-api
 ```
 
 ## 🏗 Infrastructure (GCP Landing Zone)
@@ -86,8 +86,8 @@ terraform apply
 | `.copilot-instructions`   | Elite development guidelines |
 | `README.md`               | Complete documentation       |
 | `CONTRIBUTING.md`         | Contribution workflow        |
-| `docker-compose.yml`      | Local development stack      |
-| `docker-compose.prod.yml` | Production stack             |
+| `docker/docker-compose.local.yml` | Local development stack      |
+| `docker/docker-compose.prod.yml`  | Production stack             |
 | `config/development.yaml` | Dev configuration            |
 | `config/production.yaml`  | Prod configuration           |
 | `.env.example`            | Environment template         |
@@ -221,6 +221,12 @@ curl 'http://localhost:9090/api/v1/query?query=ollama_gpu_memory_used_bytes'
 curl 'http://localhost:9090/api/v1/query?query=histogram_quantile(0.99,ollama_inference_duration_seconds)'
 ```
 
+## Deterministic Rerun Checks
+
+Use [On-Prem Execution Index](operations/ON_PREM_EXECUTION_INDEX.md) for the matrix command and evidence layout. Run `./scripts/host-profile-matrix.sh` to capture first-pass and second-pass artifacts.
+
+The runner writes evidence to an ephemeral directory under `/tmp` by default. Use `--no-open-issue` if you only want local evidence capture.
+
 ## Testing
 
 ```bash
@@ -303,7 +309,7 @@ docker-compose down -v  # Remove volumes too
 - **API**: See [README.md](README.md#api-reference)
 - **Architecture**: See [docs/architecture.md](docs/architecture.md)
 - **Development**: See [CONTRIBUTING.md](CONTRIBUTING.md)
-- **Project Structure**: See [docs/structure.md](docs/structure.md)
+- **Project Structure**: See [docs/structure/README.md](docs/structure/README.md)
 - **Monitoring**: See [docs/monitoring.md](docs/monitoring.md)
 
 ## Support

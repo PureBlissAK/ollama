@@ -21,6 +21,21 @@ ACTION="${2:-start}"
 COMPOSE_FILE="${PROJECT_ROOT}/docker/docker-compose.local.yml"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 
+compose_cmd() {
+    if command -v docker-compose &>/dev/null; then
+        echo docker-compose
+        return
+    fi
+
+    if docker compose version &>/dev/null; then
+        echo docker compose
+        return
+    fi
+
+    error "Docker Compose is not installed"
+    exit 1
+}
+
 # Logging
 LOG_DIR="${PROJECT_ROOT}/logs"
 mkdir -p "$LOG_DIR"
@@ -51,14 +66,12 @@ setup_environment() {
     # Create .env files if they don't exist
     if [[ ! -f "$PROJECT_ROOT/.env.local" ]]; then
         log "Creating .env.local..."
-        cat > "$PROJECT_ROOT/.env.local" << 'EOF'
+        LOCAL_IP="$(hostname -I | awk '{print $1}')"
+        cat > "$PROJECT_ROOT/.env.local" << EOF
 # Local Development Environment
 ENVIRONMENT=local
 DEBUG=true
 LOG_LEVEL=debug
-
-# Get real local IP (not localhost)
-LOCAL_IP=$(hostname -I | awk '{print $1}')
 
 # FastAPI Configuration
 FASTAPI_HOST=0.0.0.0
@@ -149,10 +162,7 @@ validate_docker() {
         exit 1
     fi
 
-    if ! command -v docker-compose &> /dev/null; then
-        error "Docker Compose is not installed"
-        exit 1
-    fi
+    compose_cmd >/dev/null
 
     if ! docker ps &>/dev/null; then
         error "Docker daemon is not running"
@@ -167,7 +177,9 @@ compose_up() {
 
     cd "$PROJECT_ROOT"
 
-    docker-compose -f docker-compose.local.yml up -d \
+    DOCKER_COMPOSE="$(compose_cmd)"
+
+    $DOCKER_COMPOSE -f "$COMPOSE_FILE" up -d \
         --remove-orphans \
         --build
 
@@ -182,7 +194,8 @@ compose_down() {
 
     cd "$PROJECT_ROOT"
 
-    docker-compose -f docker-compose.local.yml down --remove-orphans
+    DOCKER_COMPOSE="$(compose_cmd)"
+    $DOCKER_COMPOSE -f "$COMPOSE_FILE" down --remove-orphans
 
     success "Docker containers stopped"
 }
@@ -192,7 +205,8 @@ compose_logs() {
 
     cd "$PROJECT_ROOT"
 
-    docker-compose -f docker-compose.local.yml logs -f --tail=50
+    DOCKER_COMPOSE="$(compose_cmd)"
+    $DOCKER_COMPOSE -f "$COMPOSE_FILE" logs -f --tail=50
 }
 
 compose_ps() {
@@ -200,7 +214,8 @@ compose_ps() {
 
     cd "$PROJECT_ROOT"
 
-    docker-compose -f docker-compose.local.yml ps
+    DOCKER_COMPOSE="$(compose_cmd)"
+    $DOCKER_COMPOSE -f "$COMPOSE_FILE" ps
 }
 
 compose_clean() {
@@ -208,7 +223,8 @@ compose_clean() {
 
     cd "$PROJECT_ROOT"
 
-    docker-compose -f docker-compose.local.yml down -v --remove-orphans
+    DOCKER_COMPOSE="$(compose_cmd)"
+    $DOCKER_COMPOSE -f "$COMPOSE_FILE" down -v --remove-orphans
 
     warning "All local volumes have been removed"
     success "Docker cleanup completed"
@@ -223,7 +239,8 @@ migrate_database() {
 
     cd "$PROJECT_ROOT"
 
-    docker-compose -f docker-compose.local.yml exec -T api \
+    DOCKER_COMPOSE="$(compose_cmd)"
+    $DOCKER_COMPOSE -f "$COMPOSE_FILE" exec -T api \
         alembic upgrade head
 
     success "Database migrations completed"
@@ -234,7 +251,8 @@ seed_database() {
 
     cd "$PROJECT_ROOT"
 
-    docker-compose -f docker-compose.local.yml exec -T api \
+    DOCKER_COMPOSE="$(compose_cmd)"
+    $DOCKER_COMPOSE -f "$COMPOSE_FILE" exec -T api \
         python -m scripts.seed_database
 
     success "Database seeded"
@@ -245,7 +263,8 @@ reset_database() {
 
     cd "$PROJECT_ROOT"
 
-    docker-compose -f docker-compose.local.yml exec -T postgres \
+    DOCKER_COMPOSE="$(compose_cmd)"
+    $DOCKER_COMPOSE -f "$COMPOSE_FILE" exec -T postgres \
         psql -U postgres -d ollama -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
 
     migrate_database
@@ -263,7 +282,8 @@ build_services() {
 
     cd "$PROJECT_ROOT"
 
-    docker-compose -f docker-compose.local.yml build --no-cache
+    DOCKER_COMPOSE="$(compose_cmd)"
+    $DOCKER_COMPOSE -f "$COMPOSE_FILE" build --no-cache
 
     success "Services built"
 }
@@ -273,7 +293,8 @@ run_tests() {
 
     cd "$PROJECT_ROOT"
 
-    docker-compose -f docker-compose.local.yml exec -T api \
+    DOCKER_COMPOSE="$(compose_cmd)"
+    $DOCKER_COMPOSE -f "$COMPOSE_FILE" exec -T api \
         pytest tests/ -v --cov=ollama --cov-report=html
 
     success "Tests completed"
@@ -284,7 +305,8 @@ run_type_checks() {
 
     cd "$PROJECT_ROOT"
 
-    docker-compose -f docker-compose.local.yml exec -T api \
+    DOCKER_COMPOSE="$(compose_cmd)"
+    $DOCKER_COMPOSE -f "$COMPOSE_FILE" exec -T api \
         mypy ollama/ --strict
 
     success "Type checks completed"
@@ -295,7 +317,8 @@ run_linting() {
 
     cd "$PROJECT_ROOT"
 
-    docker-compose -f docker-compose.local.yml exec -T api \
+    DOCKER_COMPOSE="$(compose_cmd)"
+    $DOCKER_COMPOSE -f "$COMPOSE_FILE" exec -T api \
         ruff check ollama/ tests/
 
     success "Linting completed"
@@ -331,7 +354,8 @@ health_check_services() {
 
     # Check PostgreSQL
     log "Checking PostgreSQL..."
-    if docker-compose -f docker-compose.local.yml exec -T postgres \
+    DOCKER_COMPOSE="$(compose_cmd)"
+    if $DOCKER_COMPOSE -f "$COMPOSE_FILE" exec -T postgres \
         psql -U postgres -c "SELECT 1" >/dev/null 2>&1; then
         success "PostgreSQL is healthy"
     else
@@ -341,7 +365,8 @@ health_check_services() {
 
     # Check Redis
     log "Checking Redis..."
-    if docker-compose -f docker-compose.local.yml exec -T redis \
+    DOCKER_COMPOSE="$(compose_cmd)"
+    if $DOCKER_COMPOSE -f "$COMPOSE_FILE" exec -T redis \
         redis-cli ping >/dev/null 2>&1; then
         success "Redis is healthy"
     else
@@ -379,8 +404,9 @@ open_shell() {
 
     cd "$PROJECT_ROOT"
 
-    docker-compose -f docker-compose.local.yml exec "$service" bash || \
-    docker-compose -f docker-compose.local.yml exec "$service" sh
+    DOCKER_COMPOSE="$(compose_cmd)"
+    $DOCKER_COMPOSE -f "$COMPOSE_FILE" exec "$service" bash || \
+    $DOCKER_COMPOSE -f "$COMPOSE_FILE" exec "$service" sh
 }
 
 show_ports() {

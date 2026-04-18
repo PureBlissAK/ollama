@@ -4,10 +4,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+
+DEFAULT_OLLAMA_HOST = os.environ.get("OLLAMA_HOST", "http://127.0.0.1:11434")
 
 
 def load_json(path: Path) -> Any:
@@ -69,7 +72,11 @@ def main() -> int:
     parser.add_argument("--output", default=".github/agent_autonomous_dispatch.json")
     parser.add_argument("--workpack-dir", default=".github/lane_workpacks")
     parser.add_argument("--batch-size", type=int, default=12)
-    parser.add_argument("--ollama-host", default="http://192.168.168.42:11434")
+    parser.add_argument(
+        "--ollama-host",
+        default=DEFAULT_OLLAMA_HOST,
+        help="Ollama host URL (default: $OLLAMA_HOST or http://127.0.0.1:11434)",
+    )
     args = parser.parse_args()
 
     lanes_payload = load_json(Path(args.input))
