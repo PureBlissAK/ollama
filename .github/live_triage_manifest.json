@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-18T04:47:39.189094+00:00",
+  "generated_at": "2026-04-18T05:27:09.017455+00:00",
   "open_issue_count": 294,
   "agent_ready_count": 10,
   "needs_evidence_count": 284,
@@ -31,7 +31,7 @@
   },
   "top_labels": [
     [
-      "status/planned-wave",
+      "status/triaged",
       294
     ],
     [
@@ -39,7 +39,7 @@
       294
     ],
     [
-      "status/triaged",
+      "status/planned-wave",
       294
     ],
     [
@@ -55,7 +55,7 @@
       82
     ],
     [
-      "shard/2",
+      "shard/3",
       74
     ],
     [
@@ -63,12 +63,12 @@
       74
     ],
     [
-      "shard/4",
-      73
+      "shard/2",
+      74
     ],
     [
-      "shard/3",
-      73
+      "shard/4",
+      72
     ],
     [
       "priority/high",
@@ -95,11 +95,11 @@
       25
     ],
     [
-      "wave/4",
+      "wave/04",
       25
     ],
     [
-      "wave/04",
+      "wave/4",
       25
     ],
     [
@@ -123,11 +123,11 @@
       25
     ],
     [
-      "wave/2",
+      "wave/02",
       25
     ],
     [
-      "wave/02",
+      "wave/2",
       25
     ]
   ],
@@ -5149,12 +5149,12 @@
         "documentation",
         "monorepo",
         "operations",
-        "shard/2",
+        "shard/3",
         "status/planned-wave",
         "status/triaged",
         "wave/13"
       ],
-      "updated_at": "2026-04-18T04:15:50Z"
+      "updated_at": "2026-04-18T05:18:59Z"
     },
     {
       "number": 397,
@@ -5256,12 +5256,12 @@
         "documentation",
         "frontend",
         "monorepo",
-        "shard/1",
+        "shard/2",
         "status/planned-wave",
         "status/triaged",
         "wave/13"
       ],
-      "updated_at": "2026-04-18T04:15:48Z"
+      "updated_at": "2026-04-18T05:18:57Z"
     },
     {
       "number": 391,
@@ -5293,12 +5293,12 @@
         "documentation",
         "monorepo",
         "priority/low",
-        "shard/4",
+        "shard/1",
         "status/planned-wave",
         "status/triaged",
         "wave/13"
       ],
-      "updated_at": "2026-04-18T04:15:46Z"
+      "updated_at": "2026-04-18T05:18:56Z"
     },
     {
       "number": 389,
