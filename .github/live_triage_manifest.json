@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-18T03:23:43.471262+00:00",
+  "generated_at": "2026-04-18T03:25:34.549866+00:00",
   "open_issue_count": 316,
   "agent_ready_count": 10,
   "needs_evidence_count": 306,
@@ -31,11 +31,11 @@
   },
   "top_labels": [
     [
-      "status/triaged",
+      "status/planned-wave",
       316
     ],
     [
-      "status/planned-wave",
+      "status/triaged",
       316
     ],
     [
@@ -79,11 +79,11 @@
       25
     ],
     [
-      "wave/04",
+      "wave/4",
       25
     ],
     [
-      "wave/4",
+      "wave/04",
       25
     ],
     [
@@ -107,11 +107,11 @@
       25
     ],
     [
-      "wave/9",
+      "wave/09",
       25
     ],
     [
-      "wave/09",
+      "wave/9",
       25
     ],
     [
